@@ -1,0 +1,38 @@
+{
+  "name": "@asigloo/vue-dynamic-forms",
+  "version": "0.1.0",
+  "description": "Easy way to dynamically create reactive forms in vue based on varying business object model",
+  "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib --name as-dynamic-forms src/main.js",
+    "lint": "vue-cli-service lint",
+    "test": "vue-cli-service test:unit --verbose --no-cache --watchAll"
+  },
+  "main": "dist/@asigloo/core.common.js",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "core-js": "^3.6.2",
+    "sass-resources-loader": "^2.0.1",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.1.2",
+    "@vue/cli-plugin-eslint": "^4.1.2",
+    "@vue/cli-plugin-unit-jest": "^4.1.2",
+    "@vue/cli-service": "^4.1.2",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^6.1.2",
+    "node-sass": "^4.13.0",
+    "prettier": "^1.19.1",
+    "sass-loader": "^8.0.0",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
