@@ -1,6 +1,13 @@
-const data = () => ({});
+const InputText = () => import('@/components/input-text/InputText.vue');
+const InputTextarea = () =>
+  import('@/components/input-textarea/InputTextarea.vue');
+const InputSelect = () => import('@/components/input-select/InputSelect.vue');
 
-const components = {};
+const components = {
+  InputText,
+  InputTextarea,
+  InputSelect,
+};
 
 const props = {
   formControl: {
@@ -18,15 +25,8 @@ const props = {
 };
 
 const methods = {
-  valueChange() {
-    this.$emit('value changed', this.formControl.value);
-  },
-  onFocus() {
-    this.$emit('input focused');
-  },
-  onBlur() {
-    this.$emit('input blur');
-    this.formControl.touched = true;
+  valueChange(val) {
+    this.$emit('change', val);
   },
   validate() {
     const control = this.formControl;
@@ -40,9 +40,8 @@ const methods = {
           ...val,
         };
       }, {});
-      const validKeys = Object.keys(validation) || [];
       control.errors = validation;
-      control.valid = validKeys.length === 0;
+      control.valid = Object.keys(validation).length === 0;
     }
   },
 };
@@ -52,7 +51,7 @@ const watch = {
     handler() {
       this.formControl.dirty = true;
       this.validate();
-      this.$emit('value changed', this.formControl.value);
+      this.$emit('change', this.formControl.value);
     },
     deep: true,
   },
@@ -100,13 +99,11 @@ const computed = {
 
 const DynamicInput = {
   name: 'asDynamicInput',
-  data,
   components,
   watch,
   props,
   computed,
   methods,
-  mounted() {},
 };
 
 export default DynamicInput;

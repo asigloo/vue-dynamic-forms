@@ -6,22 +6,25 @@
     <label class="form-label" :for="formControl.name">
       {{ formControl.label }}
     </label>
-    <input
+    <input-text
       v-if="
         formControl.type === 'text' ||
           formControl.type === 'email' ||
           formControl.type === 'password' ||
           formControl.type === 'number'
       "
-      :id="formControl.name"
-      v-model="formControl.value"
-      :name="formControl.name"
-      class="form-control"
-      :type="formControl.type"
-      :placeholder="formControl.placeholder"
-      @change="valueChange()"
-      @focus="onFocus()"
-      @blur="onBlur()"
+      :formControl="formControl"
+      @change="valueChange"
+    />
+    <input-textarea
+      v-if="formControl.type === 'textarea'"
+      :formControl="formControl"
+      @change="valueChange"
+    />
+    <input-select
+      v-if="formControl.type === 'select'"
+      :formControl="formControl"
+      @change="valueChange"
     />
     <div v-if="hasErrors">
       <p

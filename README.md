@@ -8,9 +8,9 @@
 - `vue --version`:3.0.3
 - `webpack -v` : v4.1.1
 
-# vue-dynamic-forms
+# Vue Dynamic Forms
 
-[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+![Current Relase](https://img.shields.io/github/package-json/v/alvarosaburido/vue-dynamic-forms) [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 Easy way to dynamically create reactive forms in vue based on varying business object model
 

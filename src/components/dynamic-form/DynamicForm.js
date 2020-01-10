@@ -122,7 +122,7 @@ const watch = {
   },
   values: {
     handler: debounce(function() {
-      this.$emit('changed', this.values);
+      this.$emit('change', this.values);
     }, 400),
     deep: true,
   },

@@ -8,7 +8,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name as-dynamic-forms src/main.js",
     "lint": "vue-cli-service lint",
-    "test": "vue-cli-service test:unit --verbose --no-cache --watchAll"
+    "test": "vue-cli-service test:unit --verbose --no-cache --watchAll",
+    "publish": "npm publish --access public"
   },
   "main": "dist/@asigloo/core.common.js",
   "dependencies": {
