@@ -14,13 +14,39 @@
 
 Easy way to dynamically create reactive forms in vue based on varying business object model
 
-## Project setup
+## Documentation
+
+Complete documentation and examples available at
+
+- **[API Documentation]()**
+- **[Sandbox Demo]()**
+- **[CodePen Template]()**
+- **[GitHub Projects]()**
+
+## Install
+
+```bash
+$ npm install @asigloo/vue-dynamic-forms
+```
+
+Register the component
+
+```js
+import Vue from 'vue';
+import VueDynamicForms from '@asigloo/vue-dynamic-forms';
+
+Vue.use(VueDynamicForms);
+```
+
+## Development
+
+### Project setup
 
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads
 
 ```
 yarn run serve

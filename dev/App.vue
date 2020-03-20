@@ -9,8 +9,14 @@
             :fields="testForm.fields"
             @change="valuesChanged"
           />
+          <div class="row d-flex justify-content-end p-4">
+            <button submit="true" :form="testForm.id" class="btn btn-primary">
+              Submit
+            </button>
+          </div>
         </div>
         <div class="col-6">
+          <pre>{{ formData }}</pre>
           <pre>{{ testForm }}</pre>
         </div>
       </div>
@@ -20,62 +26,92 @@
 
 <script>
 import { email, required, pattern } from '../src/core/utils/validators';
+import { FormField } from '../src/core/utils/form-control.model';
 
 const DynamicForm = () => import('@/components/dynamic-form/DynamicForm.vue');
 
 const data = () => ({
+  formData: {},
   testForm: {
     id: 'test-form',
     fields: [
-      {
+      new FormField({
         type: 'text',
         label: 'Name',
         name: 'name',
-      },
-      {
+      }),
+      new FormField({
         type: 'email',
         label: 'Email',
         name: 'email',
-        validations: [required, email],
-        errorTexts: ['This field is required', 'Format of email is incorrect'],
-      },
-      {
+        validations: [
+          { validator: required, text: 'This field is required' },
+          { validator: email, text: 'Format of email is incorrect' },
+        ],
+      }),
+      new FormField({
         type: 'password',
         label: 'Password',
         name: 'password',
-        validations: [
+        /*         validations: [
           required,
           pattern(
             '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$',
           ),
-        ],
-        errorTexts: [
+        ], */
+        value: 'sdsdsd',
+        /*         errorTexts: [
           'This field is required',
           'Password must contain at least 1 Upercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
-        ],
-      },
-      {
+        ], */
+      }),
+      new FormField({
         type: 'textarea',
         label: 'Bio',
         name: 'bio',
         cols: 30,
         rows: 5,
-        validations: [required],
-        errorTexts: ['This field is required'],
-      },
-      {
+        /*         validations: [required],
+        errorTexts: ['This field is required'], */
+      }),
+      new FormField({
         type: 'select',
         label: 'Category',
         name: 'category',
-        options: [],
-        validations: [],
-        value: null,
         options: [
           { value: null, text: 'Please select an option' },
           { value: 'arduino', text: 'Arduino' },
           { value: 'transistors', text: 'Transistors' },
         ],
-      },
+      }),
+      new FormField({
+        type: 'checkbox',
+        label: 'Read the conditions',
+        name: 'conditions',
+        inline: false,
+        /*         validations: [required],
+        errorTexts: ['This field is required'], */
+      }),
+      new FormField({
+        type: 'radio',
+        label: 'Prefered Animal',
+        name: 'animal',
+        /*         validations: [], */
+        inline: true,
+        options: [
+          { text: 'Dogs', value: 'dogs' },
+          { text: 'Cats', value: 'cats' },
+          { text: 'Others', value: 'others' },
+        ],
+      }),
+      new FormField({
+        type: 'number',
+        label: 'Number',
+        name: 'number',
+        value: 0,
+        /*         validations: [required],
+        errorTexts: ['This field is required'], */
+      }),
     ],
   },
 });
@@ -87,6 +123,10 @@ const components = {
 const methods = {
   valuesChanged(values) {
     this.$forceUpdate(); // this is only to refresh the fields on the <pre> tags, not necessary for other purpouses
+    this.formData = {
+      ...this.formData,
+      ...values,
+    };
     console.log('Values', values);
   },
 };
@@ -99,4 +139,26 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.form-group {
+  width: 100%;
+  margin-bottom: 0.5rem;
+
+  &--error {
+    .form-label {
+      color: #dc3545;
+    }
+
+    .form-control {
+      border-color: #dc3545;
+      background: #f7e1e3;
+    }
+  }
+
+  .error {
+    font-size: 11px;
+
+    color: #dc3545;
+  }
+}
+</style>

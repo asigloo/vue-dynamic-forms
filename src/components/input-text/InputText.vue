@@ -6,6 +6,7 @@
     class="form-control"
     :type="formControl.type"
     :placeholder="formControl.placeholder"
+    :disabled="formControl.disabled"
     @change="valueChange()"
     @focus="onFocus()"
     @blur="onBlur()"

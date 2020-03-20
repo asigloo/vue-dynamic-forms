@@ -7,9 +7,9 @@ const props = {
   },
 };
 
-const InputSelect = {
-  name: 'asInputSelect',
+const InputCheckbox = {
+  name: 'asInputCheckbox',
   props,
 };
 
-export default InputSelect;
+export default InputCheckbox;

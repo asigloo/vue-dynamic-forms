@@ -7,9 +7,9 @@ const props = {
   },
 };
 
-const InputSelect = {
-  name: 'asInputSelect',
+const InputRadio = {
+  name: 'asInputRadio',
   props,
 };
 
-export default InputSelect;
+export default InputRadio;

@@ -1,4 +1,4 @@
-import { debounce } from '@/core/utils/helpers';
+import { FormControl } from '../../core/utils/form-control.model';
 
 const DynamicInput = () =>
   import('@/components/dynamic-input/DynamicInput.vue');
@@ -29,28 +29,30 @@ const props = {
   fields: {
     type: Array,
   },
-  feedbackText: {
-    default: null,
-    type: String,
-  },
 };
 
 const methods = {
   mapControls() {
-    this.controls = this.fields.map(field => ({
-      ...field,
-      valid: true,
-      touched: false,
-      dirty: false,
-      errors: {},
-      submited: this.submited,
-    }));
+    this.controls = this.fields.map(
+      field =>
+        new FormControl({
+          ...field,
+          valid: true,
+          touched: false,
+          dirty: false,
+          errors: {},
+          submited: this.submited,
+        }),
+    );
   },
   updateControls() {
-    this.controls = this.controls.map(field => ({
-      ...field,
-      submited: this.submited,
-    }));
+    this.controls = this.controls.map(
+      field =>
+        new FormControl({
+          ...field,
+          submited: this.submited,
+        }),
+    );
   },
   handleSubmit() {
     this.submited = true;
@@ -58,10 +60,6 @@ const methods = {
     this.$nextTick(() => {
       if (this.isValid) {
         this.$emit('submit', this.values);
-        this.showFeedback = true;
-        setTimeout(() => {
-          this.showFeedback = false;
-        }, 4000);
         this.resetForm();
       } else {
         this.$emit('form error', this.allErrors);
@@ -70,15 +68,18 @@ const methods = {
   },
   resetForm() {
     this.submited = false;
-    this.controls = this.fields.map(field => ({
-      ...field,
-      valid: true,
-      value: null,
-      touched: false,
-      dirty: false,
-      errors: {},
-      submited: this.submited,
-    }));
+    this.controls = this.fields.map(
+      field =>
+        new FormControl({
+          ...field,
+          valid: true,
+          value: null,
+          touched: false,
+          dirty: false,
+          errors: {},
+          submited: this.submited,
+        }),
+    );
   },
 };
 
@@ -121,9 +122,9 @@ const watch = {
     deep: true,
   },
   values: {
-    handler: debounce(function() {
+    handler: function() {
       this.$emit('change', this.values);
-    }, 400),
+    },
     deep: true,
   },
 };
@@ -136,6 +137,9 @@ const DynamicForm = {
   props,
   watch,
   computed,
+  mounted() {
+    this.mapControls();
+  },
 };
 
 export default DynamicForm;

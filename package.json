@@ -9,7 +9,9 @@
     "build": "vue-cli-service build --target lib --name as-dynamic-forms src/main.js",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit --verbose --no-cache --watchAll",
-    "publish": "npm publish --access public"
+    "publish": "npm publish --access public",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "main": "dist/@asigloo/core.common.js",
   "dependencies": {
@@ -34,6 +36,7 @@
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vuepress": "^1.2.0"
   }
 }

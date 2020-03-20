@@ -1,16 +1,8 @@
+import { FormControl } from '@/core/utils/form-control.model.js';
+
 const props = {
   formControl: {
-    default: () => ({
-      type: null,
-      value: null,
-      validations: [],
-      label: null,
-      name: null,
-      cols: 30,
-      rows: 3,
-      placeholder: null,
-      errors: {},
-    }),
+    default: () => new FormControl(),
     type: Object,
   },
 };

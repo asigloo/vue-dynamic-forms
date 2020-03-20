@@ -1,25 +1,24 @@
+import { FormControl } from '@/core/utils/form-control.model.js';
+
 const InputText = () => import('@/components/input-text/InputText.vue');
 const InputTextarea = () =>
   import('@/components/input-textarea/InputTextarea.vue');
 const InputSelect = () => import('@/components/input-select/InputSelect.vue');
+const InputCheckbox = () =>
+  import('@/components/input-checkbox/InputCheckbox.vue');
+const InputRadio = () => import('@/components/input-radio/InputRadio.vue');
 
 const components = {
   InputText,
   InputTextarea,
   InputSelect,
+  InputCheckbox,
+  InputRadio,
 };
 
 const props = {
   formControl: {
-    default: () => ({
-      type: null,
-      value: null,
-      validations: [],
-      label: null,
-      name: null,
-      placeholder: null,
-      errors: {},
-    }),
+    default: () => new FormControl(),
     type: Object,
   },
 };
@@ -31,13 +30,23 @@ const methods = {
   validate() {
     const control = this.formControl;
     if (control.validations && control.validations.length > 0) {
-      const newValidations = [];
       const validation = control.validations.reduce((prev, curr) => {
-        const val = typeof curr === 'function' ? curr(control) : null;
-        newValidations.push(val);
+        const val =
+          typeof curr.validator === 'function' ? curr.validator(control) : null;
+        if (val !== null) {
+          const [key, value] = Object.entries(val)[0];
+          const obj = {};
+          obj[key] = {
+            value,
+            text: curr.text,
+          };
+          return {
+            ...prev,
+            ...obj,
+          };
+        }
         return {
           ...prev,
-          ...val,
         };
       }, {});
       control.errors = validation;
@@ -48,10 +57,10 @@ const methods = {
 
 const watch = {
   'formControl.value': {
-    handler() {
+    handler(_after) {
       this.formControl.dirty = true;
       this.validate();
-      this.$emit('change', this.formControl.value);
+      this.$emit('change', _after);
     },
     deep: true,
   },
@@ -69,31 +78,16 @@ const computed = {
     return value !== null && value !== undefined;
   },
   hasErrors() {
-    if (this.formControl.errors) {
-      return (
-        Object.keys(this.formControl.errors).length > 0 &&
-        this.formControl.submited
-      );
-    }
-    return false;
+    return (
+      this.formControl.errors && Object.keys(this.formControl.errors).length > 0
+    );
   },
   errorMessages() {
     const errors = Object.entries(this.formControl.errors);
     if (errors.length > 0) {
-      return errors.reduce((prev, curr) => {
-        const [key, value] = curr;
-        const obj = {};
-        let msg = this.formControl.errorTexts[key];
-        if (msg.includes('%')) {
-          msg = msg.replace('%', value[key]);
-        }
-        obj[key] = msg;
-        return {
-          ...prev,
-          ...obj,
-        };
-      }, {});
+      return errors.map(([_key, value]) => value.text);
     }
+    return [];
   },
 };
 

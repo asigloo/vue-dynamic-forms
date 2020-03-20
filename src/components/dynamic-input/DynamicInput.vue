@@ -3,7 +3,11 @@
     class="dynamic-input form-group"
     :class="{ 'form-group--error': hasErrors }"
   >
-    <label class="form-label" :for="formControl.name">
+    <label
+      class="form-label"
+      :for="formControl.name"
+      v-if="formControl.type !== 'checkbox'"
+    >
       {{ formControl.label }}
     </label>
     <input-text
@@ -23,6 +27,16 @@
     />
     <input-select
       v-if="formControl.type === 'select'"
+      :formControl="formControl"
+      @change="valueChange"
+    />
+    <input-checkbox
+      v-if="formControl.type === 'checkbox'"
+      :formControl="formControl"
+      @change="valueChange"
+    />
+    <input-radio
+      v-if="formControl.type === 'radio'"
       :formControl="formControl"
       @change="valueChange"
     />
