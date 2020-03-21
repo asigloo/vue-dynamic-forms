@@ -139,26 +139,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.form-group {
-  width: 100%;
-  margin-bottom: 0.5rem;
-
-  &--error {
-    .form-label {
-      color: #dc3545;
-    }
-
-    .form-control {
-      border-color: #dc3545;
-      background: #f7e1e3;
-    }
-  }
-
-  .error {
-    font-size: 11px;
-
-    color: #dc3545;
-  }
-}
-</style>
+<style lang="scss"></style>

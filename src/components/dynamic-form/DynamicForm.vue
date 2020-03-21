@@ -1,5 +1,5 @@
 <template>
-  <div class="dynamic-form container" v-if="fields">
+  <div class="dynamic-form" v-if="fields">
     <form
       v-if="fields.length > 0 && !showFeedback"
       :id="id"

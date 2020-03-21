@@ -29,6 +29,12 @@ Complete documentation and examples available at
 $ npm install @asigloo/vue-dynamic-forms
 ```
 
+or if you prefer yarn
+
+```bash
+$ yarn add @asigloo/vue-dynamic-forms
+```
+
 Register the component
 
 ```js
