@@ -7,6 +7,7 @@ export function FormControl({
   options = [],
   placeholder = null,
   errors = {},
+  submited = false,
 }) {
   this.type = type;
   this.value = value;
@@ -16,6 +17,7 @@ export function FormControl({
   this.options = options;
   this.placeholder = placeholder;
   this.errors = errors;
+  this.submited = submited;
 }
 
 export function FormField({
@@ -46,4 +48,12 @@ export function FormField({
   this.errors = errors;
 }
 
-export default { FormControl, FormField };
+export function FormValidation(
+  validator = null,
+  text = 'There is something wrong with this field',
+) {
+  this.validator = validator;
+  this.text = text;
+}
+
+export default { FormControl, FormField, FormValidation };

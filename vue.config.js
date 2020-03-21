@@ -1,9 +1,9 @@
 const path = require('path');
+const ExtractTextPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   css: {
     sourceMap: true,
-    extract: true,
   },
   devServer: {
     host: '0.0.0.0',
@@ -23,5 +23,11 @@ module.exports = {
     config.merge({ devtool: 'source-map' });
     config.resolve.symlinks(false);
     config.resolve.alias.set('@', path.resolve(__dirname, 'src'));
+    config.plugin('extract-css').use(ExtractTextPlugin, [
+      {
+        filename: 'css/[id].css',
+        allChunks: true,
+      },
+    ]);
   },
 };

@@ -25,10 +25,14 @@
 </template>
 
 <script>
-import { email, required, pattern } from '../src/core/utils/validators';
-import { FormField } from '../src/core/utils/form-control.model';
-
-const DynamicForm = () => import('@/components/dynamic-form/DynamicForm.vue');
+import {
+  FormField,
+  FormValidation,
+  required,
+  email,
+  pattern,
+  /* } from '../dist/as-dynamic-forms.common'; */
+} from '../src/main';
 
 const data = () => ({
   formData: {},
@@ -45,25 +49,25 @@ const data = () => ({
         label: 'Email',
         name: 'email',
         validations: [
-          { validator: required, text: 'This field is required' },
-          { validator: email, text: 'Format of email is incorrect' },
+          new FormValidation(required, 'This field is required'),
+          new FormValidation(email, 'Format of email is incorrect'),
         ],
       }),
       new FormField({
         type: 'password',
         label: 'Password',
         name: 'password',
-        /*         validations: [
-          required,
-          pattern(
-            '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$',
+        validations: [
+          new FormValidation(required, 'This field is required'),
+          new FormValidation(
+            pattern(
+              '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$',
+            ),
+            'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
           ),
-        ], */
+        ],
+
         value: 'sdsdsd',
-        /*         errorTexts: [
-          'This field is required',
-          'Password must contain at least 1 Upercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
-        ], */
       }),
       new FormField({
         type: 'textarea',
@@ -71,8 +75,6 @@ const data = () => ({
         name: 'bio',
         cols: 30,
         rows: 5,
-        /*         validations: [required],
-        errorTexts: ['This field is required'], */
       }),
       new FormField({
         type: 'select',
@@ -89,14 +91,11 @@ const data = () => ({
         label: 'Read the conditions',
         name: 'conditions',
         inline: false,
-        /*         validations: [required],
-        errorTexts: ['This field is required'], */
       }),
       new FormField({
         type: 'radio',
         label: 'Prefered Animal',
         name: 'animal',
-        /*         validations: [], */
         inline: true,
         options: [
           { text: 'Dogs', value: 'dogs' },
@@ -109,16 +108,10 @@ const data = () => ({
         label: 'Number',
         name: 'number',
         value: 0,
-        /*         validations: [required],
-        errorTexts: ['This field is required'], */
       }),
     ],
   },
 });
-
-const components = {
-  DynamicForm,
-};
 
 const methods = {
   valuesChanged(values) {
@@ -134,9 +127,6 @@ const methods = {
 export default {
   name: 'app',
   data,
-  components,
   methods,
 };
 </script>
-
-<style lang="scss"></style>

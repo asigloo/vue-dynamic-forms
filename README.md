@@ -18,12 +18,10 @@ Easy way to dynamically create reactive forms in vue based on varying business o
 
 Complete documentation and examples available at
 
-- **[API Documentation]()**
-- **[Sandbox Demo]()**
-- **[CodePen Template]()**
-- **[GitHub Projects]()**
+- **[API Documentation]()** (soon)
+- **[Sandbox Demo]()** (soon)
 
-## Install
+## Installation
 
 ```bash
 $ npm install @asigloo/vue-dynamic-forms
@@ -35,7 +33,11 @@ or if you prefer yarn
 $ yarn add @asigloo/vue-dynamic-forms
 ```
 
-Register the component
+## Usage
+
+### Global
+
+Register the component globally in your `main.js`:
 
 ```js
 import Vue from 'vue';
@@ -43,6 +45,63 @@ import VueDynamicForms from '@asigloo/vue-dynamic-forms';
 
 Vue.use(VueDynamicForms);
 ```
+
+### Local
+
+You can include the dynamic form directly to your component.
+
+```js
+import Vue from 'vue';
+import { DynamicForm } from '@asigloo/vue-dynamic-forms';
+
+const components = { DynamicForm };
+
+export {
+    ...
+    components,
+    ...
+}
+```
+
+### Form Composition
+
+The dynamic form component is really easy to use, you will only need to add it to your template like this:
+
+```html
+<template>
+  <dynamic-form :id="testForm.id" :fields="testForm.fields" />
+</template>
+```
+
+And then create the fields on your component's data structure, to create the fields you can import the factory function `FormField` from the library core:
+
+```js
+import { FormField } from '@asigloo/vue-dynamic-forms';
+
+const yourAwesomeComponent = {
+  name: 'your-awesome',
+  data() {
+    return {
+      testForm: {
+        id: 'test-form',
+        fields: [
+          new FormField({
+            type: 'text',
+            label: 'Name',
+            name: 'name',
+          }),
+        ],
+      },
+    };
+  },
+};
+
+export default yourAwesomeComponent;
+```
+
+### Styling themes
+
+The components are unstyled by default, so you can customize them with your own styles. If you want a more "ready to go" solution you can import on of the themes we have included
 
 ## Development
 

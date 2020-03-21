@@ -1,7 +1,6 @@
 import { FormControl } from '../../core/utils/form-control.model';
 
-const DynamicInput = () =>
-  import('@/components/dynamic-input/DynamicInput.vue');
+import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
 
 const data = () => ({
   submited: false,
@@ -41,7 +40,6 @@ const methods = {
           touched: false,
           dirty: false,
           errors: {},
-          submited: this.submited,
         }),
     );
   },
@@ -50,7 +48,6 @@ const methods = {
       field =>
         new FormControl({
           ...field,
-          submited: this.submited,
         }),
     );
   },
@@ -77,7 +74,6 @@ const methods = {
           touched: false,
           dirty: false,
           errors: {},
-          submited: this.submited,
         }),
     );
   },
