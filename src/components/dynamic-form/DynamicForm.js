@@ -1,7 +1,6 @@
-import { debounce } from '@/core/utils/helpers';
+import { FormControl } from '@/core/utils';
 
-const DynamicInput = () =>
-  import('@/components/dynamic-input/DynamicInput.vue');
+import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
 
 const data = () => ({
   submited: false,
@@ -29,28 +28,26 @@ const props = {
   fields: {
     type: Array,
   },
-  feedbackText: {
-    default: null,
-    type: String,
-  },
 };
 
 const methods = {
   mapControls() {
-    this.controls = this.fields.map(field => ({
-      ...field,
-      valid: true,
-      touched: false,
-      dirty: false,
-      errors: {},
-      submited: this.submited,
-    }));
+    this.controls =
+      this.fields &&
+      this.fields.map(
+        field =>
+          new FormControl({
+            ...field,
+          }),
+      );
   },
   updateControls() {
-    this.controls = this.controls.map(field => ({
-      ...field,
-      submited: this.submited,
-    }));
+    this.controls = this.controls.map(
+      field =>
+        new FormControl({
+          ...field,
+        }),
+    );
   },
   handleSubmit() {
     this.submited = true;
@@ -58,27 +55,25 @@ const methods = {
     this.$nextTick(() => {
       if (this.isValid) {
         this.$emit('submit', this.values);
-        this.showFeedback = true;
-        setTimeout(() => {
-          this.showFeedback = false;
-        }, 4000);
         this.resetForm();
       } else {
-        this.$emit('form error', this.allErrors);
+        this.$emit('form-error', this.allErrors);
       }
     }, 100);
   },
   resetForm() {
     this.submited = false;
-    this.controls = this.fields.map(field => ({
-      ...field,
-      valid: true,
-      value: null,
-      touched: false,
-      dirty: false,
-      errors: {},
-      submited: this.submited,
-    }));
+    this.controls = this.fields.map(
+      field =>
+        new FormControl({
+          ...field,
+          valid: true,
+          value: null,
+          touched: false,
+          dirty: false,
+          errors: {},
+        }),
+    );
   },
 };
 
@@ -88,28 +83,32 @@ const computed = {
     return control ? control.valid : true;
   },
   allErrors() {
-    return this.controls.reduce((prev, curr) => {
-      const errors = Object.keys(curr.errors) || [];
-      if (errors.length > 0) {
-        const error = {};
-        error[curr.name] = curr.errors;
-        return {
-          ...prev,
-          ...error,
-        };
-      }
-      return prev;
-    }, {});
+    return this.controls
+      ? this.controls.reduce((prev, curr) => {
+          const errors = Object.keys(curr.errors) || [];
+          if (errors.length > 0) {
+            const error = {};
+            error[curr.name] = curr.errors;
+            return {
+              ...prev,
+              ...error,
+            };
+          }
+          return prev;
+        }, {})
+      : {};
   },
   values() {
-    return this.controls.reduce((prev, curr) => {
-      const obj = {};
-      obj[curr.name] = curr.value;
-      return {
-        ...prev,
-        ...obj,
-      };
-    }, {});
+    return this.controls
+      ? this.controls.reduce((prev, curr) => {
+          const obj = {};
+          obj[curr.name] = curr.value;
+          return {
+            ...prev,
+            ...obj,
+          };
+        }, {})
+      : {};
   },
 };
 
@@ -121,9 +120,9 @@ const watch = {
     deep: true,
   },
   values: {
-    handler: debounce(function() {
-      this.$emit('changed', this.values);
-    }, 400),
+    handler: function() {
+      this.$emit('change', this.values);
+    },
     deep: true,
   },
 };
@@ -136,6 +135,9 @@ const DynamicForm = {
   props,
   watch,
   computed,
+  mounted() {
+    this.mapControls();
+  },
 };
 
 export default DynamicForm;

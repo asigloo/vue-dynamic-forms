@@ -1,17 +1,18 @@
 import { shallowMount } from '@vue/test-utils';
-import DynamicInput from './DynamicInput.vue';
 import { FormControl } from '@/core/utils';
+import InputCheckbox from './InputCheckbox.vue';
 
-describe('DynamicInput', () => {
+describe('InputCheckbox', () => {
   let cmp;
 
   beforeEach(() => {
-    cmp = shallowMount(DynamicInput);
+    cmp = shallowMount(InputCheckbox);
     cmp.setProps({
       formControl: new FormControl({
-        type: 'textarea',
-        label: 'Bio',
-        name: 'bio',
+        type: 'checkbox',
+        label: 'Read the conditions',
+        name: 'conditions',
+        inline: false,
       }),
     });
   });

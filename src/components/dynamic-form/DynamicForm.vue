@@ -1,5 +1,5 @@
 <template>
-  <div class="dynamic-form container" v-if="fields">
+  <div class="dynamic-form" v-if="fields">
     <form
       v-if="fields.length > 0 && !showFeedback"
       :id="id"
@@ -11,7 +11,7 @@
     >
       <input type="hidden" name="form-name" :value="id" />
       <dynamic-input
-        v-for="field in fields"
+        v-for="field in controls"
         :key="field.name"
         :form-control="field"
       />

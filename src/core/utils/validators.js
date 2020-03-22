@@ -1,11 +1,12 @@
-const isEmptyInputValue = value => value == null || value.length === 0;
+export const isEmptyInputValue = value =>
+  value == null || value === '' || value.length === 0;
 
 const EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
 
-const required = control =>
+export const required = control =>
   isEmptyInputValue(control.value) ? { required: true } : null;
 
-const min = min => control => {
+export const min = min => control => {
   if (isEmptyInputValue(control.value) || isEmptyInputValue(min)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -16,7 +17,7 @@ const min = min => control => {
     : null;
 };
 
-const max = max => control => {
+export const max = max => control => {
   if (isEmptyInputValue(control.value) || isEmptyInputValue(max)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -28,14 +29,14 @@ const max = max => control => {
     : null;
 };
 
-const email = control => {
+export const email = control => {
   if (isEmptyInputValue(control.value)) {
     return null; // don't validate empty values to allow optional controls
   }
   return EMAIL_REGEXP.test(control.value) ? null : { email: true };
 };
 
-const minLength = minLength => control => {
+export const minLength = minLength => control => {
   if (isEmptyInputValue(control.value)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -45,14 +46,14 @@ const minLength = minLength => control => {
     : null;
 };
 
-const maxLength = maxLength => control => {
+export const maxLength = maxLength => control => {
   const length = control.value ? control.value.length : 0;
   return length > maxLength
     ? { maxlength: { requiredLength: maxLength, actualLength: length } }
     : null;
 };
 
-const pattern = pattern => {
+export const pattern = pattern => {
   if (!pattern) return null;
   let regex;
   let regexStr;

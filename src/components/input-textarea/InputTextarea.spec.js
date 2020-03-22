@@ -1,12 +1,12 @@
 import { shallowMount } from '@vue/test-utils';
-import DynamicInput from './DynamicInput.vue';
+import InputTextarea from './InputTextarea.vue';
 import { FormControl } from '@/core/utils';
 
-describe('DynamicInput', () => {
+describe('InputTextarea', () => {
   let cmp;
 
   beforeEach(() => {
-    cmp = shallowMount(DynamicInput);
+    cmp = shallowMount(InputTextarea);
     cmp.setProps({
       formControl: new FormControl({
         type: 'textarea',

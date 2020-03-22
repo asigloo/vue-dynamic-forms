@@ -3,25 +3,42 @@
     class="dynamic-input form-group"
     :class="{ 'form-group--error': hasErrors }"
   >
-    <label class="form-label" :for="formControl.name">
+    <label
+      class="form-label"
+      :for="formControl.name"
+      v-if="formControl.type !== 'checkbox'"
+    >
       {{ formControl.label }}
     </label>
-    <input
+    <input-text
       v-if="
         formControl.type === 'text' ||
           formControl.type === 'email' ||
           formControl.type === 'password' ||
           formControl.type === 'number'
       "
-      :id="formControl.name"
-      v-model="formControl.value"
-      :name="formControl.name"
-      class="form-control"
-      :type="formControl.type"
-      :placeholder="formControl.placeholder"
-      @change="valueChange()"
-      @focus="onFocus()"
-      @blur="onBlur()"
+      :formControl="formControl"
+      @change="valueChange"
+    />
+    <input-textarea
+      v-if="formControl.type === 'textarea'"
+      :formControl="formControl"
+      @change="valueChange"
+    />
+    <input-select
+      v-if="formControl.type === 'select'"
+      :formControl="formControl"
+      @change="valueChange"
+    />
+    <input-checkbox
+      v-if="formControl.type === 'checkbox'"
+      :formControl="formControl"
+      @change="valueChange"
+    />
+    <input-radio
+      v-if="formControl.type === 'radio'"
+      :formControl="formControl"
+      @change="valueChange"
     />
     <div v-if="hasErrors">
       <p
