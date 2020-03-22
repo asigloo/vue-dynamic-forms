@@ -1,12 +1,10 @@
-import { FormControl } from '@/core/utils/form-control.model.js';
+import { FormControl } from '@/core/utils';
 
-const InputText = () => import('@/components/input-text/InputText.vue');
-const InputTextarea = () =>
-  import('@/components/input-textarea/InputTextarea.vue');
-const InputSelect = () => import('@/components/input-select/InputSelect.vue');
-const InputCheckbox = () =>
-  import('@/components/input-checkbox/InputCheckbox.vue');
-const InputRadio = () => import('@/components/input-radio/InputRadio.vue');
+import InputText from '@/components/input-text/InputText.vue';
+import InputTextarea from '@/components/input-textarea/InputTextarea.vue';
+import InputSelect from '@/components/input-select/InputSelect.vue';
+import InputCheckbox from '@/components/input-checkbox/InputCheckbox.vue';
+import InputRadio from '@/components/input-radio/InputRadio.vue';
 
 const components = {
   InputText,
@@ -18,7 +16,7 @@ const components = {
 
 const props = {
   formControl: {
-    default: () => new FormControl(),
+    default: () => new FormControl({}),
     type: Object,
   },
 };
@@ -64,12 +62,6 @@ const watch = {
     },
     deep: true,
   },
-  'formControl.submited': {
-    handler() {
-      this.validate();
-    },
-    deep: true,
-  },
 };
 
 const computed = {
@@ -79,7 +71,9 @@ const computed = {
   },
   hasErrors() {
     return (
-      this.formControl.errors && Object.keys(this.formControl.errors).length > 0
+      this.formControl.errors &&
+      Object.keys(this.formControl.errors).length > 0 &&
+      this.submited
     );
   },
   errorMessages() {
@@ -88,6 +82,9 @@ const computed = {
       return errors.map(([_key, value]) => value.text);
     }
     return [];
+  },
+  submited() {
+    return this.$parent.submited;
   },
 };
 

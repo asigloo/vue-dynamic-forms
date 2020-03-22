@@ -1,0 +1,16 @@
+/templates
+.vuegenerator
+.eslintrc.js
+.eslintignore
+jest.config.js
+babel.config.js
+vue.config.js
+postcss.config.js
+.prettierrc
+yarn.lock
+/dev
+/docs
+/public
+/coverage
+/.vscode
+/tests

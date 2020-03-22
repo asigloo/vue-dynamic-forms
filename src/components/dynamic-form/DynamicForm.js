@@ -1,7 +1,6 @@
-import { FormControl } from '../../core/utils/form-control.model';
+import { FormControl } from '@/core/utils';
 
-const DynamicInput = () =>
-  import('@/components/dynamic-input/DynamicInput.vue');
+import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
 
 const data = () => ({
   submited: false,
@@ -33,24 +32,24 @@ const props = {
 
 const methods = {
   mapControls() {
-    this.controls = this.fields.map(
-      field =>
-        new FormControl({
-          ...field,
-          valid: true,
-          touched: false,
-          dirty: false,
-          errors: {},
-          submited: this.submited,
-        }),
-    );
+    this.controls =
+      this.fields &&
+      this.fields.map(
+        field =>
+          new FormControl({
+            ...field,
+            valid: true,
+            touched: false,
+            dirty: false,
+            errors: {},
+          }),
+      );
   },
   updateControls() {
     this.controls = this.controls.map(
       field =>
         new FormControl({
           ...field,
-          submited: this.submited,
         }),
     );
   },
@@ -62,7 +61,7 @@ const methods = {
         this.$emit('submit', this.values);
         this.resetForm();
       } else {
-        this.$emit('form error', this.allErrors);
+        this.$emit('form-error', this.allErrors);
       }
     }, 100);
   },
@@ -77,7 +76,6 @@ const methods = {
           touched: false,
           dirty: false,
           errors: {},
-          submited: this.submited,
         }),
     );
   },
@@ -89,28 +87,34 @@ const computed = {
     return control ? control.valid : true;
   },
   allErrors() {
-    return this.controls.reduce((prev, curr) => {
-      const errors = Object.keys(curr.errors) || [];
-      if (errors.length > 0) {
-        const error = {};
-        error[curr.name] = curr.errors;
-        return {
-          ...prev,
-          ...error,
-        };
-      }
-      return prev;
-    }, {});
+    return (
+      this.controls &&
+      this.controls.reduce((prev, curr) => {
+        const errors = Object.keys(curr.errors) || [];
+        if (errors.length > 0) {
+          const error = {};
+          error[curr.name] = curr.errors;
+          return {
+            ...prev,
+            ...error,
+          };
+        }
+        return prev;
+      }, {})
+    );
   },
   values() {
-    return this.controls.reduce((prev, curr) => {
-      const obj = {};
-      obj[curr.name] = curr.value;
-      return {
-        ...prev,
-        ...obj,
-      };
-    }, {});
+    return (
+      this.controls &&
+      this.controls.reduce((prev, curr) => {
+        const obj = {};
+        obj[curr.name] = curr.value;
+        return {
+          ...prev,
+          ...obj,
+        };
+      }, {})
+    );
   },
 };
 
