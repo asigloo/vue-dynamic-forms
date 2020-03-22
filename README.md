@@ -11,7 +11,7 @@ Easy way to dynamically create reactive forms in vue based on varying business o
 Complete documentation and examples available at
 
 - **[API Documentation]()** (soon)
-- **[Sandbox Demo]()** (soon)
+- **[Sandbox Demo](https://codesandbox.io/s/vue-dynamic-forms-ftzes)**
 
 ## Installation
 
@@ -300,10 +300,10 @@ This are the features I have planned for next versions of this library
 
 - [ ] Material theme
 - [ ] Form Mixins for fields manipulation (for example, change values of a field depending of other)
-- [ ] More complex input types.
-- [ ] Nuxt plugin istall
+- [ ] More complex input types.
+- [ ] Nuxt plugin istall
 - [ ] Better docs & online examples
-- [ ] Storybook
+- [ ] Storybook
 
 ## License
 
