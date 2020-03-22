@@ -11,7 +11,7 @@
     >
       <input type="hidden" name="form-name" :value="id" />
       <dynamic-input
-        v-for="field in fields"
+        v-for="field in controls"
         :key="field.name"
         :form-control="field"
       />

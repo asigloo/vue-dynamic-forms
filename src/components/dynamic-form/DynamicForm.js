@@ -38,10 +38,6 @@ const methods = {
         field =>
           new FormControl({
             ...field,
-            valid: true,
-            touched: false,
-            dirty: false,
-            errors: {},
           }),
       );
   },
@@ -87,34 +83,32 @@ const computed = {
     return control ? control.valid : true;
   },
   allErrors() {
-    return (
-      this.controls &&
-      this.controls.reduce((prev, curr) => {
-        const errors = Object.keys(curr.errors) || [];
-        if (errors.length > 0) {
-          const error = {};
-          error[curr.name] = curr.errors;
-          return {
-            ...prev,
-            ...error,
-          };
-        }
-        return prev;
-      }, {})
-    );
+    return this.controls
+      ? this.controls.reduce((prev, curr) => {
+          const errors = Object.keys(curr.errors) || [];
+          if (errors.length > 0) {
+            const error = {};
+            error[curr.name] = curr.errors;
+            return {
+              ...prev,
+              ...error,
+            };
+          }
+          return prev;
+        }, {})
+      : {};
   },
   values() {
-    return (
-      this.controls &&
-      this.controls.reduce((prev, curr) => {
-        const obj = {};
-        obj[curr.name] = curr.value;
-        return {
-          ...prev,
-          ...obj,
-        };
-      }, {})
-    );
+    return this.controls
+      ? this.controls.reduce((prev, curr) => {
+          const obj = {};
+          obj[curr.name] = curr.value;
+          return {
+            ...prev,
+            ...obj,
+          };
+        }, {})
+      : {};
   },
 };
 

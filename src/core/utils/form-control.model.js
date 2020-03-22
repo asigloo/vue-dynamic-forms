@@ -6,6 +6,10 @@ export function FormControl({
   name = null,
   options = [],
   placeholder = null,
+  errors = {},
+  valid = true,
+  touched = false,
+  dirty = false,
 }) {
   this.type = type;
   this.value = value;
@@ -14,6 +18,10 @@ export function FormControl({
   this.name = name;
   this.options = options;
   this.placeholder = placeholder;
+  this.errors = errors;
+  this.valid = valid;
+  this.touched = touched;
+  this.dirty = dirty;
 }
 
 export function FormField({
