@@ -1,4 +1,4 @@
-import { FormControl } from '../../core/utils/form-control.model';
+import { FormControl } from '@/core/utils';
 
 import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
 
@@ -32,16 +32,18 @@ const props = {
 
 const methods = {
   mapControls() {
-    this.controls = this.fields.map(
-      field =>
-        new FormControl({
-          ...field,
-          valid: true,
-          touched: false,
-          dirty: false,
-          errors: {},
-        }),
-    );
+    this.controls =
+      this.fields &&
+      this.fields.map(
+        field =>
+          new FormControl({
+            ...field,
+            valid: true,
+            touched: false,
+            dirty: false,
+            errors: {},
+          }),
+      );
   },
   updateControls() {
     this.controls = this.controls.map(
@@ -59,7 +61,7 @@ const methods = {
         this.$emit('submit', this.values);
         this.resetForm();
       } else {
-        this.$emit('form error', this.allErrors);
+        this.$emit('form-error', this.allErrors);
       }
     }, 100);
   },
@@ -85,28 +87,34 @@ const computed = {
     return control ? control.valid : true;
   },
   allErrors() {
-    return this.controls.reduce((prev, curr) => {
-      const errors = Object.keys(curr.errors) || [];
-      if (errors.length > 0) {
-        const error = {};
-        error[curr.name] = curr.errors;
-        return {
-          ...prev,
-          ...error,
-        };
-      }
-      return prev;
-    }, {});
+    return (
+      this.controls &&
+      this.controls.reduce((prev, curr) => {
+        const errors = Object.keys(curr.errors) || [];
+        if (errors.length > 0) {
+          const error = {};
+          error[curr.name] = curr.errors;
+          return {
+            ...prev,
+            ...error,
+          };
+        }
+        return prev;
+      }, {})
+    );
   },
   values() {
-    return this.controls.reduce((prev, curr) => {
-      const obj = {};
-      obj[curr.name] = curr.value;
-      return {
-        ...prev,
-        ...obj,
-      };
-    }, {});
+    return (
+      this.controls &&
+      this.controls.reduce((prev, curr) => {
+        const obj = {};
+        obj[curr.name] = curr.value;
+        return {
+          ...prev,
+          ...obj,
+        };
+      }, {})
+    );
   },
 };
 

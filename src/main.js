@@ -1,7 +1,6 @@
 import DynamicForm from './components/dynamic-form/DynamicForm.vue';
 import DynamicInput from './components/dynamic-input/DynamicInput.vue';
 export * from './core/utils';
-export * from './styles/themes/default.scss';
 
 export const AsDynamicForms = {
   install(Vue) {

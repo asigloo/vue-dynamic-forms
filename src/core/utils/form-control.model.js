@@ -6,8 +6,6 @@ export function FormControl({
   name = null,
   options = [],
   placeholder = null,
-  errors = {},
-  submited = false,
 }) {
   this.type = type;
   this.value = value;
@@ -16,36 +14,30 @@ export function FormControl({
   this.name = name;
   this.options = options;
   this.placeholder = placeholder;
-  this.errors = errors;
-  this.submited = submited;
 }
 
 export function FormField({
-  type = null,
+  type = 'text',
   value = null,
   validations = [],
   label = null,
   name = null,
-  customClass = 'col-12 col-md-6',
+  customClass = null,
   disabled = false,
-  datalist = [],
-  variant,
   options = [],
   placeholder = null,
-  errors = {},
+  inline = false,
 }) {
   this.type = type;
   this.value = value;
   this.validations = validations;
   this.label = label;
-  this.variant = variant;
-  this.datalist = datalist;
   this.name = name;
   this.customClass = customClass;
   this.disabled = disabled;
   this.options = options;
   this.placeholder = placeholder;
-  this.errors = errors;
+  this.inline = inline;
 }
 
 export function FormValidation(

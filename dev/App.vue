@@ -120,7 +120,6 @@ const methods = {
       ...this.formData,
       ...values,
     };
-    console.log('Values', values);
   },
 };
 

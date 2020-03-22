@@ -13,7 +13,7 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
-  "main": "dist/@asigloo/core.common.js",
+  "main": "dist/as-dynamic-forms.common.js",
   "dependencies": {
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.4",

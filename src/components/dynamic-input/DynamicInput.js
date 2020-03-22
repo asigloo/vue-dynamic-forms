@@ -1,4 +1,4 @@
-import { FormControl } from '@/core/utils/form-control.model.js';
+import { FormControl } from '@/core/utils';
 
 import InputText from '@/components/input-text/InputText.vue';
 import InputTextarea from '@/components/input-textarea/InputTextarea.vue';
@@ -16,7 +16,7 @@ const components = {
 
 const props = {
   formControl: {
-    default: () => new FormControl(),
+    default: () => new FormControl({}),
     type: Object,
   },
 };
