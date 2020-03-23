@@ -4,7 +4,15 @@
 
 ![Current Relase](https://img.shields.io/github/package-json/v/alvarosaburido/vue-dynamic-forms) [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-Easy way to dynamically create reactive forms in vue based on varying business object model
+Implementing handcrafted forms can be:
+1.- Costly and 
+2.- Time-consuming
+
+Specially if you need to create a very large form, in which the inputs are similar to each other, and they change frequently to meet rapidly changing business and regulatory requirements.
+
+So, will not be more economical to create the forms dynamically? Based on metadata that describes the business object model?
+
+That's Vue Dynamic Forms.
 
 ## Documentation
 
