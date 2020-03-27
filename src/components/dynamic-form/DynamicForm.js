@@ -102,7 +102,8 @@ const computed = {
     return this.controls
       ? this.controls.reduce((prev, curr) => {
           const obj = {};
-          obj[curr.name] = curr.value;
+          obj[curr.name] =
+            curr.type === 'number' ? parseFloat(curr.value) : curr.value;
           return {
             ...prev,
             ...obj,
