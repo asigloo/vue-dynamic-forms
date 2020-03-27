@@ -6,7 +6,7 @@ module.exports = {
   },
   devServer: {
     host: '0.0.0.0',
-    port: 6084, // CHANGE YOUR PORT HERE!
+    port: 6044, // CHANGE YOUR PORT HERE!
     https: false,
     hotOnly: false,
   },
@@ -22,11 +22,5 @@ module.exports = {
     config.merge({ devtool: 'source-map' });
     config.resolve.symlinks(false);
     config.resolve.alias.set('@', path.resolve(__dirname, 'src'));
-    config
-      .entry('theme')
-      .add(path.resolve(__dirname, 'src') + '/styles/themes/default.scss')
-      .end()
-      .output.filename('default.[id].css')
-      .chunkFilename('default.[id].css');
   },
 };
