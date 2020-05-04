@@ -4,6 +4,13 @@
   "description": "Easy way to dynamically create reactive forms in vue based on varying business object model",
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/alvarosaburido/vue-dynamic-forms.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alvarosaburido/vue-dynamic-forms/issues"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name as-dynamic-forms src/main.js",
