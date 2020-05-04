@@ -5,7 +5,7 @@
 ![Current Relase](https://img.shields.io/github/package-json/v/alvarosaburido/vue-dynamic-forms) [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 Implementing handcrafted forms can be:
-1. Costly 
+1. Costly
 2. Time-consuming
 
 Specially if you need to create a very large form, in which the inputs are similar to each other, and they change frequently to meet rapidly changing business and regulatory requirements.
@@ -70,7 +70,7 @@ The dynamic form component is really easy to use, you will only need to add it t
 ```html
 <template>
   <dynamic-form :id="testForm.id" :fields="testForm.fields" />
-  <button type="submit" form="testForm.id">Submit</button>
+  <button type="submit" :form="testForm.id">Submit</button>
 </template>
 ```
 
