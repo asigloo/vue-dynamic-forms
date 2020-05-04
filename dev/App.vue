@@ -80,10 +80,13 @@ const data = () => ({
         type: 'select',
         label: 'Category',
         name: 'category',
+        value: 'arduino',
         options: [
           { value: null, text: 'Please select an option' },
-          { value: 'arduino', text: 'Arduino' },
-          { value: 'transistors', text: 'Transistors' },
+          { value: 'actionfield', text: 'Action field' },
+          { value: 'advancedselect', text: 'Advanced select' },
+          { value: 'autocomplete', text: 'Autocomplete' },
+          { value: 'buttongroup', text: 'Button group' },
         ],
       }),
       new FormField({

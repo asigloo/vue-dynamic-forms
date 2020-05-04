@@ -4,6 +4,8 @@
     v-model="formControl.value"
     :name="formControl.name"
     class="form-control"
+    :data-text="hasValue"
+    :class="{ 'form-control--value': hasValue }"
     :type="formControl.type"
     :placeholder="formControl.placeholder"
     :disabled="formControl.disabled"

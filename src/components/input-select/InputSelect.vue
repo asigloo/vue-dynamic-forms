@@ -5,7 +5,11 @@
     :name="formControl.name"
     class="form-control"
   >
-    <option v-for="opt in formControl.options" :key="opt.value">
+    <option
+      v-for="opt in formControl.options"
+      :key="opt.value"
+      :value="opt.value"
+    >
       {{ opt.text }}
     </option>
   </select>

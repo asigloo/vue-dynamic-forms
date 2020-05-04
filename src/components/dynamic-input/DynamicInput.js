@@ -65,10 +65,6 @@ const watch = {
 };
 
 const computed = {
-  hasValue() {
-    const { value } = this.formControl;
-    return value !== null && value !== undefined;
-  },
   hasErrors() {
     return (
       this.formControl.errors &&

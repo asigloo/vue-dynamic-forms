@@ -3,13 +3,6 @@
     class="dynamic-input form-group"
     :class="{ 'form-group--error': hasErrors }"
   >
-    <label
-      class="form-label"
-      :for="formControl.name"
-      v-if="formControl.type !== 'checkbox'"
-    >
-      {{ formControl.label }}
-    </label>
     <input-text
       v-if="
         formControl.type === 'text' ||
@@ -40,6 +33,13 @@
       :formControl="formControl"
       @change="valueChange"
     />
+    <label
+      class="form-label"
+      :for="formControl.name"
+      v-if="formControl.type !== 'checkbox'"
+    >
+      {{ formControl.label }}
+    </label>
     <div v-if="hasErrors">
       <p
         v-for="(errorText, $index) in errorMessages"
