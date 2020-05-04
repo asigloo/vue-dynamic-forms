@@ -84,6 +84,7 @@ const data = () => ({
           { value: null, text: 'Please select an option' },
           { value: 'arduino', text: 'Arduino' },
           { value: 'transistors', text: 'Transistors' },
+          { value: 'resistors', text: 'Resistors', disabled: true },
         ],
       }),
       new FormField({
