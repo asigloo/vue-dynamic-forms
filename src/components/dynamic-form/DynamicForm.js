@@ -111,17 +111,27 @@ const computed = {
         }, {})
       : {};
   },
+  deNormalizedScopedSlots() {
+    return Object.keys(this.$scopedSlots);
+  },
+  normalizedControls() {
+    let controls = {};
+    this.controls.forEach(element => {
+      controls[element.name] = element;
+    });
+    return controls;
+  },
 };
 
 const watch = {
   fields: {
-    handler: function() {
+    handler: function () {
       this.mapControls();
     },
     deep: true,
   },
   values: {
-    handler: function() {
+    handler: function () {
       this.$emit('change', this.values);
     },
     deep: true,

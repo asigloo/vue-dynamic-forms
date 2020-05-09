@@ -5,8 +5,8 @@
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/alvarosaburido/vue-dynamic-forms.git"
+    "type": "git",
+    "url": "https://github.com/alvarosaburido/vue-dynamic-forms.git"
   },
   "bugs": {
     "url": "https://github.com/alvarosaburido/vue-dynamic-forms/issues"
