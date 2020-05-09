@@ -8,7 +8,23 @@
             :id="testForm.id"
             :fields="testForm.fields"
             @change="valuesChanged"
-          />
+          >
+            <template slot="custom-field-1" slot-scope="props">
+              <div class="pika-field">
+                <input
+                  v-if="props.field"
+                  class="form-control"
+                  v-model="props.field.value"
+                  :type="props.field.type"
+                  :name="props.field.name"
+                  @change="props.valueChange()"
+                  @focus="props.onFocus()"
+                  @blur="props.onBlur()"
+                />
+                <img src="./assets/pika.png" alt="" />
+              </div>
+            </template>
+          </dynamic-form>
           <div class="row d-flex justify-content-end p-4">
             <button submit="true" :form="testForm.id" class="btn btn-primary">
               Submit
@@ -105,10 +121,21 @@ const data = () => ({
         ],
       }),
       new FormField({
+        type: 'custom-field',
+        label: 'Custom Field 1',
+        name: 'custom-field-1',
+      }),
+      new FormField({
         type: 'number',
         label: 'Number',
         name: 'number',
         value: 0,
+      }),
+
+      new FormField({
+        type: 'custom-field',
+        label: 'File',
+        name: 'custom-field-2',
       }),
     ],
   },
@@ -130,3 +157,13 @@ export default {
   methods,
 };
 </script>
+<style lang="scss">
+.pika-field {
+  position: relative;
+
+  img {
+    position: absolute;
+    right: 0;
+  }
+}
+</style>

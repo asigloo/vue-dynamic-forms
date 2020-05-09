@@ -13,9 +13,9 @@
     <input-text
       v-if="
         formControl.type === 'text' ||
-          formControl.type === 'email' ||
-          formControl.type === 'password' ||
-          formControl.type === 'number'
+        formControl.type === 'email' ||
+        formControl.type === 'password' ||
+        formControl.type === 'number'
       "
       :formControl="formControl"
       @change="valueChange"
@@ -39,6 +39,13 @@
       v-if="formControl.type === 'radio'"
       :formControl="formControl"
       @change="valueChange"
+    />
+    <slot
+      :name="'custom-field'"
+      :control="formControl"
+      :valueChange="valueChange"
+      :onFocus="onFocus"
+      :onBlur="onBlur"
     />
     <div v-if="hasErrors">
       <p
