@@ -101,7 +101,6 @@ const DynamicInput = {
   props,
   computed,
   methods,
-  mounted() {},
 };
 
 export default DynamicInput;
