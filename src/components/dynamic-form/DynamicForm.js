@@ -21,7 +21,7 @@ const props = {
     default: 'POST',
     type: String,
   },
-  classes: {
+  customClass: {
     default: null,
     type: String,
   },

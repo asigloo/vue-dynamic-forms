@@ -7,6 +7,7 @@
           <dynamic-form
             :id="testForm.id"
             :fields="testForm.fields"
+            :customClass="'row'"
             @change="valuesChanged"
           >
             <template slot="custom-field-1" slot-scope="props">
@@ -59,11 +60,13 @@ const data = () => ({
         type: 'text',
         label: 'Name',
         name: 'name',
+        customClass: 'col-12',
       }),
       new FormField({
         type: 'email',
         label: 'Email',
         name: 'email',
+        customClass: 'col-12',
         validations: [
           new FormValidation(required, 'This field is required'),
           new FormValidation(email, 'Format of email is incorrect'),
@@ -73,6 +76,7 @@ const data = () => ({
         type: 'password',
         label: 'Password',
         name: 'password',
+        customClass: 'col-12',
         validations: [
           new FormValidation(required, 'This field is required'),
           new FormValidation(
@@ -91,11 +95,13 @@ const data = () => ({
         name: 'bio',
         cols: 30,
         rows: 5,
+        customClass: 'col-12',
       }),
       new FormField({
         type: 'select',
         label: 'Category',
         name: 'category',
+        customClass: 'col-12',
         options: [
           { value: null, text: 'Please select an option' },
           { value: 'arduino', text: 'Arduino' },
@@ -108,12 +114,14 @@ const data = () => ({
         label: 'Read the conditions',
         name: 'conditions',
         inline: false,
+        customClass: 'col-12',
       }),
       new FormField({
         type: 'radio',
         label: 'Prefered Animal',
         name: 'animal',
         inline: true,
+        customClass: 'col-12',
         options: [
           { text: 'Dogs', value: 'dogs' },
           { text: 'Cats', value: 'cats' },
@@ -124,18 +132,21 @@ const data = () => ({
         type: 'custom-field',
         label: 'Custom Field 1',
         name: 'custom-field-1',
+        customClass: 'col-12',
       }),
       new FormField({
         type: 'number',
         label: 'Number',
         name: 'number',
         value: 0,
+        customClass: 'col-12 col-md-6',
       }),
-
       new FormField({
-        type: 'custom-field',
-        label: 'File',
-        name: 'custom-field-2',
+        type: 'number',
+        label: 'Number 2',
+        name: 'number2',
+        value: 50,
+        customClass: 'col-12 col-md-6',
       }),
     ],
   },
@@ -163,7 +174,8 @@ export default {
 
   img {
     position: absolute;
-    right: 0;
+    top: 5px;
+    right: 5px;
   }
 }
 </style>
