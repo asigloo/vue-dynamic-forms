@@ -4,6 +4,7 @@ export function FormControl({
   validations = [],
   label = null,
   name = null,
+  customClass = null,
   options = [],
   placeholder = null,
   errors = {},
@@ -16,6 +17,7 @@ export function FormControl({
   this.validations = validations;
   this.label = label;
   this.name = name;
+  this.customClass = customClass;
   this.options = options;
   this.placeholder = placeholder;
   this.errors = errors;

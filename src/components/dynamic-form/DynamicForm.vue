@@ -4,7 +4,7 @@
       v-if="fields.length > 0 && !showFeedback"
       :id="id"
       :name="id"
-      :class="classes"
+      :class="customClass"
       :method="method"
       novalidate
       @submit.prevent="handleSubmit()"

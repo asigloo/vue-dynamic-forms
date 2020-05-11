@@ -1,7 +1,7 @@
 <template>
   <div
     class="dynamic-input form-group"
-    :class="{ 'form-group--error': hasErrors }"
+    :class="({ 'form-group--error': hasErrors }, `${formControl.customClass || ''}`)"
   >
     <label
       class="form-label"
