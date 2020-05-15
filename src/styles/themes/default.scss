@@ -25,11 +25,18 @@ $input-error-color: #dc3545;
 .form-label {
   display: inline-block;
   margin-bottom: 0.5rem;
+  order: 1;
 }
 
 .form-group {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   margin-bottom: 1rem;
+
+  & > div {
+    order: 2;
+  }
 
   &--error {
     .form-label {
@@ -60,6 +67,7 @@ $input-error-color: #dc3545;
   );
   border: $input-border-width solid $input-border-color;
   border-radius: $input-border-radius;
+  order: 2;
 
   // Placeholder
   &::placeholder {

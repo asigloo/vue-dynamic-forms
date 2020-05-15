@@ -33,6 +33,14 @@
       :formControl="formControl"
       @change="valueChange"
     />
+    <slot
+      v-if="formControl.type === 'custom-field'"
+      :name="'custom-field'"
+      :control="formControl"
+      :valueChange="valueChange"
+      :onFocus="onFocus"
+      :onBlur="onBlur"
+    />
     <label
       class="form-label"
       :for="formControl.name"
@@ -40,13 +48,7 @@
     >
       {{ formControl.label }}
     </label>
-    <slot
-      :name="'custom-field'"
-      :control="formControl"
-      :valueChange="valueChange"
-      :onFocus="onFocus"
-      :onBlur="onBlur"
-    />
+    <span class="form-bar"></span>
     <div v-if="hasErrors">
       <p
         v-for="(errorText, $index) in errorMessages"
