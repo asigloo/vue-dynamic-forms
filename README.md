@@ -2,7 +2,17 @@
 
 # Vue Dynamic Forms
 
-![Current Relase](https://img.shields.io/github/package-json/v/alvarosaburido/vue-dynamic-forms) [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+<p align="center">
+  <a href="https://www.npmjs.com/package/@asigloo/vue-dynamic-forms">
+    <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms" alt="Current npm version">
+  </a>
+  <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms@0.1.2">
+    <img src="https://flat.badgen.net/bundlephobia/min/@asigloo/vue-dynamic-forms" alt="Minified size">
+  </a>
+  <a href="https://vuejs.org">
+    <img src="https://flat.badgen.net/badge/vue.js/2.6.x/4fc08d?icon=github" alt="Vue.js version">
+  </a>
+</p>
 
 Implementing handcrafted forms can be:
 1. Costly

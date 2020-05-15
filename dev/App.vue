@@ -7,8 +7,25 @@
           <dynamic-form
             :id="testForm.id"
             :fields="testForm.fields"
+            :customClass="'row'"
             @change="valuesChanged"
-          />
+          >
+            <template slot="custom-field-1" slot-scope="props">
+              <div class="pika-field">
+                <input
+                  v-if="props.field"
+                  class="form-control"
+                  v-model="props.field.value"
+                  :type="props.field.type"
+                  :name="props.field.name"
+                  @change="props.valueChange()"
+                  @focus="props.onFocus()"
+                  @blur="props.onBlur()"
+                />
+                <img src="./assets/pika.png" alt="" />
+              </div>
+            </template>
+          </dynamic-form>
           <div class="row d-flex justify-content-end p-4">
             <button submit="true" :form="testForm.id" class="btn btn-primary">
               Submit
@@ -43,11 +60,13 @@ const data = () => ({
         type: 'text',
         label: 'Name',
         name: 'name',
+        customClass: 'col-12',
       }),
       new FormField({
         type: 'email',
         label: 'Email',
         name: 'email',
+        customClass: 'col-12',
         validations: [
           new FormValidation(required, 'This field is required'),
           new FormValidation(email, 'Format of email is incorrect'),
@@ -57,6 +76,7 @@ const data = () => ({
         type: 'password',
         label: 'Password',
         name: 'password',
+        customClass: 'col-12',
         validations: [
           new FormValidation(required, 'This field is required'),
           new FormValidation(
@@ -75,18 +95,18 @@ const data = () => ({
         name: 'bio',
         cols: 30,
         rows: 5,
+        customClass: 'col-12',
       }),
       new FormField({
         type: 'select',
         label: 'Category',
         name: 'category',
-        value: 'arduino',
+        customClass: 'col-12',
         options: [
           { value: null, text: 'Please select an option' },
-          { value: 'actionfield', text: 'Action field' },
-          { value: 'advancedselect', text: 'Advanced select' },
-          { value: 'autocomplete', text: 'Autocomplete' },
-          { value: 'buttongroup', text: 'Button group' },
+          { value: 'arduino', text: 'Arduino' },
+          { value: 'transistors', text: 'Transistors' },
+          { value: 'resistors', text: 'Resistors', disabled: true },
         ],
       }),
       new FormField({
@@ -94,12 +114,14 @@ const data = () => ({
         label: 'Read the conditions',
         name: 'conditions',
         inline: false,
+        customClass: 'col-12',
       }),
       new FormField({
         type: 'radio',
         label: 'Prefered Animal',
         name: 'animal',
         inline: true,
+        customClass: 'col-12',
         options: [
           { text: 'Dogs', value: 'dogs' },
           { text: 'Cats', value: 'cats' },
@@ -107,10 +129,24 @@ const data = () => ({
         ],
       }),
       new FormField({
+        type: 'custom-field',
+        label: 'Custom Field 1',
+        name: 'custom-field-1',
+        customClass: 'col-12',
+      }),
+      new FormField({
         type: 'number',
         label: 'Number',
         name: 'number',
         value: 0,
+        customClass: 'col-12 col-md-6',
+      }),
+      new FormField({
+        type: 'number',
+        label: 'Number 2',
+        name: 'number2',
+        value: 50,
+        customClass: 'col-12 col-md-6',
       }),
     ],
   },
@@ -132,3 +168,14 @@ export default {
   methods,
 };
 </script>
+<style lang="scss">
+.pika-field {
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+}
+</style>

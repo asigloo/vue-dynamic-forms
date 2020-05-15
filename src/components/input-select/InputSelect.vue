@@ -7,8 +7,9 @@
   >
     <option
       v-for="opt in formControl.options"
-      :key="opt.value"
+      :key="opt.text"
       :value="opt.value"
+      :disabled="opt.disabled"
     >
       {{ opt.text }}
     </option>

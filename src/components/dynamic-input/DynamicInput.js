@@ -25,6 +25,12 @@ const methods = {
   valueChange(val) {
     this.$emit('change', val);
   },
+  onBlur() {
+    this.$emit('blur');
+  },
+  onFocus() {
+    this.$emit('focus');
+  },
   validate() {
     const control = this.formControl;
     if (control.validations && control.validations.length > 0) {

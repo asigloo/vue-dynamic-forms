@@ -1,14 +1,14 @@
 <template>
   <div
     class="dynamic-input form-group"
-    :class="{ 'form-group--error': hasErrors }"
+    :class="({ 'form-group--error': hasErrors }, `${formControl.customClass || ''}`)"
   >
     <input-text
       v-if="
         formControl.type === 'text' ||
-          formControl.type === 'email' ||
-          formControl.type === 'password' ||
-          formControl.type === 'number'
+        formControl.type === 'email' ||
+        formControl.type === 'password' ||
+        formControl.type === 'number'
       "
       :formControl="formControl"
       @change="valueChange"
@@ -40,6 +40,13 @@
     >
       {{ formControl.label }}
     </label>
+    <slot
+      :name="'custom-field'"
+      :control="formControl"
+      :valueChange="valueChange"
+      :onFocus="onFocus"
+      :onBlur="onBlur"
+    />
     <div v-if="hasErrors">
       <p
         v-for="(errorText, $index) in errorMessages"
