@@ -117,6 +117,14 @@ const data = () => ({
         customClass: 'col-12',
       }),
       new FormField({
+        type: 'checkbox',
+        label: 'Disabled',
+        name: 'disabled',
+        inline: false,
+        disabled: true,
+        customClass: 'col-12',
+      }),
+      new FormField({
         type: 'radio',
         label: 'Prefered Animal',
         name: 'animal',

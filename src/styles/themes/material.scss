@@ -1,5 +1,8 @@
 $theme-color: #6200ee;
 $base-color: #ced4da;
+$text-color: #202020;
+$light: #fefefe;
+
 $font-size: 1rem !default;
 
 $font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -109,7 +112,7 @@ select.form-control ~ .form-label,
   }
 }
 
-.form-check ~ .form-bar,
+.input-checkbox ~ .form-bar,
 .input-radio ~ .form-bar {
   display: none;
 }
@@ -143,4 +146,141 @@ select.form-control ~ .form-label,
 
 .custom-control-input:not(:checked) ~ .custom-control-label::before {
   border-color: $theme-color;
+}
+
+.input-checkbox {
+  $checkbox: &;
+  z-index: 0;
+  position: relative;
+  display: inline-block;
+  color: $base-color;
+  font-size: 16px;
+  line-height: 1.5;
+
+  &:hover {
+    #{$checkbox}__toggle {
+      opacity: 0.04;
+
+      &:hover {
+        opacity: 0.16;
+      }
+    }
+  }
+
+  &__toggle {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    z-index: -1;
+    position: absolute;
+    left: -10px;
+    top: -8px;
+    display: block;
+    margin: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: $base-color;
+    box-shadow: none;
+    outline: none;
+    opacity: 0;
+    transform: scale(1);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.2s;
+
+    &:focus {
+      opacity: 0.12;
+    }
+
+    &:active {
+      opacity: 1;
+      transform: scale(0);
+      transition: transform 0s, opacity 0s;
+    }
+
+    &:active + label::before {
+      border-color: $light;
+    }
+
+    &:checked:active + label::before {
+      border-color: transparent;
+      background-color: $base-color;
+    }
+
+    /* Checked, Indeterminate */
+    &:checked,
+    &:indeterminate {
+      background-color: $theme-color;
+    }
+
+    &:checked + label::before,
+    &:indeterminate + label::before {
+      border-color: $theme-color;
+      background-color: $theme-color;
+    }
+
+    &:checked + label::after,
+    &:indeterminate + label::after {
+      border-color: $light;
+    }
+
+    &:indeterminate + label::after {
+      border-left: none;
+      transform: translate(4px, 3px);
+    }
+
+    &:disabled {
+      opacity: 0;
+    }
+
+    &:disabled + label {
+      color: rgba($base-color, 0.38);
+      cursor: initial;
+    }
+
+    &:disabled + label::before {
+      border-color: currentColor;
+    }
+
+    &:checked:disabled + label::before,
+    &:indeterminate:disabled + label::before {
+      border-color: transparent;
+      background-color: currentColor;
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    color: $text-color;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      box-sizing: border-box;
+      margin: 3px 11px 3px 1px;
+      border: solid 2px; /* Safari */
+      border-color: $base-color;
+      border-radius: 2px;
+      width: 18px;
+      height: 18px;
+      vertical-align: top;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 4px;
+      left: 2px;
+      width: 10px;
+      height: 5px;
+      border: solid 2px transparent;
+      border-right: none;
+      border-top: none;
+      transform: translate(3px, 4px) rotate(-45deg);
+    }
+  }
 }
