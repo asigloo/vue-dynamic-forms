@@ -1,4 +1,4 @@
-import { FormControl } from '@/core/utils';
+import { FormControl, FormOptions } from '@/core/utils';
 
 import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
 
@@ -17,16 +17,12 @@ const props = {
     default: null,
     type: String,
   },
-  method: {
-    default: 'POST',
-    type: String,
-  },
-  customClass: {
-    default: null,
-    type: String,
-  },
   fields: {
     type: Array,
+  },
+  options: {
+    type: Object,
+    default: () => new FormOptions(),
   },
 };
 
@@ -110,6 +106,17 @@ const computed = {
           };
         }, {})
       : {};
+  },
+  formattedOptions() {
+    const { customClass, method, netlify, netlifyHoneyPot } = new FormOptions(
+      this.options,
+    );
+    return {
+      class: customClass,
+      method,
+      'data-netlify': netlify,
+      'data-netlify-honeypot': netlifyHoneyPot,
+    };
   },
   deNormalizedScopedSlots() {
     return Object.keys(this.$scopedSlots);
