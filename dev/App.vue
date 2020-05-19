@@ -7,7 +7,7 @@
           <dynamic-form
             :id="testForm.id"
             :fields="testForm.fields"
-            :customClass="'row'"
+            :options="testForm.options"
             @change="valuesChanged"
           >
             <template slot="custom-field-1" slot-scope="props">
@@ -149,6 +149,10 @@ const data = () => ({
         customClass: 'col-12 col-md-6',
       }),
     ],
+    options: {
+      customClass: 'row',
+      netlify: true,
+    },
   },
 });
 

@@ -58,4 +58,16 @@ export function FormValidation(
   this.text = text;
 }
 
-export default { FormControl, FormField, FormValidation };
+export function FormOptions({
+  customClass = '',
+  method = 'POST',
+  netlify = false,
+  netlifyHoneypot = null,
+}) {
+  this.customClass = customClass;
+  this.method = method;
+  this.netlify = netlify;
+  this.netlifyHoneypot = netlifyHoneypot;
+}
+
+export default { FormControl, FormField, FormValidation, FormOptions };
