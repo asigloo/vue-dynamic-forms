@@ -1,7 +1,7 @@
 <template>
   <div class="input-checkbox">
     <input
-      class="input-checkbox__toggle"
+      class="input-checkbox__input"
       type="checkbox"
       :id="formControl.name"
       v-model="formControl.value"

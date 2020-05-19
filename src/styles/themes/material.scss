@@ -158,7 +158,7 @@ select.form-control ~ .form-label,
   line-height: 1.5;
 
   &:hover {
-    #{$checkbox}__toggle {
+    #{$checkbox}__input {
       opacity: 0.04;
 
       &:hover {
@@ -167,7 +167,7 @@ select.form-control ~ .form-label,
     }
   }
 
-  &__toggle {
+  &__input {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -281,6 +281,57 @@ select.form-control ~ .form-label,
       border-right: none;
       border-top: none;
       transform: translate(3px, 4px) rotate(-45deg);
+    }
+  }
+}
+
+.input-radio {
+  &--inline {
+    display: inline-block;
+  }
+
+  input[type='radio'] {
+    display: none;
+
+    &:checked + label:before {
+      border-color: $theme-color;
+      animation: ripple 0.2s linear forwards;
+    }
+    &:checked + label:after {
+      transform: scale(1);
+    }
+  }
+
+  label {
+    display: inline-block;
+    min-height: 20px;
+    position: relative;
+    padding: 0 (20px + 10px);
+    margin-bottom: 0;
+    cursor: pointer;
+    vertical-align: bottom;
+    &:before,
+    &:after {
+      position: absolute;
+      content: '';
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      transition-property: transform, border-color;
+    }
+    &:before {
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid $base-color;
+    }
+    &:after {
+      top: 20px / 2 - 10px / 2;
+      left: 20px / 2 - 10px / 2;
+      width: 10px;
+      height: 10px;
+      transform: scale(0);
+      background: $theme-color;
     }
   }
 }

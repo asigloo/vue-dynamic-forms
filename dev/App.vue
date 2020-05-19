@@ -120,7 +120,7 @@ const data = () => ({
         type: 'checkbox',
         label: 'Disabled',
         name: 'disabled',
-        inline: false,
+        value: true,
         disabled: true,
         customClass: 'col-12',
       }),

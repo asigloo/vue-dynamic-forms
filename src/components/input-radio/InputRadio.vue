@@ -1,20 +1,22 @@
 <template>
-  <div class="input-radio">
+  <div
+    class="input-radio"
+    :class="{ 'input-radio--inline': formControl.inline }"
+  >
     <div
-      class="form-check"
-      :class="{ 'form-check--inline': formControl.inline }"
+      class="input-radio__base"
       v-for="opt in formControl.options"
       :key="opt.name"
     >
       <input
-        class="form-check__input"
+        class="input-radio__input"
         type="radio"
         :id="opt.value"
         v-model="formControl.value"
         :value="opt.value"
         :disabled="opt.disabled"
       />
-      <label class="form-check__label" :for="opt.value">
+      <label class="input-radio__label" :for="opt.value">
         {{ opt.text }}
       </label>
     </div>
