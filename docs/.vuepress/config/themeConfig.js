@@ -6,11 +6,10 @@ module.exports = {
   sidebar: {
     '/': [
       {
-        title: 'Community',
-        collapsable: false,
+        title: 'Getting Started',
+        collapsable: true,
         children: [
-          ['sponsors', 'Sponsors 🎉'],
-          ['contributors', 'Contributors'],
+          ['guide/install', 'Installation'],
         ],
       },
     ],
