@@ -1,4 +1,4 @@
-![repository-banner.png](https://res.cloudinary.com/alvarosaburido/image/upload/v1564929632/as-readme-banner_tqdgrx.png)
+![Library Banner](https://res.cloudinary.com/alvarosaburido/image/upload/v1589993773/portfolio/web/vue-dynamic-forms/open-graph-preview_kv4glm.png)
 
 # Vue Dynamic Forms
 
@@ -15,6 +15,7 @@
 </p>
 
 Implementing handcrafted forms can be:
+
 1. Costly
 2. Time-consuming
 
