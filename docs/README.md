@@ -28,3 +28,4 @@ That's Vue Dynamic Forms.
 ## Features
 
 <Features />
+<FormComposition />

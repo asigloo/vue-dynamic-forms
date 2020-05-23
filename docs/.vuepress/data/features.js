@@ -17,6 +17,6 @@ export default [
   {
     title: 'Flexible 🤸',
     text:
-      'You need a really custom input type that is not in the library? Create your own and  attach it vía scoped slots',
+      'This library is aimed to give an awesome developing experience, you need a really custom input type that is not in the library? Create your own and  attach it vía scoped slots',
   },
 ];

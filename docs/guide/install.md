@@ -9,6 +9,10 @@ yarn add @asigloo/vue-dynamic-forms
 npm install @asigloo/vue-dynamic-forms
 ```
 
+## Add to vue
+
+### Global
+
 ```js
 import Vue from 'vue';
 import VueDynamicForms from '@asigloo/vue-dynamic-forms';

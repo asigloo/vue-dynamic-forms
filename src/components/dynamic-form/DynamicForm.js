@@ -53,7 +53,7 @@ const methods = {
         this.$emit('submit', this.values);
         this.resetForm();
       } else {
-        this.$emit('form-error', this.allErrors);
+        this.$emit('error', this.allErrors);
       }
     }, 100);
   },
