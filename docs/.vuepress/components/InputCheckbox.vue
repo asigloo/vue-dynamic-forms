@@ -18,29 +18,25 @@
 import {
   DynamicForm,
   FormField,
-  FormValidation,
-  email,
   FormOptions,
 } from '../../../dist/as-dynamic-forms.common';
 
 export default {
-  name: 'InputEmail',
+  name: 'InputCheckbox',
   components: {
     DynamicForm,
   },
   data: () => ({
     formData: null,
     testForm: {
-      id: 'form-email-demo',
+      id: 'form-checkbox-demo',
       fields: [
         new FormField({
-          type: 'email',
-          label: 'Email',
-          name: 'email',
-          validations: [new FormValidation(email, 'Email format is incorrect')],
+          type: 'checkbox',
+          label: 'Accept the conditions',
+          name: 'policies',
         }),
       ],
-      options: new FormOptions({ autoValidate: true }),
     },
   }),
   methods: {

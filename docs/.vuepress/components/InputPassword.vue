@@ -19,12 +19,12 @@ import {
   DynamicForm,
   FormField,
   FormValidation,
-  email,
+  pattern,
   FormOptions,
 } from '../../../dist/as-dynamic-forms.common';
 
 export default {
-  name: 'InputEmail',
+  name: 'InputPassword',
   components: {
     DynamicForm,
   },
@@ -34,10 +34,17 @@ export default {
       id: 'form-email-demo',
       fields: [
         new FormField({
-          type: 'email',
-          label: 'Email',
-          name: 'email',
-          validations: [new FormValidation(email, 'Email format is incorrect')],
+          type: 'password',
+          label: 'Password',
+          name: 'password',
+          validations: [
+            new FormValidation(
+              pattern(
+                '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$',
+              ),
+              'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
+            ),
+          ],
         }),
       ],
       options: new FormOptions({ autoValidate: true }),

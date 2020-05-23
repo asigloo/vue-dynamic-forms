@@ -1,6 +1,6 @@
 <template>
   <div class="form-composition library-example">
-    <div class="col" v-if="testForm">
+    <div class="col">
       <dynamic-form
         :id="testForm.id"
         :fields="testForm.fields"
@@ -15,37 +15,30 @@
 </template>
 
 <script>
-import {
-  DynamicForm,
-  FormField,
-  FormValidation,
-  email,
-  FormOptions,
-} from '../../../dist/as-dynamic-forms.common';
+import { DynamicForm, FormField } from '../../../dist/as-dynamic-forms.common';
 
 export default {
-  name: 'InputEmail',
+  name: 'InputTextAreaDemo',
   components: {
     DynamicForm,
   },
   data: () => ({
     formData: null,
     testForm: {
-      id: 'form-email-demo',
+      id: 'form-text-demo',
       fields: [
         new FormField({
-          type: 'email',
-          label: 'Email',
-          name: 'email',
-          validations: [new FormValidation(email, 'Email format is incorrect')],
+          type: 'textarea',
+          label: 'Bio',
+          name: 'bio',
+          cols: 30,
+          rows: 5,
         }),
       ],
-      options: new FormOptions({ autoValidate: true }),
     },
   }),
   methods: {
     updateForm(values) {
-      this.$forceUpdate();
       this.formData = values;
     },
   },

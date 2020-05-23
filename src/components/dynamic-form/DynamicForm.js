@@ -22,7 +22,7 @@ const props = {
   },
   options: {
     type: Object,
-    default: () => new FormOptions(),
+    default: () => new FormOptions({}),
   },
 };
 

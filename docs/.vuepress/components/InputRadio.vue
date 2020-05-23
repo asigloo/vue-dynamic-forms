@@ -18,29 +18,32 @@
 import {
   DynamicForm,
   FormField,
-  FormValidation,
-  email,
   FormOptions,
 } from '../../../dist/as-dynamic-forms.common';
 
 export default {
-  name: 'InputEmail',
+  name: 'InputRadio',
   components: {
     DynamicForm,
   },
   data: () => ({
     formData: null,
     testForm: {
-      id: 'form-email-demo',
+      id: 'form-radio-demo',
       fields: [
         new FormField({
-          type: 'email',
-          label: 'Email',
-          name: 'email',
-          validations: [new FormValidation(email, 'Email format is incorrect')],
+          type: 'radio',
+          label: 'Prefered Animal',
+          name: 'animal',
+          inline: true,
+          customClass: 'col-12',
+          options: [
+            { text: 'Dogs', value: 'dogs' },
+            { text: 'Cats', value: 'cats' },
+            { text: 'Others', value: 'others' },
+          ],
         }),
       ],
-      options: new FormOptions({ autoValidate: true }),
     },
   }),
   methods: {

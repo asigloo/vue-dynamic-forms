@@ -24,23 +24,27 @@ import {
 } from '../../../dist/as-dynamic-forms.common';
 
 export default {
-  name: 'InputEmail',
+  name: 'InputSelect',
   components: {
     DynamicForm,
   },
   data: () => ({
     formData: null,
     testForm: {
-      id: 'form-email-demo',
+      id: 'form-number-demo',
       fields: [
         new FormField({
-          type: 'email',
-          label: 'Email',
-          name: 'email',
-          validations: [new FormValidation(email, 'Email format is incorrect')],
+          type: 'select',
+          label: 'Category',
+          name: 'category',
+          options: [
+            { value: null, text: 'Please select an option' },
+            { value: 'arduino', text: 'Arduino' },
+            { value: 'transistors', text: 'Transistors' },
+            { value: 'resistors', text: 'Resistors', disabled: true },
+          ],
         }),
       ],
-      options: new FormOptions({ autoValidate: true }),
     },
   }),
   methods: {

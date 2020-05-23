@@ -4,6 +4,7 @@
       <dynamic-form
         :id="testForm.id"
         :fields="testForm.fields"
+        :options="testForm.options"
         @change="updateForm"
       />
     </div>
@@ -24,7 +25,7 @@ export default {
   data: () => ({
     formData: null,
     testForm: {
-      id: 'test-form',
+      id: 'form-text-demo',
       fields: [
         new FormField({
           type: 'text',
