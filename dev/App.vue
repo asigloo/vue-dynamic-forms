@@ -150,6 +150,7 @@ const data = () => ({
       }),
     ],
     options: {
+      // autoValidate: true,
       customClass: 'row',
       netlify: true,
     },

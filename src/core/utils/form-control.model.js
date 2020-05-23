@@ -61,11 +61,13 @@ export function FormValidation(
 export function FormOptions({
   customClass = '',
   method = 'POST',
+  autoValidate = false,
   netlify = false,
   netlifyHoneypot = null,
 }) {
   this.customClass = customClass;
   this.method = method;
+  this.autoValidate = autoValidate;
   this.netlify = netlify;
   this.netlifyHoneypot = netlifyHoneypot;
 }

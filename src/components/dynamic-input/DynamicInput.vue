@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="dynamic-input form-group"
-    :class="({ 'form-group--error': hasErrors }, `${formControl.customClass || ''}`)"
-  >
+  <div :class="getClasses">
     <label
       class="form-label"
       :for="formControl.name"
@@ -47,7 +44,7 @@
       :onFocus="onFocus"
       :onBlur="onBlur"
     />
-    <div v-if="hasErrors">
+    <div v-if="showErrors">
       <p
         v-for="(errorText, $index) in errorMessages"
         :key="`${$index}`"

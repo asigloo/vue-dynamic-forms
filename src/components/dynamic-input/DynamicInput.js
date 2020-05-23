@@ -71,15 +71,25 @@ const watch = {
 };
 
 const computed = {
+  getClasses() {
+    return [
+      'dynamic-input',
+      'form-group',
+      {
+        'form-group--error': this.showErrors,
+      },
+      `${this.formControl.customClass || ''}`,
+    ];
+  },
   hasValue() {
     const { value } = this.formControl;
     return value !== null && value !== undefined;
   },
-  hasErrors() {
+  showErrors() {
     return (
       this.formControl.errors &&
       Object.keys(this.formControl.errors).length > 0 &&
-      this.submited
+      (this.submited || this.autoValidate)
     );
   },
   errorMessages() {
@@ -91,6 +101,11 @@ const computed = {
   },
   submited() {
     return this.$parent.submited;
+  },
+  autoValidate() {
+    return (
+      this.$parent.options.autoValidate && this.formControl.touched === true
+    );
   },
 };
 
