@@ -10,19 +10,22 @@
             :options="testForm.options"
             @change="valuesChanged"
           >
-            <template slot="custom-field-1" slot-scope="props">
-              <div class="pika-field">
+            <template
+              slot="custom-field-1"
+              slot-scope="{ control, valueChange, onFocus, onBlur }"
+            >
+              <div class="avocado-field">
                 <input
-                  v-if="props.field"
+                  v-if="control"
                   class="form-control"
-                  v-model="props.field.value"
-                  :type="props.field.type"
-                  :name="props.field.name"
-                  @change="props.valueChange()"
-                  @focus="props.onFocus()"
-                  @blur="props.onBlur()"
+                  v-model="control.value"
+                  :type="control.type"
+                  :name="control.name"
+                  @change="valueChange()"
+                  @focus="onFocus()"
+                  @blur="onBlur()"
                 />
-                <img src="./assets/pika.png" alt="" />
+                <i>🥑</i>
               </div>
             </template>
           </dynamic-form>
@@ -174,10 +177,16 @@ export default {
 };
 </script>
 <style lang="scss">
-.pika-field {
+.avocado-field {
   position: relative;
 
-  img {
+  .form-control {
+    border-color: #aec64c;
+    background-color: #e2eb5d52;
+    border-radius: 16px;
+  }
+
+  i {
     position: absolute;
     top: 5px;
     right: 5px;

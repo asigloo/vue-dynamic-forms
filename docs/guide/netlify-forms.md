@@ -1,1 +1,1 @@
-## Netlify Forms
+Documentation coming soon.

@@ -19,7 +19,7 @@
             <slot
               v-if="props.control.name === slot"
               :name="slot"
-              :field="normalizedControls[slot]"
+              :control="normalizedControls[slot]"
               :valueChange="props.valueChange"
               :onFocus="props.onFocus"
               :onBlur="props.onBlur"

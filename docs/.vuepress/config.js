@@ -9,4 +9,11 @@ module.exports = {
   head,
   plugins,
   themeConfig,
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': 'src',
+      },
+    },
+  },
 };

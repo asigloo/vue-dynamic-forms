@@ -2,7 +2,14 @@ module.exports = {
   repo: 'alvarosaburido/vue-dynamic-forms',
   editLinks: true,
   docsDir: 'docs',
-  nav: [{ text: 'Sandbox', link: '/sandbox' }],
+  logo: '/vue-dynamic-forms.png',
+  nav: [
+    {
+      text: 'Sandbox',
+      target: '_blank',
+      link: 'https://codesandbox.io/s/vue-dynamic-forms-ftzes',
+    },
+  ],
   sidebar: {
     '/': [
       {
@@ -17,8 +24,11 @@ module.exports = {
         title: 'API',
         collapsable: false,
         children: [
-          ['guide/fields', 'fields'],
-          ['guide/events', 'events'],
+          ['guide/fields', 'Fields'],
+          ['guide/props', 'Props'],
+          ['guide/events', 'Events'],
+          ['guide/models', 'Models'],
+          ['guide/slots', 'Slots'],
         ],
       },
       {
@@ -28,14 +38,13 @@ module.exports = {
       },
       {
         title: 'Validation',
+        collapsable: true,
+        children: [['guide/validation', 'Add validation']],
       },
       {
         title: 'Advanced',
         collapsable: true,
-        children: [
-          ['guide/slots', 'Slots'],
-          ['guide/netlify-forms', 'Netlify Forms'],
-        ],
+        children: [['guide/netlify-forms', 'Netlify Forms']],
       },
     ],
   },
