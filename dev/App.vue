@@ -48,6 +48,7 @@ import {
   required,
   email,
   pattern,
+  maxLength,
   /* } from '../dist/as-dynamic-forms.common'; */
 } from '../src/main';
 
@@ -94,8 +95,16 @@ const data = () => ({
         label: 'Bio',
         name: 'bio',
         cols: 30,
-        rows: 5,
+        rows: 10,
         customClass: 'col-12',
+        value:
+          'Prism whatever occupy, stumptown polaroid butcher activated charcoal seitan cornhole direct trade coloring book offal sriracha. 8-bit pitchfork kitsch crucifix chartreuse, tumblr adaptogen brunch stumptown. Drinking vinegar yuccie echo park lo-fi, poutine unicorn raclette adaptogen kale chips chia. Deep v austin fam organic kickstarter hexagon hell of wolf pour-over YOLO. 8-bit glossier lyft authentic, selfies aesthetic kinfolk prism tattooed irony quinoa distillery pug slow-carb post-ironic.',
+        validations: [
+          new FormValidation(
+            maxLength(100),
+            `This field should be less than 100 characters`,
+          ),
+        ],
       }),
       new FormField({
         type: 'select',
