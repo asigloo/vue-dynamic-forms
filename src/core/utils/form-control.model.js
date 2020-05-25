@@ -7,6 +7,8 @@ export function FormControl({
   customClass = null,
   options = [],
   placeholder = null,
+  rows = null,
+  cols = null,
   errors = {},
   valid = true,
   touched = false,
@@ -24,6 +26,8 @@ export function FormControl({
   this.valid = valid;
   this.touched = touched;
   this.dirty = dirty;
+  this.rows = rows;
+  this.cols = cols;
 }
 
 export function FormField({
@@ -37,6 +41,8 @@ export function FormField({
   options = [],
   placeholder = null,
   inline = false,
+  rows = null,
+  cols = null,
 }) {
   this.type = type;
   this.value = value;
@@ -48,6 +54,8 @@ export function FormField({
   this.options = options;
   this.placeholder = placeholder;
   this.inline = inline;
+  this.rows = rows;
+  this.cols = cols;
 }
 
 export function FormValidation(
