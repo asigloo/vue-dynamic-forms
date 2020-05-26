@@ -42,7 +42,6 @@ export default {
           name: 'email',
           value: 'awesome_avocad',
           validations: [
-            new FormValidation(required, 'This field is required'),
             new FormValidation(email, 'Format of email is incorrect'),
           ],
         }),

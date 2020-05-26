@@ -1,6 +1,6 @@
 <template>
   <div class="form-composition library-example">
-    <div class="col">
+    <div class="col" v-if="testForm">
       <dynamic-form
         :id="testForm.id"
         :fields="testForm.fields"

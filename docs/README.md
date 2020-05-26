@@ -19,9 +19,9 @@ Implementing handcrafted forms can be:
 1. Costly
 2. Time-consuming
 
-Specially if you need to create a very large form, in which the inputs are similar to each other, and they change frequently to meet rapidly changing business and regulatory requirements.
+Especially if you need to create a very large form, in which the inputs are similar to each other, and they change frequently to meet rapidly changing business and regulatory requirements.
 
-So, will not be more economical to create the forms dynamically? Based on metadata that describes the business object model?
+So, wouldn't it be more economical to create the forms dynamically? Based on metadata that describes the business object model?
 
 That's Vue Dynamic Forms.
 

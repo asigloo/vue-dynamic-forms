@@ -42,7 +42,6 @@ export default {
           name: 'password',
           customClass: 'col-12',
           validations: [
-            new FormValidation(required, 'This field is required'),
             new FormValidation(
               pattern(
                 '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$',
