@@ -2,6 +2,7 @@
 .vuegenerator
 .eslintrc.js
 .eslintignore
+netlify.toml
 jest.config.js
 babel.config.js
 vue.config.js
