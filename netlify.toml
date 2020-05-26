@@ -1,0 +1,6 @@
+# Settings in the [build] context are global and are applied to all contexts
+# unless otherwise overridden by more specific contexts.
+# @see https://www.netlify.com/docs/netlify-toml-reference/
+[build]
+  publish = "docs/.vuepress/dist"
+  command = "npm run build && npm run docs:build"
