@@ -34,6 +34,7 @@ const methods = {
         field =>
           new FormControl({
             ...field,
+            form: this.id,
           }),
       );
   },
@@ -42,6 +43,7 @@ const methods = {
       field =>
         new FormControl({
           ...field,
+          form: this.id,
         }),
     );
   },
@@ -63,6 +65,7 @@ const methods = {
       field =>
         new FormControl({
           ...field,
+          form: this.id,
           valid: true,
           value: null,
           touched: false,

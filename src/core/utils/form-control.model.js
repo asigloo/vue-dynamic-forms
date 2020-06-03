@@ -1,8 +1,10 @@
 export function FormControl({
+  id,
   type = null,
   value = null,
   validations = [],
   label = null,
+  form,
   name = null,
   customClass = null,
   options = [],
@@ -14,7 +16,9 @@ export function FormControl({
   touched = false,
   dirty = false,
 }) {
+  this.id = id || `${form}-${name}`;
   this.type = type;
+  this.form = form;
   this.value = value;
   this.validations = validations;
   this.label = label;
@@ -31,6 +35,7 @@ export function FormControl({
 }
 
 export function FormField({
+  id,
   type = 'text',
   value = null,
   validations = [],
@@ -44,6 +49,7 @@ export function FormField({
   rows = null,
   cols = null,
 }) {
+  this.id = id;
   this.type = type;
   this.value = value;
   this.validations = validations;

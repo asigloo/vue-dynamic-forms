@@ -147,6 +147,7 @@ const data = () => ({
         customClass: 'col-12',
       }),
       new FormField({
+        id: 'number-custom-id',
         type: 'number',
         label: 'Number',
         name: 'number',
