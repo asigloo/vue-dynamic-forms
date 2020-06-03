@@ -6,6 +6,7 @@ This is the principal instance containing the info of your field, as seen in sev
 
 ```javascript
 export function FormField({
+  id,
   type = 'text',
   value = null,
   validations = [],
@@ -17,6 +18,7 @@ export function FormField({
   placeholder = null,
   inline = false,
 }) {
+  this.id = id;
   this.type = type;
   this.value = value;
   this.validations = validations;
@@ -36,6 +38,7 @@ Tracks the value and validation status of an individual form control. `FormContr
 
 ```javascript
 export function FormControl({
+  id,
   type = null,
   value = null,
   validations = [],
@@ -49,6 +52,7 @@ export function FormControl({
   touched = false,
   dirty = false,
 }) {
+  this.id = id || `${form}-${name}`;
   this.type = type;
   this.value = value;
   this.validations = validations;
