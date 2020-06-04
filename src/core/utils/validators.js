@@ -2,6 +2,7 @@ export const isEmptyInputValue = value =>
   value == null || value === '' || value.length === 0;
 
 const EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
+const URL_REGEXP = /^((?:(https?):\/\/)?((?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9]))|(?:(?:(?:\w+\.){1,2}[\w]{2,3})))(?::(\d+))?((?:\/[\w]+)*)(?:\/|(\/[\w]+\.[\w]{3,4})|(\?(?:([\w]+=[\w]+)&)*([\w]+=[\w]+))?|\?(?:(wsdl|wadl))))$/;
 
 export const required = control =>
   isEmptyInputValue(control.value) ? { required: true } : null;
@@ -34,6 +35,13 @@ export const email = control => {
     return null; // don't validate empty values to allow optional controls
   }
   return EMAIL_REGEXP.test(control.value) ? null : { email: true };
+};
+
+export const url = control => {
+  if (isEmptyInputValue(control.value)) {
+    return null; // don't validate empty values to allow optional controls
+  }
+  return URL_REGEXP.test(control.value) ? null : { email: true };
 };
 
 export const minLength = minLength => control => {
@@ -90,4 +98,5 @@ export default {
   minLength,
   maxLength,
   pattern,
+  url,
 };
