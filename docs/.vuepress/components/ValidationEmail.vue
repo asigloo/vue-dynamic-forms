@@ -8,7 +8,8 @@
         @change="updateForm"
       />
       <p class="hint">
-        Please change the value to see the validation working 👆🏻
+        Please change the value and press enter (blur) to see the validation
+        working 👆🏻
       </p>
     </div>
     <div class="col">

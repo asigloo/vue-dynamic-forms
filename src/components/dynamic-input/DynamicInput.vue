@@ -12,6 +12,7 @@
         formControl.type === 'text' ||
         formControl.type === 'email' ||
         formControl.type === 'password' ||
+        formControl.type === 'url' ||
         formControl.type === 'number'
       "
       :formControl="formControl"

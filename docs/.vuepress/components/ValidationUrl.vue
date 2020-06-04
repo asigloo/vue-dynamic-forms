@@ -24,34 +24,25 @@ import {
   FormField,
   FormOptions,
   FormValidation,
-  pattern,
+  url,
 } from '../../../dist/as-dynamic-forms.common';
 
 export default {
-  name: 'ValidationPatternDemo',
+  name: 'ValidationUrlDemo',
   components: {
     DynamicForm,
   },
   data: () => ({
     formData: null,
     testForm: {
-      id: 'validation-pattern-demo',
+      id: 'validation-url-demo',
       fields: [
         new FormField({
-          type: 'password',
-          label: 'Password',
-          name: 'password',
-          customClass: 'col-12',
-          validations: [
-            new FormValidation(
-              pattern(
-                '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$',
-              ),
-              'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
-            ),
-          ],
-
-          value: 'sdsdsd',
+          type: 'url',
+          label: 'Website',
+          name: 'website',
+          value: 'http://bah',
+          validations: [new FormValidation(url, 'Format of url is incorrect')],
         }),
       ],
       options: new FormOptions({ autoValidate: true }),

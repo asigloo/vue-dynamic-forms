@@ -94,6 +94,38 @@ const yourAwesomeComponent = {
 export default yourAwesomeComponent;
 ```
 
+## `url`
+
+Url input types are just a text field with a semantic use of `type="url"`, so the text string should be tested to match an url pattern.
+
+<ValidationUrl />
+
+```js
+import { FormField, FormValidation, url } from '@asigloo/vue-dynamic-forms';
+
+const yourAwesomeComponent = {
+  name: 'your-awesome',
+  data() {
+    return {
+      testForm: {
+        id: 'test-form',
+        fields: [
+          new FormField({
+            type: 'url',
+            label: 'Website',
+            name: 'website',
+            validations: [
+              new FormValidation(url, 'Format of this url is incorrect'),
+            ],
+          }),
+        ],
+      },
+    };
+  },
+};
+export default yourAwesomeComponent;
+```
+
 ## `pattern`
 
 If you need a text validation that is not included by default in the library, such as a specific password rule, you can use the `pattern` validator.

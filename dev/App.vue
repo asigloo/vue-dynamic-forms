@@ -52,6 +52,7 @@ import {
   email,
   pattern,
   maxLength,
+  url,
   /* } from '../dist/as-dynamic-forms.common'; */
 } from '../src/main';
 
@@ -108,6 +109,13 @@ const data = () => ({
             `This field should be less than 100 characters`,
           ),
         ],
+      }),
+      new FormField({
+        type: 'url',
+        label: 'Website',
+        name: 'website',
+        customClass: 'col-12',
+        validations: [new FormValidation(url, `Format of Url is incorrect`)],
       }),
       new FormField({
         type: 'select',
