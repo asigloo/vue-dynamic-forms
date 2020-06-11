@@ -67,3 +67,37 @@ export function FormControl({
   this.dirty = dirty;
 }
 ```
+
+## `FormValidation`
+
+Contains validation control for the requested input field. See also [validations](validation.md).
+
+```javascript
+export function FormValidation(
+  validator = null,
+  text = 'There is something wrong with this field',
+) {
+  this.validator = validator;
+  this.text = text;
+}
+```
+
+## `FormOptions`
+
+Contains the form options. Dahh.
+
+```javascript
+export function FormOptions({
+  customClass = '',
+  method = 'POST',
+  autoValidate = false,
+  netlify = false,
+  netlifyHoneypot = null,
+}) {
+  this.customClass = customClass;
+  this.method = method;
+  this.autoValidate = autoValidate;
+  this.netlify = netlify;
+  this.netlifyHoneypot = netlifyHoneypot;
+}
+```
