@@ -45,6 +45,9 @@
       :onFocus="onFocus"
       :onBlur="onBlur"
     />
+    <p class="form-hint" v-if="formControl.helper">
+      {{ formControl.helper }}
+    </p>
     <div v-if="showErrors">
       <p
         v-for="(errorText, $index) in errorMessages"
