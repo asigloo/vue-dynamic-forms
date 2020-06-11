@@ -15,6 +15,7 @@ export function FormControl({
   valid = true,
   touched = false,
   dirty = false,
+  helper,
 }) {
   this.id = id || `${form}-${name}`;
   this.type = type;
@@ -32,6 +33,7 @@ export function FormControl({
   this.dirty = dirty;
   this.rows = rows;
   this.cols = cols;
+  this.helper = helper;
 }
 
 export function FormField({
@@ -48,6 +50,7 @@ export function FormField({
   inline = false,
   rows = null,
   cols = null,
+  helper,
 }) {
   this.id = id;
   this.type = type;
@@ -62,6 +65,7 @@ export function FormField({
   this.inline = inline;
   this.rows = rows;
   this.cols = cols;
+  this.helper = helper;
 }
 
 export function FormValidation(
