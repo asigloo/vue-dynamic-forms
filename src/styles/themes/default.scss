@@ -11,6 +11,7 @@ $input-padding-y: 0.375rem !default;
 $input-padding-x: 0.75rem !default;
 $input-border-width: 1px !default;
 $input-border-color: #e9ecef !default;
+$input-color: #495057 !default;
 $input-bg: #fff !default;
 $input-disabled-bg: #e9ecef;
 $input-border-radius: 0.25rem !default;
@@ -24,10 +25,10 @@ $input-height: calc(
 );
 
 $input-focus-bg: $input-bg !default;
-$input-focus-border-color: lighten($component-active-bg, 25%) !default;
+$input-focus-border-color: lighten(#719ece, 25%) !default;
 $input-focus-color: $input-color !default;
-$input-focus-width: $input-btn-focus-width !default;
-$input-focus-box-shadow: $input-btn-focus-box-shadow !default;
+$input-focus-width: 2px !default;
+$input-focus-box-shadow: $input-box-shadow !default;
 
 $enable-shadows: true !default;
 
@@ -73,6 +74,7 @@ $input-error-color: #dc3545 !default;
   display: block;
   width: 100%;
   background-color: $input-bg;
+  color: $input-color;
   padding: $input-padding-y $input-padding-x;
   font-family: $input-font-family;
   font-size: $input-font-size;
