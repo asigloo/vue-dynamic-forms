@@ -52,7 +52,7 @@ export default {
    */
   modules: [['@asigloo/vue-dynamic-forms/nuxt']],
   dynamicForms: {
-    theme: 'materialize',
+    theme: 'default',
   },
   /*
    ** Build configuration
