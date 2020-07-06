@@ -10,6 +10,7 @@ postcss.config.js
 .prettierrc
 .git
 **/.git/
+**/node_modules/
 yarn.lock
 /dev
 /docs
