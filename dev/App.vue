@@ -7,22 +7,25 @@
           <dynamic-form
             :id="testForm.id"
             :fields="testForm.fields"
-            :customClass="'row'"
+            :options="testForm.options"
             @change="valuesChanged"
           >
-            <template slot="custom-field-1" slot-scope="props">
-              <div class="pika-field">
+            <template
+              slot="custom-field-1"
+              slot-scope="{ control, valueChange, onFocus, onBlur }"
+            >
+              <div class="avocado-field">
                 <input
-                  v-if="props.field"
+                  v-if="control"
                   class="form-control"
-                  v-model="props.field.value"
-                  :type="props.field.type"
-                  :name="props.field.name"
-                  @change="props.valueChange()"
-                  @focus="props.onFocus()"
-                  @blur="props.onBlur()"
+                  v-model="control.value"
+                  :type="control.type"
+                  :name="control.name"
+                  @change="valueChange()"
+                  @focus="onFocus()"
+                  @blur="onBlur()"
                 />
-                <img src="./assets/pika.png" alt="" />
+                <i>🥑</i>
               </div>
             </template>
           </dynamic-form>
@@ -48,6 +51,8 @@ import {
   required,
   email,
   pattern,
+  maxLength,
+  url,
   /* } from '../dist/as-dynamic-forms.common'; */
 } from '../src/main';
 
@@ -94,8 +99,24 @@ const data = () => ({
         label: 'Bio',
         name: 'bio',
         cols: 30,
-        rows: 5,
+        rows: 10,
         customClass: 'col-12',
+        value:
+          'Prism whatever occupy, stumptown polaroid butcher activated charcoal seitan cornhole direct trade coloring book offal sriracha. 8-bit pitchfork kitsch crucifix chartreuse, tumblr adaptogen brunch stumptown. Drinking vinegar yuccie echo park lo-fi, poutine unicorn raclette adaptogen kale chips chia. Deep v austin fam organic kickstarter hexagon hell of wolf pour-over YOLO. 8-bit glossier lyft authentic, selfies aesthetic kinfolk prism tattooed irony quinoa distillery pug slow-carb post-ironic.',
+        validations: [
+          new FormValidation(
+            maxLength(100),
+            `This field should be less than 100 characters`,
+          ),
+        ],
+      }),
+      new FormField({
+        type: 'url',
+        label: 'Website',
+        name: 'website',
+        customClass: 'col-12',
+        helper: 'Pstt... psst,  this is a hint',
+        validations: [new FormValidation(url, `Format of Url is incorrect`)],
       }),
       new FormField({
         type: 'select',
@@ -143,6 +164,7 @@ const data = () => ({
         customClass: 'col-12',
       }),
       new FormField({
+        id: 'number-custom-id',
         type: 'number',
         label: 'Number',
         name: 'number',
@@ -157,6 +179,11 @@ const data = () => ({
         customClass: 'col-12 col-md-6',
       }),
     ],
+    options: {
+      autoValidate: true,
+      customClass: 'row',
+      netlify: true,
+    },
   },
 });
 
@@ -177,10 +204,16 @@ export default {
 };
 </script>
 <style lang="scss">
-.pika-field {
+.avocado-field {
   position: relative;
 
-  img {
+  .form-control {
+    border-color: #aec64c;
+    background-color: #e2eb5d52;
+    border-radius: 16px;
+  }
+
+  i {
     position: absolute;
     top: 5px;
     right: 5px;

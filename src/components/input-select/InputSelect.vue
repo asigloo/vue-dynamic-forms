@@ -1,6 +1,6 @@
 <template>
   <select
-    :id="formControl.name"
+    :id="formControl.id"
     v-model="formControl.value"
     :name="formControl.name"
     class="form-control"

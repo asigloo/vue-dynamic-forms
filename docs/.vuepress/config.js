@@ -1,5 +1,19 @@
+const { description } = require('./config/meta');
+const head = require('./config/head');
+const plugins = require('./config/plugins');
+const themeConfig = require('./config/themeConfig');
+
 module.exports = {
   title: 'Vue Dynamic Forms',
-  description:
-    'Easy way to dynamically create reactive forms in vue based on varying business object model',
+  description,
+  head,
+  plugins,
+  themeConfig,
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': 'src',
+      },
+    },
+  },
 };

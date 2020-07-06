@@ -1,4 +1,4 @@
-import { FormControl } from '@/core/utils';
+import { FormControl, FormOptions } from '@/core/utils';
 
 import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
 
@@ -17,16 +17,12 @@ const props = {
     default: null,
     type: String,
   },
-  method: {
-    default: 'POST',
-    type: String,
-  },
-  customClass: {
-    default: null,
-    type: String,
-  },
   fields: {
     type: Array,
+  },
+  options: {
+    type: Object,
+    default: () => new FormOptions({}),
   },
 };
 
@@ -38,6 +34,7 @@ const methods = {
         field =>
           new FormControl({
             ...field,
+            form: this.id,
           }),
       );
   },
@@ -46,6 +43,7 @@ const methods = {
       field =>
         new FormControl({
           ...field,
+          form: this.id,
         }),
     );
   },
@@ -57,7 +55,7 @@ const methods = {
         this.$emit('submit', this.values);
         this.resetForm();
       } else {
-        this.$emit('form-error', this.allErrors);
+        this.$emit('error', this.allErrors);
       }
     }, 100);
   },
@@ -67,6 +65,7 @@ const methods = {
       field =>
         new FormControl({
           ...field,
+          form: this.id,
           valid: true,
           value: null,
           touched: false,
@@ -110,6 +109,17 @@ const computed = {
           };
         }, {})
       : {};
+  },
+  formattedOptions() {
+    const { customClass, method, netlify, netlifyHoneyPot } = new FormOptions(
+      this.options,
+    );
+    return {
+      class: customClass,
+      method,
+      'data-netlify': netlify,
+      'data-netlify-honeypot': netlifyHoneyPot,
+    };
   },
   deNormalizedScopedSlots() {
     return Object.keys(this.$scopedSlots);

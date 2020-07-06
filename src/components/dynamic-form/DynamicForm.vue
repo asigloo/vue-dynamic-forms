@@ -4,8 +4,7 @@
       v-if="fields.length > 0 && !showFeedback"
       :id="id"
       :name="id"
-      :class="customClass"
-      :method="method"
+      v-bind="formattedOptions"
       novalidate
       @submit.prevent="handleSubmit()"
     >
@@ -20,7 +19,7 @@
             <slot
               v-if="props.control.name === slot"
               :name="slot"
-              :field="normalizedControls[slot]"
+              :control="normalizedControls[slot]"
               :valueChange="props.valueChange"
               :onFocus="props.onFocus"
               :onBlur="props.onBlur"
