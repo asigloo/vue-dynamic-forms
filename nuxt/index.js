@@ -1,6 +1,6 @@
 const path = require('path');
 
-const THEMES = ['default'];
+const THEMES = ['default', 'material'];
 
 module.exports = function nuxtDynamicForms(moduleOptions) {
   const options = Object.assign({}, this.options.dynamicForms, moduleOptions);

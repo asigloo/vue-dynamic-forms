@@ -68,7 +68,7 @@ You can select directly the theme trough `dynamicForms` options like this
 module.exports = {
   modules: ['@asigloo/vue-dynamic-forms/nuxt'],
   dynamicForms: {
-    theme: 'materialize',
+    theme: 'default',
   },
 };
 ```

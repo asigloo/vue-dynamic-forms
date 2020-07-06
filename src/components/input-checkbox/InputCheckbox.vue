@@ -1,13 +1,13 @@
 <template>
-  <div class="form-check">
+  <div class="input-checkbox">
     <input
-      class="form-check-input"
+      class="input-checkbox__input"
       type="checkbox"
       :id="formControl.name"
       v-model="formControl.value"
       :disabled="formControl.disabled"
     />
-    <label class="form-check-label" :for="formControl.name">
+    <label class="input-checkbox__label" :for="formControl.name">
       {{ formControl.label }}
     </label>
   </div>

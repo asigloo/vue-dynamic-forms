@@ -42,6 +42,7 @@ $input-error-color: #dc3545 !default;
 .form-label {
   display: inline-block;
   margin-bottom: 0.5rem;
+  order: 1;
 }
 
 .form-hint {
@@ -49,8 +50,14 @@ $input-error-color: #dc3545 !default;
 }
 
 .form-group {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   margin-bottom: 1rem;
+
+  & > div {
+    order: 2;
+  }
 
   &--error {
     .form-label {
@@ -72,6 +79,7 @@ $input-error-color: #dc3545 !default;
 
 .form-control {
   display: block;
+  order: 2;
   width: 100%;
   background-color: $input-bg;
   color: $input-color;

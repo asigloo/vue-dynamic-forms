@@ -12,6 +12,7 @@ export function FormControl({
   rows = null,
   cols = null,
   errors = {},
+  disabled = false,
   valid = true,
   touched = false,
   dirty = false,
@@ -27,6 +28,7 @@ export function FormControl({
   this.customClass = customClass;
   this.options = options;
   this.placeholder = placeholder;
+  this.disabled = disabled;
   this.errors = errors;
   this.valid = valid;
   this.touched = touched;

@@ -4,8 +4,7 @@ The components are unstyled by default, so you can customize them with your own 
 @import '~@asigloo/vue-dynamic-forms/src/styles/themes/theme.scss';
 ```
 
-For now, only default theme (similar to bootstrap) is available. More themes are in progress.
-
+More themes are in progress.
 
 ## Defaul Theme
 
@@ -14,7 +13,18 @@ Similar to default bootstrap theme for forms.
 ### Import to your app
 
 ```scss
-@import '~@asigloo/vue-dynamic-forms/src/styles/themes/theme.scss';
+@import '~@asigloo/vue-dynamic-forms/src/styles/themes/default.scss';
+```
+
+or with Nuxt Module options in `nuxt.config.js`:
+
+```javascript [nuxt.config.js]
+module.exports = {
+  modules: ['@asigloo/vue-dynamic-forms/nuxt'],
+  dynamicForms: {
+    theme: 'default',
+  },
+};
 ```
 
 ### Customize your variables
@@ -23,7 +33,7 @@ Similar to default bootstrap theme for forms.
 $input-bg: #e2eb5d52;
 $input-border-color: #aec64c;
 
-@import '~@asigloo/vue-dynamic-forms/src/styles/themes/theme.scss';
+@import '~@asigloo/vue-dynamic-forms/src/styles/themes/default.scss';
 ```
 
 ### Variables available
@@ -54,8 +64,8 @@ $input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out 
 $input-placeholder-color: #6c757d !default;
 $input-box-shadow: inset 0 1px 1px rgba(#000, 0.075) !default;
 $input-height: calc(
-  #{$input-line-height * 1em} + #{$input-padding-y * 2} + #{$input-border-width *
-    2}
+  #{$input-line-height * 1em} + #{$input-padding-y * 2} +
+    #{$input-border-width * 2}
 );
 
 $input-focus-bg: $input-bg !default;
@@ -71,4 +81,64 @@ $input-error-color: #dc3545 !default;
 
 ## Material Theme
 
-Work in progress [[#3](https://github.com/alvarosaburido/vue-dynamic-forms/issues/3)]
+### Import to your app
+
+```scss
+@import '~@asigloo/vue-dynamic-forms/src/styles/themes/material.scss';
+```
+
+or with Nuxt Module options in `nuxt.config.js`:
+
+```javascript [nuxt.config.js]
+module.exports = {
+  modules: ['@asigloo/vue-dynamic-forms/nuxt'],
+  dynamicForms: {
+    theme: 'material',
+  },
+};
+```
+
+### Variables available
+
+You have all this variables to customize your form inputs.
+
+Consider that this variables will affect **All** your inputs, for more selective styling please use `customClass` available on the [models](./models.md).
+
+```scss
+$theme-color: #6200ee;
+$base-color: #ced4da;
+$text-color: #202020;
+$light: #fefefe;
+
+$font-size: 1rem !default;
+
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
+$font-family: $font-family-sans-serif !default;
+
+$line-height: 1.5;
+
+$input-padding-y: 0.375rem;
+$input-padding-x: 0.75rem;
+$input-border-width: 1px;
+$input-border-color: $base-color;
+$input-border-radius: 0;
+$input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+$input-placeholder-color: #6c757d;
+
+$input-error-color: #dc3545;
+```
+
+### Customize your variables
+
+```scss
+$theme-color: #6200ee;
+$base-color: #ced4da;
+
+@import '~@asigloo/vue-dynamic-forms/src/styles/themes/material.scss';
+```
+
+## Submit you own theme
+
+If you have a great custom theme and you want it to be on the library submit a propose via PR [here](https://github.com/alvarosaburido/vue-dynamic-forms/pulls). 👩‍🎤👨‍🎤

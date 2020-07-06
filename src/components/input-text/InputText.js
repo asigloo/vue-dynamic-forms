@@ -7,6 +7,13 @@ const props = {
   },
 };
 
+const computed = {
+  hasValue() {
+    const { value } = this.formControl;
+    return value !== null && value !== undefined;
+  },
+};
+
 const methods = {
   valueChange() {
     this.$emit('change', this.formControl.value);
@@ -24,6 +31,7 @@ const InputText = {
   name: 'asInputText',
   props,
   methods,
+  computed,
 };
 
 export default InputText;
