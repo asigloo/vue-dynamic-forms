@@ -35,6 +35,11 @@ $input-error-color: #dc3545;
     pointer-events: none;
     color: $base-color;
     transition: 0.2s ease all;
+    order: 1;
+
+    /*  &--default {
+      display: none;
+    } */
   }
 
   .form-bar {
@@ -306,7 +311,7 @@ select.form-control ~ .form-label,
     display: inline-block;
     min-height: 20px;
     position: relative;
-    padding: 0 (20px + 10px);
+    padding: 0 30px 10px;
     margin-bottom: 0;
     cursor: pointer;
     vertical-align: bottom;
