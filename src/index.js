@@ -1,6 +1,7 @@
 import DynamicForm from './components/dynamic-form/DynamicForm.vue';
 import DynamicInput from './components/dynamic-input/DynamicInput.vue';
-export * from './core/utils';
+import utils from './core/utils';
+
 const version = process.env.VERSION || require('../package.json').version;
 
 export let _Vue;
@@ -10,6 +11,8 @@ export function install(Vue) {
   install.installed = true;
 
   _Vue = Vue;
+
+  Vue.prototype.$formUtils = utils;
 
   Vue.component('dynamic-form', DynamicForm);
   Vue.component('dynamic-input', DynamicInput);
@@ -24,6 +27,8 @@ export const AsDynamicForms = {
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(AsDynamicForms);
 }
+
+export * from './core/utils';
 
 export { DynamicForm, DynamicInput };
 

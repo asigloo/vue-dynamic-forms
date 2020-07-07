@@ -201,6 +201,9 @@ export default {
   name: 'app',
   data,
   methods,
+  mounted() {
+    console.log(this.$formUtils);
+  },
 };
 </script>
 <style lang="scss">
