@@ -13,7 +13,7 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name as-dynamic-forms src/main.js",
+    "build": "vue-cli-service build --target lib --name as-dynamic-forms src/index.js",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit --verbose --no-cache --watchAll",
     "publish": "npm run build && npm publish --access public",

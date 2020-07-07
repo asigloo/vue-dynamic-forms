@@ -54,7 +54,7 @@ import {
   maxLength,
   url,
   /* } from '../dist/as-dynamic-forms.common'; */
-} from '../src/main';
+} from '../../src/index';
 
 const data = () => ({
   formData: {},

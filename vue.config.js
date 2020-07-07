@@ -17,6 +17,11 @@ module.exports = {
       filename: 'index.html',
     },
   },
+  configureWebpack: {
+    output: {
+      libraryExport: 'default',
+    },
+  },
   chainWebpack: config => {
     config.optimization.splitChunks(false);
     config.merge({ devtool: 'source-map' });
