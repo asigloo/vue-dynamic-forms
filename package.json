@@ -13,7 +13,7 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name as-dynamic-forms src/main.js",
+    "build": "vue-cli-service build --target lib --name as-dynamic-forms src/index.js",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit --verbose --no-cache --watchAll",
     "publish": "npm run build && npm publish --access public",
@@ -22,28 +22,28 @@
   },
   "main": "dist/as-dynamic-forms.common.js",
   "dependencies": {
-    "bootstrap": "^4.4.1",
-    "core-js": "^3.6.4",
-    "sass-resources-loader": "^2.0.1",
+    "bootstrap": "^4.5.0",
+    "core-js": "^3.6.5",
+    "sass-resources-loader": "^2.0.3",
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.2.3",
-    "@vue/cli-plugin-eslint": "^4.2.3",
-    "@vue/cli-plugin-unit-jest": "^4.2.3",
-    "@vue/cli-service": "^4.2.3",
+    "@vue/cli-plugin-babel": "^4.4.6",
+    "@vue/cli-plugin-eslint": "^4.4.6",
+    "@vue/cli-plugin-unit-jest": "^4.4.6",
+    "@vue/cli-service": "^4.4.6",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/test-utils": "1.0.0-beta.32",
+    "@vue/test-utils": "1.0.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^25.2.6",
-    "eslint": "^6.8.0",
-    "eslint-plugin-prettier": "^3.1.2",
+    "babel-jest": "^26.1.0",
+    "eslint": "^7.4.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.13.1",
-    "prettier": "^2.0.2",
-    "sass-loader": "^8.0.2",
+    "node-sass": "^4.14.1",
+    "prettier": "^2.0.5",
+    "sass-loader": "^9.0.1",
     "vue-template-compiler": "^2.6.11",
-    "vuepress": "^1.5.0"
+    "vuepress": "^1.5.2"
   }
 }

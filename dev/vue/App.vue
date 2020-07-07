@@ -54,7 +54,7 @@ import {
   maxLength,
   url,
   /* } from '../dist/as-dynamic-forms.common'; */
-} from '../src/main';
+} from '@/index';
 
 const data = () => ({
   formData: {},
@@ -201,6 +201,9 @@ export default {
   name: 'app',
   data,
   methods,
+  mounted() {
+    console.log(this.$formUtils);
+  },
 };
 </script>
 <style lang="scss">
