@@ -1,4 +1,4 @@
-This library comes with a Built-in Validation responsible of controlling that the inputs match certain criteria defined by the user when defining the `FormFields`.
+This library comes with built-in validation responsible for validating that the inputs match certain criteria defined by the user when defining the `FormFields`.
 
 By default, **Vue Dynamic Forms** contains the following validations:
 
