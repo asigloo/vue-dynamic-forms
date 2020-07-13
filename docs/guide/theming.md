@@ -36,7 +36,7 @@ $input-border-color: #aec64c;
 @import '~@asigloo/vue-dynamic-forms/src/styles/themes/default.scss';
 ```
 
-### Variables available
+### Variables available
 
 You have all this variables to customize your form inputs.
 
