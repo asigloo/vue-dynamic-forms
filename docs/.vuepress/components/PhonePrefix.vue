@@ -1,5 +1,5 @@
 <template>
-  <div class="form-composition library-example">
+  <div class="library-example">
     <div v-if="testForm">
       <dynamic-form
         :id="testForm.id"
