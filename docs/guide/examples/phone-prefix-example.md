@@ -1,10 +1,8 @@
 ## Phone Prefix Example
 
-The library also mades easy to create more complex arranges of inputs, one escenario could be a field that collects an international phone number and consists of a country dropdown, a numeric input for area code and another numeric input for phone number.
+The library also makes it easy to create more complex arrangements of inputs. For example, a field that collects an international phone number and consists of a country dropdown, a numeric input for area code and another numeric input for phone number.
 
-There easiest way to achieve it is by creating the 3 diferent inputs using `FormField` and add layout related classes using `customClass`
-
-Thanks [@dflock](https://github.com/dflock) for the suggestion.
+There easiest way to achieve this is by creating the 3 diferent inputs using `FormField` and add layout related classes using `customClass`:
 
 <PhonePrefix />
 
