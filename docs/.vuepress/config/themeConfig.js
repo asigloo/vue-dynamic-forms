@@ -42,6 +42,14 @@ module.exports = {
         children: [['guide/validation', 'Add validation']],
       },
       {
+        title: 'Examples',
+        collapsable: true,
+        children: [
+          ['guide/examples/phone-prefix-example', 'Phone Prefix'],
+          ['guide/examples/thirdparty', 'Third-Party'],
+        ],
+      },
+      {
         title: 'Advanced',
         collapsable: true,
         children: [['guide/netlify-forms', 'Netlify Forms']],

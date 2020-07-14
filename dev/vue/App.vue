@@ -28,6 +28,18 @@
                 <i>🥑</i>
               </div>
             </template>
+            <template slot="third-party" slot-scope="props">
+              <div class="third-party">
+                <v-select
+                  v-model="props.control.value"
+                  :options="props.control.options"
+                  :name="props.control.name"
+                  @input="props.valueChange()"
+                  @search:focus="props.onFocus()"
+                  @search:blur="props.onBlur()"
+                ></v-select>
+              </div>
+            </template>
           </dynamic-form>
           <div class="row d-flex justify-content-end p-4">
             <button submit="true" :form="testForm.id" class="btn btn-primary">
@@ -177,6 +189,13 @@ const data = () => ({
         name: 'number2',
         value: 50,
         customClass: 'col-12 col-md-6',
+      }),
+      new FormField({
+        type: 'custom-field',
+        label: 'V-Select',
+        name: 'third-party',
+        customClass: 'col-6',
+        options: ['Arduino', 'Pinguino'],
       }),
     ],
     options: {
