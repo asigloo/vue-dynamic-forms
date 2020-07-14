@@ -1,6 +1,6 @@
 {
   "name": "@asigloo/vue-dynamic-forms",
-  "version": "0.3.1",
+  "version": "0.0.0-development",
   "description": "Easy way to dynamically create reactive forms in vue based on varying business object model",
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
   "license": "MIT",
@@ -11,14 +11,19 @@
   "bugs": {
     "url": "https://github.com/alvarosaburido/vue-dynamic-forms/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name as-dynamic-forms src/index.js",
     "lint": "vue-cli-service lint",
-    "test": "vue-cli-service test:unit --verbose --no-cache --watchAll",
+    "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll",
+    "test": "vue-cli-service test:unit",
     "publish": "npm run build && npm publish --access public",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "semantic-release": "semantic-release"
   },
   "main": "dist/as-dynamic-forms.common.js",
   "dependencies": {
@@ -45,6 +50,7 @@
     "sass-loader": "^9.0.1",
     "vue-select": "^3.10.7",
     "vue-template-compiler": "^2.6.11",
-    "vuepress": "^1.5.2"
+    "vuepress": "^1.5.2",
+    "semantic-release": "^17.1.1"
   }
 }
