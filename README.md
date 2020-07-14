@@ -120,12 +120,11 @@ If you find this library useful and you want to help improve it, maintain it or 
 
 This are the features I have planned for next versions of this library
 
-- [ ] Material theme
+- [x] Material theme
 - [ ] Form Mixins for fields manipulation (for example, change values of a field depending of other)
 - [ ] More complex input types.
-- [ ] Nuxt plugin istall
+- [x] Nuxt plugin istall
 - [x] Better docs & online examples
-- [ ] Storybook
 
 ## License
 
