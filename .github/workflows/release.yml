@@ -1,14 +1,11 @@
-name: ci
-
+name: Release
 on:
-  pull_request:
+  push:
     branches:
       - master
-      - dev
-
 jobs:
-  test-and-release:
-    name: Run tests and release
+  release:
+    name: Release
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
@@ -21,3 +18,9 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm run test
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          CI: true
+        run: npm run semantic-release

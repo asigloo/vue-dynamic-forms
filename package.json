@@ -20,7 +20,6 @@
     "lint": "vue-cli-service lint",
     "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll",
     "test": "vue-cli-service test:unit",
-    "publish": "npm run build && npm publish --access public",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "semantic-release": "semantic-release"
