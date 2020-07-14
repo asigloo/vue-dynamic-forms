@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   release:
-    name: Release
+    name: Run test and Release
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
