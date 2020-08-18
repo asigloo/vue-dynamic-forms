@@ -12,7 +12,7 @@ module.exports = {
   },
   pages: {
     index: {
-      entry: 'dev/vue/main.js',
+      entry: 'dev/vue/main.ts',
       template: 'public/index.html',
       filename: 'index.html',
     },
