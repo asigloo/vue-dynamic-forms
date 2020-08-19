@@ -1,5 +1,5 @@
-import DynamicForm from './components/dynamic-form/DynamicForm.vue';
-import DynamicInput from './components/dynamic-input/DynamicInput.vue';
+import DynamicForm from './components_old/dynamic-form/DynamicForm.vue';
+import DynamicInput from './components_old/dynamic-input/DynamicInput.vue';
 import utils from './core/utils';
 
 const version = process.env.VERSION || require('../package.json').version;

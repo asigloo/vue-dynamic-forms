@@ -1,27 +1,56 @@
+import { slugify } from './utils/helpers';
+
+type ValidationErrors = {
+  [key: string]: any;
+};
+
+interface ValidatorFn {
+  (control: FormControl<string>): ValidationErrors | null;
+}
+
+export class FormValidation {
+  validator: ValidatorFn;
+  text: string;
+
+  constructor(validator: ValidatorFn, text: string) {
+    this.validator = validator;
+    this.text = text || '';
+  }
+}
+
 export class InputBase<T> {
   value: T | undefined;
-  key: string;
+  name: string;
   label: string;
-  required: boolean;
-  order: number;
+  disabled?: boolean;
+  order?: number;
   type: string;
+  placeholder?: string;
+  validations?: FormValidation[];
+  options?: { key: string; value: string }[];
 
   constructor(
     options: {
       value?: T | undefined;
-      key?: string;
+      name?: string;
       label?: string;
-      required?: boolean;
+      disabled?: boolean;
       order?: number;
       type?: string;
+      placeholder?: string;
+      validations?: FormValidation[];
+      options?: { key: string; value: string }[];
     } = {},
   ) {
     this.value = options.value;
-    this.key = options.key || '';
+    this.name = options.name || slugify(options.label || '') || '';
     this.label = options.label || '';
-    this.required = !!options.required;
+    this.disabled = !!options.disabled;
     this.order = options.order === undefined ? 1 : options.order;
     this.type = options.type || '';
+    this.placeholder = options.placeholder;
+    this.validations = options.validations;
+    this.options = options.options;
   }
 }
 
@@ -30,13 +59,21 @@ export class TextInput extends InputBase<string> {
 }
 
 export class SelectInput<T> extends InputBase<T> {
-  options: { key: string; value: string }[];
+  type = 'select';
+}
+
+export class FormControl<T> extends InputBase<T> {
+  valid = true;
+  invalid = false;
+  dirty = false;
+  touched = false;
+  errors: ValidationErrors | null = {};
   constructor(
     options: {
       value?: T | undefined;
-      key?: string;
+      name?: string;
       label?: string;
-      required?: boolean;
+      disabled?: boolean;
       order?: number;
       type?: string;
       options?: { key: string; value: string }[];
@@ -44,12 +81,11 @@ export class SelectInput<T> extends InputBase<T> {
   ) {
     super({
       value: options.value,
-      key: options.key,
+      name: options.name,
       label: options.label,
-      required: options.required,
+      type: options.type,
+      disabled: !!options.disabled,
       order: options.order,
     });
-    this.type = 'select';
-    this.options = options.options || [];
   }
 }

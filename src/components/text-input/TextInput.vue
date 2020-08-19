@@ -1,23 +1,21 @@
 <script lang="ts">
 import { defineComponent, h, PropType } from 'vue';
-import TextInput from '@/components/text-input/TextInput.vue';
 import { FormControl } from '@/core/models';
-
-const components = {
-  TextInput,
-};
 
 const props = {
   control: Object as PropType<FormControl<any>>,
 };
+
 export default defineComponent({
-  name: 'asDynamicInput',
-  components,
+  name: 'asTextInput',
   props,
   setup(props) {
     return () =>
-      h(TextInput, {
-        control: props.control,
+      h('input', {
+        name: props?.control?.name || '',
+        type: props?.control?.type,
+        disabled: props?.control?.disabled,
+        placeholder: props?.control?.placeholder,
       });
   },
 });
