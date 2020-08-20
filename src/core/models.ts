@@ -27,7 +27,7 @@ export class InputBase<T> {
   type: string;
   placeholder?: string;
   validations?: FormValidation[];
-  options?: { key: string; value: string }[];
+  options?: { key: string; value: string; disabled: boolean }[];
 
   constructor(
     options: {
@@ -39,7 +39,7 @@ export class InputBase<T> {
       type?: string;
       placeholder?: string;
       validations?: FormValidation[];
-      options?: { key: string; value: string }[];
+      options?: { key: string; value: string; disabled: boolean }[];
     } = {},
   ) {
     this.value = options.value;
@@ -76,7 +76,7 @@ export class FormControl<T> extends InputBase<T> {
       disabled?: boolean;
       order?: number;
       type?: string;
-      options?: { key: string; value: string }[];
+      options?: { key: string; value: string; disabled: boolean }[];
     } = {},
   ) {
     super({

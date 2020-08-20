@@ -14,8 +14,10 @@ export default defineComponent({
       h('input', {
         name: props?.control?.name || '',
         type: props?.control?.type,
+        value: props?.control?.value,
         disabled: props?.control?.disabled,
         placeholder: props?.control?.placeholder,
+        class: ['form-control'],
       });
   },
 });

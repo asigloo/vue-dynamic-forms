@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <dynamic-form :form="form" />
-    <pre>{{ form }}</pre>
+    <div class="page container">
+      <h1 class="title m-4">{{ title }}</h1>
+      <div class="flex justify-between">
+        <div class="card p-6">
+          <dynamic-form :form="form" />
+        </div>
+        <div class="card p-6">
+          <pre>{{ form }}</pre>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, ref } from 'vue';
 import { TextInput, SelectInput, DynamicForm } from '../../src/index';
 
 export default defineComponent({
   name: 'app',
   setup() {
+    const title = ref('Vue Dynamic Forms');
     const form = reactive<DynamicForm>({
       id: 'form',
       fields: [
@@ -38,6 +48,7 @@ export default defineComponent({
       ],
     });
     return {
+      title,
       form,
     };
   },
