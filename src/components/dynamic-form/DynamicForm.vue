@@ -1,19 +1,24 @@
 <template>
-  <form class="dynamic-form" novalidate>
-    <!-- <li v-for="control in this.form.fields" :key="control.name">
-      {{ control.label }}
-    </li> -->
+  <form class="dynamic-form" novalidate :id="form.id">
     <dynamic-input
       v-for="control in controls"
       :key="control?.name"
       :control="control"
     />
-    <pre>{{ controls }}</pre>
+    <pre>{{ form }}</pre>
   </form>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import {
+  defineComponent,
+  PropType,
+  toRef,
+  reactive,
+  watchEffect,
+  ref,
+  Ref,
+} from 'vue';
 import { DynamicForm } from './form';
 import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
 import { InputBase, FormControl } from '@/core/models';
@@ -31,12 +36,15 @@ export default defineComponent({
   props,
   components,
   setup(props) {
-    const controls: FormControl<any>[] =
-      props.form?.fields?.map(
-        (field: InputBase<any>) => new FormControl({ ...field }),
-      ) || [];
+    const controls: Ref<FormControl<any>[] | undefined> = ref([]);
+    watchEffect(() => {
+      controls.value =
+        props.form?.fields?.map(
+          (field: InputBase<any>) => new FormControl({ ...field }),
+        ) || [];
+    });
 
-    return { controls };
+    return { controls, form: props.form };
   },
 });
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType } from 'vue';
+import { defineComponent, h, PropType, ref, toRefs, reactive } from 'vue';
 import TextInput from '@/components/text-input/TextInput.vue';
 import SelectInput from '@/components/select-input/SelectInput.vue';
 
@@ -43,7 +43,17 @@ export default defineComponent({
         {
           class: ['dynamic-input', 'form-group'],
         },
-        component,
+        [
+          component,
+          h(
+            'label',
+            {
+              class: 'form-label',
+              for: props?.control?.label,
+            },
+            props?.control?.label,
+          ),
+        ],
       );
     };
   },

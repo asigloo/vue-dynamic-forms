@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
+import { defineComponent, reactive, ref, onMounted, Ref } from 'vue';
 import { TextInput, SelectInput, DynamicForm } from '../../src/index';
 
 export default defineComponent({
@@ -27,6 +27,7 @@ export default defineComponent({
       fields: [
         new TextInput({
           label: 'Name',
+          value: 'Awiwi',
         }),
         new SelectInput<string>({
           label: 'Games',
@@ -47,6 +48,14 @@ export default defineComponent({
         }),
       ],
     });
+    onMounted(() =>
+      setTimeout(() => {
+        form.fields[0].label = 'RockNRoll';
+        form.fields[0].value = 'James Bond';
+        form.fields[0].disabled = true;
+        form.id = 'awwiwiwiiwiwiwiw';
+      }, 2000),
+    );
     return {
       title,
       form,

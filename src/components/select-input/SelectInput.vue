@@ -9,7 +9,7 @@ const props = {
 export default defineComponent({
   name: 'asSelectInput',
   props,
-  setup(props) {
+  setup(props, { emit }) {
     return () => {
       const options = props?.control?.options?.map(({ key, value, disabled }) =>
         h('option', { key, value, disabled }, value),
@@ -18,7 +18,6 @@ export default defineComponent({
         'select',
         {
           name: props?.control?.name || '',
-          type: props?.control?.type,
           value: props?.control?.value,
           disabled: props?.control?.disabled,
           placeholder: props?.control?.placeholder,
