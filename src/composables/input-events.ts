@@ -5,7 +5,7 @@ export function useInputEvents(control: FormControl<any> | undefined, emit) {
     if (control) {
       control.value = $event.target.value;
     }
-    emit('change', control?.value);
+    emit('changed', $event.target.value);
   }
   function onFocus() {
     emit('focus');

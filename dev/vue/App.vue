@@ -16,7 +16,12 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, onMounted, Ref } from 'vue';
-import { TextInput, SelectInput, DynamicForm } from '../../src/index';
+import {
+  TextInput,
+  SelectInput,
+  DynamicForm,
+  EmailInput,
+} from '../../src/index';
 
 export default defineComponent({
   name: 'app',
@@ -29,8 +34,12 @@ export default defineComponent({
           label: 'Name',
           value: 'Awiwi',
         }),
+        new EmailInput({
+          label: 'Email',
+        }),
         new SelectInput<string>({
           label: 'Games',
+          customClass: 'w-1/2',
           options: [
             {
               key: 'the-last-of-us',
@@ -52,8 +61,6 @@ export default defineComponent({
       setTimeout(() => {
         form.fields[0].label = 'RockNRoll';
         form.fields[0].value = 'James Bond';
-        form.fields[0].disabled = true;
-        form.id = 'awwiwiwiiwiwiwiw';
       }, 2000),
     );
     return {

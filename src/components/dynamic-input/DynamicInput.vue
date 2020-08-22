@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType, ref, toRefs, reactive } from 'vue';
+import { defineComponent, h, PropType, computed } from 'vue';
 import TextInput from '@/components/text-input/TextInput.vue';
 import SelectInput from '@/components/select-input/SelectInput.vue';
 
@@ -17,22 +17,29 @@ export default defineComponent({
   name: 'asDynamicInput',
   components,
   props,
-  setup(props) {
+  setup(props, { emit }) {
     let component;
+    const attributes = computed(() => {
+      return {
+        control: props.control,
+        onChange: function ($event) {
+          const value = {};
+          value[$event.target.name] = $event.target.value;
+          emit('changed', value);
+        },
+      };
+    });
+
     return () => {
       switch (props?.control?.type) {
         case 'text':
         case 'email':
         case 'password':
         case 'url':
-          component = h(TextInput, {
-            control: props.control,
-          });
+          component = h(TextInput, attributes.value);
           break;
         case 'select':
-          component = h(SelectInput, {
-            control: props.control,
-          });
+          component = h(SelectInput, attributes.value);
           break;
 
         default:
@@ -41,7 +48,7 @@ export default defineComponent({
       return h(
         'div',
         {
-          class: ['dynamic-input', 'form-group'],
+          class: ['dynamic-input', 'form-group', props?.control?.customClass],
         },
         [
           component,

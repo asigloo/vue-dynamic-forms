@@ -4,8 +4,9 @@
       v-for="control in controls"
       :key="control?.name"
       :control="control"
+      @changed="valueChanged"
     />
-    <pre>{{ form }}</pre>
+    <pre>{{ formValues }}</pre>
   </form>
 </template>
 
@@ -18,6 +19,7 @@ import {
   watchEffect,
   ref,
   Ref,
+  computed,
 } from 'vue';
 import { DynamicForm } from './form';
 import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
@@ -35,16 +37,48 @@ export default defineComponent({
   name: 'asDynamicForm',
   props,
   components,
-  setup(props) {
+  setup(props, { emit }) {
     const controls: Ref<FormControl<any>[] | undefined> = ref([]);
+    const formValues = reactive({});
     watchEffect(() => {
       controls.value =
         props.form?.fields?.map(
           (field: InputBase<any>) => new FormControl({ ...field }),
         ) || [];
+      Object.assign(
+        formValues,
+        controls.value
+          ? controls.value.reduce((prev, curr) => {
+              const obj = {};
+              obj[curr.name] =
+                curr.type === 'number' ? parseFloat(curr.value) : curr.value;
+              return {
+                ...prev,
+                ...obj,
+              };
+            }, {})
+          : {},
+      );
     });
 
-    return { controls, form: props.form };
+    function valueChanged(changedValue: any) {
+      Object.assign(formValues, changedValue);
+    }
+    /* const formValues = computed(() => {
+      return controls.value
+        ? controls.value.reduce((prev, curr) => {
+            const obj = {};
+            obj[curr.name] =
+              curr.type === 'number' ? parseFloat(curr.value) : curr.value;
+            return {
+              ...prev,
+              ...obj,
+            };
+          }, {})
+        : {};
+    }); */
+
+    return { controls, form: props.form, valueChanged, formValues };
   },
 });
 </script>

@@ -125,7 +125,7 @@ const computed = {
     return Object.keys(this.$scopedSlots);
   },
   normalizedControls() {
-    let controls = {};
+    const controls = {};
     this.controls.forEach(element => {
       controls[element.name] = element;
     });

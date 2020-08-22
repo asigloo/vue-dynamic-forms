@@ -25,6 +25,7 @@ export class InputBase<T> {
   disabled?: boolean;
   order?: number;
   type: string;
+  customClass?: string;
   placeholder?: string;
   validations?: FormValidation[];
   options?: { key: string; value: string; disabled?: boolean }[];
@@ -37,6 +38,7 @@ export class InputBase<T> {
       disabled?: boolean;
       order?: number;
       type?: string;
+      customClass?: string;
       placeholder?: string;
       validations?: FormValidation[];
       options?: { key: string; value: string; disabled?: boolean }[];
@@ -48,6 +50,7 @@ export class InputBase<T> {
     this.disabled = !!options.disabled;
     this.order = options.order === undefined ? 1 : options.order;
     this.type = options.type || '';
+    this.customClass = options.customClass;
     this.placeholder = options.placeholder;
     this.validations = options.validations;
     this.options = options.options;
@@ -56,6 +59,14 @@ export class InputBase<T> {
 
 export class TextInput extends InputBase<string> {
   type = 'text';
+}
+
+export class EmailInput extends InputBase<string> {
+  type = 'email';
+}
+
+export class PasswordInput extends InputBase<string> {
+  type = 'password';
 }
 
 export class SelectInput<T> extends InputBase<T> {
@@ -76,6 +87,7 @@ export class FormControl<T> extends InputBase<T> {
       disabled?: boolean;
       order?: number;
       type?: string;
+      customClass?: string;
       options?: { key: string; value: string; disabled?: boolean }[];
     } = {},
   ) {
@@ -86,6 +98,7 @@ export class FormControl<T> extends InputBase<T> {
       type: options.type,
       disabled: !!options.disabled,
       order: options.order,
+      customClass: options.customClass,
     });
   }
 }
