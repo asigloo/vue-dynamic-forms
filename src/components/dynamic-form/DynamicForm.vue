@@ -47,11 +47,31 @@ export default defineComponent({
     const controls: Ref<FormControl<any>[] | undefined> = ref([]);
     const formValues = reactive({});
     const submited = ref(false);
-    watchEffect(() => {
+
+    function valueChanged(changedValue: any) {
+      Object.assign(formValues, changedValue);
+    }
+
+    function mapControls(empty?) {
       controls.value =
-        props.form?.fields?.map(
-          (field: InputBase<any>) => new FormControl({ ...field }),
+        props.form?.fields?.map((field: InputBase<any>) =>
+          empty
+            ? new FormControl({ ...field, value: null })
+            : new FormControl({ ...field }),
         ) || [];
+    }
+
+    function resetForm() {
+      mapControls(true);
+    }
+
+    function handleSubmit() {
+      submited.value = true;
+      emit('submited', formValues);
+      resetForm();
+    }
+
+    function initValues() {
       Object.assign(
         formValues,
         controls.value
@@ -66,16 +86,12 @@ export default defineComponent({
             }, {})
           : {},
       );
+    }
+
+    watchEffect(() => {
+      mapControls();
+      initValues();
     });
-
-    function valueChanged(changedValue: any) {
-      Object.assign(formValues, changedValue);
-    }
-
-    function handleSubmit() {
-      submited.value = true;
-      emit('submited', formValues);
-    }
 
     return {
       controls,

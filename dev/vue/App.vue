@@ -39,7 +39,6 @@ export default defineComponent({
       fields: [
         new TextInput({
           label: 'Name',
-          value: 'Awiwi',
         }),
         new EmailInput({
           label: 'Email',
@@ -67,12 +66,12 @@ export default defineComponent({
     function handleSubmit(values) {
       console.log('Values Submitted', values);
     }
-    onMounted(() =>
+    /*   onMounted(() =>
       setTimeout(() => {
         form.fields[0].label = 'RockNRoll';
         form.fields[0].value = 'James Bond';
       }, 2000),
-    );
+    ); */
     return {
       title,
       form,
