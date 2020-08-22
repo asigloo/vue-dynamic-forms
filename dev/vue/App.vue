@@ -4,7 +4,14 @@
       <h1 class="title m-4">{{ title }}</h1>
       <div class="flex justify-between">
         <div class="card p-6">
-          <dynamic-form :form="form" />
+          <dynamic-form :form="form" @submited="handleSubmit" />
+          <button
+            class="btn bg-teal-500 text-white hover:bg-teal-700 mt-4"
+            submit="true"
+            :form="form?.id"
+          >
+            Submit Form
+          </button>
         </div>
         <div class="card p-6">
           <pre>{{ form }}</pre>
@@ -28,7 +35,7 @@ export default defineComponent({
   setup() {
     const title = ref('Vue Dynamic Forms');
     const form = reactive<DynamicForm>({
-      id: 'form',
+      id: 'example-form',
       fields: [
         new TextInput({
           label: 'Name',
@@ -57,6 +64,9 @@ export default defineComponent({
         }),
       ],
     });
+    function handleSubmit(values) {
+      console.log('Values Submitted', values);
+    }
     onMounted(() =>
       setTimeout(() => {
         form.fields[0].label = 'RockNRoll';
@@ -66,6 +76,7 @@ export default defineComponent({
     return {
       title,
       form,
+      handleSubmit,
     };
   },
 });

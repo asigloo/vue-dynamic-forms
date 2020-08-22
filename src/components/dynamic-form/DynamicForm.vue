@@ -1,5 +1,11 @@
 <template>
-  <form class="dynamic-form" novalidate :id="form.id">
+  <form
+    class="dynamic-form"
+    novalidate
+    :id="form.id"
+    :name="form.id"
+    @submit.prevent="handleSubmit"
+  >
     <dynamic-input
       v-for="control in controls"
       :key="control?.name"
@@ -40,6 +46,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const controls: Ref<FormControl<any>[] | undefined> = ref([]);
     const formValues = reactive({});
+    const submited = ref(false);
     watchEffect(() => {
       controls.value =
         props.form?.fields?.map(
@@ -64,21 +71,19 @@ export default defineComponent({
     function valueChanged(changedValue: any) {
       Object.assign(formValues, changedValue);
     }
-    /* const formValues = computed(() => {
-      return controls.value
-        ? controls.value.reduce((prev, curr) => {
-            const obj = {};
-            obj[curr.name] =
-              curr.type === 'number' ? parseFloat(curr.value) : curr.value;
-            return {
-              ...prev,
-              ...obj,
-            };
-          }, {})
-        : {};
-    }); */
 
-    return { controls, form: props.form, valueChanged, formValues };
+    function handleSubmit() {
+      submited.value = true;
+      emit('submited', formValues);
+    }
+
+    return {
+      controls,
+      form: props.form,
+      valueChanged,
+      formValues,
+      handleSubmit,
+    };
   },
 });
 </script>
