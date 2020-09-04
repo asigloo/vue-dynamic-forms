@@ -1,42 +1,7 @@
-<template>
-  <div :class="getClasses">
-    <TextInput
-      :control="control"
-      v-if="
-        control.type === 'text' ||
-        control.type === 'email' ||
-        control.type === 'password' ||
-        control.type === 'url' ||
-        control.type === 'number'
-      "
-      @changed="valueChange"
-    />
-    <SelectInput
-      v-if="control.type === 'select'"
-      :control="control"
-      @changed="valueChange"
-    />
-    <label
-      class="form-label"
-      :for="control.name"
-      v-if="control.type !== 'checkbox'"
-    >
-      {{ control.label }}
-    </label>
-    <span class="form-bar"></span>
-    <div class="form-errors" v-if="showErrors">
-      <p
-        v-for="(error, $index) in errorMessages"
-        :key="`${$index}`"
-        class="form-error"
-      >
-        {{ error }}
-      </p>
-    </div>
-  </div>
-</template>
 <script lang="ts">
-import { defineComponent, PropType, computed, ref, reactive } from 'vue';
+/* eslint-disable @typescript-eslint/no-use-before-define */
+
+import { defineComponent, PropType, computed, h } from 'vue';
 import TextInput from '@/components/text-input/TextInput.vue';
 import SelectInput from '@/components/select-input/SelectInput.vue';
 
@@ -59,12 +24,7 @@ export default defineComponent({
   components,
   props,
   setup(props, { emit }) {
-    const showErrors = computed(() => {
-      return props?.control?.errors && keys(props?.control?.errors).length > 0;
-      /* props.control.errors &&
-        Object.keys(props.control.errors).length > 0 &&
-        (this.submited || this.autoValidate) */
-    });
+    let component;
 
     const getClasses = computed(() => {
       return [
@@ -75,6 +35,13 @@ export default defineComponent({
         },
         `${props?.control?.customClass || ''}`,
       ];
+    });
+
+    const showErrors = computed(() => {
+      return props?.control?.errors && keys(props?.control?.errors).length > 0;
+      /* props.control.errors &&
+        Object.keys(props.control.errors).length > 0 &&
+        (this.submited || this.autoValidate) */
     });
 
     const errorMessages = computed(() => {
@@ -127,25 +94,14 @@ export default defineComponent({
       }
     }
 
-    /* const attributes = computed(() => {
+    const attributes = computed(() => {
       return {
         control: props.control,
-        onChange: function ($event) {
-          const value = {};
-          value[$event.target.name] = $event.target.value;
-          validate();
-          emit('changed', value);
-        },
+        onChanged: valueChange,
       };
-    }); */
-    return {
-      valueChange,
-      errorMessages,
-      getClasses,
-      showErrors,
-    };
+    });
 
-    /* return () => {
+    return () => {
       switch (props?.control?.type) {
         case 'text':
         case 'email':
@@ -163,10 +119,9 @@ export default defineComponent({
       return h(
         'div',
         {
-          class: ['dynamic-input', 'form-group', props?.control?.customClass],
+          class: getClasses.value,
         },
         [
-          component,
           h(
             'label',
             {
@@ -175,6 +130,7 @@ export default defineComponent({
             },
             props?.control?.label,
           ),
+          component,
           h(
             'div',
             {
@@ -186,9 +142,7 @@ export default defineComponent({
           ),
         ],
       );
-    }; */
+    };
   },
 });
 </script>
-
-<style></style>
