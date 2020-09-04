@@ -8,6 +8,7 @@
             :form="form"
             @submited="handleSubmit"
             @changed="valueChanged"
+            @error="handleError"
           />
           <button
             class="btn bg-teal-500 text-white hover:bg-teal-700 mt-4"
@@ -26,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
+import { defineComponent, onMounted, reactive, ref } from 'vue';
 import {
   TextInput,
   SelectInput,
@@ -90,18 +91,23 @@ export default defineComponent({
     function valueChanged(values) {
       Object.assign(formValues, values);
     }
-    /*   onMounted(() =>
+    function handleError(errors) {
+      // eslint-disable-next-line no-undef
+      alert(errors);
+    }
+    onMounted(() =>
       setTimeout(() => {
         form.fields[0].label = 'RockNRoll';
         form.fields[0].value = 'James Bond';
       }, 2000),
-    ); */
+    );
     return {
       title,
       form,
       handleSubmit,
       valueChanged,
       formValues,
+      handleError,
     };
   },
 });

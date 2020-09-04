@@ -36,7 +36,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, computed, ref } from 'vue';
+import { defineComponent, PropType, computed, ref, reactive } from 'vue';
 import TextInput from '@/components/text-input/TextInput.vue';
 import SelectInput from '@/components/select-input/SelectInput.vue';
 
@@ -49,13 +49,42 @@ const components = {
 };
 
 const props = {
-  control: Object as PropType<FormControl<any>>,
+  control: {
+    type: Object as PropType<FormControl<any>>,
+    required: true,
+  },
 };
 export default defineComponent({
   name: 'asDynamicInput',
   components,
   props,
   setup(props, { emit }) {
+    const showErrors = computed(() => {
+      return props?.control?.errors && keys(props?.control?.errors).length > 0;
+      /* props.control.errors &&
+        Object.keys(props.control.errors).length > 0 &&
+        (this.submited || this.autoValidate) */
+    });
+
+    const getClasses = computed(() => {
+      return [
+        'dynamic-input',
+        'form-group',
+        {
+          'form-group--error': showErrors.value,
+        },
+        `${props?.control?.customClass || ''}`,
+      ];
+    });
+
+    const errorMessages = computed(() => {
+      const errors = values(props?.control?.errors || {});
+      if (errors.length > 0) {
+        return errors.map(value => value.text);
+      }
+      return [];
+    });
+
     function validate() {
       if (
         props.control &&
@@ -109,39 +138,11 @@ export default defineComponent({
         },
       };
     }); */
-
-    const showErrors = computed(() => {
-      return props?.control?.errors && keys(props?.control?.errors).length > 0;
-      /* props.control.errors &&
-        Object.keys(props.control.errors).length > 0 &&
-        (this.submited || this.autoValidate) */
-    });
-
-    const getClasses = computed(() => {
-      return [
-        'dynamic-input',
-        'form-group',
-        {
-          'form-group--error': showErrors.value,
-        },
-        `${props?.control?.customClass || ''}`,
-      ];
-    });
-
-    const errorMessages = computed(() => {
-      const errors = values(props?.control?.errors || {});
-      if (errors.length > 0) {
-        return errors.map(value => value.text);
-      }
-      return [];
-    });
-
     return {
       valueChange,
       errorMessages,
       getClasses,
       showErrors,
-      control: ref(props.control),
     };
 
     /* return () => {

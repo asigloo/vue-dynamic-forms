@@ -19,20 +19,23 @@
 import {
   defineComponent,
   PropType,
-  toRef,
   reactive,
-  watchEffect,
   ref,
   Ref,
   computed,
   onMounted,
+  watchEffect,
+  watch,
 } from 'vue';
 import { DynamicForm } from './form';
 import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
 import { InputBase, FormControl } from '@/core/models';
 
 const props = {
-  form: Object as PropType<DynamicForm>,
+  form: {
+    type: Object as PropType<DynamicForm>,
+    required: true,
+  },
 };
 
 const components = {
@@ -44,9 +47,31 @@ export default defineComponent({
   props,
   components,
   setup(props, { emit }) {
-    const controls: Ref<FormControl<any>[] | undefined> = ref([]);
+    const controls: Ref<FormControl<any>[]> = ref([]);
     const formValues = reactive({});
     const submited = ref(false);
+
+    const isValid = computed(() => {
+      const control = controls?.value?.find(control => !control.valid);
+      return control ? control.valid : true;
+    });
+
+    const errors = computed(() => {
+      return controls.value
+        ? controls.value.reduce((prev, curr) => {
+            const errors = Object.keys(curr.errors || {}) || [];
+            if (errors.length > 0) {
+              const error = {};
+              error[curr.name] = curr.errors;
+              return {
+                ...prev,
+                ...error,
+              };
+            }
+            return prev;
+          }, {})
+        : {};
+    });
 
     function valueChange(changedValue: any) {
       Object.assign(formValues, changedValue);
@@ -60,6 +85,7 @@ export default defineComponent({
             ? new FormControl({ ...field, value: null })
             : new FormControl({ ...field }),
         ) || [];
+      console.log('mapControls', controls.value);
     }
 
     function resetForm() {
@@ -68,8 +94,12 @@ export default defineComponent({
 
     function handleSubmit() {
       submited.value = true;
-      emit('submited', formValues);
-      resetForm();
+      if (isValid.value) {
+        emit('submited', formValues);
+        resetForm();
+      } else {
+        emit('error', formValues);
+      }
     }
 
     function initValues() {
@@ -95,10 +125,9 @@ export default defineComponent({
       initValues();
     });
 
-    /* watchEffect(() => {
+    watch(props, (prev, current) => {
       mapControls();
-      initValues();
-    }); */
+    });
 
     return {
       controls,
@@ -106,6 +135,8 @@ export default defineComponent({
       valueChange,
       formValues,
       handleSubmit,
+      isValid,
+      errors,
     };
   },
 });
