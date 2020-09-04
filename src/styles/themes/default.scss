@@ -69,7 +69,8 @@ $input-error-color: #dc3545 !default;
     }
   }
 
-  .error {
+  .form-error {
+    margin-top: 10px;
     font-size: 11px;
 
     color: $input-error-color;

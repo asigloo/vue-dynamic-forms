@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, h, PropType } from 'vue';
 import { FormControl } from '@/core/models';
+import { useInputEvents } from '@/composables/input-events';
 
 const props = {
   control: Object as PropType<FormControl<any>>,
@@ -11,6 +12,11 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     return () => {
+      const { onChange, onFocus, onBlur } = useInputEvents(
+        props?.control,
+        emit,
+      );
+
       const options = props?.control?.options?.map(({ key, value, disabled }) =>
         h('option', { key, value, disabled }, value),
       );
@@ -18,10 +24,13 @@ export default defineComponent({
         'select',
         {
           name: props?.control?.name || '',
-          value: props?.control?.value,
           disabled: props?.control?.disabled,
           placeholder: props?.control?.placeholder,
           class: ['form-control'],
+          value: props?.control?.value,
+          onFocus,
+          onBlur,
+          onChange,
         },
         options,
       );

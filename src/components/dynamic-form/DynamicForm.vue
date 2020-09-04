@@ -10,9 +10,8 @@
       v-for="control in controls"
       :key="control?.name"
       :control="control"
-      @changed="valueChanged"
+      @changed="valueChange"
     />
-    <pre>{{ formValues }}</pre>
   </form>
 </template>
 
@@ -26,6 +25,7 @@ import {
   ref,
   Ref,
   computed,
+  onMounted,
 } from 'vue';
 import { DynamicForm } from './form';
 import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
@@ -48,8 +48,9 @@ export default defineComponent({
     const formValues = reactive({});
     const submited = ref(false);
 
-    function valueChanged(changedValue: any) {
+    function valueChange(changedValue: any) {
       Object.assign(formValues, changedValue);
+      emit('changed', formValues);
     }
 
     function mapControls(empty?) {
@@ -86,17 +87,23 @@ export default defineComponent({
             }, {})
           : {},
       );
+      emit('changed', formValues);
     }
 
-    watchEffect(() => {
+    onMounted(() => {
       mapControls();
       initValues();
     });
 
+    /* watchEffect(() => {
+      mapControls();
+      initValues();
+    }); */
+
     return {
       controls,
       form: props.form,
-      valueChanged,
+      valueChange,
       formValues,
       handleSubmit,
     };

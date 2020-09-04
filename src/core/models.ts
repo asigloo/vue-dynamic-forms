@@ -5,7 +5,7 @@ type ValidationErrors = {
 };
 
 interface ValidatorFn {
-  (control: FormControl<string>): ValidationErrors | null;
+  (control: FormControl<any> | undefined): ValidationErrors | null;
 }
 
 export class FormValidation {
@@ -52,7 +52,7 @@ export class InputBase<T> {
     this.type = options.type || '';
     this.customClass = options.customClass;
     this.placeholder = options.placeholder;
-    this.validations = options.validations;
+    this.validations = options.validations || [];
     this.options = options.options;
   }
 }
@@ -88,6 +88,7 @@ export class FormControl<T> extends InputBase<T> {
       order?: number;
       type?: string;
       customClass?: string;
+      validations?: FormValidation[];
       options?: { key: string; value: string; disabled?: boolean }[];
     } = {},
   ) {
@@ -99,6 +100,8 @@ export class FormControl<T> extends InputBase<T> {
       disabled: !!options.disabled,
       order: options.order,
       customClass: options.customClass,
+      validations: options.validations,
+      options: options.options,
     });
   }
 }

@@ -4,7 +4,11 @@
       <h1 class="title m-4">{{ title }}</h1>
       <div class="flex justify-between">
         <div class="card p-6">
-          <dynamic-form :form="form" @submited="handleSubmit" />
+          <dynamic-form
+            :form="form"
+            @submited="handleSubmit"
+            @changed="valueChanged"
+          />
           <button
             class="btn bg-teal-500 text-white hover:bg-teal-700 mt-4"
             submit="true"
@@ -14,7 +18,7 @@
           </button>
         </div>
         <div class="card p-6">
-          <pre>{{ form }}</pre>
+          <pre>{{ formValues }}</pre>
         </div>
       </div>
     </div>
@@ -22,26 +26,43 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, onMounted, Ref } from 'vue';
+import { defineComponent, reactive, ref } from 'vue';
 import {
   TextInput,
   SelectInput,
   DynamicForm,
   EmailInput,
+  FormValidation,
+  PasswordInput,
 } from '../../src/index';
+import { email, pattern } from '@/core/utils';
 
 export default defineComponent({
   name: 'app',
   setup() {
     const title = ref('Vue Dynamic Forms');
+    const formValues = reactive({});
     const form = reactive<DynamicForm>({
       id: 'example-form',
       fields: [
         new TextInput({
           label: 'Name',
+          value: 'Alvaro',
         }),
         new EmailInput({
           label: 'Email',
+          validations: [new FormValidation(email, 'Email format is incorrect')],
+        }),
+        new PasswordInput({
+          label: 'Password',
+          validations: [
+            new FormValidation(
+              pattern(
+                '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
+              ),
+              'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
+            ),
+          ],
         }),
         new SelectInput<string>({
           label: 'Games',
@@ -66,6 +87,9 @@ export default defineComponent({
     function handleSubmit(values) {
       console.log('Values Submitted', values);
     }
+    function valueChanged(values) {
+      Object.assign(formValues, values);
+    }
     /*   onMounted(() =>
       setTimeout(() => {
         form.fields[0].label = 'RockNRoll';
@@ -76,6 +100,8 @@ export default defineComponent({
       title,
       form,
       handleSubmit,
+      valueChanged,
+      formValues,
     };
   },
 });

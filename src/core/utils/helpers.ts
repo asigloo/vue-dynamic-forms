@@ -1,3 +1,5 @@
+export const { assign, entries, values, keys } = Object;
+
 export const slugify = (text: string) =>
   text
     .toString()
@@ -9,6 +11,14 @@ export const slugify = (text: string) =>
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, '');
 
-export default {
-  slugify,
+export const isArray = (a: any) => !!a && a.constructor === Array;
+export const isObject = (a: any) => !!a && a.constructor === Object;
+
+export const isEmpty = (entry: any) => {
+  if (isArray(entry)) {
+    return entry.length > 0;
+  }
+  if (isObject(entry)) {
+    return entries(entry).length > 0;
+  }
 };

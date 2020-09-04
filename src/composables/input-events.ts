@@ -4,6 +4,7 @@ export function useInputEvents(control: FormControl<any> | undefined, emit) {
   function onChange($event) {
     if (control) {
       control.value = $event.target.value;
+      control.dirty = true;
     }
     emit('changed', $event.target.value);
   }

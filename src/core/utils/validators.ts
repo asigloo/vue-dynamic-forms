@@ -61,10 +61,10 @@ export const maxLength = maxLength => control => {
     : null;
 };
 
-export const pattern = pattern => {
+export const pattern = (pattern: string) => {
   if (!pattern) return null;
-  let regex;
-  let regexStr;
+  let regex: RegExp;
+  let regexStr: string | RegExp;
   if (typeof pattern === 'string') {
     regexStr = '';
 
@@ -75,9 +75,6 @@ export const pattern = pattern => {
     if (pattern.charAt(pattern.length - 1) !== '$') regexStr += '$';
 
     regex = new RegExp(regexStr);
-  } else {
-    regexStr = pattern.toString();
-    regex = pattern;
   }
   return control => {
     if (isEmptyInputValue(control.value)) {
