@@ -4,6 +4,7 @@
 import { defineComponent, PropType, computed, h } from 'vue';
 import TextInput from '@/components/text-input/TextInput.vue';
 import SelectInput from '@/components/select-input/SelectInput.vue';
+import TextAreaInput from '@/components/text-area-input/TextAreaInput.vue';
 
 import { FormControl } from '@/core/models';
 import { isEmpty, entries, values, keys } from '@/core/utils/helpers';
@@ -11,6 +12,7 @@ import { isEmpty, entries, values, keys } from '@/core/utils/helpers';
 const components = {
   TextInput,
   SelectInput,
+  TextAreaInput,
 };
 
 const props = {
@@ -111,6 +113,9 @@ export default defineComponent({
           break;
         case 'select':
           component = h(SelectInput, attributes.value);
+          break;
+        case 'textarea':
+          component = h(TextAreaInput, attributes.value);
           break;
 
         default:

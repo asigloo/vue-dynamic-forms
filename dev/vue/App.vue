@@ -3,7 +3,7 @@
     <div class="page container">
       <h1 class="title m-4">{{ title }}</h1>
       <div class="flex justify-between">
-        <div class="card p-6">
+        <div class="card p-6 mr-4">
           <dynamic-form
             :form="form"
             @submited="handleSubmit"
@@ -35,6 +35,7 @@ import {
   EmailInput,
   FormValidation,
   PasswordInput,
+  TextAreaInput,
 } from '../../src/index';
 import { email, pattern } from '@/core/utils';
 
@@ -82,6 +83,11 @@ export default defineComponent({
               value: 'Nier Automata',
             },
           ],
+        }),
+        new TextAreaInput({
+          label: 'Bio',
+          cols: 20,
+          rows: 5,
         }),
       ],
     });

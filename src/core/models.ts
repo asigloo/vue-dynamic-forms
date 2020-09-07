@@ -29,6 +29,8 @@ export class InputBase<T> {
   placeholder?: string;
   validations?: FormValidation[];
   options?: { key: string; value: string; disabled?: boolean }[];
+  cols?: number;
+  rows?: number;
 
   constructor(
     options: {
@@ -42,6 +44,8 @@ export class InputBase<T> {
       placeholder?: string;
       validations?: FormValidation[];
       options?: { key: string; value: string; disabled?: boolean }[];
+      cols?: number;
+      rows?: number;
     } = {},
   ) {
     this.value = options.value;
@@ -54,6 +58,8 @@ export class InputBase<T> {
     this.placeholder = options.placeholder;
     this.validations = options.validations || [];
     this.options = options.options;
+    this.rows = options.rows || 0;
+    this.cols = options.cols || 0;
   }
 }
 
@@ -73,6 +79,10 @@ export class SelectInput<T> extends InputBase<T> {
   type = 'select';
 }
 
+export class TextAreaInput extends InputBase<string> {
+  type = 'textarea';
+}
+
 export class FormControl<T> extends InputBase<T> {
   valid = true;
   invalid = false;
@@ -90,6 +100,8 @@ export class FormControl<T> extends InputBase<T> {
       customClass?: string;
       validations?: FormValidation[];
       options?: { key: string; value: string; disabled?: boolean }[];
+      cols?: number;
+      rows?: number;
     } = {},
   ) {
     super({
@@ -102,6 +114,8 @@ export class FormControl<T> extends InputBase<T> {
       customClass: options.customClass,
       validations: options.validations,
       options: options.options,
+      rows: options.rows,
+      cols: options.cols,
     });
   }
 }
