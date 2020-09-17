@@ -50,6 +50,6 @@
     "vue-select": "3.10.7",
     "vue-template-compiler": "2.6.11",
     "vuepress": "1.5.3",
-    "semantic-release": "17.1.1"
+    "semantic-release": "17.1.2"
   }
 }
