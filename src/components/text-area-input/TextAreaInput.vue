@@ -15,7 +15,6 @@ export default defineComponent({
     return () =>
       h('textarea', {
         name: props?.control?.name || '',
-        type: props?.control?.type,
         disabled: props?.control?.disabled,
         placeholder: props?.control?.placeholder,
         class: ['form-control'],

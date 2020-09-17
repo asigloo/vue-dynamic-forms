@@ -24,11 +24,12 @@ import {
   Ref,
   computed,
   onMounted,
-  watchEffect,
   watch,
 } from 'vue';
 import { DynamicForm } from './form';
 import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
+import TestComponent from '@/components/TestComponent.vue';
+
 import { InputBase, FormControl } from '@/core/models';
 
 const props = {
@@ -40,6 +41,7 @@ const props = {
 
 const components = {
   DynamicInput,
+  TestComponent,
 };
 
 export default defineComponent({
@@ -50,6 +52,11 @@ export default defineComponent({
     const controls: Ref<FormControl<any>[]> = ref([]);
     const formValues = reactive({});
     const submited = ref(false);
+
+    onMounted(() => {
+      mapControls();
+      initValues();
+    });
 
     const isValid = computed(() => {
       const control = controls?.value?.find(control => !control.valid);
@@ -120,12 +127,7 @@ export default defineComponent({
       emit('changed', formValues);
     }
 
-    onMounted(() => {
-      mapControls();
-      initValues();
-    });
-
-    watch(props, (prev, current) => {
+    watch(props, () => {
       mapControls();
     });
 

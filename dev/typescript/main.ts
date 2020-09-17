@@ -3,7 +3,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import './styles/main.scss';
 
-import { createDynamicForms } from '../../src/index';
+import { createDynamicForms } from '../../dist/as-dynamic-forms.common';
 
 const VueDynamicForms = createDynamicForms({
   theme: 'material',
@@ -11,4 +11,6 @@ const VueDynamicForms = createDynamicForms({
 
 export const app = createApp(App);
 
-app.use(VueDynamicForms).mount('#app');
+app.use(VueDynamicForms);
+
+app.mount('#app');

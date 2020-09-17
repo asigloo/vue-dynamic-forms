@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;1,400&family=Roboto:wght@300;500;700&display=swap');
+
+.card {
+  @apply max-w-lg w-full rounded-lg shadow-lg;
+}
+
+.container {
+  @apply mx-auto px-4;
+}
+
+.page {
+  @apply pt-16 overflow-hidden  min-h-screen;
+}
+
+.title {
+  @apply font-serif font-bold text-gray-800 text-2xl;
+}
+
+pre {
+  @apply bg-gray-900 text-white text-xs p-4 rounded-md;
+}
+
+.btn {
+  @apply font-bold py-2 px-4 rounded;
+}

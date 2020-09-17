@@ -26,25 +26,30 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue';
+<script>
+import { reactive, ref } from 'vue'
+
 import {
   TextInput,
   SelectInput,
-  DynamicForm,
   EmailInput,
   FormValidation,
   PasswordInput,
   TextAreaInput,
-} from '../../src/index';
-import { email, pattern } from '@/core/utils';
+  email,
+  pattern,
+  DynamicForm,
+} from '../../../dist/as-dynamic-forms.common'
 
-export default defineComponent({
-  name: 'app',
+export default {
+  name: 'App',
+  components: {
+    'dynamic-form': DynamicForm,
+  },
   setup() {
-    const title = ref('Vue Dynamic Forms');
-    const formValues = reactive({});
-    const form = reactive<DynamicForm>({
+    const title = ref('Vue Dynamic Forms')
+    const formValues = reactive({})
+    const form = reactive({
       id: 'example-form',
       fields: [
         new TextInput({
@@ -55,18 +60,18 @@ export default defineComponent({
           label: 'Email',
           validations: [new FormValidation(email, 'Email format is incorrect')],
         }),
-        new PasswordInput({
+        /* new PasswordInput({
           label: 'Password',
           validations: [
             new FormValidation(
               pattern(
-                '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
+                '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$'
               ),
-              'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
+              'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10'
             ),
           ],
-        }),
-        new SelectInput<string>({
+        }), */
+        new SelectInput({
           label: 'Games',
           customClass: 'w-1/2',
           options: [
@@ -90,23 +95,18 @@ export default defineComponent({
           rows: 5,
         }),
       ],
-    });
+    })
     function handleSubmit(values) {
-      console.log('Values Submitted', values);
+      console.log('Values Submitted', values)
     }
     function valueChanged(values) {
-      Object.assign(formValues, values);
+      Object.assign(formValues, values)
     }
     function handleError(errors) {
       // eslint-disable-next-line no-undef
-      alert(errors);
+      alert(errors)
     }
-    onMounted(() =>
-      setTimeout(() => {
-        form.fields[0].label = 'RockNRoll';
-        form.fields[0].value = 'James Bond';
-      }, 2000),
-    );
+
     return {
       title,
       form,
@@ -114,8 +114,18 @@ export default defineComponent({
       valueChanged,
       formValues,
       handleError,
-    };
+    }
   },
-});
+}
 </script>
-<style lang="scss"></style>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
