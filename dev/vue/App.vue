@@ -26,9 +26,8 @@
   </div>
 </template>
 
-<script>
-import { reactive, ref } from 'vue'
-
+<script lang="ts">
+import { defineComponent, reactive, ref } from 'vue';
 import {
   TextInput,
   SelectInput,
@@ -36,19 +35,14 @@ import {
   FormValidation,
   PasswordInput,
   TextAreaInput,
-  email,
-  pattern,
-  DynamicForm,
-} from '../../../dist/as-dynamic-forms.common'
+} from '../../dist/as-dynamic-forms.esm';
+import { email, pattern } from '@/core/utils';
 
-export default {
-  name: 'App',
-  components: {
-    'dynamic-form': DynamicForm,
-  },
+export default defineComponent({
+  name: 'app',
   setup() {
-    const title = ref('Vue Dynamic Forms')
-    const formValues = reactive({})
+    const title = ref('Vue Dynamic Forms');
+    const formValues = reactive({});
     const form = reactive({
       id: 'example-form',
       fields: [
@@ -60,18 +54,18 @@ export default {
           label: 'Email',
           validations: [new FormValidation(email, 'Email format is incorrect')],
         }),
-        /* new PasswordInput({
+        new PasswordInput({
           label: 'Password',
           validations: [
             new FormValidation(
               pattern(
-                '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$'
+                '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
               ),
-              'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10'
+              'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
             ),
           ],
-        }), */
-        new SelectInput({
+        }),
+        new SelectInput<string>({
           label: 'Games',
           customClass: 'w-1/2',
           options: [
@@ -95,16 +89,16 @@ export default {
           rows: 5,
         }),
       ],
-    })
+    });
     function handleSubmit(values) {
-      console.log('Values Submitted', values)
+      console.log('Values Submitted', values);
     }
     function valueChanged(values) {
-      Object.assign(formValues, values)
+      Object.assign(formValues, values);
     }
     function handleError(errors) {
       // eslint-disable-next-line no-undef
-      alert(errors)
+      alert(errors);
     }
 
     return {
@@ -114,18 +108,8 @@ export default {
       valueChanged,
       formValues,
       handleError,
-    }
+    };
   },
-}
+});
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="scss"></style>
