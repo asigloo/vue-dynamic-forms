@@ -19,3 +19,4 @@ yarn.lock
 /coverage
 /.vscode
 /tests
+/temp
