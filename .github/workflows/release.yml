@@ -21,8 +21,6 @@ jobs:
         run: npm run build
       - name: Build Types Declarations
         run: npm run build:dts
-      - name: Run tests
-        run: npm run test
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
