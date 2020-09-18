@@ -18,6 +18,8 @@ jobs:
         run: npm ci
       - name: Build Library
         run: npm run build
+      - name: Build Types Declarations
+        run: npm run build:dts
       - name: Run tests
         run: npm run test
       - name: Release
