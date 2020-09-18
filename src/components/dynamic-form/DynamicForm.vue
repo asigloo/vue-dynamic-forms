@@ -27,10 +27,9 @@ import {
   watch,
 } from 'vue';
 import { DynamicForm } from './form';
-import DynamicInput from '@/components/dynamic-input/DynamicInput.vue';
-import TestComponent from '@/components/TestComponent.vue';
+import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
-import { InputBase, FormControl } from '@/core/models';
+import { InputBase, FormControl } from '../../core/models';
 
 const props = {
   form: {
@@ -41,7 +40,6 @@ const props = {
 
 const components = {
   DynamicInput,
-  TestComponent,
 };
 
 export default defineComponent({
@@ -92,7 +90,6 @@ export default defineComponent({
             ? new FormControl({ ...field, value: null })
             : new FormControl({ ...field }),
         ) || [];
-      console.log('mapControls', controls.value);
     }
 
     function resetForm() {

@@ -31,12 +31,11 @@ import { defineComponent, onMounted, reactive, ref } from 'vue';
 import {
   TextInput,
   SelectInput,
-  DynamicForm,
   EmailInput,
   FormValidation,
   PasswordInput,
   TextAreaInput,
-} from '../../dist/as-dynamic-forms.common';
+} from '../../dist/as-dynamic-forms.esm';
 import { email, pattern } from '@/core/utils';
 
 export default defineComponent({
@@ -44,7 +43,7 @@ export default defineComponent({
   setup() {
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
-    const form = reactive<DynamicForm>({
+    const form = reactive<any>({
       id: 'example-form',
       fields: [
         new TextInput({
