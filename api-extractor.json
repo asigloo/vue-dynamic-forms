@@ -14,7 +14,7 @@
 
     "dtsRollup": {
       "enabled": true,
-      "untrimmedFilePath": "./dist/as-dynamics-form.d.ts"
+      "untrimmedFilePath": "./dist/as-dynamic-forms.d.ts"
     },
 
     "tsdocMetadata": {
