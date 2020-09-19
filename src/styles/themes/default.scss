@@ -58,6 +58,11 @@ $input-error-color: #dc3545 !default;
     order: 2;
   }
 
+  &--inline {
+    flex-direction: row;
+    align-items: center;
+  }
+
   &--error {
     .form-label {
       color: $input-error-color;
@@ -120,4 +125,15 @@ $input-error-color: #dc3545 !default;
       box-shadow: $input-focus-box-shadow;
     }
   }
+}
+
+.checkbox-control,
+.radio-control {
+  margin-right: 1rem;
+}
+
+.checkbox-label,
+.radio-label {
+  user-select: none;
+  font-size: 0.85rem;
 }

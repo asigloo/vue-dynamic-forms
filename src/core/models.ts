@@ -83,6 +83,14 @@ export class TextAreaInput extends InputBase<string> {
   type = 'textarea';
 }
 
+export class CheckboxInput extends InputBase<boolean> {
+  type = 'checkbox';
+}
+
+export class RadioInput extends InputBase<boolean> {
+  type = 'radio';
+}
+
 export class FormControl<T> extends InputBase<T> {
   valid = true;
   invalid = false;

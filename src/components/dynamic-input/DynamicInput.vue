@@ -5,6 +5,8 @@ import { defineComponent, PropType, computed, h } from 'vue';
 import TextInput from '../text-input/TextInput.vue';
 import SelectInput from '../select-input/SelectInput.vue';
 import TextAreaInput from '../text-area-input/TextAreaInput.vue';
+import CheckboxInput from '../checkbox-input/CheckboxInput.vue';
+import RadioInput from '../radio-input/RadioInput.vue';
 
 import { FormControl } from '../../core/models';
 import { isEmpty, entries, values, keys } from '../../core/utils/helpers';
@@ -13,6 +15,8 @@ const components = {
   TextInput,
   SelectInput,
   TextAreaInput,
+  CheckboxInput,
+  RadioInput,
 };
 
 const props = {
@@ -32,6 +36,9 @@ export default defineComponent({
       return [
         'dynamic-input',
         'form-group',
+        {
+          'form-group--inline': props?.control?.type === 'checkbox',
+        },
         {
           'form-group--error': showErrors.value,
         },
@@ -103,6 +110,9 @@ export default defineComponent({
       };
     });
 
+    const hasLabel = computed(() => props?.control?.type !== 'checkbox');
+    const isFieldSet = computed(() => props?.control?.type === 'radio');
+
     return () => {
       switch (props?.control?.type) {
         case 'text':
@@ -117,24 +127,32 @@ export default defineComponent({
         case 'textarea':
           component = h(TextAreaInput, attributes.value);
           break;
-
+        case 'checkbox':
+          component = h(CheckboxInput, attributes.value);
+          break;
+        case 'radio':
+          component = h(RadioInput, attributes.value);
+          break;
         default:
           break;
       }
       return h(
-        'div',
+        isFieldSet.value ? 'fieldset' : 'div',
         {
           class: getClasses.value,
+          role: isFieldSet.value ? undefined : 'group',
         },
         [
-          h(
-            'label',
-            {
-              class: 'form-label',
-              for: props?.control?.label,
-            },
-            props?.control?.label,
-          ),
+          hasLabel.value
+            ? h(
+                isFieldSet.value ? 'legend' : 'label',
+                {
+                  class: 'form-label',
+                  for: props?.control?.label,
+                },
+                props?.control?.label,
+              )
+            : null,
           component,
           h(
             'div',
