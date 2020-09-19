@@ -36,6 +36,7 @@ import {
   PasswordInput,
   TextAreaInput,
   CheckboxInput,
+  RadioInput,
 } from '../../src';
 import { email, pattern } from '@/core/utils';
 
@@ -92,6 +93,29 @@ export default defineComponent({
         new CheckboxInput({
           label: "Check  if you're awesome",
           name: 'awesomness',
+        }),
+        new RadioInput({
+          label: 'Select one option',
+          name: 'character',
+          options: [
+            {
+              key: 'mario',
+              value: 'Mario',
+            },
+            {
+              key: 'crash-bandicoot',
+              value: 'Crash Bandicoot',
+            },
+            {
+              key: 'sonic',
+              value: 'Sonic',
+            },
+            {
+              key: 'banjo-kazooie',
+              value: 'Banjo Kazooie',
+              disabled: true,
+            },
+          ],
         }),
       ],
     });
