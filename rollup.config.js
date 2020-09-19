@@ -6,7 +6,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import ts from 'rollup-plugin-typescript2';
-import VuePlugin from 'rollup-plugin-vue';
+import vue from 'rollup-plugin-vue';
 
 import pkg from './package.json';
 const name = 'as-dynamic-forms';
@@ -89,8 +89,8 @@ function createConfig(format, output, plugins = []) {
     // used alone.
     external,
     plugins: [
-      VuePlugin(/* VuePluginOptions */),
       tsPlugin,
+      vue(),
       createReplacePlugin(
         isProductionBuild,
         isBundlerESMBuild,

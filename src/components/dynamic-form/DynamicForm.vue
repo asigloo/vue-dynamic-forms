@@ -8,7 +8,7 @@
   >
     <dynamic-input
       v-for="control in controls"
-      :key="control?.name"
+      :key="control.name"
       :control="control"
       @changed="valueChange"
     />
