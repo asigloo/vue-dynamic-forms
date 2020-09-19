@@ -35,7 +35,8 @@ import {
   FormValidation,
   PasswordInput,
   TextAreaInput,
-} from '../../dist/as-dynamic-forms.esm';
+  CheckboxInput,
+} from '../../src';
 import { email, pattern } from '@/core/utils';
 
 export default defineComponent({
@@ -88,6 +89,10 @@ export default defineComponent({
           cols: 20,
           rows: 5,
         }),
+        new CheckboxInput({
+          label: "Check  if you're awesome",
+          name: 'awesomness',
+        }),
       ],
     });
     function handleSubmit(values) {
@@ -99,12 +104,7 @@ export default defineComponent({
     function handleError(errors) {
       console.error(errors);
     }
-    onMounted(() =>
-      setTimeout(() => {
-        form.fields[0].label = 'RockNRoll';
-        form.fields[0].value = 'James Bond';
-      }, 2000),
-    );
+
     return {
       title,
       form,

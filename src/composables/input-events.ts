@@ -8,6 +8,13 @@ export function useInputEvents(control: FormControl<any> | undefined, emit) {
     }
     emit('changed', $event.target.value);
   }
+  function onCheck($event) {
+    if (control) {
+      control.value = $event.target.checked;
+      control.dirty = true;
+    }
+    emit('changed', $event.target.checked);
+  }
   function onFocus() {
     emit('focus');
   }
@@ -21,5 +28,6 @@ export function useInputEvents(control: FormControl<any> | undefined, emit) {
     onFocus,
     onChange,
     onBlur,
+    onCheck,
   };
 }
