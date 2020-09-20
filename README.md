@@ -1,16 +1,16 @@
 ![Library Banner](https://res.cloudinary.com/alvarosaburido/image/upload/v1589993773/portfolio/web/vue-dynamic-forms/open-graph-preview_kv4glm.png)
 
-# Vue Dynamic Forms
+# Vue `3.x.x` Dynamic Forms
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@asigloo/vue-dynamic-forms">
-    <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms" alt="Current npm version">
+    <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms/next" alt="Current npm version">
   </a>
-  <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms@0.2.0">
-    <img src="https://flat.badgen.net/bundlephobia/min/@asigloo/vue-dynamic-forms" alt="Minified size">
+  <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms@next">
+    <img src="https://flat.badgen.net/bundlephobia/min/@asigloo/vue-dynamic-forms@next" alt="Minified size">
   </a>
   <a href="https://vuejs.org">
-    <img src="https://flat.badgen.net/badge/vue.js/2.6.x/4fc08d?icon=github" alt="Vue.js version">
+    <img src="https://flat.badgen.net/badge/vue.js/3.x.x/4fc08d?icon=github" alt="Vue.js version">
   </a>
 </p>
 
@@ -23,7 +23,11 @@ Especially if you need to create a very large form, in which the inputs are simi
 
 So, wouldn't it be more economical to create the forms dynamically? Based on metadata that describes the business object model?
 
-That's Vue Dynamic Forms.
+That's **Vue Dynamic Forms**.
+
+## Status: Beta
+
+This is the Vue `3.x.x` compatible version. The focus right now is out of the box `Typescript` support, three shakeable, improve accesiility and be lighter in size. For Vue `2.x.x` please use the library tags [0.x](https://github.com/alvarosaburido/vue-dynamic-forms/tree/0.x).
 
 ## Documentation
 
@@ -31,47 +35,37 @@ Complete documentation and examples available at
 
 - **[Documentation](https://vue-dynamic-forms.netlify.app)**
 - **[Sandbox Demo](https://codesandbox.io/s/vue-dynamic-forms-ftzes)**
+- **Migration Guide** (soon)
 
 ## Installation
 
 ```bash
-$ npm install @asigloo/vue-dynamic-forms
+$ npm install @asigloo/vue-dynamic-forms@next
 ```
 
 or if you prefer yarn
 
 ```bash
-$ yarn add @asigloo/vue-dynamic-forms
+$ yarn add @asigloo/vue-dynamic-forms@next
 ```
 
 ## Usage
 
-### Global
+The installation and usage has change to align with new Vue 3 initialization process.
 
-Register the component globally in your `main.js`:
-
-```js
-import Vue from 'vue';
-import VueDynamicForms from '@asigloo/vue-dynamic-forms';
-
-Vue.use(VueDynamicForms);
-```
-
-### Local
-
-You can include the dynamic form directly to your component.
+To create a new `Dynamic Form` instance, use the `createDynamicForms` function;
 
 ```js
-import Vue from 'vue';
-import { DynamicForm } from '@asigloo/vue-dynamic-forms';
+import { createApp } from 'vue';
+import { createDynamicForms } from '@asigloo/vue-dynamic-forms';
 
-const components = { DynamicForm };
+const VueDynamicForms = createDynamicForms({
+  theme: 'material',
+});
 
-export {
-    ...
-    components,
-    ...
-}
+export const app = createApp(App);
+
+app.use(VueDynamicForms);
 ```
 
 ## Development
@@ -92,6 +86,12 @@ yarn run serve
 
 ```
 yarn run build
+```
+
+### Generate types
+
+```
+yarn run build:dts
 ```
 
 ### Run your tests
@@ -118,13 +118,7 @@ If you find this library useful and you want to help improve it, maintain it or 
 
 ## Todolist
 
-This are the features I have planned for next versions of this library
-
-- [x] Material theme
-- [ ] Form Mixins for fields manipulation (for example, change values of a field depending of other)
-- [ ] More complex input types.
-- [x] Nuxt plugin istall
-- [x] Better docs & online examples
+- [] Update docs
 
 ## License
 
