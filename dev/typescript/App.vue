@@ -9,7 +9,25 @@
             @submited="handleSubmit"
             @changed="valueChanged"
             @error="handleError"
-          />
+          >
+            <template
+              v-slot:customField1="{ control, onChange, onFocus, onBlur }"
+            >
+              <div class="avocado-field">
+                <input
+                  v-if="control"
+                  class="form-control"
+                  v-model="control.value"
+                  :type="control.type"
+                  :name="control.name"
+                  @change="onChange"
+                  @focus="onFocus"
+                  @blur="onBlur"
+                />
+                <i>🥑</i>
+              </div>
+            </template>
+          </dynamic-form>
           <button
             class="btn bg-teal-500 text-white hover:bg-teal-700 mt-4"
             submit="true"
@@ -37,6 +55,7 @@ import {
   TextAreaInput,
   CheckboxInput,
   RadioInput,
+  InputBase,
 } from '../../src';
 import { email, pattern } from '@/core/utils';
 
@@ -117,6 +136,11 @@ export default defineComponent({
             },
           ],
         }),
+        new InputBase<string>({
+          type: 'custom-field',
+          label: 'Custom Field',
+          name: 'customField1',
+        }),
       ],
     });
     function handleSubmit(values) {
@@ -140,4 +164,19 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.avocado-field {
+  position: relative;
+
+  .form-control {
+    border-color: #aec64c;
+    background-color: #e2eb5d52;
+    border-radius: 16px;
+  }
+  i {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+  }
+}
+</style>

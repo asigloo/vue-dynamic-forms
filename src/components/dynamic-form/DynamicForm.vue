@@ -11,7 +11,24 @@
       :key="control.name"
       :control="control"
       @changed="valueChange"
-    />
+    >
+      <template v-slot:customField="props">
+        <div
+          v-for="slot in deNormalizedScopedSlots"
+          :key="slot"
+          class="custom-form-wrapper"
+        >
+          <slot
+            v-if="props.control.name === slot"
+            :name="slot"
+            :control="normalizedControls[slot]"
+            :onChange="props.onChange"
+            :onFocus="props.onFocus"
+            :onBlur="props.onBlur"
+          ></slot>
+        </div>
+      </template>
+    </dynamic-input>
   </form>
 </template>
 
@@ -46,7 +63,7 @@ export default defineComponent({
   name: 'asDynamicForm',
   props,
   components,
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const controls: Ref<FormControl<any>[]> = ref([]);
     const formValues = reactive({});
     const submited = ref(false);
@@ -124,6 +141,16 @@ export default defineComponent({
       emit('changed', formValues);
     }
 
+    const deNormalizedScopedSlots = computed(() => Object.keys(slots));
+
+    const normalizedControls = computed(() => {
+      let normalizedControls = {};
+      controls.value.forEach(element => {
+        normalizedControls[element.name] = element;
+      });
+      return normalizedControls;
+    });
+
     watch(props, () => {
       mapControls();
     });
@@ -136,6 +163,9 @@ export default defineComponent({
       handleSubmit,
       isValid,
       errors,
+      deNormalizedScopedSlots,
+      normalizedControls,
+      submited,
     };
   },
 });

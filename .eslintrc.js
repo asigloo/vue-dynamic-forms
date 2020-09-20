@@ -14,6 +14,7 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
+    'vue/valid-v-slot': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-this-alias': [
