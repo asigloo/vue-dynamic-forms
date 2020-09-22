@@ -1,14 +1,17 @@
 import { FormControl } from '@/core/models';
 
-export function useInputEvents(control: FormControl<any> | undefined, emit) {
-  function onChange($event) {
+export function useInputEvents(
+  control: FormControl<any> | undefined,
+  emit: any,
+) {
+  function onChange($event: any) {
     if (control) {
       control.value = $event.target.value;
       control.dirty = true;
     }
     emit('changed', $event.target.value);
   }
-  function onCheck($event) {
+  function onCheck($event: any) {
     if (control) {
       control.value = $event.target.checked;
       control.dirty = true;

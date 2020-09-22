@@ -10,6 +10,7 @@ import RadioInput from '../radio-input/RadioInput.vue';
 
 import { FormControl } from '../../core/models';
 import { isEmpty, entries, values, keys } from '../../core/utils/helpers';
+import { useInputEvents } from '../../composables/input-events';
 
 const components = {
   TextInput,
@@ -29,7 +30,9 @@ export default defineComponent({
   name: 'asDynamicInput',
   components,
   props,
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
+    const { onFocus, onBlur } = useInputEvents(props?.control, emit);
+
     let component;
 
     const getClasses = computed(() => {
@@ -132,6 +135,30 @@ export default defineComponent({
           break;
         case 'radio':
           component = h(RadioInput, attributes.value);
+          break;
+        case 'custom-field':
+          component = h(
+            'slot',
+            {
+              name: 'customField',
+            },
+            slots.customField({
+              control: props.control,
+              onChange: ($event: any) => {
+                const newValue = {};
+                const value = $event.target.value;
+
+                if (props.control) {
+                  props.control.dirty = true;
+                  newValue[props.control.name] = value;
+                  validate();
+                  emit('changed', newValue);
+                }
+              },
+              onFocus,
+              onBlur,
+            }),
+          );
           break;
         default:
           break;
