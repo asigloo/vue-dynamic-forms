@@ -25,6 +25,10 @@ So, wouldn't it be more economical to create the forms dynamically? Based on met
 
 That's Vue Dynamic Forms.
 
+## Vue 3 Compatibility 
+
+This is the Vue 2.x.x compatible version. For Vue 3.x.x please use the library tag [next](https://github.com/alvarosaburido/vue-dynamic-forms/tree/next).
+
 ## Documentation
 
 Complete documentation and examples available at
