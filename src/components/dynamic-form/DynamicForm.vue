@@ -51,8 +51,8 @@ import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
 import { InputBase, FormControl } from '../../core/models';
 import { dynamicFormsSymbol } from '../../useApi';
-import { warn } from '../../core/utils/warning';
-
+/* import { warn } from '../../core/utils/warning';
+ */
 const props = {
   form: {
     type: Object as PropType<DynamicForm>,
@@ -64,8 +64,8 @@ const components = {
   DynamicInput,
 };
 
-const AVAILABLE_THEMES = ['default', 'material'];
-
+/* const AVAILABLE_THEMES = ['default', 'material'];
+ */
 export default defineComponent({
   name: 'asDynamicForm',
   props,
@@ -130,16 +130,20 @@ export default defineComponent({
     });
 
     const formattedOptions = computed(() => {
-      const { customClass, method, netlify, netlifyHoneypot } = options.form;
-      return {
-        class: [
-          customClass,
-          /* validTheme.value ? `theme-${options.theme}` : null, */
-        ].join(' '),
-        method,
-        'data-netlify': netlify,
-        'data-netlify-honeypot': netlifyHoneypot,
-      };
+      if (options?.form) {
+        const { customClass, method, netlify, netlifyHoneypot } = options?.form;
+        return {
+          class: [
+            customClass,
+            /* validTheme.value ? `theme-${options.theme}` : null, */
+          ].join(' '),
+          method,
+          'data-netlify': netlify,
+          'data-netlify-honeypot': netlifyHoneypot,
+        };
+      } else {
+        return;
+      }
     });
 
     function valueChange(changedValue: any) {

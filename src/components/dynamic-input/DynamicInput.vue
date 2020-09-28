@@ -66,7 +66,7 @@ export default defineComponent({
     });
 
     const autoValidate = computed(
-      () => props?.control?.touched && options.autoValidate,
+      () => props?.control?.touched && options?.autoValidate,
     );
 
     const showErrors = computed(() => {
