@@ -12,7 +12,7 @@ import pkg from './package.json';
 const name = 'as-dynamic-forms';
 
 const banner = `/*!
- * ${pkg.name} v${pkg.version}
+ * ${pkg.name} v1.x.x
  * (c) ${new Date().getFullYear()} Alvaro Saburido
  * @license MIT
  */`;
