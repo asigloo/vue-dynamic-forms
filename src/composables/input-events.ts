@@ -4,24 +4,24 @@ export function useInputEvents(
   control: FormControl<any> | undefined,
   emit: any,
 ) {
-  function onChange($event: any) {
+  function onChange($event: any): void {
     if (control) {
       control.value = $event.target.value;
       control.dirty = true;
     }
     emit('changed', $event.target.value);
   }
-  function onCheck($event: any) {
+  function onCheck($event: any): void {
     if (control) {
       control.value = $event.target.checked;
       control.dirty = true;
     }
     emit('changed', $event.target.checked);
   }
-  function onFocus() {
+  function onFocus(): void {
     emit('focus');
   }
-  function onBlur() {
+  function onBlur(): void {
     emit('blur');
     if (control) {
       control.touched = true;
