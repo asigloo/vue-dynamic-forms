@@ -1,21 +1,25 @@
-name: ci
-
+name: Release
 on:
-  pull_request:
-    branches:
-      - master,
-      - next
-
+  push:
+    branches: [$default-branch, next]
 jobs:
-  test-and-release:
-    name: Run tests
+  release:
+    name: Run test and Release
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 12
       - name: Install dependencies
         run: npm ci
+      - name: Build Library
+        run: npm run build
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          CI: true
+        run: npm run semantic-release

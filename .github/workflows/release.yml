@@ -1,16 +1,14 @@
 name: Release
 on:
   push:
-    branches:
-      - master,
-      - next
+    branches: [$default-branch, next]
 jobs:
   release:
     name: Run test and Release
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -19,8 +17,6 @@ jobs:
         run: npm ci
       - name: Build Library
         run: npm run build
-      - name: Build Types Declarations
-        run: npm run build:dts
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
