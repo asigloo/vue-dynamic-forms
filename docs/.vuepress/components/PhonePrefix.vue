@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { DynamicForm, FormField } from '../../../dist/as-dynamic-forms.common';
+import { DynamicForm, FormField } from '../../../dist/as-dynamic-forms.esm';
 import COUNTRY_CODES from '../data/countryCodes';
 
 export default {

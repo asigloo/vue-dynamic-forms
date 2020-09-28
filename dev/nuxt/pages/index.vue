@@ -51,7 +51,7 @@ import {
   pattern,
   maxLength,
   url,
-  /* } from '../dist/as-dynamic-forms.common'; */
+  /* } from '../dist/as-dynamic-forms.esm'; */
 } from '@asigloo/vue-dynamic-forms'
 
 const data = () => ({

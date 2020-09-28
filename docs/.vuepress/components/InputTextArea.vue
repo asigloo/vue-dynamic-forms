@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { DynamicForm, FormField } from '../../../dist/as-dynamic-forms.common';
+import { DynamicForm, FormField } from '../../../dist/as-dynamic-forms.esm';
 
 export default {
   name: 'InputTextAreaDemo',

@@ -37,7 +37,7 @@ import {
   FormValidation,
   email,
   FormOptions,
-} from '../../../dist/as-dynamic-forms.common';
+} from '../../../dist/as-dynamic-forms.esm';
 
 export default {
   name: 'SlotCustomField',

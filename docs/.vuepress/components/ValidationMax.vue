@@ -24,7 +24,7 @@ import {
   FormOptions,
   FormValidation,
   max,
-} from '../../../dist/as-dynamic-forms.common';
+} from '../../../dist/as-dynamic-forms.esm';
 
 const MAX_VALUE = 5;
 
