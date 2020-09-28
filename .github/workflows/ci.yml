@@ -1,6 +1,6 @@
 name: CI
 on:
-   pull_request:
+  pull_request:
     branches:
       - main
       - next
@@ -17,3 +17,9 @@ jobs:
           node-version: 12
       - name: Install dependencies
         run: npm ci
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          CI: true
+        run: npm run semantic-release --dry-run
