@@ -27,7 +27,7 @@
 
 <script>
 import vSelect from 'vue-select';
-import { DynamicForm, FormField } from '../../../dist/as-dynamic-forms.common';
+import { DynamicForm, FormField } from '../../../dist/as-dynamic-forms.esm';
 import BOOKS from '../data/books';
 
 export default {

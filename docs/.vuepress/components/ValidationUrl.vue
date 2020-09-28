@@ -25,7 +25,7 @@ import {
   FormOptions,
   FormValidation,
   url,
-} from '../../../dist/as-dynamic-forms.common';
+} from '../../../dist/as-dynamic-forms.esm';
 
 export default {
   name: 'ValidationUrlDemo',
