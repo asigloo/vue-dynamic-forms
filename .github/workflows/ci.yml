@@ -2,9 +2,7 @@ name: ci
 
 on:
   pull_request:
-    branches:
-      - master
-      - dev
+    branches: [$default-branch, next]
 
 jobs:
   test-and-release:
@@ -12,7 +10,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
