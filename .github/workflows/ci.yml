@@ -1,12 +1,12 @@
-name: Release
+name: CI
 on:
-  push:
+   pull_request:
     branches:
       - main
       - next
 jobs:
-  release:
-    name: Run test and Release
+  check:
+    name: Check stuff
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
