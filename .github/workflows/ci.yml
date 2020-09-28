@@ -3,7 +3,7 @@ name: ci
 on:
   pull_request:
     branches:
-      - 0.x
+      - master,
       - next
 
 jobs:
