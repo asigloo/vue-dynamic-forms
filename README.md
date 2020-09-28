@@ -59,9 +59,7 @@ To create a new `Dynamic Form` instance, use the `createDynamicForms` function;
 import { createApp } from 'vue';
 import { createDynamicForms } from '@asigloo/vue-dynamic-forms';
 
-const VueDynamicForms = createDynamicForms({
-  theme: 'material',
-});
+const VueDynamicForms = createDynamicForms({});
 
 export const app = createApp(App);
 
