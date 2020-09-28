@@ -1,6 +1,6 @@
 export const { assign, entries, values, keys } = Object;
 
-export const slugify = (text: string) =>
+export const slugify = (text: string): string =>
   text
     .toString()
     .toLowerCase()

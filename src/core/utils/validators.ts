@@ -1,13 +1,15 @@
-export const isEmptyInputValue = value =>
+import { FormControl } from '../models';
+
+export const isEmptyInputValue = (value: any) =>
   value == null || value === '' || value.length === 0;
 
 const EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
 const URL_REGEXP = /^((?:(https?):\/\/)?((?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9]))|(?:(?:(?:\w+\.){1,2}[\w]{2,3})))(?::(\d+))?((?:\/[\w]+)*)(?:\/|(\/[\w]+\.[\w]{3,4})|(\?(?:([\w]+=[\w]+)&)*([\w]+=[\w]+))?|\?(?:(wsdl|wadl))))$/;
 
-export const required = control =>
+export const required = (control: FormControl<any>) =>
   isEmptyInputValue(control.value) ? { required: true } : null;
 
-export const min = min => control => {
+export const min = (min: number) => (control: FormControl<any>) => {
   if (isEmptyInputValue(control.value) || isEmptyInputValue(min)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -18,7 +20,7 @@ export const min = min => control => {
     : null;
 };
 
-export const max = max => control => {
+export const max = (max: number) => (control: FormControl<any>) => {
   if (isEmptyInputValue(control.value) || isEmptyInputValue(max)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -30,21 +32,21 @@ export const max = max => control => {
     : null;
 };
 
-export const email = control => {
+export const email = (control: FormControl<any>) => {
   if (isEmptyInputValue(control.value)) {
     return null; // don't validate empty values to allow optional controls
   }
   return EMAIL_REGEXP.test(control.value) ? null : { email: true };
 };
 
-export const url = control => {
+export const url = (control: FormControl<any>) => {
   if (isEmptyInputValue(control.value)) {
     return null; // don't validate empty values to allow optional controls
   }
   return URL_REGEXP.test(control.value) ? null : { email: true };
 };
 
-export const minLength = minLength => control => {
+export const minLength = (minLength: number) => (control: FormControl<any>) => {
   if (isEmptyInputValue(control.value)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -54,7 +56,7 @@ export const minLength = minLength => control => {
     : null;
 };
 
-export const maxLength = maxLength => control => {
+export const maxLength = (maxLength: number) => (control: FormControl<any>) => {
   const length = control.value ? control.value.length : 0;
   return length > maxLength
     ? { maxlength: { requiredLength: maxLength, actualLength: length } }

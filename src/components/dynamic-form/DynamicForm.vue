@@ -4,12 +4,14 @@
     novalidate
     :id="form.id"
     :name="form.id"
+    v-bind="formattedOptions"
     @submit.prevent="handleSubmit"
   >
     <dynamic-input
       v-for="control in controls"
       :key="control.name"
       :control="control"
+      :submited="submited"
       @changed="valueChange"
     >
       <template v-slot:customField="props">
@@ -42,11 +44,14 @@ import {
   computed,
   onMounted,
   watch,
+  inject,
 } from 'vue';
 import { DynamicForm } from './form';
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
 import { InputBase, FormControl } from '../../core/models';
+import { dynamicFormsSymbol } from '../../useApi';
+import { warn } from '../../core/utils/warning';
 
 const props = {
   form: {
@@ -59,11 +64,15 @@ const components = {
   DynamicInput,
 };
 
+const AVAILABLE_THEMES = ['default', 'material'];
+
 export default defineComponent({
   name: 'asDynamicForm',
   props,
   components,
-  setup(props, { emit, slots }) {
+  setup(props, ctx) {
+    const { options } = inject(dynamicFormsSymbol);
+
     const controls: Ref<FormControl<any>[]> = ref([]);
     const formValues = reactive({});
     const submited = ref(false);
@@ -71,6 +80,31 @@ export default defineComponent({
     onMounted(() => {
       mapControls();
       initValues();
+    });
+    //  TODO: enable again when plugin theme option is available
+
+    /* const validTheme = computed(
+      () => options.theme && AVAILABLE_THEMES.includes(options.theme),
+    );
+
+    if (!validTheme.value) {
+      warn(
+        `There isn't a theme: ${
+          options.theme
+        } just yet, please choose one of the available themes: ${AVAILABLE_THEMES.join(
+          ', ',
+        )}`,
+      );
+    } */
+
+    const deNormalizedScopedSlots = computed(() => Object.keys(ctx.slots));
+
+    const normalizedControls = computed(() => {
+      let normalizedControls = {};
+      controls.value.forEach(element => {
+        normalizedControls[element.name] = element;
+      });
+      return normalizedControls;
     });
 
     const isValid = computed(() => {
@@ -95,9 +129,22 @@ export default defineComponent({
         : {};
     });
 
+    const formattedOptions = computed(() => {
+      const { customClass, method, netlify, netlifyHoneypot } = options.form;
+      return {
+        class: [
+          customClass,
+          /* validTheme.value ? `theme-${options.theme}` : null, */
+        ].join(' '),
+        method,
+        'data-netlify': netlify,
+        'data-netlify-honeypot': netlifyHoneypot,
+      };
+    });
+
     function valueChange(changedValue: any) {
       Object.assign(formValues, changedValue);
-      emit('changed', formValues);
+      ctx.emit('changed', formValues);
     }
 
     function mapControls(empty?) {
@@ -116,10 +163,10 @@ export default defineComponent({
     function handleSubmit() {
       submited.value = true;
       if (isValid.value) {
-        emit('submited', formValues);
+        ctx.emit('submited', formValues);
         resetForm();
       } else {
-        emit('error', formValues);
+        ctx.emit('error', formValues);
       }
     }
 
@@ -138,18 +185,8 @@ export default defineComponent({
             }, {})
           : {},
       );
-      emit('changed', formValues);
+      ctx.emit('changed', formValues);
     }
-
-    const deNormalizedScopedSlots = computed(() => Object.keys(slots));
-
-    const normalizedControls = computed(() => {
-      let normalizedControls = {};
-      controls.value.forEach(element => {
-        normalizedControls[element.name] = element;
-      });
-      return normalizedControls;
-    });
 
     watch(props, () => {
       mapControls();
@@ -166,9 +203,8 @@ export default defineComponent({
       deNormalizedScopedSlots,
       normalizedControls,
       submited,
+      formattedOptions,
     };
   },
 });
 </script>
-
-<style></style>

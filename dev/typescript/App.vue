@@ -56,8 +56,9 @@ import {
   CheckboxInput,
   RadioInput,
   InputBase,
+  email,
+  pattern,
 } from '../../src';
-import { email, pattern } from '@/core/utils';
 
 export default defineComponent({
   name: 'app',

@@ -34,9 +34,10 @@ import {
   EmailInput,
   FormValidation,
   PasswordInput,
+  email,
+  pattern,
   TextAreaInput,
-} from '../../dist/as-dynamic-forms.esm';
-import { email, pattern } from '@/core/utils';
+} from '../../src';
 
 export default defineComponent({
   name: 'app',

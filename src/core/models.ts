@@ -127,3 +127,10 @@ export class FormControl<T> extends InputBase<T> {
     });
   }
 }
+
+export interface FormOptions {
+  customClass?: string;
+  method?: string;
+  netlify?: boolean;
+  netlifyHoneypot?: string;
+}
