@@ -57,7 +57,7 @@
     "semantic-release": "17.1.1",
     "bootstrap": "4.5.0",
     "core-js": "3.6.5",
-    "sass-resources-loader": "2.0.3",
+    "sass-resources-loader": "2.1.1",
     "vue": "2.6.11"
   }
 }
