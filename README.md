@@ -6,7 +6,7 @@
   <a href="https://www.npmjs.com/package/@asigloo/vue-dynamic-forms">
     <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms/next" alt="Current npm version">
   </a>
-  <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms@next">
+  <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms">
     <img src="https://flat.badgen.net/bundlephobia/min/@asigloo/vue-dynamic-forms@next" alt="Minified size">
   </a>
   <a href="https://vuejs.org">
@@ -59,9 +59,7 @@ To create a new `Dynamic Form` instance, use the `createDynamicForms` function;
 import { createApp } from 'vue';
 import { createDynamicForms } from '@asigloo/vue-dynamic-forms';
 
-const VueDynamicForms = createDynamicForms({
-  theme: 'material',
-});
+const VueDynamicForms = createDynamicForms({});
 
 export const app = createApp(App);
 

@@ -5,7 +5,6 @@ on:
     branches:
       - 0.x
       - next
-      - dev
 
 jobs:
   test-and-release:
