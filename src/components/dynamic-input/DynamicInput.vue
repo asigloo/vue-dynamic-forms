@@ -1,7 +1,7 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { defineComponent, PropType, computed, h } from 'vue';
+import { defineComponent, PropType, computed, h, inject } from 'vue';
 import TextInput from '../text-input/TextInput.vue';
 import SelectInput from '../select-input/SelectInput.vue';
 import TextAreaInput from '../text-area-input/TextAreaInput.vue';
@@ -11,6 +11,7 @@ import RadioInput from '../radio-input/RadioInput.vue';
 import { FormControl } from '../../core/models';
 import { isEmpty, entries, values, keys } from '../../core/utils/helpers';
 import { useInputEvents } from '../../composables/input-events';
+import { dynamicFormsSymbol } from '../../useApi';
 
 const components = {
   TextInput,
@@ -25,6 +26,10 @@ const props = {
     type: Object as PropType<FormControl<any>>,
     required: true,
   },
+  submited: {
+    type: Boolean,
+    required: true,
+  },
 };
 export default defineComponent({
   name: 'asDynamicInput',
@@ -32,8 +37,19 @@ export default defineComponent({
   props,
   setup(props, { emit, slots }) {
     const { onFocus, onBlur } = useInputEvents(props?.control, emit);
+    const { options } = inject(dynamicFormsSymbol);
 
     let component;
+
+    const attributes = computed(() => {
+      return {
+        control: props.control,
+        onChanged: valueChange,
+      };
+    });
+
+    const hasLabel = computed(() => props?.control?.type !== 'checkbox');
+    const isFieldSet = computed(() => props?.control?.type === 'radio');
 
     const getClasses = computed(() => {
       return [
@@ -49,8 +65,16 @@ export default defineComponent({
       ];
     });
 
+    const autoValidate = computed(
+      () => props?.control?.touched && options.autoValidate,
+    );
+
     const showErrors = computed(() => {
-      return props?.control?.errors && keys(props?.control?.errors).length > 0;
+      return (
+        props?.control?.errors &&
+        keys(props?.control?.errors).length > 0 &&
+        (props.submited || autoValidate.value)
+      );
       /* props.control.errors &&
         Object.keys(props.control.errors).length > 0 &&
         (this.submited || this.autoValidate) */
@@ -58,7 +82,7 @@ export default defineComponent({
 
     const errorMessages = computed(() => {
       const errors = values(props?.control?.errors || {});
-      if (errors.length > 0) {
+      if (errors.length > 0 && (props.submited || autoValidate.value)) {
         return errors.map(value => value.text);
       }
       return [];
@@ -93,7 +117,6 @@ export default defineComponent({
         }, {});
         props.control.errors = validation;
         props.control.valid = Object.keys(validation).length === 0;
-        console.log(props.control);
       }
     }
 
@@ -105,16 +128,6 @@ export default defineComponent({
         emit('changed', newValue);
       }
     }
-
-    const attributes = computed(() => {
-      return {
-        control: props.control,
-        onChanged: valueChange,
-      };
-    });
-
-    const hasLabel = computed(() => props?.control?.type !== 'checkbox');
-    const isFieldSet = computed(() => props?.control?.type === 'radio');
 
     return () => {
       switch (props?.control?.type) {

@@ -1,9 +1,11 @@
 import { App } from 'vue';
 import { dynamicFormsSymbol } from './useApi';
 import DynamicForm from './components/dynamic-form/DynamicForm.vue';
+import { FormOptions } from './core/models';
 
 export interface DynamicFormsOptions {
-  theme?: string;
+  autoValidate?: boolean;
+  form?: FormOptions;
 }
 
 export interface DynamicFormsPlugin {
