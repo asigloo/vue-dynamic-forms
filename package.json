@@ -16,7 +16,7 @@
   },
   "release": {
     "branches": [
-      "master",
+      "0.x",
       "next"
     ]
   },
