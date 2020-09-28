@@ -24,7 +24,7 @@ import {
   FormOptions,
   FormValidation,
   required,
-} from '../../../dist/as-dynamic-forms.common';
+} from '../../../dist/as-dynamic-forms.esm';
 
 export default {
   name: 'ValidationRequiredDemo',
