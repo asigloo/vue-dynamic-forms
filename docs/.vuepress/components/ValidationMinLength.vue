@@ -24,7 +24,7 @@ import {
   FormOptions,
   FormValidation,
   minLength,
-} from '../../../dist/as-dynamic-forms.common';
+} from '../../../dist/as-dynamic-forms.esm';
 
 const MIN_VALUE = 7;
 

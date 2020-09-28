@@ -65,8 +65,8 @@ import {
   pattern,
   maxLength,
   url,
-  /* } from '../dist/as-dynamic-forms.common'; */
-} from '@/index';
+} from '../../dist/as-dynamic-forms.esm';
+/* } from '@/index'; */
 
 const data = () => ({
   formData: {},
