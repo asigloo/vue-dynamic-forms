@@ -1,7 +1,9 @@
 name: Release
 on:
   push:
-    branches: [$default-branch, next]
+    branches:
+      - main
+      - next
 jobs:
   release:
     name: Run test and Release
@@ -17,6 +19,8 @@ jobs:
         run: npm ci
       - name: Build Library
         run: npm run build
+      - name: Build Types Declarations
+        run: npm run build:dts
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
