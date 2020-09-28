@@ -53,7 +53,7 @@
     "sass-loader": "9.0.3",
     "vue-select": "3.10.7",
     "vue-template-compiler": "2.6.11",
-    "vuepress": "1.5.3",
+    "vuepress": "1.6.0",
     "semantic-release": "17.1.1",
     "bootstrap": "4.5.0",
     "core-js": "3.6.5",
