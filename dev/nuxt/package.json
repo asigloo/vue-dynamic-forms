@@ -10,7 +10,7 @@
     "serve": "nuxt serve"
   },
   "dependencies": {
-    "@asigloo/vue-dynamic-forms": "0.4.5",
+    "@asigloo/vue-dynamic-forms": "0.4.6",
     "nuxt": "2.13.3"
   },
   "devDependencies": {

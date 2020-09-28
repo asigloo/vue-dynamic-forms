@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@asigloo/vue-dynamic-forms@0.4.5":
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/@asigloo/vue-dynamic-forms/-/vue-dynamic-forms-0.4.5.tgz#85e9eb59315db607f382b0f4801fca2c8a08b19e"
-  integrity sha512-zLhG9APWnXJxUgF1Wv/lFkA6t7W/LcnpktkS+iI7XGjp1TJ0+znqy/2pROEr0RqdKy9k0eCbuPCIUCwO/mKYFA==
+"@asigloo/vue-dynamic-forms@0.4.6":
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/@asigloo/vue-dynamic-forms/-/vue-dynamic-forms-0.4.6.tgz#ace391bb5d36e51eb735e62787864bf404c54ce5"
+  integrity sha512-/2aknO32SLqy6r4HbCAki89kvhT6uFl2gu8xnajmWW5tjKGTa5/5eOGSqGrVJRTnfAvSsSMci1SQ/awf4NO/tw==
   dependencies:
     bootstrap "^4.5.0"
     core-js "^3.6.5"
