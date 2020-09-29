@@ -71,6 +71,14 @@ export class EmailInput extends InputBase<string> {
   type = 'email';
 }
 
+export class NumberInput extends InputBase<number> {
+  type = 'number';
+}
+
+export class UrlInput extends InputBase<string> {
+  type = 'url';
+}
+
 export class PasswordInput extends InputBase<string> {
   type = 'password';
 }
