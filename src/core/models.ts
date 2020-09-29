@@ -31,6 +31,9 @@ export class InputBase<T> {
   options?: { key: string; value: string; disabled?: boolean }[];
   cols?: number;
   rows?: number;
+  min?: number;
+  max?: number;
+  step?: number;
 
   constructor(
     options: {
@@ -46,6 +49,9 @@ export class InputBase<T> {
       options?: { key: string; value: string; disabled?: boolean }[];
       cols?: number;
       rows?: number;
+      min?: number;
+      max?: number;
+      step?: number;
     } = {},
   ) {
     this.value = options.value;
@@ -60,6 +66,9 @@ export class InputBase<T> {
     this.options = options.options;
     this.rows = options.rows || 0;
     this.cols = options.cols || 0;
+    this.min = options.min || 0;
+    this.max = options.max || 0;
+    this.step = options.step || 0;
   }
 }
 
@@ -122,6 +131,9 @@ export class FormControl<T> extends InputBase<T> {
       options?: { key: string; value: string; disabled?: boolean }[];
       cols?: number;
       rows?: number;
+      min?: number;
+      max?: number;
+      step?: number;
     } = {},
   ) {
     super({
@@ -136,6 +148,9 @@ export class FormControl<T> extends InputBase<T> {
       options: options.options,
       rows: options.rows,
       cols: options.cols,
+      min: options.min,
+      max: options.max,
+      step: options.step,
     });
   }
 }

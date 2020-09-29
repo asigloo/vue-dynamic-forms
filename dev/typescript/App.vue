@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue';
+import { defineComponent, reactive, ref } from 'vue';
 import {
   TextInput,
   SelectInput,
@@ -59,8 +59,9 @@ import {
   email,
   pattern,
   ColorInput,
+  NumberInput,
 } from '../../src';
-
+/* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
   name: 'app',
   setup() {
@@ -88,9 +89,16 @@ export default defineComponent({
             ),
           ],
         }),
+        new NumberInput({
+          label: 'Number',
+          min: 5,
+          max: 60,
+          step: 5,
+        }),
         new SelectInput<string>({
           label: 'Games',
           customClass: 'w-1/2',
+          value: 'the-last-of-us',
           options: [
             {
               key: 'the-last-of-us',

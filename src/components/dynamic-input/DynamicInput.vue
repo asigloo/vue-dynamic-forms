@@ -7,6 +7,7 @@ import SelectInput from '../select-input/SelectInput.vue';
 import TextAreaInput from '../text-area-input/TextAreaInput.vue';
 import CheckboxInput from '../checkbox-input/CheckboxInput.vue';
 import RadioInput from '../radio-input/RadioInput.vue';
+import NumberInput from '../number-input/NumberInput.vue';
 
 import { FormControl } from '../../core/models';
 import { isEmpty, entries, values, keys } from '../../core/utils/helpers';
@@ -19,6 +20,7 @@ const components = {
   TextAreaInput,
   CheckboxInput,
   RadioInput,
+  NumberInput,
 };
 
 const props = {
@@ -137,6 +139,9 @@ export default defineComponent({
         case 'url':
         case 'color':
           component = h(TextInput, attributes.value);
+          break;
+        case 'number':
+          component = h(NumberInput, attributes.value);
           break;
         case 'select':
           component = h(SelectInput, attributes.value);
