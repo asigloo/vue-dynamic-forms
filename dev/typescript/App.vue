@@ -58,6 +58,7 @@ import {
   InputBase,
   email,
   pattern,
+  ColorInput,
 } from '../../src';
 
 export default defineComponent({
@@ -141,6 +142,11 @@ export default defineComponent({
           type: 'custom-field',
           label: 'Custom Field',
           name: 'customField1',
+        }),
+        new ColorInput({
+          label: 'Color',
+          name: 'color',
+          value: '#4DBA87',
         }),
       ],
     });

@@ -135,6 +135,7 @@ export default defineComponent({
         case 'email':
         case 'password':
         case 'url':
+        case 'color':
           component = h(TextInput, attributes.value);
           break;
         case 'select':

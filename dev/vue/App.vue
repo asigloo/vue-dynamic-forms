@@ -37,6 +37,7 @@ import {
   email,
   pattern,
   TextAreaInput,
+  ColorInput,
 } from '../../src';
 
 export default defineComponent({
@@ -88,6 +89,10 @@ export default defineComponent({
           label: 'Bio',
           cols: 20,
           rows: 5,
+        }),
+        new ColorInput({
+          label: 'Color',
+          value: '#4DBA87',
         }),
       ],
     });
