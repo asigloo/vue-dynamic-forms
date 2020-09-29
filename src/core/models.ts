@@ -91,6 +91,10 @@ export class RadioInput extends InputBase<boolean> {
   type = 'radio';
 }
 
+export class ColorInput extends InputBase<string> {
+  type = 'color';
+}
+
 export class FormControl<T> extends InputBase<T> {
   valid = true;
   invalid = false;
