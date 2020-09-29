@@ -18,7 +18,7 @@ export default defineComponent({
       );
 
       const options = props?.control?.options?.map(({ key, value, disabled }) =>
-        h('option', { key, value, disabled }, value),
+        h('option', { key, value: key, disabled }, value),
       );
       return h(
         'select',
