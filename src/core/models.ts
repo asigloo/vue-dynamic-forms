@@ -67,8 +67,8 @@ export class InputBase<T> {
     this.rows = options.rows || 0;
     this.cols = options.cols || 0;
     this.min = options.min || 0;
-    this.max = options.max || 0;
-    this.step = options.step || 0;
+    this.max = options.max || 100;
+    this.step = options.step || 1;
   }
 }
 
