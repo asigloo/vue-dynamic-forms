@@ -8,7 +8,7 @@ const props = {
 };
 
 export default defineComponent({
-  name: 'asTextInput',
+  name: 'asNumberInput',
   props,
   setup(props, { emit }) {
     const { onChange, onFocus, onBlur } = useInputEvents(props?.control, emit);
@@ -21,6 +21,9 @@ export default defineComponent({
         placeholder: props?.control?.placeholder,
         class: ['form-control'],
         value: props?.control?.value,
+        min: props?.control?.min,
+        max: props?.control?.max,
+        step: props?.control?.step,
         onFocus,
         onBlur,
         onChange,
