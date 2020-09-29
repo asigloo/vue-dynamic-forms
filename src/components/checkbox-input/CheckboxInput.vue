@@ -21,6 +21,7 @@ export default defineComponent({
         disabled: props?.control?.disabled,
         class: ['checkbox-control'],
         value: props?.control?.value,
+        checked: props?.control?.value,
         onFocus,
         onBlur,
         onChange: onCheck,

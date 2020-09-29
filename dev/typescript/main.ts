@@ -4,6 +4,7 @@ import App from './App.vue';
 import './styles/main.scss';
 
 import { createDynamicForms } from '../../src';
+
 // import { createDynamicForms } from '../../dist/as-dynamic-forms.esm';
 
 const VueDynamicForms = createDynamicForms({
