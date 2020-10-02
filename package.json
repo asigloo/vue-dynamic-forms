@@ -1,6 +1,6 @@
 {
   "name": "@asigloo/vue-dynamic-forms",
-  "version": "0.0.0-development",
+  "version": "3.0.0",
   "description": "Easy way to dynamically create reactive forms in vue based on varying business object model",
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
   "license": "MIT",
@@ -17,11 +17,17 @@
   "release": {
     "branches": [
       "+([0-9])?(.{+([0-9]),x}).x",
-      "main",
+      "master",
       "next",
       "next-major",
-      { "name": "beta", "prerelease": true },
-      { "name": "alpha", "prerelease": true }
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
     ]
   },
   "scripts": {

@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - master
       - next
 jobs:
   release:
@@ -21,9 +21,3 @@ jobs:
         run: npm run build
       - name: Build Types Declarations
         run: npm run build:dts
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          CI: true
-        run: npm run semantic-release
