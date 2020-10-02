@@ -3,13 +3,14 @@ on:
   push:
     branches:
       - master
+      - next
 jobs:
   release:
     name: Run test and Release
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -20,9 +21,3 @@ jobs:
         run: npm run build
       - name: Run tests
         run: npm run test
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          CI: true
-        run: npm run semantic-release
