@@ -61,9 +61,9 @@
     "vue-template-compiler": "2.6.12",
     "vuepress": "1.6.0",
     "semantic-release": "17.1.2",
-    "bootstrap": "^4.5.2",
-    "core-js": "^3.6.5",
-    "sass-resources-loader": "^2.1.1",
-    "vue": "^2.6.12"
+    "bootstrap": "4.5.2",
+    "core-js": "3.6.5",
+    "sass-resources-loader": "2.1.1",
+    "vue": "2.6.12"
   }
 }
