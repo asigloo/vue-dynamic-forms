@@ -1,6 +1,6 @@
 {
   "name": "@asigloo/vue-dynamic-forms",
-  "version": "2.0.0",
+  "version": "0.0.0-development",
   "description": "Easy way to dynamically create reactive forms in vue based on varying business object model",
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
   "license": "MIT",
@@ -20,8 +20,14 @@
       "master",
       "next",
       "next-major",
-      { "name": "beta", "prerelease": true },
-      { "name": "alpha", "prerelease": true }
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
     ]
   },
   "scripts": {
@@ -36,28 +42,28 @@
   },
   "main": "dist/as-dynamic-forms.common.js",
   "devDependencies": {
-    "@vue/cli-plugin-babel": "4.5.3",
-    "@vue/cli-plugin-eslint": "4.5.3",
-    "@vue/cli-plugin-unit-jest": "4.5.3",
-    "@vue/cli-service": "4.5.3",
+    "@vue/cli-plugin-babel": "4.5.6",
+    "@vue/cli-plugin-eslint": "4.5.6",
+    "@vue/cli-plugin-unit-jest": "4.5.6",
+    "@vue/cli-service": "4.5.6",
     "@vue/eslint-config-prettier": "6.0.0",
-    "@vue/test-utils": "1.0.3",
+    "@vue/test-utils": "1.1.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
-    "babel-jest": "26.1.0",
-    "eslint": "7.6.0",
+    "babel-jest": "26.3.0",
+    "eslint": "7.10.0",
     "eslint-plugin-prettier": "3.1.4",
-    "eslint-plugin-vue": "6.2.2",
+    "eslint-plugin-vue": "7.0.0",
     "node-sass": "4.14.1",
-    "prettier": "2.0.5",
-    "sass-loader": "9.0.3",
-    "vue-select": "3.10.7",
-    "vue-template-compiler": "2.6.11",
-    "vuepress": "1.5.3",
-    "semantic-release": "17.1.1",
-    "bootstrap": "^4.5.0",
+    "prettier": "2.1.2",
+    "sass-loader": "10.0.2",
+    "vue-select": "3.10.8",
+    "vue-template-compiler": "2.6.12",
+    "vuepress": "1.6.0",
+    "semantic-release": "17.1.2",
+    "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
-    "sass-resources-loader": "^2.0.3",
-    "vue": "^2.6.11"
+    "sass-resources-loader": "^2.1.1",
+    "vue": "^2.6.12"
   }
 }
