@@ -19,5 +19,11 @@ jobs:
         run: npm ci
       - name: Build Library
         run: npm run build
-      - name: Run tests
-        run: npm run test
+      - name: Build Types Declarations
+        run: npm run build:dts
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          CI: true
+        run: npm run semantic-release
