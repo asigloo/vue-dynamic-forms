@@ -1,6 +1,6 @@
 {
   "name": "@asigloo/vue-dynamic-forms",
-  "version": "3.0.0",
+  "version": "0.0.0-development",
   "description": "Easy way to dynamically create reactive forms in vue based on varying business object model",
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
   "license": "MIT",
@@ -51,13 +51,13 @@
     "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@microsoft/api-extractor": "^7.9.22",
+    "@microsoft/api-extractor": "^7.10.1",
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "@typescript-eslint/eslint-plugin": "^4.2.0",
-    "@typescript-eslint/parser": "^4.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
     "@vue/cli-plugin-babel": "4.5.6",
     "@vue/cli-plugin-eslint": "4.5.6",
     "@vue/cli-plugin-typescript": "~4.5.6",
@@ -73,7 +73,7 @@
     "chalk": "^4.1.0",
     "eslint": "7.10.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-vue": "^7.0.0-0",
+    "eslint-plugin-vue": "^7.0.0",
     "node-sass": "4.14.1",
     "prettier": "2.1.2",
     "rollup": "^2.28.2",
@@ -90,6 +90,6 @@
     "vuepress": "1.6.0"
   },
   "dependencies": {
-    "rollup-plugin-scss": "^2.6.0"
+    "rollup-plugin-scss": "^2.6.1"
   }
 }
