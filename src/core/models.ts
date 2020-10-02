@@ -1,4 +1,28 @@
-import { slugify } from './utils/helpers';
+export type InputTypeKeys =
+  | 'text'
+  | 'email'
+  | 'url'
+  | 'number'
+  | 'password'
+  | 'textarea'
+  | 'select'
+  | 'checkbox'
+  | 'radio'
+  | 'color';
+
+export type InputType =
+  | TextInput
+  | NumberInput
+  | SelectInput
+  | TextAreaInput
+  | CheckboxInput
+  | RadioInput
+  | EmailInput
+  | PasswordInput
+  | RadioInput
+  | ColorInput
+  | UrlInput
+  | CustomInput;
 
 type ValidationErrors = {
   [key: string]: any;
@@ -8,152 +32,112 @@ interface ValidatorFn {
   (control: FormControl<any> | undefined): ValidationErrors | null;
 }
 
-export class FormValidation {
+export interface FormValidation {
   validator: ValidatorFn;
   text: string;
-
-  constructor(validator: ValidatorFn, text: string) {
-    this.validator = validator;
-    this.text = text || '';
-  }
 }
 
-export class InputBase<T> {
-  value: T | undefined;
+export interface InputBase {
+  value: any;
   name: string;
   label: string;
   disabled?: boolean;
-  order?: number;
-  type: string;
   customClass?: string;
   placeholder?: string;
   validations?: FormValidation[];
-  options?: { key: string; value: string; disabled?: boolean }[];
-  cols?: number;
-  rows?: number;
+}
+
+export type TextInput = InputBase & {
+  value: string;
+  type: 'text';
+};
+
+/* export interface EmailInput extends InputBase<string> {
+  type: 'email';
+} */
+
+export type NumberInput = InputBase & {
   min?: number;
   max?: number;
   step?: number;
+  value: number;
+  type: 'number';
+};
 
-  constructor(
-    options: {
-      value?: T | undefined;
-      name?: string;
-      label?: string;
-      disabled?: boolean;
-      order?: number;
-      type?: string;
-      customClass?: string;
-      placeholder?: string;
-      validations?: FormValidation[];
-      options?: { key: string; value: string; disabled?: boolean }[];
-      cols?: number;
-      rows?: number;
-      min?: number;
-      max?: number;
-      step?: number;
-    } = {},
-  ) {
-    this.value = options.value;
-    this.name = options.name || slugify(options.label || '') || '';
-    this.label = options.label || '';
-    this.disabled = !!options.disabled;
-    this.order = options.order === undefined ? 1 : options.order;
-    this.type = options.type || '';
-    this.customClass = options.customClass;
-    this.placeholder = options.placeholder;
-    this.validations = options.validations || [];
-    this.options = options.options;
-    this.rows = options.rows || 0;
-    this.cols = options.cols || 0;
-    this.min = options.min || 0;
-    this.max = options.max || 100;
-    this.step = options.step || 1;
-  }
-}
+export type SelectInput<T = any> = InputBase & {
+  type: 'select';
+  value: T;
+  options?: { key: string; value: string; disabled?: boolean }[];
+};
 
-export class TextInput extends InputBase<string> {
-  type = 'text';
-}
+export type TextAreaInput = InputBase & {
+  cols?: number;
+  rows?: number;
+  type: 'textarea';
+  value: string;
+};
 
-export class EmailInput extends InputBase<string> {
-  type = 'email';
-}
+export type CheckboxInput = InputBase & {
+  type: 'checkbox';
+  value: boolean;
+};
 
-export class NumberInput extends InputBase<number> {
-  type = 'number';
-}
+export type CustomInput = InputBase & {
+  type: 'custom-field';
+};
 
-export class UrlInput extends InputBase<string> {
-  type = 'url';
-}
+export type EmailInput = InputBase & {
+  type: 'email';
+  value: string;
+};
 
-export class PasswordInput extends InputBase<string> {
-  type = 'password';
-}
+export type PasswordInput = InputBase & {
+  type: 'password';
+  value: string;
+};
 
-export class SelectInput<T> extends InputBase<T> {
-  type = 'select';
-}
+export type ColorInput = InputBase & {
+  type: 'color';
+  value: string;
+};
 
-export class TextAreaInput extends InputBase<string> {
-  type = 'textarea';
-}
+export type UrlInput = InputBase & {
+  type: 'url';
+  value: string;
+};
 
-export class CheckboxInput extends InputBase<boolean> {
-  type = 'checkbox';
-}
+export type RadioInput = InputBase & {
+  type: 'radio';
+  options?: { key: string; value: string; disabled?: boolean }[];
+  value: string;
+};
 
-export class RadioInput extends InputBase<boolean> {
-  type = 'radio';
-}
+/* export type UrlInput = InputBase<'url', string>;
 
-export class ColorInput extends InputBase<string> {
-  type = 'color';
-}
+export type PasswordInput = InputBase<'password', string>;
 
-export class FormControl<T> extends InputBase<T> {
-  valid = true;
-  invalid = false;
-  dirty = false;
-  touched = false;
-  errors: ValidationErrors | null = {};
-  constructor(
-    options: {
-      value?: T | undefined;
-      name?: string;
-      label?: string;
-      disabled?: boolean;
-      order?: number;
-      type?: string;
-      customClass?: string;
-      validations?: FormValidation[];
-      options?: { key: string; value: string; disabled?: boolean }[];
-      cols?: number;
-      rows?: number;
-      min?: number;
-      max?: number;
-      step?: number;
-    } = {},
-  ) {
-    super({
-      value: options.value,
-      name: options.name,
-      label: options.label,
-      type: options.type,
-      disabled: !!options.disabled,
-      order: options.order,
-      customClass: options.customClass,
-      validations: options.validations,
-      options: options.options,
-      rows: options.rows,
-      cols: options.cols,
-      min: options.min,
-      max: options.max,
-      step: options.step,
-    });
-  }
-}
+export type SelectInput = InputBase<'select'> & {
+  options?: { key: string; value: string; disabled?: boolean }[];
+};
+
+export type TextAreaInput = InputBase<'textarea', string> & {
+  cols?: number;
+  rows?: number;
+};
+
+export type CheckboxInput = InputBase<'checkbox', string>;
+
+export type RadioInput = InputBase<'radio', string>;
+
+export type ColorInput = InputBase<'color', string>;
+ */
+export type FormControl<T = InputType> = T & {
+  valid: boolean;
+  invalid: boolean;
+  dirty: boolean;
+  touched: boolean;
+  errors: ValidationErrors | null;
+};
 
 export interface FormOptions {
   customClass?: string;

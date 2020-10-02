@@ -1,10 +1,10 @@
 <script lang="ts">
 import { defineComponent, h, PropType } from 'vue';
-import { FormControl } from '../../core/models';
+import { FormControl, NumberInput } from '../../core/models';
 import { useInputEvents } from '../../composables/input-events';
 
 const props = {
-  control: Object as PropType<FormControl<string>>,
+  control: Object as PropType<FormControl<NumberInput>>,
 };
 
 export default defineComponent({

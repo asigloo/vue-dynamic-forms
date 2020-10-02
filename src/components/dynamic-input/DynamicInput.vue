@@ -2,30 +2,43 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import { defineComponent, PropType, computed, h, inject } from 'vue';
-import TextInput from '../text-input/TextInput.vue';
-import SelectInput from '../select-input/SelectInput.vue';
-import TextAreaInput from '../text-area-input/TextAreaInput.vue';
-import CheckboxInput from '../checkbox-input/CheckboxInput.vue';
-import RadioInput from '../radio-input/RadioInput.vue';
-import NumberInput from '../number-input/NumberInput.vue';
+import TextInputComponent from '../text-input/TextInput.vue';
+import SelectInputComponent from '../select-input/SelectInput.vue';
+import TextAreaInputComponent from '../text-area-input/TextAreaInput.vue';
+import CheckboxInputComponent from '../checkbox-input/CheckboxInput.vue';
+import RadioInputComponent from '../radio-input/RadioInput.vue';
+import NumberInputComponent from '../number-input/NumberInput.vue';
 
-import { FormControl } from '../../core/models';
+import {
+  FormControl,
+  TextInput,
+  NumberInput,
+  EmailInput,
+  PasswordInput,
+  UrlInput,
+  ColorInput,
+  SelectInput,
+  RadioInput,
+  CheckboxInput,
+  TextAreaInput,
+} from '../../core/models';
+
 import { isEmpty, entries, values, keys } from '../../core/utils/helpers';
 import { useInputEvents } from '../../composables/input-events';
 import { dynamicFormsSymbol } from '../../useApi';
 
 const components = {
-  TextInput,
-  SelectInput,
-  TextAreaInput,
-  CheckboxInput,
-  RadioInput,
-  NumberInput,
+  TextInputComponent,
+  SelectInputComponent,
+  TextAreaInputComponent,
+  CheckboxInputComponent,
+  RadioInputComponent,
+  NumberInputComponent,
 };
 
 const props = {
   control: {
-    type: Object as PropType<FormControl<any>>,
+    type: Object as PropType<FormControl>,
     required: true,
   },
   submited: {
@@ -33,6 +46,12 @@ const props = {
     required: true,
   },
 };
+
+export type ControlAttribute<T> = {
+  control: FormControl<T>;
+  onChanged: (value: unknown) => void;
+};
+
 export default defineComponent({
   name: 'asDynamicInput',
   components,
@@ -45,7 +64,7 @@ export default defineComponent({
 
     const attributes = computed(() => {
       return {
-        control: props.control,
+        control: props?.control,
         onChanged: valueChange,
       };
     });
@@ -134,26 +153,64 @@ export default defineComponent({
     return () => {
       switch (props?.control?.type) {
         case 'text':
+          component = h(
+            TextInputComponent,
+            attributes.value as ControlAttribute<TextInput>,
+          );
+          break;
         case 'email':
+          component = h(
+            TextInputComponent,
+            attributes.value as ControlAttribute<EmailInput>,
+          );
+          break;
         case 'password':
+          component = h(
+            TextInputComponent,
+            attributes.value as ControlAttribute<PasswordInput>,
+          );
+          break;
         case 'url':
+          component = h(
+            TextInputComponent,
+            attributes.value as ControlAttribute<UrlInput>,
+          );
+          break;
         case 'color':
-          component = h(TextInput, attributes.value);
+          component = h(
+            TextInputComponent,
+            attributes.value as ControlAttribute<ColorInput>,
+          );
           break;
         case 'number':
-          component = h(NumberInput, attributes.value);
+          component = h(
+            NumberInputComponent,
+            attributes.value as ControlAttribute<NumberInput>,
+          );
           break;
         case 'select':
-          component = h(SelectInput, attributes.value);
+          component = h(
+            SelectInputComponent,
+            attributes.value as ControlAttribute<SelectInput>,
+          );
           break;
         case 'textarea':
-          component = h(TextAreaInput, attributes.value);
+          component = h(
+            TextAreaInputComponent,
+            attributes.value as ControlAttribute<TextAreaInput>,
+          );
           break;
         case 'checkbox':
-          component = h(CheckboxInput, attributes.value);
+          component = h(
+            CheckboxInputComponent,
+            attributes.value as ControlAttribute<CheckboxInput>,
+          );
           break;
         case 'radio':
-          component = h(RadioInput, attributes.value);
+          component = h(
+            RadioInputComponent,
+            attributes.value as ControlAttribute<RadioInput>,
+          );
           break;
         case 'custom-field':
           component = h(

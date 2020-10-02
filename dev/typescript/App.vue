@@ -67,10 +67,22 @@ export default defineComponent({
   setup() {
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
-    const form = reactive<any>({
+    const form = reactive({
       id: 'example-form',
-      fields: [
-        new TextInput({
+      fieldOrder: ['name'],
+      fields: {
+        name: {
+          label: 'Name',
+          type: 'text',
+          value: 'Alvaro',
+        } as TextInput,
+        email: {
+          label: 'Email',
+          type: 'email',
+        } as EmailInput,
+      },
+      /*  fields: [
+       new TextInput({
           label: 'Name',
           value: 'Alvaro',
         }),
@@ -157,12 +169,16 @@ export default defineComponent({
           value: '#4DBA87',
         }),
       ],
+    */
     });
     function handleSubmit(values) {
       console.log('Values Submitted', values);
     }
     function valueChanged(values) {
       Object.assign(formValues, values);
+      setTimeout(() => {
+        form.fields.email.value = 'alvaro.saburido@gmail.com';
+      }, 2000);
     }
     function handleError(errors) {
       console.error(errors);

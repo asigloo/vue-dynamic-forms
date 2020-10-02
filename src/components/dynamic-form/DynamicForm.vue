@@ -73,7 +73,7 @@ export default defineComponent({
   setup(props, ctx) {
     const { options } = inject(dynamicFormsSymbol);
 
-    const controls: Ref<FormControl<any>[]> = ref([]);
+    const controls: Ref<FormControl[]> = ref([]);
     const formValues = reactive({});
     const submited = ref(false);
 
@@ -153,10 +153,12 @@ export default defineComponent({
 
     function mapControls(empty?) {
       controls.value =
-        props.form?.fields?.map((field: InputBase<any>) =>
+        Object.entries(
+          props.form?.fields,
+        ).map(([key, field]: [string, InputBase]) =>
           empty
-            ? new FormControl({ ...field, value: null })
-            : new FormControl({ ...field }),
+            ? ({ ...field, name: key, value: null } as FormControl)
+            : ({ ...field, name: key } as FormControl),
         ) || [];
     }
 
@@ -192,7 +194,7 @@ export default defineComponent({
       ctx.emit('changed', formValues);
     }
 
-    watch(props, () => {
+    watch(props.form.fields, () => {
       mapControls();
     });
 
