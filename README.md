@@ -27,7 +27,7 @@ That's **Vue Dynamic Forms**.
 
 ## Status: Beta
 
-This is the Vue `3.x.x` compatible version. The focus right now is out of the box `Typescript` support, three shakeable, improve accesiility and be lighter in size. For Vue `2.x.x` please use the library tags [0.x](https://github.com/alvarosaburido/vue-dynamic-forms/tree/0.x).
+This is the Vue `3.x.x` compatible version. The focus right now is out of the box `Typescript` support, three shakeable, improve accesiility and be lighter in size. For Vue `2.x.x` please use the library tags [2.x](https://github.com/alvarosaburido/vue-dynamic-forms/tree/2.x).
 
 ## Documentation
 
