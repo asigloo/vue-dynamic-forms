@@ -51,6 +51,7 @@ import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
 import { InputBase, FormControl } from '../../core/models';
 import { dynamicFormsSymbol } from '../../useApi';
+import { removeEmpty } from '../../core/utils/helpers';
 
 const props = {
   form: {
@@ -145,9 +146,9 @@ export default defineComponent({
       }
     });
 
-    function valueChange(changedValue: any) {
+    function valueChange(changedValue) {
       Object.assign(formValues, changedValue);
-      ctx.emit('changed', formValues);
+      ctx.emit('changed', removeEmpty(formValues));
     }
 
     function mapControls(empty?) {

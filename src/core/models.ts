@@ -25,12 +25,18 @@ export type InputType =
   | UrlInput
   | CustomInput;
 
+type ValidationError = {
+  text: string;
+  // eslint-disable-next-line
+  value: any;
+};
+
 type ValidationErrors = {
-  [key: string]: any;
+  [key: string]: ValidationError;
 };
 
 interface ValidatorFn {
-  (control: FormControl<any> | undefined): ValidationErrors | null;
+  (control: FormControl | undefined): ValidationErrors | null;
 }
 
 export interface FormValidation {
@@ -39,7 +45,7 @@ export interface FormValidation {
 }
 
 export interface InputBase {
-  value: any;
+  value: boolean | string;
   name: string;
   label: string;
   disabled?: boolean;
@@ -53,10 +59,6 @@ export type TextInput = InputBase & {
   type: 'text';
 };
 
-/* export interface EmailInput extends InputBase<string> {
-  type: 'email';
-} */
-
 export type NumberInput = InputBase & {
   min?: number;
   max?: number;
@@ -65,7 +67,7 @@ export type NumberInput = InputBase & {
   type: 'number';
 };
 
-export type SelectInput<T = any> = InputBase & {
+export type SelectInput<T = boolean | string> = InputBase & {
   type: 'select';
   value: T;
   options?: { key: string; value: string; disabled?: boolean }[];
