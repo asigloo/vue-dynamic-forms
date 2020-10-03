@@ -220,7 +220,7 @@ export default defineComponent({
             },
             slots.customField({
               control: props.control,
-              onChange: ($event: any) => {
+              onChange: $event => {
                 const newValue = {};
                 const value = $event.target.value;
 

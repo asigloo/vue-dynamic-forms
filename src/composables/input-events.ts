@@ -25,8 +25,11 @@ export function useInputEvents(props: any, emit: any) {
     }
   }
 
-  watch(props, (value: any) => {
-    emit('changed', value.control.value);
+  watch(props, (form: any) => {
+    if (!form.control.dirty) {
+      form.control.dirty = true;
+      emit('changed', form.control.value);
+    }
   });
 
   return {

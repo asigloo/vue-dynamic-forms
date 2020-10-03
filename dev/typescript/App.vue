@@ -45,7 +45,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
+import { mockAsync } from '@/core/utils/helpers';
+import { defineComponent, onMounted, reactive, ref } from 'vue';
 import {
   TextInput,
   SelectInput,
@@ -60,6 +61,7 @@ import {
   pattern,
   ColorInput,
   NumberInput,
+  CustomInput,
 } from '../../src';
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
@@ -67,9 +69,35 @@ export default defineComponent({
   setup() {
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
+
+    const emailValidator: FormValidation = {
+      validator: email,
+      text: 'Email format is incorrect',
+    };
+
+    const passwordValidator: FormValidation = {
+      validator: pattern(
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
+      ),
+      text:
+        'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
+    };
+
     const form = reactive({
       id: 'example-form',
-      fieldOrder: ['name'],
+      fieldOrder: [
+        'name',
+        'email',
+        'password',
+        'console',
+        'games',
+        'stock',
+        'steps',
+        'character',
+        'awesomeness',
+        'color',
+        'customField1',
+      ],
       fields: {
         name: {
           label: 'Name',
@@ -79,36 +107,20 @@ export default defineComponent({
         email: {
           label: 'Email',
           type: 'email',
+          validations: [emailValidator],
         } as EmailInput,
-      },
-      /*  fields: [
-       new TextInput({
-          label: 'Name',
-          value: 'Alvaro',
-        }),
-        new EmailInput({
-          label: 'Email',
-          validations: [new FormValidation(email, 'Email format is incorrect')],
-        }),
-        new PasswordInput({
+        password: {
           label: 'Password',
-          validations: [
-            new FormValidation(
-              pattern(
-                '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
-              ),
-              'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
-            ),
-          ],
-        }),
-        new NumberInput({
-          label: 'Number',
-          min: 5,
-          max: 60,
-          step: 5,
-        }),
-        new SelectInput<string>({
+          type: 'password',
+          validations: [passwordValidator],
+        } as PasswordInput,
+        stock: {
+          label: 'Stock',
+          type: 'number',
+        } as NumberInput,
+        games: {
           label: 'Games',
+          type: 'select',
           customClass: 'w-1/2',
           value: 'the-last-of-us',
           options: [
@@ -125,19 +137,28 @@ export default defineComponent({
               value: 'Nier Automata',
             },
           ],
-        }),
-        new TextAreaInput({
-          label: 'Bio',
-          cols: 20,
-          rows: 5,
-        }),
-        new CheckboxInput({
+        } as SelectInput,
+        console: {
+          label: 'Console (Async Options)',
+          type: 'select',
+          customClass: 'w-1/2',
+          options: [],
+        } as SelectInput,
+        steps: {
+          label: 'Number',
+          type: 'number',
+          min: 5,
+          max: 60,
+          step: 5,
+          value: 5,
+        } as NumberInput,
+        awesomeness: {
           label: "Check  if you're awesome",
-          name: 'awesomness',
-        }),
-        new RadioInput({
+          type: 'checkbox',
+        } as CheckboxInput,
+        character: {
           label: 'Select one option',
-          name: 'character',
+          type: 'radio',
           options: [
             {
               key: 'mario',
@@ -157,32 +178,61 @@ export default defineComponent({
               disabled: true,
             },
           ],
-        }),
-        new InputBase<string>({
+        } as RadioInput,
+        customField1: {
           type: 'custom-field',
           label: 'Custom Field',
-          name: 'customField1',
-        }),
-        new ColorInput({
+        } as CustomInput,
+        color: {
           label: 'Color',
-          name: 'color',
+          type: 'color',
           value: '#4DBA87',
-        }),
-      ],
-    */
+        } as ColorInput,
+      },
     });
+
     function handleSubmit(values) {
       console.log('Values Submitted', values);
     }
+
     function valueChanged(values) {
       Object.assign(formValues, values);
+      console.log('Values', values);
+    }
+
+    function handleError(errors) {
+      console.error('Errors', errors);
+    }
+
+    onMounted(async () => {
       setTimeout(() => {
         form.fields.email.value = 'alvaro.saburido@gmail.com';
       }, 2000);
-    }
-    function handleError(errors) {
-      console.error(errors);
-    }
+
+      try {
+        const consoleOptions = await mockAsync(true, 4000, [
+          {
+            key: 'playstation',
+            value: 'Playstation',
+          },
+          {
+            key: 'nintendo',
+            value: 'Nintendo',
+          },
+          {
+            key: 'xbox',
+            value: 'Xbox',
+          },
+        ]);
+        form.fields.console.options = consoleOptions as {
+          key: string;
+          value: string;
+          disabled?: boolean;
+        }[];
+      } catch (e) {
+        console.error(e);
+      }
+    });
 
     return {
       title,

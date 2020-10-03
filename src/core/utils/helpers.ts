@@ -22,3 +22,15 @@ export const isEmpty = (entry: any) => {
     return entries(entry).length > 0;
   }
 };
+
+export const mockAsync = (success, timeout, value) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (success) {
+        resolve(value);
+      } else {
+        reject({ message: 'Error' });
+      }
+    }, timeout);
+  });
+};

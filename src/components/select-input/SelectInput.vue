@@ -12,10 +12,7 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     return () => {
-      const { onChange, onFocus, onBlur } = useInputEvents(
-        props?.control,
-        emit,
-      );
+      const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
 
       const options = props?.control?.options?.map(({ key, value, disabled }) =>
         h('option', { key, value: key, disabled }, value),

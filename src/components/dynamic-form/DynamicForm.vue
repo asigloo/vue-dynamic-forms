@@ -51,8 +51,7 @@ import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
 import { InputBase, FormControl } from '../../core/models';
 import { dynamicFormsSymbol } from '../../useApi';
-/* import { warn } from '../../core/utils/warning';
- */
+
 const props = {
   form: {
     type: Object as PropType<DynamicForm>,
@@ -153,12 +152,22 @@ export default defineComponent({
 
     function mapControls(empty?) {
       controls.value =
-        Object.entries(
-          props.form?.fields,
-        ).map(([key, field]: [string, InputBase]) =>
-          empty
-            ? ({ ...field, name: key, value: null } as FormControl)
-            : ({ ...field, name: key } as FormControl),
+        Object.entries(props.form?.fields).map(
+          ([key, field]: [string, InputBase]) =>
+            empty
+              ? ({
+                  ...field,
+                  name: key,
+                  value: undefined,
+                  dirty: false,
+                  touched: false,
+                } as FormControl)
+              : ({
+                  ...field,
+                  name: key,
+                  dirty: false,
+                  touched: false,
+                } as FormControl),
         ) || [];
     }
 
@@ -168,6 +177,7 @@ export default defineComponent({
 
     function handleSubmit() {
       submited.value = true;
+
       if (isValid.value) {
         ctx.emit('submited', formValues);
         resetForm();

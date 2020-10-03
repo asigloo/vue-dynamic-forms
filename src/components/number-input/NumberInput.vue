@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'asNumberInput',
   props,
   setup(props, { emit }) {
-    const { onChange, onFocus, onBlur } = useInputEvents(props?.control, emit);
+    const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
 
     return () =>
       h('input', {

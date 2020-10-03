@@ -8,7 +8,8 @@ export type InputTypeKeys =
   | 'select'
   | 'checkbox'
   | 'radio'
-  | 'color';
+  | 'color'
+  | 'custom-field';
 
 export type InputType =
   | TextInput
