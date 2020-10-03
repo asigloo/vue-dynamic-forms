@@ -49,8 +49,8 @@ import {
 import { DynamicForm } from './form';
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
-import { InputBase, FormControl } from '../../core/models';
-import { dynamicFormsSymbol } from '../../useApi';
+import { InputBase, FormControl } from '@/core/models';
+import { dynamicFormsSymbol } from '@/useApi';
 /* import { warn } from '../../core/utils/warning';
  */
 const props = {
