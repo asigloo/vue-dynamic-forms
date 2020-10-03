@@ -151,14 +151,14 @@ export default defineComponent({
     }
 
     function mapControls(empty?) {
-      controls.value =
+      const controlArray =
         Object.entries(props.form?.fields).map(
           ([key, field]: [string, InputBase]) =>
             empty
               ? ({
                   ...field,
                   name: key,
-                  value: undefined,
+                  value: null,
                   dirty: false,
                   touched: false,
                 } as FormControl)
@@ -169,6 +169,13 @@ export default defineComponent({
                   touched: false,
                 } as FormControl),
         ) || [];
+      if (props.form.fieldOrder) {
+        controls.value = controlArray.sort(
+          (a: FormControl, b: FormControl) =>
+            props.form.fieldOrder.indexOf(a.name) -
+            props.form.fieldOrder.indexOf(b.name),
+        );
+      }
     }
 
     function resetForm() {

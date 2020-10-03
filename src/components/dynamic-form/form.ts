@@ -2,5 +2,6 @@ import { InputBase } from '@/core/models';
 
 export interface DynamicForm {
   id: string;
-  fields: InputBase<any>[];
+  fields: InputBase[];
+  fieldOrder?: string[];
 }
