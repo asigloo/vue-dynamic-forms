@@ -7,8 +7,8 @@ import {
   PasswordInput,
   TextInput,
   UrlInput,
-} from '../../core/models';
-import { useInputEvents } from '../../composables/input-events';
+} from '@/core/models';
+import { useInputEvents } from '@/composables/input-events';
 
 const props = {
   control: Object as PropType<

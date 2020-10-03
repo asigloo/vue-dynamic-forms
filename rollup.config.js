@@ -7,6 +7,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import ts from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
+import alias from '@rollup/plugin-alias';
 
 import pkg from './package.json';
 const name = 'as-dynamic-forms';
@@ -89,6 +90,9 @@ function createConfig(format, output, plugins = []) {
     // used alone.
     external,
     plugins: [
+      alias({
+        entries: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+      }),
       tsPlugin,
       vue(),
       createReplacePlugin(

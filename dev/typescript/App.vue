@@ -60,8 +60,8 @@ import {
   pattern,
   ColorInput,
   NumberInput,
-} from '../../src';
-/* } from '../../dist/as-dynamic-forms.esm'; */
+  /* } from '../../src'; */
+} from '../../dist/as-dynamic-forms.esm';
 export default defineComponent({
   name: 'app',
   setup() {
