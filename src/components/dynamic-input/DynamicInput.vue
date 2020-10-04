@@ -21,6 +21,7 @@ import {
   RadioInput,
   CheckboxInput,
   TextAreaInput,
+  InputType,
 } from '../../core/models';
 
 import { isEmpty, entries, values, keys } from '../../core/utils/helpers';
@@ -38,7 +39,7 @@ const components = {
 
 const props = {
   control: {
-    type: Object as PropType<FormControl>,
+    type: Object as PropType<FormControl<InputType>>,
     required: true,
   },
   submited: {
@@ -47,7 +48,7 @@ const props = {
   },
 };
 
-export type ControlAttribute<T> = {
+export type ControlAttribute<T extends InputType> = {
   control: FormControl<T>;
   onChanged: (value: unknown) => void;
 };
