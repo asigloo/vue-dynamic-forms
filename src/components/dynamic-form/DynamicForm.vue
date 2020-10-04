@@ -49,7 +49,7 @@ import {
 import { DynamicForm } from './form';
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
-import { InputBase, FormControl } from '../../core/models';
+import { FormControl, InputType } from '../../core/models';
 import { dynamicFormsSymbol } from '../../useApi';
 import { removeEmpty } from '../../core/utils/helpers';
 
@@ -73,7 +73,7 @@ export default defineComponent({
   setup(props, ctx) {
     const { options } = inject(dynamicFormsSymbol);
 
-    const controls: Ref<FormControl[]> = ref([]);
+    const controls: Ref<FormControl<InputType>[]> = ref([]);
     const formValues = reactive({});
     const submited = ref(false);
 
@@ -154,7 +154,7 @@ export default defineComponent({
     function mapControls(empty?) {
       const controlArray =
         Object.entries(props.form?.fields).map(
-          ([key, field]: [string, InputBase]) =>
+          ([key, field]: [string, InputType]) =>
             empty
               ? ({
                   ...field,
@@ -162,17 +162,17 @@ export default defineComponent({
                   value: null,
                   dirty: false,
                   touched: false,
-                } as FormControl)
+                } as FormControl<InputType>)
               : ({
                   ...field,
                   name: key,
                   dirty: false,
                   touched: false,
-                } as FormControl),
+                } as FormControl<InputType>),
         ) || [];
       if (props.form.fieldOrder) {
         controls.value = controlArray.sort(
-          (a: FormControl, b: FormControl) =>
+          (a: FormControl<InputType>, b: FormControl<InputType>) =>
             props.form.fieldOrder.indexOf(a.name) -
             props.form.fieldOrder.indexOf(b.name),
         );
@@ -200,8 +200,7 @@ export default defineComponent({
         controls.value
           ? controls.value.reduce((prev, curr) => {
               const obj = {};
-              obj[curr.name] =
-                curr.type === 'number' ? parseFloat(curr.value) : curr.value;
+              obj[curr.name] = curr.value;
               return {
                 ...prev,
                 ...obj,
