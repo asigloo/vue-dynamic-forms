@@ -32,7 +32,7 @@ export function useInputEvents(props: any, emit: any) {
   }
 
   watch(props, (form: any) => {
-    if (!form.control.dirty) {
+    if (form?.control && !form?.control?.dirty) {
       form.control.dirty = true;
       emit('changed', form.control.value);
     }
