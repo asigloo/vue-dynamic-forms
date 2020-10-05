@@ -203,10 +203,6 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      setTimeout(() => {
-        form.fields.email.value = 'alvaro.saburido@gmail.com';
-      }, 2000);
-
       try {
         const consoleOptions = await mockAsync(true, 4000, [
           {

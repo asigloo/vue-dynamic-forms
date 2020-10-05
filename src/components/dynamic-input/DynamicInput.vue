@@ -22,11 +22,11 @@ import {
   CheckboxInput,
   TextAreaInput,
   InputType,
-} from '../../core/models';
+} from '@/core/models';
 
-import { isEmpty, entries, values, keys } from '../../core/utils/helpers';
-import { useInputEvents } from '../../composables/input-events';
-import { dynamicFormsSymbol } from '../../useApi';
+import { isEmpty, entries, values, keys } from '@/core/utils/helpers';
+import { useInputEvents } from '@/composables/input-events';
+import { dynamicFormsSymbol } from '@/useApi';
 
 const components = {
   TextInputComponent,

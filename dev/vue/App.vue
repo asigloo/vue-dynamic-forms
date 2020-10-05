@@ -9,7 +9,25 @@
             @submited="handleSubmit"
             @changed="valueChanged"
             @error="handleError"
-          />
+          >
+            <template
+              v-slot:customField1="{ control, onChange, onFocus, onBlur }"
+            >
+              <div class="avocado-field">
+                <input
+                  v-if="control"
+                  class="form-control"
+                  v-model="control.value"
+                  :type="control.type"
+                  :name="control.name"
+                  @change="onChange"
+                  @focus="onFocus"
+                  @blur="onBlur"
+                />
+                <i>🥑</i>
+              </div>
+            </template>
+          </dynamic-form>
           <button
             class="btn bg-teal-500 text-white hover:bg-teal-700 mt-4"
             submit="true"
@@ -27,49 +45,69 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
-import {
-  TextInput,
-  SelectInput,
-  EmailInput,
-  FormValidation,
-  PasswordInput,
-  email,
-  pattern,
-  TextAreaInput,
-  ColorInput,
-} from '../../src';
+import { mockAsync } from '@/core/utils/helpers';
+import { defineComponent, onMounted, reactive, ref } from 'vue';
+import { email, pattern } from '../../src';
 
 export default defineComponent({
   name: 'app',
   setup() {
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
+
+    const emailValidator = {
+      validator: email,
+      text: 'Email format is incorrect',
+    };
+
+    const passwordValidator = {
+      validator: pattern(
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
+      ),
+      text:
+        'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
+    };
+
     const form = reactive({
       id: 'example-form',
-      fields: [
-        new TextInput({
+      fieldOrder: [
+        'name',
+        'email',
+        'password',
+        'console',
+        'games',
+        'stock',
+        'steps',
+        'character',
+        'awesomeness',
+        'color',
+        'customField1',
+      ],
+      fields: {
+        name: {
           label: 'Name',
+          type: 'text',
           value: 'Alvaro',
-        }),
-        new EmailInput({
+        },
+        email: {
           label: 'Email',
-          validations: [new FormValidation(email, 'Email format is incorrect')],
-        }),
-        new PasswordInput({
+          type: 'email',
+          validations: [emailValidator],
+        },
+        password: {
           label: 'Password',
-          validations: [
-            new FormValidation(
-              pattern(
-                '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
-              ),
-              'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
-            ),
-          ],
-        }),
-        new SelectInput<string>({
+          type: 'password',
+          validations: [passwordValidator],
+        },
+        stock: {
+          label: 'Stock',
+          type: 'number',
+        },
+        games: {
           label: 'Games',
+          type: 'select',
           customClass: 'w-1/2',
+          value: 'the-last-of-us',
           options: [
             {
               key: 'the-last-of-us',
@@ -84,17 +122,58 @@ export default defineComponent({
               value: 'Nier Automata',
             },
           ],
-        }),
-        new TextAreaInput({
-          label: 'Bio',
-          cols: 20,
-          rows: 5,
-        }),
-        new ColorInput({
+        },
+        console: {
+          label: 'Console (Async Options)',
+          type: 'select',
+          customClass: 'w-1/2',
+          options: [],
+        },
+        steps: {
+          label: 'Number',
+          type: 'number',
+          min: 5,
+          max: 60,
+          step: 5,
+          value: 5,
+        },
+        awesomeness: {
+          label: "Check  if you're awesome",
+          type: 'checkbox',
+        },
+        character: {
+          label: 'Select one option',
+          type: 'radio',
+          options: [
+            {
+              key: 'mario',
+              value: 'Mario',
+            },
+            {
+              key: 'crash-bandicoot',
+              value: 'Crash Bandicoot',
+            },
+            {
+              key: 'sonic',
+              value: 'Sonic',
+            },
+            {
+              key: 'banjo-kazooie',
+              value: 'Banjo Kazooie',
+              disabled: true,
+            },
+          ],
+        },
+        customField1: {
+          type: 'custom-field',
+          label: 'Custom Field',
+        },
+        color: {
           label: 'Color',
+          type: 'color',
           value: '#4DBA87',
-        }),
-      ],
+        },
+      },
     });
     function handleSubmit(values) {
       console.log('Values Submitted', values);
@@ -107,6 +186,32 @@ export default defineComponent({
       alert(errors);
     }
 
+    onMounted(async () => {
+      try {
+        const consoleOptions = await mockAsync(true, 4000, [
+          {
+            key: 'playstation',
+            value: 'Playstation',
+          },
+          {
+            key: 'nintendo',
+            value: 'Nintendo',
+          },
+          {
+            key: 'xbox',
+            value: 'Xbox',
+          },
+        ]);
+        form.fields.console.options = consoleOptions as {
+          key: string;
+          value: string;
+          disabled?: boolean;
+        }[];
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
     return {
       title,
       form,
@@ -118,4 +223,19 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.avocado-field {
+  position: relative;
+
+  .form-control {
+    border-color: #aec64c;
+    background-color: #e2eb5d52;
+    border-radius: 16px;
+  }
+  i {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+  }
+}
+</style>

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { watch } from 'vue';
 
 export function useInputEvents(props: any, emit: any) {
