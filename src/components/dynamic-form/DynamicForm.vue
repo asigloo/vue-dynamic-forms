@@ -64,6 +64,12 @@ const components = {
   DynamicInput,
 };
 
+const EMPTY_CONTROL = {
+  dirty: false,
+  touched: false,
+  valid: true,
+};
+
 /* const AVAILABLE_THEMES = ['default', 'material'];
  */
 export default defineComponent({
@@ -160,16 +166,12 @@ export default defineComponent({
                   ...field,
                   name: key,
                   value: null,
-                  dirty: false,
-                  touched: false,
-                  valid: true,
+                  ...EMPTY_CONTROL,
                 } as FormControl<InputType>)
               : ({
                   ...field,
                   name: key,
-                  dirty: false,
-                  touched: false,
-                  valid: true,
+                  ...EMPTY_CONTROL,
                 } as FormControl<InputType>),
         ) || [];
       if (props.form.fieldOrder) {
@@ -202,7 +204,10 @@ export default defineComponent({
         controls.value
           ? controls.value.reduce((prev, curr) => {
               const obj = {};
-              obj[curr.name] = curr.value;
+              obj[curr.name] =
+                curr.type === 'number'
+                  ? parseFloat(`${curr.value}`)
+                  : curr.value;
               return {
                 ...prev,
                 ...obj,
