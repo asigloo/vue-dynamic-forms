@@ -1,17 +1,19 @@
-/* eslint-disable */
+import { FormControl, InputType, ValidationErrors } from '../models';
 
-import { FormControl, InputType } from '../models';
-
-export const isEmptyInputValue = (value: any) =>
-  value == null || value === '' || value.length === 0;
+export const isEmptyInputValue = (value: string | number | boolean): boolean =>
+  value == null || value === '';
 
 const EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
 const URL_REGEXP = /^((?:(https?):\/\/)?((?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9]))|(?:(?:(?:\w+\.){1,2}[\w]{2,3})))(?::(\d+))?((?:\/[\w]+)*)(?:\/|(\/[\w]+\.[\w]{3,4})|(\?(?:([\w]+=[\w]+)&)*([\w]+=[\w]+))?|\?(?:(wsdl|wadl))))$/;
 
-export const required = (control: FormControl<InputType>) =>
+export const required = (
+  control: FormControl<InputType>,
+): ValidationErrors | null =>
   isEmptyInputValue(control.value) ? { required: true } : null;
 
-export const min = (min: number) => (control: FormControl<InputType>) => {
+export const min = (min: number) => (
+  control: FormControl<InputType>,
+): ValidationErrors | null => {
   if (isEmptyInputValue(control.value) || isEmptyInputValue(min)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -22,7 +24,9 @@ export const min = (min: number) => (control: FormControl<InputType>) => {
     : null;
 };
 
-export const max = (max: number) => (control: FormControl<InputType>) => {
+export const max = (max: number) => (
+  control: FormControl<InputType>,
+): ValidationErrors | null => {
   if (isEmptyInputValue(control.value) || isEmptyInputValue(max)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -34,14 +38,18 @@ export const max = (max: number) => (control: FormControl<InputType>) => {
     : null;
 };
 
-export const email = (control: FormControl<InputType>) => {
+export const email = (
+  control: FormControl<InputType>,
+): ValidationErrors | null => {
   if (isEmptyInputValue(control.value)) {
     return null; // don't validate empty values to allow optional controls
   }
   return EMAIL_REGEXP.test(`${control.value}`) ? null : { email: true };
 };
 
-export const url = (control: FormControl<InputType>) => {
+export const url = (
+  control: FormControl<InputType>,
+): ValidationErrors | null => {
   if (isEmptyInputValue(control.value)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -50,7 +58,7 @@ export const url = (control: FormControl<InputType>) => {
 
 export const minLength = (minLength: number) => (
   control: FormControl<InputType>,
-) => {
+): ValidationErrors | null => {
   if (isEmptyInputValue(control.value)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -62,14 +70,14 @@ export const minLength = (minLength: number) => (
 
 export const maxLength = (maxLength: number) => (
   control: FormControl<InputType>,
-) => {
+): ValidationErrors | null => {
   const length = control.value ? `${control.value}`.length : 0;
   return length > maxLength
     ? { maxlength: { requiredLength: maxLength, actualLength: length } }
     : null;
 };
 
-export const pattern = (pattern: string) => {
+export const pattern = (pattern: string): ValidationErrors | null => {
   if (!pattern) return null;
   let regex: RegExp;
   let regexStr: string | RegExp;

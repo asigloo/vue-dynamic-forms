@@ -25,14 +25,9 @@ export type InputType =
   | UrlInput
   | CustomInput;
 
-type ValidationError = {
-  text: string;
+export type ValidationErrors = {
   // eslint-disable-next-line
-  value: any;
-};
-
-type ValidationErrors = {
-  [key: string]: ValidationError;
+  [key: string]: any;
 };
 
 interface ValidatorFn {
