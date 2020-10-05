@@ -2,11 +2,15 @@ import { watch } from 'vue';
 
 export function useInputEvents(props: any, emit: any) {
   function onChange($event: any): void {
+    const value =
+      props.control.type === 'number'
+        ? parseFloat(`${$event.target.value}`)
+        : $event.target.value;
     if (props.control) {
-      props.control.value = $event.target.value;
+      props.control.value = value;
       props.control.dirty = true;
     }
-    emit('changed', $event.target.value);
+    emit('changed', value);
   }
   function onCheck($event: any): void {
     if (props.control) {
