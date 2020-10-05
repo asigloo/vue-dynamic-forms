@@ -108,8 +108,8 @@ export default defineComponent({
     });
 
     const isValid = computed(() => {
-      const control = controls?.value?.find(control => !control.valid);
-      return control ? control.valid : true;
+      const hasInvalidControls = controls.value.some(control => !control.valid);
+      return !hasInvalidControls;
     });
 
     const errors = computed(() => {
@@ -146,12 +146,12 @@ export default defineComponent({
       }
     });
 
-    function valueChange(changedValue) {
+    function valueChange(changedValue: Record<string, unknown>) {
       Object.assign(formValues, changedValue);
       ctx.emit('changed', removeEmpty(formValues));
     }
 
-    function mapControls(empty?) {
+    function mapControls(empty?: boolean) {
       const controlArray =
         Object.entries(props.form?.fields).map(
           ([key, field]: [string, InputType]) =>
@@ -162,12 +162,14 @@ export default defineComponent({
                   value: null,
                   dirty: false,
                   touched: false,
+                  valid: true,
                 } as FormControl<InputType>)
               : ({
                   ...field,
                   name: key,
                   dirty: false,
                   touched: false,
+                  valid: true,
                 } as FormControl<InputType>),
         ) || [];
       if (props.form.fieldOrder) {
