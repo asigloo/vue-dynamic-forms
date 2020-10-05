@@ -182,6 +182,8 @@ export default defineComponent({
             props.form.fieldOrder.indexOf(a.name) -
             props.form.fieldOrder.indexOf(b.name),
         );
+      } else {
+        controls.value = controlArray;
       }
     }
 
