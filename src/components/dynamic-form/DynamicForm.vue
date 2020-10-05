@@ -49,8 +49,10 @@ import {
 import { DynamicForm } from './form';
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
-import { InputBase, FormControl } from '@/core/models';
+import { FormControl, InputType } from '@/core/models';
 import { dynamicFormsSymbol } from '@/useApi';
+import { removeEmpty } from '@/core/utils/helpers';
+
 /* import { warn } from '../../core/utils/warning';
  */
 const props = {
@@ -64,6 +66,12 @@ const components = {
   DynamicInput,
 };
 
+const EMPTY_CONTROL = {
+  dirty: false,
+  touched: false,
+  valid: true,
+};
+
 /* const AVAILABLE_THEMES = ['default', 'material'];
  */
 export default defineComponent({
@@ -73,7 +81,7 @@ export default defineComponent({
   setup(props, ctx) {
     const { options } = inject(dynamicFormsSymbol);
 
-    const controls: Ref<FormControl[]> = ref([]);
+    const controls: Ref<FormControl<InputType>[]> = ref([]);
     const formValues = reactive({});
     const submited = ref(false);
 
@@ -108,8 +116,8 @@ export default defineComponent({
     });
 
     const isValid = computed(() => {
-      const control = controls?.value?.find(control => !control.valid);
-      return control ? control.valid : true;
+      const hasInvalidControls = controls.value.some(control => !control.valid);
+      return !hasInvalidControls;
     });
 
     const errors = computed(() => {
@@ -146,20 +154,35 @@ export default defineComponent({
       }
     });
 
-    function valueChange(changedValue: any) {
+    function valueChange(changedValue: Record<string, unknown>) {
       Object.assign(formValues, changedValue);
-      ctx.emit('changed', formValues);
+      ctx.emit('changed', removeEmpty(formValues));
     }
 
-    function mapControls(empty?) {
-      controls.value =
-        Object.entries(
-          props.form?.fields,
-        ).map(([key, field]: [string, InputBase]) =>
-          empty
-            ? ({ ...field, name: key, value: null } as FormControl)
-            : ({ ...field, name: key } as FormControl),
+    function mapControls(empty?: boolean) {
+      const controlArray =
+        Object.entries(props.form?.fields).map(
+          ([key, field]: [string, InputType]) =>
+            empty
+              ? ({
+                  ...field,
+                  name: key,
+                  value: null,
+                  ...EMPTY_CONTROL,
+                } as FormControl<InputType>)
+              : ({
+                  ...field,
+                  name: key,
+                  ...EMPTY_CONTROL,
+                } as FormControl<InputType>),
         ) || [];
+      if (props.form.fieldOrder) {
+        controls.value = controlArray.sort(
+          (a: FormControl<InputType>, b: FormControl<InputType>) =>
+            props.form.fieldOrder.indexOf(a.name) -
+            props.form.fieldOrder.indexOf(b.name),
+        );
+      }
     }
 
     function resetForm() {
@@ -168,6 +191,7 @@ export default defineComponent({
 
     function handleSubmit() {
       submited.value = true;
+
       if (isValid.value) {
         ctx.emit('submited', formValues);
         resetForm();
@@ -183,7 +207,9 @@ export default defineComponent({
           ? controls.value.reduce((prev, curr) => {
               const obj = {};
               obj[curr.name] =
-                curr.type === 'number' ? parseFloat(curr.value) : curr.value;
+                curr.type === 'number'
+                  ? parseFloat(`${curr.value}`)
+                  : curr.value;
               return {
                 ...prev,
                 ...obj,

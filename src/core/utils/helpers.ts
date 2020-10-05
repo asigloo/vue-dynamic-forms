@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const { assign, entries, values, keys } = Object;
 
 export const slugify = (text: string): string =>
@@ -21,4 +22,27 @@ export const isEmpty = (entry: any) => {
   if (isObject(entry)) {
     return entries(entry).length > 0;
   }
+};
+
+export const removeEmpty = obj =>
+  Object.keys(obj)
+    .filter(k => obj[k] != null) // Remove undef. and null.
+    .reduce(
+      (newObj, k) =>
+        typeof obj[k] === 'object'
+          ? { ...newObj, [k]: removeEmpty(obj[k]) } // Recurse.
+          : { ...newObj, [k]: obj[k] }, // Copy value.
+      {},
+    );
+
+export const mockAsync = (success, timeout, value) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (success) {
+        resolve(value);
+      } else {
+        reject({ message: 'Error' });
+      }
+    }, timeout);
+  });
 };

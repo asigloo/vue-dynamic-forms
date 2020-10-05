@@ -8,7 +8,8 @@ export type InputTypeKeys =
   | 'select'
   | 'checkbox'
   | 'radio'
-  | 'color';
+  | 'color'
+  | 'custom-field';
 
 export type InputType =
   | TextInput
@@ -24,12 +25,13 @@ export type InputType =
   | UrlInput
   | CustomInput;
 
-type ValidationErrors = {
+export type ValidationErrors = {
+  // eslint-disable-next-line
   [key: string]: any;
 };
 
 interface ValidatorFn {
-  (control: FormControl<any> | undefined): ValidationErrors | null;
+  (control: FormControl<InputType> | undefined): ValidationErrors | null;
 }
 
 export interface FormValidation {
@@ -37,8 +39,7 @@ export interface FormValidation {
   text: string;
 }
 
-export interface InputBase {
-  value: any;
+interface InputBase {
   name: string;
   label: string;
   disabled?: boolean;
@@ -48,33 +49,29 @@ export interface InputBase {
 }
 
 export type TextInput = InputBase & {
-  value: string;
   type: 'text';
+  value: string;
 };
 
-/* export interface EmailInput extends InputBase<string> {
-  type: 'email';
-} */
-
 export type NumberInput = InputBase & {
+  type: 'number';
+  value: number;
   min?: number;
   max?: number;
   step?: number;
-  value: number;
-  type: 'number';
 };
 
-export type SelectInput<T = any> = InputBase & {
+export type SelectInput<T = boolean | string> = InputBase & {
   type: 'select';
   value: T;
   options?: { key: string; value: string; disabled?: boolean }[];
 };
 
 export type TextAreaInput = InputBase & {
-  cols?: number;
-  rows?: number;
   type: 'textarea';
   value: string;
+  cols?: number;
+  rows?: number;
 };
 
 export type CheckboxInput = InputBase & {
@@ -84,6 +81,7 @@ export type CheckboxInput = InputBase & {
 
 export type CustomInput = InputBase & {
   type: 'custom-field';
+  value: boolean | string;
 };
 
 export type EmailInput = InputBase & {
@@ -108,30 +106,11 @@ export type UrlInput = InputBase & {
 
 export type RadioInput = InputBase & {
   type: 'radio';
-  options?: { key: string; value: string; disabled?: boolean }[];
   value: string;
-};
-
-/* export type UrlInput = InputBase<'url', string>;
-
-export type PasswordInput = InputBase<'password', string>;
-
-export type SelectInput = InputBase<'select'> & {
   options?: { key: string; value: string; disabled?: boolean }[];
 };
 
-export type TextAreaInput = InputBase<'textarea', string> & {
-  cols?: number;
-  rows?: number;
-};
-
-export type CheckboxInput = InputBase<'checkbox', string>;
-
-export type RadioInput = InputBase<'radio', string>;
-
-export type ColorInput = InputBase<'color', string>;
- */
-export type FormControl<T = InputType> = T & {
+export type FormControl<T extends InputType> = T & {
   valid: boolean;
   invalid: boolean;
   dirty: boolean;

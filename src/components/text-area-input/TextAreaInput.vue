@@ -10,7 +10,7 @@ export default defineComponent({
   name: 'asTextAreaInput',
   props,
   setup(props, { emit }) {
-    const { onChange, onFocus, onBlur } = useInputEvents(props?.control, emit);
+    const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
 
     return () =>
       h('textarea', {
