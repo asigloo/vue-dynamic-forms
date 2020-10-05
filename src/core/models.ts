@@ -39,7 +39,7 @@ export interface FormValidation {
   text: string;
 }
 
-interface InputBase {
+export interface InputBase {
   name: string;
   label: string;
   disabled?: boolean;
