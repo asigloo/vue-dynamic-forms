@@ -40,6 +40,7 @@ export interface FormValidation {
 }
 
 export interface InputBase {
+  name: string;
   label?: string;
   disabled?: boolean;
   customClass?: string;
@@ -80,7 +81,7 @@ export type CheckboxInput = InputBase & {
 
 export type CustomInput = InputBase & {
   type: 'custom-field';
-  value: boolean | string | number;
+  value: boolean | string;
 };
 
 export type EmailInput = InputBase & {
