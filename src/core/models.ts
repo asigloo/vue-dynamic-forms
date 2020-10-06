@@ -81,7 +81,7 @@ export type CheckboxInput = InputBase & {
 
 export type CustomInput = InputBase & {
   type: 'custom-field';
-  value: boolean | string;
+  value: boolean | string | number;
 };
 
 export type EmailInput = InputBase & {
