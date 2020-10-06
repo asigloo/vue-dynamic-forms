@@ -40,6 +40,7 @@ export interface FormValidation {
 }
 
 export interface InputBase {
+  name: string;
   label?: string;
   disabled?: boolean;
   customClass?: string;
