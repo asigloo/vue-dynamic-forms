@@ -24,7 +24,7 @@ import {
   InputType,
 } from '@/core/models';
 
-import { isEmpty, entries, values, keys } from '@/core/utils/helpers';
+import { isEmpty, entries, values, keys, isEvent } from '@/core/utils/helpers';
 import { useInputEvents } from '@/composables/input-events';
 import { dynamicFormsSymbol } from '@/useApi';
 
@@ -50,7 +50,7 @@ const props = {
 
 export type ControlAttribute<T extends InputType> = {
   control: FormControl<T>;
-  onChanged: (value: unknown) => void;
+  onChange: (value: unknown) => void;
 };
 
 export default defineComponent({
@@ -66,7 +66,7 @@ export default defineComponent({
     const attributes = computed(() => {
       return {
         control: props?.control,
-        onChanged: valueChange,
+        onChange: valueChange,
       };
     });
 
@@ -142,12 +142,24 @@ export default defineComponent({
       }
     }
 
-    function valueChange(value) {
+    function valueChange($event) {
+      let value;
       const newValue = {};
+
+      if (isEvent($event)) {
+        $event.stopPropagation();
+        value =
+          props.control.type === 'checkbox'
+            ? $event.target.checked
+            : $event.target.value;
+      } else {
+        value = $event;
+      }
+
       if (props.control) {
         newValue[props.control.name] = value;
         validate();
-        emit('changed', newValue);
+        emit('change', newValue);
       }
     }
 

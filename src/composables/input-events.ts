@@ -3,23 +3,15 @@
 import { watch } from 'vue';
 
 export function useInputEvents(props: any, emit: any) {
-  function onChange($event: any): void {
-    const value =
-      props.control.type === 'number'
-        ? parseFloat(`${$event.target.value}`)
-        : $event.target.value;
+  function onChange($event): void {
     if (props.control) {
-      props.control.value = value;
       props.control.dirty = true;
     }
-    emit('changed', value);
   }
-  function onCheck($event: any): void {
+  function onCheck($event): void {
     if (props.control) {
-      props.control.value = $event.target.checked;
       props.control.dirty = true;
     }
-    emit('changed', $event.target.checked);
   }
   function onFocus(): void {
     emit('focus');
@@ -34,7 +26,7 @@ export function useInputEvents(props: any, emit: any) {
   watch(props, (form: any) => {
     if (form?.control && !form?.control?.dirty) {
       form.control.dirty = true;
-      emit('changed', form.control.value);
+      emit('change', form.control.value);
     }
   });
 

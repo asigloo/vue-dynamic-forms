@@ -14,6 +14,7 @@ export const slugify = (text: string): string =>
 
 export const isArray = (a: any) => !!a && a.constructor === Array;
 export const isObject = (a: any) => !!a && a.constructor === Object;
+export const isEvent = (e: any) => !!e && e.constructor === Event;
 
 export const isEmpty = (entry: any) => {
   if (isArray(entry)) {

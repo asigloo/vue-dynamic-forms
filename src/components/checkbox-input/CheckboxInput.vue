@@ -11,9 +11,8 @@ export default defineComponent({
   name: 'asCheckboxInput',
   props,
   setup(props, { emit }) {
-    const { onCheck, onFocus, onBlur } = useInputEvents(props, emit);
-
-    return () => [
+    const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const renderCheckbox = [
       h('input', {
         name: props?.control?.name || '',
         type: props?.control?.type,
@@ -24,7 +23,7 @@ export default defineComponent({
         checked: props?.control?.value,
         onFocus,
         onBlur,
-        onChange: onCheck,
+        onChange,
       }),
       h(
         'label',
@@ -33,6 +32,18 @@ export default defineComponent({
           for: props?.control?.name,
         },
         props?.control?.label,
+      ),
+    ];
+
+    return () => [
+      h(
+        'div',
+        {
+          class: 'checkbox-group',
+          tabIndex: -1,
+          role: 'group',
+        },
+        renderCheckbox,
       ),
     ];
   },

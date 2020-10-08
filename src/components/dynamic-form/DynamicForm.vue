@@ -12,7 +12,7 @@
       :key="control.name"
       :control="control"
       :submited="submited"
-      @changed="valueChange"
+      @change="valueChange"
     >
       <template v-slot:customField="props">
         <div
@@ -156,7 +156,7 @@ export default defineComponent({
 
     function valueChange(changedValue: Record<string, unknown>) {
       Object.assign(formValues, changedValue);
-      ctx.emit('changed', removeEmpty(formValues));
+      ctx.emit('change', removeEmpty(formValues));
     }
 
     function mapControls(empty?: boolean) {

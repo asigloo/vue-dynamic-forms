@@ -7,7 +7,7 @@
           <dynamic-form
             :form="form"
             @submited="handleSubmit"
-            @changed="valueChanged"
+            @change="valueChanged"
             @error="handleError"
           >
             <template
@@ -195,7 +195,7 @@ export default defineComponent({
 
     function valueChanged(values) {
       Object.assign(formValues, values);
-      console.log('Values', values);
+      /* console.log('Values', values); */
     }
 
     function handleError(errors) {
