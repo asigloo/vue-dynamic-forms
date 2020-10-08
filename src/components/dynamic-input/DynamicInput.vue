@@ -233,17 +233,7 @@ export default defineComponent({
             },
             slots.customField({
               control: props.control,
-              onChange: $event => {
-                const newValue = {};
-                const value = $event.target.value;
-
-                if (props.control) {
-                  props.control.dirty = true;
-                  newValue[props.control.name] = value;
-                  validate();
-                  emit('changed', newValue);
-                }
-              },
+              onChange: valueChange,
               onFocus,
               onBlur,
             }),
