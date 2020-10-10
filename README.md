@@ -6,7 +6,7 @@
   <a href="https://www.npmjs.com/package/@asigloo/vue-dynamic-forms">
     <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms" alt="Current npm version">
   </a>
-  <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms@0.2.0">
+  <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms@latest">
     <img src="https://flat.badgen.net/bundlephobia/min/@asigloo/vue-dynamic-forms" alt="Minified size">
   </a>
   <a href="https://vuejs.org">
@@ -24,6 +24,10 @@ Especially if you need to create a very large form, in which the inputs are simi
 So, wouldn't it be more economical to create the forms dynamically? Based on metadata that describes the business object model?
 
 That's Vue Dynamic Forms.
+
+## Vue support
+
+This is the Vue `2.x.x` compatible version. For the Vue `3.x.x` and Typescript support, please use the version available in the branch [next](https://github.com/alvarosaburido/vue-dynamic-forms/tree/next).
 
 ## Documentation
 
