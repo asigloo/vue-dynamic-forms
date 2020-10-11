@@ -36,8 +36,6 @@
     "lint": "vue-cli-service lint",
     "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll",
     "test": "vue-cli-service test:unit",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
     "semantic-release": "semantic-release"
   },
   "main": "dist/as-dynamic-forms.common.js",
@@ -59,7 +57,6 @@
     "sass-loader": "10.0.3",
     "vue-select": "3.10.8",
     "vue-template-compiler": "2.6.12",
-    "vuepress": "1.6.0",
     "semantic-release": "17.1.2",
     "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
