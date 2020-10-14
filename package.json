@@ -6,10 +6,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alvarosaburido/vue-dynamic-forms.git"
+    "url": "https://github.com/asigloo/vue-dynamic-forms.git"
   },
   "bugs": {
-    "url": "https://github.com/alvarosaburido/vue-dynamic-forms/issues"
+    "url": "https://github.com/asigloo/vue-dynamic-forms/issues"
   },
   "publishConfig": {
     "access": "public"

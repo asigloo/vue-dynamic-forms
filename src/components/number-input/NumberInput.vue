@@ -15,15 +15,21 @@ export default defineComponent({
 
     return () =>
       h('input', {
+        id: props.control.name,
         name: props?.control?.name || '',
         type: props?.control?.type,
-        disabled: props?.control?.disabled,
-        placeholder: props?.control?.placeholder,
         class: ['form-control'],
         value: props?.control?.value,
         min: props?.control?.min,
         max: props?.control?.max,
         step: props?.control?.step,
+        disabled: props?.control?.disabled,
+        placeholder: props?.control?.placeholder,
+        required: props.control.required,
+        autocomplete: props.control.autocomplete,
+        ariaLabel: props.control.ariaLabel,
+        ariaLabelledBy: props.control.ariaLabelledBy,
+        ariaRequired: props.control.required,
         onFocus,
         onBlur,
         onChange,

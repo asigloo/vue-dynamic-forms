@@ -14,13 +14,19 @@ export default defineComponent({
 
     return () =>
       h('textarea', {
+        id: props.control.name,
         name: props?.control?.name || '',
-        disabled: props?.control?.disabled,
-        placeholder: props?.control?.placeholder,
         class: ['form-control'],
         value: props?.control?.value,
         rows: props?.control?.rows,
         cols: props?.control?.cols,
+        disabled: props?.control?.disabled,
+        placeholder: props?.control?.placeholder,
+        required: props.control.required,
+        autocomplete: props.control.autocomplete,
+        ariaLabel: props.control.ariaLabel,
+        ariaLabelledBy: props.control.ariaLabelledBy,
+        ariaRequired: props.control.required,
         onFocus,
         onBlur,
         onChange,
