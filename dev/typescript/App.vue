@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="page container">
-      <h1 class="title m-4">{{ title }}</h1>
-      <div class="flex justify-between">
-        <div class="card p-6 mr-4">
+      <h1 class="title m-4 text-bg">{{ title }}</h1>
+      <div class="flex flex-wrap justify-between">
+        <div class="card p-6 w-full sm:w-1/2">
           <dynamic-form
             :form="form"
             @submited="handleSubmit"
@@ -15,6 +15,7 @@
             >
               <div class="avocado-field">
                 <input
+                  :id="control.name"
                   v-if="control"
                   class="form-control"
                   v-model="control.value"
@@ -36,7 +37,7 @@
             Submit Form
           </button>
         </div>
-        <div class="card p-6">
+        <div class="p-6 w-full sm:w-1/3">
           <pre>{{ formValues }}</pre>
         </div>
       </div>
@@ -111,6 +112,7 @@ export default defineComponent({
         password: {
           label: 'Password',
           type: 'password',
+          autocomplete: 'current-password',
           validations: [passwordValidator],
         } as PasswordInput,
         stock: {
@@ -241,6 +243,15 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
+.text-bg {
+  background-image: linear-gradient(
+    to top,
+    #99ffd580 54%,
+    transparent 54%,
+    transparent 100%
+  );
+  width: fit-content;
+}
 .avocado-field {
   position: relative;
 

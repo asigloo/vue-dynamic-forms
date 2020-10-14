@@ -139,7 +139,13 @@ export default defineComponent({
 
     const formattedOptions = computed(() => {
       if (options?.form) {
-        const { customClass, method, netlify, netlifyHoneypot } = options?.form;
+        const {
+          customClass,
+          method,
+          netlify,
+          netlifyHoneypot,
+          autocomplete,
+        } = options?.form;
         return {
           class: [
             customClass,
@@ -148,6 +154,7 @@ export default defineComponent({
           method,
           'data-netlify': netlify,
           'data-netlify-honeypot': netlifyHoneypot,
+          autocomplete: autocomplete ? 'on' : 'off',
         };
       } else {
         return;

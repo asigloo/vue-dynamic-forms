@@ -42,10 +42,13 @@ export interface FormValidation {
 export interface InputBase {
   name: string;
   label?: string;
+  ariaLabel?: string;
+  ariaLabelledBy?: string;
   required?: string;
   disabled?: boolean;
   customClass?: string;
   placeholder?: string;
+  autocomplete?: string;
   validations?: FormValidation[];
 }
 
@@ -124,4 +127,5 @@ export interface FormOptions {
   method?: string;
   netlify?: boolean;
   netlifyHoneypot?: string;
+  autocomplete?: boolean;
 }
