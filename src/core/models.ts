@@ -42,6 +42,7 @@ export interface FormValidation {
 export interface InputBase {
   name: string;
   label?: string;
+  required?: string;
   disabled?: boolean;
   customClass?: string;
   placeholder?: string;

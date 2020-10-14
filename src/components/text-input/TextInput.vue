@@ -24,10 +24,13 @@ export default defineComponent({
 
     return () =>
       h('input', {
+        id: props.control.name,
         name: props.control.name || '',
         type: props.control.type,
         disabled: props.control.disabled,
         placeholder: props.control.placeholder,
+        required: props.control.required,
+        ariaRequired: props.control.required,
         class: ['form-control'],
         value: props?.control?.value,
         onFocus,

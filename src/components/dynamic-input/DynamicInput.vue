@@ -242,6 +242,15 @@ export default defineComponent({
         default:
           break;
       }
+
+      const requiredStar = h(
+        'span',
+        {
+          ariaHidden: true,
+          class: 'form-required-star',
+        },
+        ' *',
+      );
       return h(
         isFieldSet.value ? 'fieldset' : 'div',
         {
@@ -254,9 +263,12 @@ export default defineComponent({
                 isFieldSet.value ? 'legend' : 'label',
                 {
                   class: 'form-label',
-                  for: props?.control?.label,
+                  for: props?.control?.name,
                 },
-                props?.control?.label,
+                [
+                  `${props?.control?.label}`,
+                  props?.control?.required ? requiredStar : '',
+                ],
               )
             : null,
           component,

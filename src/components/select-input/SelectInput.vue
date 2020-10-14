@@ -20,9 +20,12 @@ export default defineComponent({
       return h(
         'select',
         {
+          id: props.control.name,
           name: props?.control?.name || '',
           disabled: props?.control?.disabled,
           placeholder: props?.control?.placeholder,
+          required: props.control.required,
+          ariaRequired: props.control.required,
           class: ['form-control'],
           value: props?.control?.value,
           onFocus,

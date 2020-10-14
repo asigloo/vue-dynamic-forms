@@ -15,11 +15,14 @@ export default defineComponent({
 
     return () =>
       h('input', {
+        id: props.control.name,
         name: props?.control?.name || '',
         type: props?.control?.type,
         disabled: props?.control?.disabled,
         placeholder: props?.control?.placeholder,
         class: ['form-control'],
+        required: props.control.required,
+        ariaRequired: props.control.required,
         value: props?.control?.value,
         min: props?.control?.min,
         max: props?.control?.max,

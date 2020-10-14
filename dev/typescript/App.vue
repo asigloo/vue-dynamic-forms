@@ -101,6 +101,7 @@ export default defineComponent({
           label: 'Name',
           type: 'text',
           value: 'Alvaro',
+          required: true,
         } as TextInput,
         email: {
           label: 'Email',
