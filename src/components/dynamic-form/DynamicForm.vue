@@ -141,16 +141,15 @@ export default defineComponent({
       if (options?.form) {
         const {
           customClass,
+          customStyles,
           method,
           netlify,
           netlifyHoneypot,
           autocomplete,
         } = options?.form;
         return {
-          class: [
-            customClass,
-            /* validTheme.value ? `theme-${options.theme}` : null, */
-          ].join(' '),
+          class: customClass,
+          style: customStyles,
           method,
           'data-netlify': netlify,
           'data-netlify-honeypot': netlifyHoneypot,

@@ -30,6 +30,10 @@ export type ValidationErrors = {
   [key: string]: any;
 };
 
+export type BindingObject = {
+  [key: string]: any;
+};
+
 interface ValidatorFn {
   (control: FormControl<InputType> | undefined): ValidationErrors | null;
 }
@@ -40,13 +44,14 @@ export interface FormValidation {
 }
 
 export interface InputBase {
-  name: string;
+  name?: string;
   label?: string;
   ariaLabel?: string;
   ariaLabelledBy?: string;
-  required?: string;
+  required?: boolean;
   disabled?: boolean;
-  customClass?: string;
+  customClass?: string | string[] | BindingObject | BindingObject[] | unknown;
+  customStyles?: string | string[] | BindingObject | BindingObject[] | unknown;
   placeholder?: string;
   autocomplete?: string;
   validations?: FormValidation[];
@@ -123,7 +128,8 @@ export type FormControl<T extends InputType> = T & {
 };
 
 export interface FormOptions {
-  customClass?: string;
+  customClass?: string | string[] | BindingObject | BindingObject[];
+  customStyles?: string | string[] | BindingObject | BindingObject[];
   method?: string;
   netlify?: boolean;
   netlifyHoneypot?: string;

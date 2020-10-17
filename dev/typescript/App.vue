@@ -61,6 +61,7 @@ import {
   ColorInput,
   NumberInput,
   CustomInput,
+  BindingObject,
 } from '../../src';
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
@@ -68,7 +69,6 @@ export default defineComponent({
   setup() {
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
-
     const emailValidator: FormValidation = {
       validator: email,
       text: 'Email format is incorrect',
@@ -96,6 +96,7 @@ export default defineComponent({
         'awesomeness',
         'color',
         'customField1',
+        'customStyles',
       ],
       fields: {
         name: {
@@ -108,6 +109,16 @@ export default defineComponent({
           label: 'Email',
           type: 'email',
           validations: [emailValidator],
+          /*      customClass: 'active text-red', */
+          customClass: {
+            active: true,
+            'text-blue': true,
+          },
+          /* customClass: {
+            active: true,
+            'text-blue': true,
+          }, */
+          /*  customClass: ['active', 'text-red'], */
         } as EmailInput,
         password: {
           label: 'Password',
@@ -189,6 +200,14 @@ export default defineComponent({
           type: 'color',
           value: '#4DBA87',
         } as ColorInput,
+        customStyles: {
+          label: 'Custom Styles',
+          type: 'text',
+          required: true,
+          customStyles: {
+            border: '1px solid teal',
+          },
+        } as TextInput,
       },
     });
 

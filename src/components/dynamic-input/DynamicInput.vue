@@ -22,9 +22,18 @@ import {
   CheckboxInput,
   TextAreaInput,
   InputType,
+  BindingObject,
 } from '@/core/models';
 
-import { isEmpty, entries, values, keys, isEvent } from '@/core/utils/helpers';
+import {
+  isEmpty,
+  entries,
+  values,
+  keys,
+  isEvent,
+  isArray,
+  isObject,
+} from '@/core/utils/helpers';
 import { useInputEvents } from '@/composables/input-events';
 import { dynamicFormsSymbol } from '@/useApi';
 
@@ -66,6 +75,7 @@ export default defineComponent({
     const attributes = computed(() => {
       return {
         control: props?.control,
+        style: props?.control.customStyles,
         onChange: valueChange,
       };
     });
@@ -74,7 +84,7 @@ export default defineComponent({
     const isFieldSet = computed(() => props?.control?.type === 'radio');
 
     const getClasses = computed(() => {
-      return [
+      const classes = [
         'dynamic-input',
         'form-group',
         {
@@ -83,8 +93,18 @@ export default defineComponent({
         {
           'form-group--error': showErrors.value,
         },
-        `${props?.control?.customClass || ''}`,
       ];
+
+      if (isArray(props?.control?.customClass)) {
+        return [
+          ...classes,
+          ...(props?.control?.customClass as BindingObject[]),
+        ];
+      }
+      if (isObject(props?.control?.customClass)) {
+        return [...classes, props?.control?.customClass];
+      }
+      return [classes, props?.control?.customClass];
     });
 
     const autoValidate = computed(
