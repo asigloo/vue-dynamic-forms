@@ -11,6 +11,10 @@ const VueDynamicForms = createDynamicForms({
   autoValidate: true,
   form: {
     customClass: 'plugin-options-class-added',
+    customStyles: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
     method: 'POST',
     netlify: false,
     netlifyHoneypot: null,
