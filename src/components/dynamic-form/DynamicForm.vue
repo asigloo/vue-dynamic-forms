@@ -4,6 +4,8 @@
       v-if="fields.length > 0 && !showFeedback"
       :id="id"
       :name="id"
+      :class="getClasses"
+      :style="getStyles"
       v-bind="formattedOptions"
       novalidate
       @submit.prevent="handleSubmit()"

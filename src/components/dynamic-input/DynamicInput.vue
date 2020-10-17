@@ -10,26 +10,31 @@
       "
       :formControl="formControl"
       @change="valueChange"
+      :style="getStyles"
     />
     <input-textarea
       v-if="formControl.type === 'textarea'"
       :formControl="formControl"
       @change="valueChange"
+      :style="getStyles"
     />
     <input-select
       v-if="formControl.type === 'select'"
       :formControl="formControl"
       @change="valueChange"
+      :style="getStyles"
     />
     <input-checkbox
       v-if="formControl.type === 'checkbox'"
       :formControl="formControl"
       @change="valueChange"
+      :style="getStyles"
     />
     <input-radio
       v-if="formControl.type === 'radio'"
       :formControl="formControl"
       @change="valueChange"
+      :style="getStyles"
     />
     <slot
       v-if="formControl.type === 'custom-field'"
@@ -38,6 +43,7 @@
       :valueChange="valueChange"
       :onFocus="onFocus"
       :onBlur="onBlur"
+      :style="getStyles"
     />
     <label
       class="form-label"

@@ -92,6 +92,9 @@ const computed = {
       (this.submited || this.autoValidate)
     );
   },
+  getStyles() {
+    return this.formControl.customStyles;
+  },
   errorMessages() {
     const errors = Object.entries(this.formControl.errors);
     if (errors.length > 0) {
