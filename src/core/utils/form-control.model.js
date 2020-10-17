@@ -7,6 +7,7 @@ export function FormControl({
   form,
   name = null,
   customClass = null,
+  customStyles = null,
   options = [],
   placeholder = null,
   rows = null,
@@ -26,6 +27,7 @@ export function FormControl({
   this.label = label;
   this.name = name;
   this.customClass = customClass;
+  this.customStyles = customStyles;
   this.options = options;
   this.placeholder = placeholder;
   this.disabled = disabled;
@@ -46,6 +48,7 @@ export function FormField({
   label = null,
   name = null,
   customClass = null,
+  customStyles = null,
   disabled = false,
   options = [],
   placeholder = null,
@@ -61,6 +64,7 @@ export function FormField({
   this.label = label;
   this.name = name;
   this.customClass = customClass;
+  this.customStyles = customStyles;
   this.disabled = disabled;
   this.options = options;
   this.placeholder = placeholder;
@@ -80,12 +84,14 @@ export function FormValidation(
 
 export function FormOptions({
   customClass = '',
+  customStyles = '',
   method = 'POST',
   autoValidate = false,
   netlify = false,
   netlifyHoneypot = null,
 }) {
   this.customClass = customClass;
+  this.customStyles = customStyles;
   this.method = method;
   this.autoValidate = autoValidate;
   this.netlify = netlify;

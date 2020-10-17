@@ -197,6 +197,15 @@ const data = () => ({
         customClass: 'col-6',
         options: ['Arduino', 'Pinguino'],
       }),
+      new FormField({
+        type: 'text',
+        label: 'Custom Style',
+        name: 'custom-style',
+        customStyles: {
+          boxShadow: '0 0 22px -1px rgba(0,0,0,0.2)',
+        },
+        customClass: 'col-12',
+      }),
     ],
     options: {
       autoValidate: true,

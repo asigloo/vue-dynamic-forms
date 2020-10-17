@@ -77,6 +77,12 @@ const methods = {
 };
 
 const computed = {
+  getClasses() {
+    return this.options.customClass;
+  },
+  getStyles() {
+    return this.options.customStyles;
+  },
   isValid() {
     const control = this.controls.find(control => !control.valid);
     return control ? control.valid : true;
