@@ -26,6 +26,7 @@ export default defineComponent({
         disabled: props?.control?.disabled,
         placeholder: props?.control?.placeholder,
         required: props.control.required,
+        readonly: props?.control.readonly,
         autocomplete: props.control.autocomplete,
         ariaLabel: props.control.ariaLabel,
         ariaLabelledBy: props.control.ariaLabelledBy,

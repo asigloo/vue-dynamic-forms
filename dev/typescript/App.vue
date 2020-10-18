@@ -97,6 +97,7 @@ export default defineComponent({
         'color',
         'customField1',
         'customStyles',
+        'readonly',
       ],
       fields: {
         name: {
@@ -109,16 +110,10 @@ export default defineComponent({
           label: 'Email',
           type: 'email',
           validations: [emailValidator],
-          /*      customClass: 'active text-red', */
           customClass: {
             active: true,
             'text-blue': true,
           },
-          /* customClass: {
-            active: true,
-            'text-blue': true,
-          }, */
-          /*  customClass: ['active', 'text-red'], */
         } as EmailInput,
         password: {
           label: 'Password',
@@ -207,6 +202,12 @@ export default defineComponent({
           customStyles: {
             border: '1px solid teal',
           },
+        } as TextInput,
+        readonly: {
+          label: 'Readonly',
+          type: 'text',
+          value: 'Alvaro',
+          readonly: true,
         } as TextInput,
       },
     });
