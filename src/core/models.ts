@@ -54,6 +54,7 @@ export interface InputBase {
   customStyles?: string | string[] | BindingObject | BindingObject[] | unknown;
   placeholder?: string;
   autocomplete?: string;
+  readonly?: boolean;
   validations?: FormValidation[];
 }
 
