@@ -62,6 +62,15 @@ import {
   NumberInput,
   CustomInput,
   BindingObject,
+  TextField,
+  SelectField,
+  EmailField,
+  PasswordField,
+  NumberField,
+  CheckboxField,
+  RadioField,
+  CustomField,
+  ColorField,
 } from '../../src';
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
@@ -100,34 +109,28 @@ export default defineComponent({
         'readonly',
       ],
       fields: {
-        name: {
+        name: TextField({
           label: 'Name',
-          type: 'text',
-          value: 'Alvaro',
           required: true,
-        } as TextInput,
-        email: {
+        }),
+        email: EmailField({
           label: 'Email',
-          type: 'email',
           validations: [emailValidator],
           customClass: {
             active: true,
             'text-blue': true,
           },
-        } as EmailInput,
-        password: {
+        }),
+        password: PasswordField({
           label: 'Password',
-          type: 'password',
           autocomplete: 'current-password',
           validations: [passwordValidator],
-        } as PasswordInput,
-        stock: {
+        }),
+        stock: NumberField({
           label: 'Stock',
-          type: 'number',
-        } as NumberInput,
-        games: {
+        }),
+        games: SelectField({
           label: 'Games',
-          type: 'select',
           customClass: 'w-1/2',
           value: 'the-last-of-us',
           options: [
@@ -144,28 +147,23 @@ export default defineComponent({
               value: 'Nier Automata',
             },
           ],
-        } as SelectInput,
-        console: {
+        }),
+        console: SelectField({
           label: 'Console (Async Options)',
-          type: 'select',
           customClass: 'w-1/2',
-          options: [],
-        } as SelectInput,
-        steps: {
+        }),
+        steps: NumberField({
           label: 'Number',
-          type: 'number',
           min: 5,
           max: 60,
           step: 5,
           value: 5,
-        } as NumberInput,
-        awesomeness: {
+        }),
+        awesomeness: CheckboxField({
           label: "Check  if you're awesome",
-          type: 'checkbox',
-        } as CheckboxInput,
-        character: {
+        }),
+        character: RadioField({
           label: 'Select one option',
-          type: 'radio',
           options: [
             {
               key: 'mario',
@@ -185,30 +183,26 @@ export default defineComponent({
               disabled: true,
             },
           ],
-        } as RadioInput,
-        customField1: {
-          type: 'custom-field',
+        }),
+        customField1: CustomField({
           label: 'Custom Field',
-        } as CustomInput,
-        color: {
+        }),
+        color: ColorField({
           label: 'Color',
-          type: 'color',
           value: '#4DBA87',
-        } as ColorInput,
-        customStyles: {
+        }),
+        customStyles: TextField({
           label: 'Custom Styles',
-          type: 'text',
           required: true,
           customStyles: {
             border: '1px solid teal',
           },
-        } as TextInput,
-        readonly: {
+        }),
+        readonly: TextField({
           label: 'Readonly',
-          type: 'text',
           value: 'Alvaro',
           readonly: true,
-        } as TextInput,
+        }),
       },
     });
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export type InputTypeKeys =
   | 'text'
   | 'email'
@@ -59,63 +60,63 @@ export interface InputBase {
 }
 
 export type TextInput = InputBase & {
-  type: 'text';
-  value: string;
+  type: string;
+  value?: string;
 };
 
 export type NumberInput = InputBase & {
-  type: 'number';
+  type: string;
   value: number;
-  min?: number;
-  max?: number;
-  step?: number;
+  min: number;
+  max: number;
+  step: number;
 };
 
 export type SelectInput<T = boolean | string> = InputBase & {
-  type: 'select';
+  type: string;
   value: T;
   options?: { key: string; value: string; disabled?: boolean }[];
 };
 
 export type TextAreaInput = InputBase & {
-  type: 'textarea';
+  type: string;
   value: string;
   cols?: number;
   rows?: number;
 };
 
 export type CheckboxInput = InputBase & {
-  type: 'checkbox';
+  type: string;
   value: boolean;
 };
 
 export type CustomInput = InputBase & {
-  type: 'custom-field';
+  type: string;
   value: boolean | string | number;
 };
 
 export type EmailInput = InputBase & {
-  type: 'email';
+  type: string;
   value: string;
 };
 
 export type PasswordInput = InputBase & {
-  type: 'password';
+  type: string;
   value: string;
 };
 
 export type ColorInput = InputBase & {
-  type: 'color';
+  type: string;
   value: string;
 };
 
 export type UrlInput = InputBase & {
-  type: 'url';
+  type: string;
   value: string;
 };
 
 export type RadioInput = InputBase & {
-  type: 'radio';
+  type: string;
   value: string;
   options?: { key: string; value: string; disabled?: boolean }[];
 };
@@ -136,3 +137,123 @@ export interface FormOptions {
   netlifyHoneypot?: string;
   autocomplete?: boolean;
 }
+
+export const fieldTypes = {
+  TEXT: 'text',
+  TEXTAREA: 'textarea',
+  SELECT: 'select',
+  NUMBER: 'number',
+  EMAIL: 'email',
+  URL: 'url',
+  PASSWORD: 'password',
+  CHECKBOX: 'checkbox',
+  RADIO: 'radio',
+  CUSTOM: 'custom-field',
+  COLOR: 'color',
+};
+
+// Factory Functions
+
+export const FieldBase = ({
+  value = null,
+  validations = [],
+  label = null,
+  ariaLabel = null,
+  ariaLabelledBy = null,
+  customClass = null,
+  customStyles = null,
+  disabled = false,
+  placeholder = null,
+  inline = false,
+  required = false,
+  autocomplete = null,
+  readonly = false,
+} = {}): InputBase =>
+  ({
+    value,
+    validations,
+    label,
+    ariaLabel,
+    ariaLabelledBy,
+    customClass,
+    customStyles,
+    disabled,
+    placeholder,
+    inline,
+    required,
+    autocomplete,
+    readonly,
+  } as InputBase);
+
+export const TextField = ({ value = null, ...rest }): TextInput => ({
+  ...FieldBase(rest),
+  value,
+  type: fieldTypes.TEXT,
+});
+
+export const EmailField = ({ value = null, ...rest }): EmailInput => ({
+  ...FieldBase(rest),
+  value,
+  type: fieldTypes.EMAIL,
+});
+
+export const PasswordField = ({ value = null, ...rest }): PasswordInput => ({
+  ...FieldBase(rest),
+  value,
+  type: fieldTypes.PASSWORD,
+});
+
+export const CheckboxField = ({ value = null, ...rest }): CheckboxInput => ({
+  ...FieldBase(rest),
+  value,
+  type: fieldTypes.CHECKBOX,
+});
+
+export const ColorField = ({ value = null, ...rest }): ColorInput => ({
+  ...FieldBase(rest),
+  value,
+  type: fieldTypes.COLOR,
+});
+
+export const RadioField = ({
+  options = [],
+  value = null,
+  ...rest
+}): RadioInput => ({
+  ...FieldBase(rest),
+  value,
+  options,
+  type: fieldTypes.RADIO,
+});
+
+export const NumberField = ({
+  value = null,
+  min = 0,
+  max = 100,
+  step = 1,
+  ...rest
+}): NumberInput => ({
+  ...FieldBase(rest),
+  value,
+  min,
+  max,
+  step,
+  type: fieldTypes.NUMBER,
+});
+
+export const SelectField = ({
+  options = [],
+  value = null,
+  ...rest
+}): SelectInput => ({
+  ...FieldBase(rest),
+  value,
+  options,
+  type: fieldTypes.SELECT,
+});
+
+export const CustomField = ({ value = null, ...rest }): CustomInput => ({
+  ...FieldBase(rest),
+  value,
+  type: fieldTypes.CUSTOM,
+});
