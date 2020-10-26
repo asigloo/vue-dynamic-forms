@@ -23,6 +23,7 @@ import {
   TextAreaInput,
   InputType,
   BindingObject,
+  FieldTypes,
 } from '@/core/models';
 
 import {
@@ -88,7 +89,7 @@ export default defineComponent({
         'dynamic-input',
         'form-group',
         {
-          'form-group--inline': props?.control?.type === 'checkbox',
+          'form-group--inline': props?.control?.type === FieldTypes.CHECKBOX,
         },
         {
           'form-group--error': showErrors.value,
@@ -185,7 +186,7 @@ export default defineComponent({
 
     return () => {
       switch (props?.control?.type) {
-        case 'text':
+        case FieldTypes.TEXT:
           component = h(
             TextInputComponent,
             attributes.value as ControlAttribute<TextInput>,
