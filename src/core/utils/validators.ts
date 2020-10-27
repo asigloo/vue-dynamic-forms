@@ -92,11 +92,11 @@ export const pattern = (pattern: string): ValidationErrors | null => {
 
     regex = new RegExp(regexStr);
   }
-  return control => {
+  return (control: FormControl<InputType>) => {
     if (isEmptyInputValue(control.value)) {
       return null; // don't validate empty values to allow optional controls
     }
-    const value = control.value;
+    const value = `${control.value}`;
     return regex.test(value)
       ? null
       : { pattern: { requiredPattern: regexStr, actualValue: value } };

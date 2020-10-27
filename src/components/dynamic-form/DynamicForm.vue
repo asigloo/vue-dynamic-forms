@@ -49,7 +49,7 @@ import {
 import { DynamicForm } from './form';
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
-import { FormControl, InputType } from '@/core/models';
+import { FieldTypes, FormControl, InputType } from '@/core/models';
 import { dynamicFormsSymbol } from '@/useApi';
 import { removeEmpty } from '@/core/utils/helpers';
 
@@ -215,7 +215,7 @@ export default defineComponent({
           ? controls.value.reduce((prev, curr) => {
               const obj = {};
               obj[curr.name] =
-                curr.type === 'number'
+                curr.type === FieldTypes.NUMBER
                   ? parseFloat(`${curr.value}`)
                   : curr.value;
               return {

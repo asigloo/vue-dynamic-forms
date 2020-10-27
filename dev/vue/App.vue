@@ -47,7 +47,7 @@
 <script lang="ts">
 import { mockAsync } from '@/core/utils/helpers';
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { email, pattern } from '../../src';
+import { email, FieldTypes, pattern } from '../../src';
 
 export default defineComponent({
   name: 'app',
@@ -86,26 +86,26 @@ export default defineComponent({
       fields: {
         name: {
           label: 'Name',
-          type: 'text',
+          type: FieldTypes.TEXT,
           value: 'Alvaro',
         },
         email: {
           label: 'Email',
-          type: 'email',
+          type: FieldTypes.EMAIL,
           validations: [emailValidator],
         },
         password: {
           label: 'Password',
-          type: 'password',
+          type: FieldTypes.PASSWORD,
           validations: [passwordValidator],
         },
         stock: {
           label: 'Stock',
-          type: 'number',
+          type: FieldTypes.NUMBER,
         },
         games: {
           label: 'Games',
-          type: 'select',
+          type: FieldTypes.SELECT,
           customClass: 'w-1/2',
           value: 'the-last-of-us',
           options: [
@@ -125,13 +125,13 @@ export default defineComponent({
         },
         console: {
           label: 'Console (Async Options)',
-          type: 'select',
+          type: FieldTypes.SELECT,
           customClass: 'w-1/2',
           options: [],
         },
         steps: {
           label: 'Number',
-          type: 'number',
+          type: FieldTypes.NUMBER,
           min: 5,
           max: 60,
           step: 5,
@@ -139,11 +139,11 @@ export default defineComponent({
         },
         awesomeness: {
           label: "Check  if you're awesome",
-          type: 'checkbox',
+          type: FieldTypes.CHECKBOX,
         },
         character: {
           label: 'Select one option',
-          type: 'radio',
+          type: FieldTypes.RADIO,
           options: [
             {
               key: 'mario',
@@ -165,12 +165,12 @@ export default defineComponent({
           ],
         },
         customField1: {
-          type: 'custom-field',
+          type: FieldTypes.CUSTOM,
           label: 'Custom Field',
         },
         color: {
           label: 'Color',
-          type: 'color',
+          type: FieldTypes.COLOR,
           value: '#4DBA87',
         },
       },

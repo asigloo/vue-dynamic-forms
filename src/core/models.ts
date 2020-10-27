@@ -1,17 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export type InputTypeKeys =
-  | 'text'
-  | 'email'
-  | 'url'
-  | 'number'
-  | 'password'
-  | 'textarea'
-  | 'select'
-  | 'checkbox'
-  | 'radio'
-  | 'color'
-  | 'custom-field';
-
 export type InputType =
   | TextInput
   | NumberInput
@@ -25,6 +12,8 @@ export type InputType =
   | ColorInput
   | UrlInput
   | CustomInput;
+
+export type MustHave<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
 export type ValidationErrors = {
   // eslint-disable-next-line
@@ -60,12 +49,12 @@ export interface InputBase {
 }
 
 export type TextInput = InputBase & {
-  type: string;
+  type: FieldTypes.TEXT;
   value?: string;
 };
 
 export type NumberInput = InputBase & {
-  type: string;
+  type: FieldTypes.NUMBER;
   value: number;
   min: number;
   max: number;
@@ -73,50 +62,50 @@ export type NumberInput = InputBase & {
 };
 
 export type SelectInput<T = boolean | string> = InputBase & {
-  type: string;
+  type: FieldTypes.SELECT;
   value: T;
   options?: { key: string; value: string; disabled?: boolean }[];
 };
 
 export type TextAreaInput = InputBase & {
-  type: string;
+  type: FieldTypes.TEXTAREA;
   value: string;
   cols?: number;
   rows?: number;
 };
 
 export type CheckboxInput = InputBase & {
-  type: string;
+  type: FieldTypes.CHECKBOX;
   value: boolean;
 };
 
 export type CustomInput = InputBase & {
-  type: string;
+  type: FieldTypes.CUSTOM;
   value: boolean | string | number;
 };
 
 export type EmailInput = InputBase & {
-  type: string;
+  type: FieldTypes.EMAIL;
   value: string;
 };
 
 export type PasswordInput = InputBase & {
-  type: string;
+  type: FieldTypes.PASSWORD;
   value: string;
 };
 
 export type ColorInput = InputBase & {
-  type: string;
+  type: FieldTypes.COLOR;
   value: string;
 };
 
 export type UrlInput = InputBase & {
-  type: string;
+  type: FieldTypes.URL;
   value: string;
 };
 
 export type RadioInput = InputBase & {
-  type: string;
+  type: FieldTypes.RADIO;
   value: string;
   options?: { key: string; value: string; disabled?: boolean }[];
 };
@@ -138,24 +127,23 @@ export interface FormOptions {
   autocomplete?: boolean;
 }
 
-export const fieldTypes = {
-  TEXT: 'text',
-  TEXTAREA: 'textarea',
-  SELECT: 'select',
-  NUMBER: 'number',
-  EMAIL: 'email',
-  URL: 'url',
-  PASSWORD: 'password',
-  CHECKBOX: 'checkbox',
-  RADIO: 'radio',
-  CUSTOM: 'custom-field',
-  COLOR: 'color',
-};
+export const enum FieldTypes {
+  TEXT = 'text',
+  TEXTAREA = 'textarea',
+  SELECT = 'select',
+  NUMBER = 'number',
+  EMAIL = 'email',
+  URL = 'url',
+  PASSWORD = 'password',
+  CHECKBOX = 'checkbox',
+  RADIO = 'radio',
+  CUSTOM = 'custom-field',
+  COLOR = 'color',
+}
 
 // Factory Functions
 
 export const FieldBase = ({
-  value = null,
   validations = [],
   label = null,
   ariaLabel = null,
@@ -164,13 +152,11 @@ export const FieldBase = ({
   customStyles = null,
   disabled = false,
   placeholder = null,
-  inline = false,
   required = false,
   autocomplete = null,
   readonly = false,
-} = {}): InputBase =>
+}: InputBase): InputBase =>
   ({
-    value,
     validations,
     label,
     ariaLabel,
@@ -179,51 +165,65 @@ export const FieldBase = ({
     customStyles,
     disabled,
     placeholder,
-    inline,
     required,
     autocomplete,
     readonly,
   } as InputBase);
 
-export const TextField = ({ value = null, ...rest }): TextInput => ({
+export const TextField = ({
+  value,
+  ...rest
+}: Partial<TextInput>): TextInput => ({
   ...FieldBase(rest),
   value,
-  type: fieldTypes.TEXT,
+  type: FieldTypes.TEXT,
 });
 
-export const EmailField = ({ value = null, ...rest }): EmailInput => ({
+export const EmailField = ({
+  value,
+  ...rest
+}: Partial<EmailInput>): EmailInput => ({
   ...FieldBase(rest),
   value,
-  type: fieldTypes.EMAIL,
+  type: FieldTypes.EMAIL,
 });
 
-export const PasswordField = ({ value = null, ...rest }): PasswordInput => ({
+export const PasswordField = ({
+  value,
+  ...rest
+}: Partial<PasswordInput>): PasswordInput => ({
   ...FieldBase(rest),
   value,
-  type: fieldTypes.PASSWORD,
+  type: FieldTypes.PASSWORD,
 });
 
-export const CheckboxField = ({ value = null, ...rest }): CheckboxInput => ({
+export const CheckboxField = ({
+  value,
+  ...rest
+}: Partial<CheckboxInput>): CheckboxInput => ({
   ...FieldBase(rest),
   value,
-  type: fieldTypes.CHECKBOX,
+  type: FieldTypes.CHECKBOX,
 });
 
-export const ColorField = ({ value = null, ...rest }): ColorInput => ({
+export const ColorField = ({
+  value,
+  ...rest
+}: Partial<ColorInput>): ColorInput => ({
   ...FieldBase(rest),
   value,
-  type: fieldTypes.COLOR,
+  type: FieldTypes.COLOR,
 });
 
 export const RadioField = ({
-  options = [],
-  value = null,
+  options,
+  value,
   ...rest
-}): RadioInput => ({
+}: Partial<RadioInput>): RadioInput => ({
   ...FieldBase(rest),
   value,
   options,
-  type: fieldTypes.RADIO,
+  type: FieldTypes.RADIO,
 });
 
 export const NumberField = ({
@@ -232,28 +232,31 @@ export const NumberField = ({
   max = 100,
   step = 1,
   ...rest
-}): NumberInput => ({
+}: Partial<NumberInput>): NumberInput => ({
   ...FieldBase(rest),
   value,
   min,
   max,
   step,
-  type: fieldTypes.NUMBER,
+  type: FieldTypes.NUMBER,
 });
 
 export const SelectField = ({
   options = [],
-  value = null,
+  value,
   ...rest
-}): SelectInput => ({
+}: Partial<SelectInput>): SelectInput => ({
   ...FieldBase(rest),
   value,
   options,
-  type: fieldTypes.SELECT,
+  type: FieldTypes.SELECT,
 });
 
-export const CustomField = ({ value = null, ...rest }): CustomInput => ({
+export const CustomField = ({
+  value,
+  ...rest
+}: Partial<CustomInput>): CustomInput => ({
   ...FieldBase(rest),
   value,
-  type: fieldTypes.CUSTOM,
+  type: FieldTypes.CUSTOM,
 });
