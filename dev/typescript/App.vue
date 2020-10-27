@@ -49,19 +49,9 @@
 import { mockAsync } from '@/core/utils/helpers';
 import { defineComponent, onMounted, reactive, ref } from 'vue';
 import {
-  TextInput,
-  SelectInput,
-  EmailInput,
   FormValidation,
-  PasswordInput,
-  CheckboxInput,
-  RadioInput,
   email,
   pattern,
-  ColorInput,
-  NumberInput,
-  CustomInput,
-  BindingObject,
   TextField,
   SelectField,
   EmailField,

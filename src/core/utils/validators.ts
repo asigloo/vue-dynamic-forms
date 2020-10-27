@@ -71,36 +71,36 @@ export const minLength = (minLength: number) => (
 export const maxLength = (maxLength: number) => (
   control: FormControl<InputType>,
 ): ValidationErrors | null => {
+  if (isEmptyInputValue(control.value)) {
+    return null; // don't validate empty values to allow optional controls
+  }
   const length = control.value ? `${control.value}`.length : 0;
   return length > maxLength
     ? { maxlength: { requiredLength: maxLength, actualLength: length } }
     : null;
 };
 
-export const pattern = (pattern: string): ValidationErrors | null => {
-  if (!pattern) return null;
-  let regex: RegExp;
-  let regexStr: string | RegExp;
-  if (typeof pattern === 'string') {
-    regexStr = '';
-
-    if (pattern.charAt(0) !== '^') regexStr += '^';
-
-    regexStr += pattern;
-
-    if (pattern.charAt(pattern.length - 1) !== '$') regexStr += '$';
-
-    regex = new RegExp(regexStr);
+export const pattern = (pattern: string) => (
+  control: FormControl<InputType>,
+): ValidationErrors | null => {
+  if (isEmptyInputValue(control.value)) {
+    return null; // don't validate empty values to allow optional controls
   }
-  return (control: FormControl<InputType>) => {
-    if (isEmptyInputValue(control.value)) {
-      return null; // don't validate empty values to allow optional controls
-    }
-    const value = `${control.value}`;
-    return regex.test(value)
-      ? null
-      : { pattern: { requiredPattern: regexStr, actualValue: value } };
-  };
+
+  let regexStr: string | RegExp;
+  regexStr = '';
+
+  if (pattern.charAt(0) !== '^') regexStr += '^';
+
+  regexStr += pattern;
+
+  if (pattern.charAt(pattern.length - 1) !== '$') regexStr += '$';
+
+  const regex = new RegExp(regexStr);
+  const value = `${control.value}`;
+  return regex.test(value)
+    ? { pattern: { requiredPattern: regexStr, actualValue: value } }
+    : null;
 };
 
 export default {
