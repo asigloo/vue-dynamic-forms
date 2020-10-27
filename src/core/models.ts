@@ -1,16 +1,4 @@
-export type InputTypeKeys =
-  | 'text'
-  | 'email'
-  | 'url'
-  | 'number'
-  | 'password'
-  | 'textarea'
-  | 'select'
-  | 'checkbox'
-  | 'radio'
-  | 'color'
-  | 'custom-field';
-
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export type InputType =
   | TextInput
   | NumberInput
@@ -24,6 +12,8 @@ export type InputType =
   | ColorInput
   | UrlInput
   | CustomInput;
+
+export type MustHave<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
 export type ValidationErrors = {
   // eslint-disable-next-line
@@ -59,63 +49,63 @@ export interface InputBase {
 }
 
 export type TextInput = InputBase & {
-  type: 'text';
-  value: string;
+  type: FieldTypes.TEXT;
+  value?: string;
 };
 
 export type NumberInput = InputBase & {
-  type: 'number';
+  type: FieldTypes.NUMBER;
   value: number;
-  min?: number;
-  max?: number;
-  step?: number;
+  min: number;
+  max: number;
+  step: number;
 };
 
 export type SelectInput<T = boolean | string> = InputBase & {
-  type: 'select';
+  type: FieldTypes.SELECT;
   value: T;
   options?: { key: string; value: string; disabled?: boolean }[];
 };
 
 export type TextAreaInput = InputBase & {
-  type: 'textarea';
+  type: FieldTypes.TEXTAREA;
   value: string;
   cols?: number;
   rows?: number;
 };
 
 export type CheckboxInput = InputBase & {
-  type: 'checkbox';
+  type: FieldTypes.CHECKBOX;
   value: boolean;
 };
 
 export type CustomInput = InputBase & {
-  type: 'custom-field';
+  type: FieldTypes.CUSTOM;
   value: boolean | string | number;
 };
 
 export type EmailInput = InputBase & {
-  type: 'email';
+  type: FieldTypes.EMAIL;
   value: string;
 };
 
 export type PasswordInput = InputBase & {
-  type: 'password';
+  type: FieldTypes.PASSWORD;
   value: string;
 };
 
 export type ColorInput = InputBase & {
-  type: 'color';
+  type: FieldTypes.COLOR;
   value: string;
 };
 
 export type UrlInput = InputBase & {
-  type: 'url';
+  type: FieldTypes.URL;
   value: string;
 };
 
 export type RadioInput = InputBase & {
-  type: 'radio';
+  type: FieldTypes.RADIO;
   value: string;
   options?: { key: string; value: string; disabled?: boolean }[];
 };
@@ -135,4 +125,18 @@ export interface FormOptions {
   netlify?: boolean;
   netlifyHoneypot?: string;
   autocomplete?: boolean;
+}
+
+export const enum FieldTypes {
+  TEXT = 'text',
+  TEXTAREA = 'textarea',
+  SELECT = 'select',
+  NUMBER = 'number',
+  EMAIL = 'email',
+  URL = 'url',
+  PASSWORD = 'password',
+  CHECKBOX = 'checkbox',
+  RADIO = 'radio',
+  CUSTOM = 'custom-field',
+  COLOR = 'color',
 }
