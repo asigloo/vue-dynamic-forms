@@ -82,12 +82,10 @@ export default defineComponent({
     const { options } = inject(dynamicFormsSymbol);
 
     const controls: Ref<FormControl<InputType>[]> = ref([]);
-    const formValues = reactive({});
     const submited = ref(false);
 
     onMounted(() => {
       mapControls();
-      initValues();
     });
     //  TODO: enable again when plugin theme option is available
 
@@ -118,6 +116,22 @@ export default defineComponent({
     const isValid = computed(() => {
       const hasInvalidControls = controls.value.some(control => !control.valid);
       return !hasInvalidControls;
+    });
+
+    const formValues = computed(() => {
+      return removeEmpty(
+        controls.value.reduce((prev, curr) => {
+          const obj = {};
+          obj[curr.name] =
+            curr.type === FieldTypes.NUMBER
+              ? parseFloat(`${curr.value}`)
+              : curr.value;
+          return {
+            ...prev,
+            ...obj,
+          };
+        }, {}),
+      );
     });
 
     const errors = computed(() => {
@@ -160,9 +174,18 @@ export default defineComponent({
       }
     });
 
-    function valueChange(changedValue: Record<string, unknown>) {
-      Object.assign(formValues, changedValue);
-      ctx.emit('change', removeEmpty(formValues));
+    function valueChange(event: Record<string, unknown>) {
+      if (event) {
+        const newControl = controls.value.find(
+          control => control.name === event.name,
+        );
+        if (newControl) {
+          newControl.value = event.value as string;
+          newControl.dirty = event.value !== null;
+        }
+        console.log('DynamicForms:controls', controls.value);
+        ctx.emit('change', formValues.value);
+      }
     }
 
     function mapControls(empty?: boolean) {
@@ -206,26 +229,6 @@ export default defineComponent({
       } else {
         ctx.emit('error', formValues);
       }
-    }
-
-    function initValues() {
-      Object.assign(
-        formValues,
-        controls.value
-          ? controls.value.reduce((prev, curr) => {
-              const obj = {};
-              obj[curr.name] =
-                curr.type === FieldTypes.NUMBER
-                  ? parseFloat(`${curr.value}`)
-                  : curr.value;
-              return {
-                ...prev,
-                ...obj,
-              };
-            }, {})
-          : {},
-      );
-      ctx.emit('changed', formValues);
     }
 
     watch(props.form.fields, () => {

@@ -131,7 +131,7 @@ export default defineComponent({
       return [];
     });
 
-    function validate() {
+    /* function validate() {
       if (
         props.control &&
         props.control.validations &&
@@ -161,11 +161,15 @@ export default defineComponent({
         props.control.errors = validation;
         props.control.valid = Object.keys(validation).length === 0;
       }
-    }
+    } */
 
     function valueChange($event) {
-      let value;
+      console.log('DynamicInput:change', $event);
+      emit('change', $event);
+      /* let value;
       const newValue = {};
+
+      console.log('DynamicInput:change', $event);
 
       if (isEvent($event)) {
         $event.stopPropagation();
@@ -181,7 +185,7 @@ export default defineComponent({
         newValue[props.control.name] = value;
         validate();
         emit('change', newValue);
-      }
+      } */
     }
 
     return () => {

@@ -5,12 +5,24 @@ import { watch } from 'vue';
 export function useInputEvents(props: any, emit: any) {
   function onChange($event): void {
     if (props.control) {
-      props.control.dirty = true;
+      $event.stopImmediatePropagation();
+
+      emit('change', {
+        name: props.control.name,
+        value: props.control.type === 'checkbox'
+        ? $event.target.checked
+        : $event.target.value,
+      });
     }
   }
   function onCheck($event): void {
     if (props.control) {
-      props.control.dirty = true;
+      $event.stopImmediatePropagation();
+
+      emit('change', {
+        name: props.control.name,
+        value: $event.target.checked,
+      });
     }
   }
   function onFocus(): void {
