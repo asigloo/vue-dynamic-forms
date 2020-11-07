@@ -32,6 +32,7 @@ $input-focus-box-shadow: $input-box-shadow !default;
 
 $enable-shadows: true !default;
 
+$input-success-color: #28a745 !default;
 $input-error-color: #dc3545 !default;
 
 // Form groups
@@ -63,13 +64,24 @@ $input-error-color: #dc3545 !default;
     align-items: center;
   }
 
+  &--success {
+    .form-label {
+      color: $input-success-color;
+    }
+
+    .form-control {
+      border-color: $input-success-color !important;
+      background-color: lighten($input-success-color, 50);
+    }
+  }
+
   &--error {
     .form-label {
       color: $input-error-color;
     }
 
     .form-control {
-      border-color: $input-error-color;
+      border-color: $input-error-color !important;
       background-color: lighten($input-error-color, 40);
     }
   }

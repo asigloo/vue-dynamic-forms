@@ -1,10 +1,11 @@
 /* eslint-disable */
 
 import { watch } from 'vue';
+import { hasValue } from '../core/utils/helpers';
 
 export function useInputEvents(props: any, emit: any) {
   function onChange($event): void {
-    if (props.control) {
+    if (props.control && hasValue($event.target.value)) {
       $event.stopImmediatePropagation();
 
       emit('change', {
@@ -30,17 +31,26 @@ export function useInputEvents(props: any, emit: any) {
   }
   function onBlur(): void {
     emit('blur');
-    if (props.control) {
-      props.control.touched = true;
-    }
   }
 
-  watch(props, (form: any) => {
-    if (form?.control && !form?.control?.dirty) {
-      form.control.dirty = true;
-      emit('change', form.control.value);
+  watch(() => props?.control?.value, (curr, prev) => {
+    if(prev === undefined && hasValue(curr)) {
+      emit('change', {
+        name: props.control.name,
+        value: props.control.value
+      });
     }
-  });
+  })
+
+ /*  watch(props, (form: any) => {
+    if (form?.control && !form?.control?.dirty && hasValue(form?.control.value)) {
+      form.control.dirty = true;
+      emit('change', {
+        name: props.control.name,
+        value: form.control.value
+      });
+    }
+  }); */
 
   return {
     onFocus,

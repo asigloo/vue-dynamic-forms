@@ -13,6 +13,7 @@
       :control="control"
       :submited="submited"
       @change="valueChange"
+      @blur="onBlur"
     >
       <template v-slot:customField="props">
         <div
@@ -25,7 +26,6 @@
             :name="slot"
             :control="normalizedControls[slot]"
             :onChange="props.onChange"
-            :onFocus="props.onFocus"
             :onBlur="props.onBlur"
           ></slot>
         </div>
@@ -38,20 +38,21 @@
 import {
   defineComponent,
   PropType,
-  reactive,
   ref,
   Ref,
   computed,
   onMounted,
   watch,
   inject,
+  toRaw,
 } from 'vue';
-import { DynamicForm } from './form';
+import { diff } from 'deep-object-diff';
+
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
-import { FieldTypes, FormControl, InputType } from '@/core/models';
+import { DynamicForm, FieldTypes, FormControl, InputType } from '@/core/models';
 import { dynamicFormsSymbol } from '@/useApi';
-import { removeEmpty } from '@/core/utils/helpers';
+import { deepClone, hasValue, removeEmpty } from '@/core/utils/helpers';
 
 /* import { warn } from '../../core/utils/warning';
  */
@@ -80,28 +81,10 @@ export default defineComponent({
   components,
   setup(props, ctx) {
     const { options } = inject(dynamicFormsSymbol);
+    const cache = deepClone(toRaw(props.form.fields));
 
     const controls: Ref<FormControl<InputType>[]> = ref([]);
     const submited = ref(false);
-
-    onMounted(() => {
-      mapControls();
-    });
-    //  TODO: enable again when plugin theme option is available
-
-    /* const validTheme = computed(
-      () => options.theme && AVAILABLE_THEMES.includes(options.theme),
-    );
-
-    if (!validTheme.value) {
-      warn(
-        `There isn't a theme: ${
-          options.theme
-        } just yet, please choose one of the available themes: ${AVAILABLE_THEMES.join(
-          ', ',
-        )}`,
-      );
-    } */
 
     const deNormalizedScopedSlots = computed(() => Object.keys(ctx.slots));
 
@@ -174,21 +157,7 @@ export default defineComponent({
       }
     });
 
-    function valueChange(event: Record<string, unknown>) {
-      if (event) {
-        const newControl = controls.value.find(
-          control => control.name === event.name,
-        );
-        if (newControl) {
-          newControl.value = event.value as string;
-          newControl.dirty = event.value !== null;
-        }
-        console.log('DynamicForms:controls', controls.value);
-        ctx.emit('change', formValues.value);
-      }
-    }
-
-    function mapControls(empty?: boolean) {
+    function mapControls(empty = false) {
       const controlArray =
         Object.entries(props.form?.fields).map(
           ([key, field]: [string, InputType]) =>
@@ -215,6 +184,69 @@ export default defineComponent({
         controls.value = controlArray;
       }
     }
+    function findControlByName(name: string | unknown) {
+      const updatedCtrl = controls.value.find(control => control.name === name);
+      return updatedCtrl;
+    }
+
+    function valueChange(event: Record<string, unknown>) {
+      if (event && hasValue(event.value)) {
+        const updatedCtrl = findControlByName(event.name);
+        if (updatedCtrl) {
+          updatedCtrl.value = event.value as string;
+          updatedCtrl.dirty = true;
+          validateControl(updatedCtrl);
+        }
+        ctx.emit('change', formValues.value);
+      }
+    }
+
+    function onBlur(control: FormControl<InputType>) {
+      const updatedCtrl = findControlByName(control.name);
+      if (updatedCtrl) {
+        updatedCtrl.touched = true;
+      }
+    }
+
+    function validateControl(control: FormControl<InputType>) {
+      if (control.validations) {
+        const validation = control.validations.reduce((prev, curr) => {
+          const val =
+            typeof curr.validator === 'function'
+              ? curr.validator(control)
+              : null;
+          if (val !== null) {
+            const [key, value] = Object.entries(val)[0];
+            const obj = {};
+            obj[key] = {
+              value,
+              text: curr.text,
+            };
+            return {
+              ...prev,
+              ...obj,
+            };
+          }
+          return {
+            ...prev,
+          };
+        }, {});
+        control.errors = validation;
+        control.valid = Object.keys(validation).length === 0;
+      }
+    }
+
+    function detectChanges(fields) {
+      const changes = diff(cache, deepClone(fields));
+      Object.entries(changes).forEach(([key, value]) => {
+        let ctrl = findControlByName(key);
+        if (ctrl) {
+          Object.entries(value).forEach(([change, newValue]) => {
+            ctrl[change] = newValue;
+          });
+        }
+      });
+    }
 
     function resetForm() {
       mapControls(true);
@@ -231,13 +263,22 @@ export default defineComponent({
       }
     }
 
-    watch(props.form.fields, () => {
+    watch(
+      () => props.form.fields,
+      fields => {
+        detectChanges(fields);
+      },
+      {
+        deep: true,
+      },
+    );
+
+    onMounted(() => {
       mapControls();
     });
 
     return {
       controls,
-      form: props.form,
       valueChange,
       formValues,
       handleSubmit,
@@ -247,7 +288,19 @@ export default defineComponent({
       normalizedControls,
       submited,
       formattedOptions,
+      onBlur,
     };
   },
+  /* watch: {
+    form: {
+      handler(newVal, oldVal) {
+        console.log({
+          newVal,
+          oldVal,
+        });
+      },
+      deep: true,
+    },
+  }, */
 });
 </script>
