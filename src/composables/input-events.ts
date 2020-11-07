@@ -1,16 +1,29 @@
 /* eslint-disable */
 
 import { watch } from 'vue';
+import { hasValue } from '../core/utils/helpers';
 
 export function useInputEvents(props: any, emit: any) {
   function onChange($event): void {
-    if (props.control) {
-      props.control.dirty = true;
+    if (props.control && hasValue($event.target.value)) {
+      $event.stopImmediatePropagation();
+
+      emit('change', {
+        name: props.control.name,
+        value: props.control.type === 'checkbox'
+        ? $event.target.checked
+        : $event.target.value,
+      });
     }
   }
   function onCheck($event): void {
     if (props.control) {
-      props.control.dirty = true;
+      $event.stopImmediatePropagation();
+
+      emit('change', {
+        name: props.control.name,
+        value: $event.target.checked,
+      });
     }
   }
   function onFocus(): void {
@@ -18,17 +31,16 @@ export function useInputEvents(props: any, emit: any) {
   }
   function onBlur(): void {
     emit('blur');
-    if (props.control) {
-      props.control.touched = true;
-    }
   }
 
-  watch(props, (form: any) => {
-    if (form?.control && !form?.control?.dirty) {
-      form.control.dirty = true;
-      emit('change', form.control.value);
+  watch(() => props?.control?.value, (curr, prev) => {
+    if(prev === undefined && hasValue(curr)) {
+      emit('change', {
+        name: props.control.name,
+        value: props.control.value
+      });
     }
-  });
+  })
 
   return {
     onFocus,

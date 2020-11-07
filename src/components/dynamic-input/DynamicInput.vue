@@ -26,15 +26,7 @@ import {
   FieldTypes,
 } from '@/core/models';
 
-import {
-  isEmpty,
-  entries,
-  values,
-  keys,
-  isEvent,
-  isArray,
-  isObject,
-} from '@/core/utils/helpers';
+import { values, keys, isArray, isObject } from '@/core/utils/helpers';
 import { useInputEvents } from '@/composables/input-events';
 import { dynamicFormsSymbol } from '@/useApi';
 
@@ -61,6 +53,8 @@ const props = {
 export type ControlAttribute<T extends InputType> = {
   control: FormControl<T>;
   onChange: (value: unknown) => void;
+  onFocus: (value: unknown) => void;
+  onBlur: (value: unknown) => void;
 };
 
 export default defineComponent({
@@ -78,6 +72,8 @@ export default defineComponent({
         control: props?.control,
         style: props?.control.customStyles,
         onChange: valueChange,
+        onBlur: () => emit('blur', props.control),
+        onFocus: () => emit('focus', props.control),
       };
     });
 
@@ -90,6 +86,12 @@ export default defineComponent({
         'form-group',
         {
           'form-group--inline': props?.control?.type === FieldTypes.CHECKBOX,
+        },
+        {
+          'form-group--success':
+            props?.control?.valid &&
+            props?.control?.dirty &&
+            props?.control?.touched,
         },
         {
           'form-group--error': showErrors.value,
@@ -131,57 +133,8 @@ export default defineComponent({
       return [];
     });
 
-    function validate() {
-      if (
-        props.control &&
-        props.control.validations &&
-        isEmpty(props.control.validations)
-      ) {
-        const validation = props.control.validations.reduce((prev, curr) => {
-          const val =
-            typeof curr.validator === 'function'
-              ? curr.validator(props.control)
-              : null;
-          if (val !== null) {
-            const [key, value] = entries(val)[0];
-            const obj = {};
-            obj[key] = {
-              value,
-              text: curr.text,
-            };
-            return {
-              ...prev,
-              ...obj,
-            };
-          }
-          return {
-            ...prev,
-          };
-        }, {});
-        props.control.errors = validation;
-        props.control.valid = Object.keys(validation).length === 0;
-      }
-    }
-
     function valueChange($event) {
-      let value;
-      const newValue = {};
-
-      if (isEvent($event)) {
-        $event.stopPropagation();
-        value =
-          props.control.type === 'checkbox'
-            ? $event.target.checked
-            : $event.target.value;
-      } else {
-        value = $event;
-      }
-
-      if (props.control) {
-        newValue[props.control.name] = value;
-        validate();
-        emit('change', newValue);
-      }
+      emit('change', $event);
     }
 
     return () => {

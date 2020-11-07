@@ -88,6 +88,8 @@
     "vue-select": "3.10.8"
   },
   "dependencies": {
+    "deep-clone": "^3.0.3",
+    "deep-object-diff": "^1.1.0",
     "rollup-plugin-scss": "^2.6.1"
   }
 }

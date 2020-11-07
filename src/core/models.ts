@@ -15,6 +15,15 @@ export type InputType =
 
 export type MustHave<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
+export type FormFields = {
+  [key: string]: InputType;
+};
+export interface DynamicForm {
+  id: string;
+  fields: FormFields;
+  fieldOrder?: string[];
+}
+
 export type ValidationErrors = {
   // eslint-disable-next-line
   [key: string]: any;
@@ -112,7 +121,6 @@ export type RadioInput = InputBase & {
 
 export type FormControl<T extends InputType> = T & {
   valid: boolean;
-  invalid: boolean;
   dirty: boolean;
   touched: boolean;
   errors: ValidationErrors | null;

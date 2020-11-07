@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType } from 'vue';
+import { defineComponent, h, PropType, ref } from 'vue';
 import {
   ColorInput,
   EmailInput,
@@ -21,14 +21,13 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
-
     return () =>
       h('input', {
         id: props.control.name,
         name: props.control.name || '',
         type: props.control.type,
         class: ['form-control'],
-        value: props?.control?.value,
+        value: props.control.value,
         disabled: props.control.disabled,
         placeholder: props.control.placeholder,
         required: props.control.required,

@@ -10,7 +10,16 @@ import {
   NumberInput,
   SelectInput,
   CustomInput,
+  FormControl,
+  InputType,
 } from './models';
+
+const EMPTY_CONTROL = {
+  dirty: false,
+  touched: false,
+  valid: true,
+  errors: null,
+};
 
 export const FieldBase = ({
   validations = [],
@@ -128,4 +137,15 @@ export const CustomField = ({
   ...FieldBase(rest),
   value,
   type: FieldTypes.CUSTOM,
+});
+
+export const FieldControl = ({
+  name,
+  type,
+  ...rest
+}: Partial<FormControl<any>>): FormControl<any> => ({
+  ...FieldBase(rest),
+  name,
+  type,
+  ...EMPTY_CONTROL,
 });

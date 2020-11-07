@@ -230,6 +230,7 @@ export default defineComponent({
           value: string;
           disabled?: boolean;
         }[];
+        form.fields.name.value = 'Alvaro';
       } catch (e) {
         console.error(e);
       }
