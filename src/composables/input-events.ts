@@ -42,16 +42,6 @@ export function useInputEvents(props: any, emit: any) {
     }
   })
 
- /*  watch(props, (form: any) => {
-    if (form?.control && !form?.control?.dirty && hasValue(form?.control.value)) {
-      form.control.dirty = true;
-      emit('change', {
-        name: props.control.name,
-        value: form.control.value
-      });
-    }
-  }); */
-
   return {
     onFocus,
     onChange,
