@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'asCheckboxInput',
   props,
   setup(props, { emit }) {
-    const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const { onCheck, onFocus, onBlur } = useInputEvents(props, emit);
     const renderCheckbox = [
       h('input', {
         name: props?.control?.name || '',
@@ -23,7 +23,7 @@ export default defineComponent({
         checked: props?.control?.value,
         onFocus,
         onBlur,
-        onChange,
+        onChange: onCheck,
       }),
       h(
         'label',
