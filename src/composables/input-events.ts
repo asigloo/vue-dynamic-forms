@@ -10,9 +10,7 @@ export function useInputEvents(props: any, emit: any) {
 
       emit('change', {
         name: props.control.name,
-        value: props.control.type === 'checkbox'
-        ? $event.target.checked
-        : $event.target.value,
+        value: $event.target.value
       });
     }
   }
