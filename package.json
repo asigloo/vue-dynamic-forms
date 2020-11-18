@@ -59,7 +59,7 @@
     "prettier": "2.1.2",
     "sass-loader": "10.0.3",
     "sass-resources-loader": "^2.1.1",
-    "semantic-release": "17.1.2",
+    "semantic-release": "17.2.3",
     "vue": "^2.6.12",
     "vue-select": "3.10.8",
     "vue-template-compiler": "2.6.12"
