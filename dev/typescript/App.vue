@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import { mockAsync } from '@/core/utils/helpers';
-import { defineComponent, onMounted, reactive, ref } from 'vue';
+import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
 import {
   FormValidation,
   email,
@@ -68,6 +68,7 @@ export default defineComponent({
   setup() {
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
+    let consoleOptions = ref();
     const emailValidator: FormValidation = {
       validator: email,
       text: 'Email format is incorrect',
@@ -81,7 +82,7 @@ export default defineComponent({
         'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
     };
 
-    const form = reactive({
+    const form = computed(() => ({
       id: 'example-form',
       fieldOrder: [
         'name',
@@ -141,6 +142,7 @@ export default defineComponent({
         console: SelectField({
           label: 'Console (Async Options)',
           customClass: 'w-1/2',
+          options: consoleOptions.value,
         }),
         steps: NumberField({
           label: 'Number',
@@ -194,7 +196,7 @@ export default defineComponent({
           readonly: true,
         }),
       },
-    });
+    }));
 
     function handleSubmit(values) {
       console.log('Values Submitted', values);
@@ -211,7 +213,7 @@ export default defineComponent({
 
     onMounted(async () => {
       try {
-        const consoleOptions = await mockAsync(true, 4000, [
+        consoleOptions.value = await mockAsync(true, 4000, [
           {
             key: 'playstation',
             value: 'Playstation',
@@ -225,11 +227,6 @@ export default defineComponent({
             value: 'Xbox',
           },
         ]);
-        form.fields.console.options = consoleOptions as {
-          key: string;
-          value: string;
-          disabled?: boolean;
-        }[];
       } catch (e) {
         console.error(e);
       }
