@@ -1,4 +1,9 @@
-import { FormControl, InputType, ValidationErrors } from '../models';
+import {
+  FormControl,
+  InputType,
+  ValidationErrors,
+  ValidatorFn,
+} from '../models';
 
 export const isEmptyInputValue = (value: string | number | boolean): boolean =>
   value == null || value === '';
@@ -80,27 +85,33 @@ export const maxLength = (maxLength: number) => (
     : null;
 };
 
-export const pattern = (pattern: string) => (
-  control: FormControl<InputType>,
-): ValidationErrors | null => {
-  if (isEmptyInputValue(control.value)) {
-    return null; // don't validate empty values to allow optional controls
+export const pattern = (pattern: string): ValidatorFn => {
+  if (!pattern) return null;
+  let regex: RegExp;
+  let regexStr: string;
+  if (typeof pattern === 'string') {
+    regexStr = '';
+
+    if (pattern.charAt(0) !== '^') regexStr += '^';
+
+    regexStr += pattern;
+
+    if (pattern.charAt(pattern.length - 1) !== '$') regexStr += '$';
+
+    regex = new RegExp(regexStr);
+  } else {
+    regexStr = pattern;
+    regex = pattern;
   }
-
-  let regexStr: string | RegExp;
-  regexStr = '';
-
-  if (pattern.charAt(0) !== '^') regexStr += '^';
-
-  regexStr += pattern;
-
-  if (pattern.charAt(pattern.length - 1) !== '$') regexStr += '$';
-
-  const regex = new RegExp(regexStr);
-  const value = `${control.value}`;
-  return regex.test(value)
-    ? { pattern: { requiredPattern: regexStr, actualValue: value } }
-    : null;
+  return (control: FormControl<InputType>) => {
+    if (isEmptyInputValue(control.value)) {
+      return null; // don't validate empty values to allow optional controls
+    }
+    const value = control.value;
+    return regex.test(value as string)
+      ? null
+      : { pattern: { requiredPattern: regexStr, actualValue: value } };
+  };
 };
 
 export default {

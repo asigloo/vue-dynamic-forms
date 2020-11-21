@@ -11,7 +11,6 @@ import {
   SelectInput,
   CustomInput,
   FormControl,
-  InputType,
 } from './models';
 
 const EMPTY_CONTROL = {

@@ -33,7 +33,7 @@ export type BindingObject = {
   [key: string]: any;
 };
 
-interface ValidatorFn {
+export interface ValidatorFn {
   (control: FormControl<InputType> | undefined): ValidationErrors | null;
 }
 
