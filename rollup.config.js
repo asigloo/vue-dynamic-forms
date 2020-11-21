@@ -8,6 +8,8 @@ import { terser } from 'rollup-plugin-terser';
 import ts from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 import alias from '@rollup/plugin-alias';
+import bundleSize from 'rollup-plugin-bundle-size';
+import analyze from 'rollup-plugin-analyzer';
 
 import pkg from './package.json';
 const name = 'as-dynamic-forms';
@@ -103,6 +105,8 @@ function createConfig(format, output, plugins = []) {
         isGlobalBuild,
         isNodeBuild,
       ),
+      bundleSize(),
+      analyze(),
       ...nodePlugins,
       ...plugins,
     ],
