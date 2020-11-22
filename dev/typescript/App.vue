@@ -1,44 +1,60 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg-gray-100">
     <div class="page container">
-      <h1 class="title m-4 text-bg">{{ title }}</h1>
       <div class="flex flex-wrap justify-between">
-        <div class="card p-6 w-full sm:w-1/2">
-          <dynamic-form
-            :form="form"
-            @submited="handleSubmit"
-            @change="valueChanged"
-            @error="handleError"
-          >
-            <template
-              v-slot:customField1="{ control, onChange, onFocus, onBlur }"
+        <div class="w-full sm:w-1/2 relative m-6">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-blue-400 to-green-200 shadow-xl transform -skew-y-3 sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl"
+          ></div>
+          <div class="relative card p-6 bg-white">
+            <h1 class="title mb-16 text-bg">{{ title }}</h1>
+            <dynamic-form
+              :form="form"
+              @submited="handleSubmit"
+              @change="valueChanged"
+              @error="handleError"
             >
-              <div class="avocado-field">
-                <input
-                  :id="control.name"
-                  v-if="control"
-                  class="form-control"
-                  v-model="control.value"
-                  :type="control.type"
-                  :name="control.name"
-                  @change="onChange"
-                  @focus="onFocus"
-                  @blur="onBlur"
-                />
-                <i>🥑</i>
-              </div>
-            </template>
-          </dynamic-form>
-          <button
-            class="btn bg-teal-500 text-white hover:bg-teal-700 mt-4"
-            submit="true"
-            :form="form?.id"
-          >
-            Submit Form
-          </button>
+              <template
+                v-slot:customField1="{ control, onChange, onFocus, onBlur }"
+              >
+                <div class="avocado-field">
+                  <input
+                    :id="control.name"
+                    v-if="control"
+                    class="form-control"
+                    v-model="control.value"
+                    :type="control.type"
+                    :name="control.name"
+                    @change="onChange"
+                    @focus="onFocus"
+                    @blur="onBlur"
+                  />
+                  <i>🥑</i>
+                </div>
+              </template>
+            </dynamic-form>
+            <button
+              class="btn bg-teal-500 text-white hover:bg-teal-700 mt-4"
+              submit="true"
+              :form="form?.id"
+            >
+              Submit Form
+            </button>
+          </div>
         </div>
         <div class="p-6 w-full sm:w-1/3">
-          <pre>{{ formValues }}</pre>
+          <div
+            class="result bg-marine text-white text-xs p-4 rounded-md relative"
+          >
+            <ul class="absolute top-1 left-2">
+              <li class="rounded w-2 h-2 bg-salmon inline-block mr-1"></li>
+              <li class="rounded w-2 h-2 bg-yellow-300 inline-block mr-1"></li>
+              <li class="rounded w-2 h-2 bg-green-500 inline-block"></li>
+            </ul>
+            <pre data-cy="form-values" class="shadow-lg pt-4">{{
+              formValues
+            }}</pre>
+          </div>
         </div>
       </div>
     </div>
