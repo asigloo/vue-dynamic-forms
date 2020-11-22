@@ -38,7 +38,7 @@
           </button>
         </div>
         <div class="p-6 w-full sm:w-1/3">
-          <pre>{{ formValues }}</pre>
+          <pre data-cy="form-values">{{ formValues }}</pre>
         </div>
       </div>
     </div>

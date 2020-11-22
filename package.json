@@ -3,50 +3,24 @@
   "version": "0.0.0-development",
   "description": "Easy way to dynamically create reactive forms in vue based on varying business object model",
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/asigloo/vue-dynamic-forms.git"
-  },
-  "bugs": {
-    "url": "https://github.com/asigloo/vue-dynamic-forms/issues"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "release": {
-    "branches": [
-      "+([0-9])?(.{+([0-9]),x}).x",
-      "master",
-      "next",
-      "next-major",
-      {
-        "name": "beta",
-        "prerelease": true
-      },
-      {
-        "name": "alpha",
-        "prerelease": true
-      }
-    ]
-  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "rollup -c rollup.config.js",
-    "build:dts": "api-extractor run --local --verbose && tail -n +7 >> dist/as-dynamic-forms.d.ts",
+    "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll",
+    "build:dts": "api-extractor run --local --verbose && tail -n +7 >> dist/as-dynamic-forms.d.ts",
+    "semantic-release": "semantic-release",
     "test": "vue-cli-service test:unit",
-    "semantic-release": "semantic-release"
+    "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll"
   },
   "main": "dist/as-dynamic-forms.cjs.js",
+  "module": "dist/as-dynamic-forms.esm-bundler.js",
   "browser": "dist/as-dynamic-forms.esm.js",
   "unpkg": "dist/as-dynamic-forms.global.js",
-  "jsdelivr": "dist/as-dynamic-forms.global.js",
-  "module": "dist/as-dynamic-forms.esm-bundler.js",
-  "types": "dist/as-dynamic-forms.d.ts",
-  "peerDependencies": {
-    "vue": "^3.0.0"
+  "dependencies": {
+    "autoprefixer": "^9.8.6",
+    "deep-clone": "^3.0.3",
+    "deep-object-diff": "^1.1.0"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.12.0",
@@ -58,6 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
     "@vue/cli-plugin-babel": "4.5.9",
+    "@vue/cli-plugin-e2e-cypress": "^4.5.9",
     "@vue/cli-plugin-eslint": "4.5.9",
     "@vue/cli-plugin-typescript": "~4.5.9",
     "@vue/cli-plugin-unit-jest": "4.5.9",
@@ -92,9 +67,36 @@
     "vue-jest": "^5.0.0-alpha.6",
     "vue-select": "3.10.8"
   },
-  "dependencies": {
-    "autoprefixer": "^9.8.6",
-    "deep-clone": "^3.0.3",
-    "deep-object-diff": "^1.1.0"
-  }
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/asigloo/vue-dynamic-forms/issues"
+  },
+  "jsdelivr": "dist/as-dynamic-forms.global.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "master",
+      "next",
+      "next-major",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asigloo/vue-dynamic-forms.git"
+  },
+  "types": "dist/as-dynamic-forms.d.ts"
 }

@@ -2,7 +2,7 @@
 import { defineComponent, h, PropType, computed } from 'vue';
 import { FormControl, SelectInput } from '@/core/models';
 import { useInputEvents } from '@/composables/input-events';
-import { isArray, isObject } from '@/core/utils/helpers';
+import { isObject } from '@/core/utils/helpers';
 
 const props = {
   control: Object as PropType<FormControl<SelectInput>>,

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType, ref } from 'vue';
+import { defineComponent, h, PropType } from 'vue';
 import {
   ColorInput,
   EmailInput,

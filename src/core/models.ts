@@ -30,7 +30,7 @@ export type ValidationErrors = {
 };
 
 export type BindingObject = {
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 export interface ValidatorFn {
