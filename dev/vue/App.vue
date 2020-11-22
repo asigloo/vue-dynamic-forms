@@ -47,7 +47,19 @@
 <script lang="ts">
 import { mockAsync } from '@/core/utils/helpers';
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { email, FieldTypes, pattern } from '../../src';
+import {
+  CheckboxField,
+  ColorField,
+  CustomField,
+  email,
+  EmailField,
+  NumberField,
+  PasswordField,
+  pattern,
+  RadioField,
+  SelectField,
+  TextField,
+} from '../../src';
 
 export default defineComponent({
   name: 'app',
@@ -84,28 +96,28 @@ export default defineComponent({
         'customField1',
       ],
       fields: {
-        name: {
+        name: TextField({
           label: 'Name',
-          type: FieldTypes.TEXT,
-          value: 'Alvaro',
-        },
-        email: {
+          required: true,
+        }),
+        email: EmailField({
           label: 'Email',
-          type: FieldTypes.EMAIL,
           validations: [emailValidator],
-        },
-        password: {
+          customClass: {
+            active: true,
+            'text-blue': true,
+          },
+        }),
+        password: PasswordField({
           label: 'Password',
-          type: FieldTypes.PASSWORD,
+          autocomplete: 'current-password',
           validations: [passwordValidator],
-        },
-        stock: {
+        }),
+        stock: NumberField({
           label: 'Stock',
-          type: FieldTypes.NUMBER,
-        },
-        games: {
+        }),
+        games: SelectField({
           label: 'Games',
-          type: FieldTypes.SELECT,
           customClass: 'w-1/2',
           value: 'the-last-of-us',
           options: [
@@ -122,28 +134,23 @@ export default defineComponent({
               value: 'Nier Automata',
             },
           ],
-        },
-        console: {
+        }),
+        console: SelectField({
           label: 'Console (Async Options)',
-          type: FieldTypes.SELECT,
           customClass: 'w-1/2',
-          options: [],
-        },
-        steps: {
+        }),
+        steps: NumberField({
           label: 'Number',
-          type: FieldTypes.NUMBER,
           min: 5,
           max: 60,
           step: 5,
           value: 5,
-        },
-        awesomeness: {
+        }),
+        awesomeness: CheckboxField({
           label: "Check  if you're awesome",
-          type: FieldTypes.CHECKBOX,
-        },
-        character: {
+        }),
+        character: RadioField({
           label: 'Select one option',
-          type: FieldTypes.RADIO,
           options: [
             {
               key: 'mario',
@@ -163,16 +170,26 @@ export default defineComponent({
               disabled: true,
             },
           ],
-        },
-        customField1: {
-          type: FieldTypes.CUSTOM,
+        }),
+        customField1: CustomField({
           label: 'Custom Field',
-        },
-        color: {
+        }),
+        color: ColorField({
           label: 'Color',
-          type: FieldTypes.COLOR,
           value: '#4DBA87',
-        },
+        }),
+        customStyles: TextField({
+          label: 'Custom Styles',
+          required: true,
+          customStyles: {
+            border: '1px solid teal',
+          },
+        }),
+        readonly: TextField({
+          label: 'Readonly',
+          value: 'Alvaro',
+          readonly: true,
+        }),
       },
     });
     function handleSubmit(values) {

@@ -182,6 +182,7 @@ export default defineComponent({
         controls.value = controlArray;
       }
     }
+
     function findControlByName(name: string | unknown) {
       const updatedCtrl = controls.value.find(control => control.name === name);
       return updatedCtrl;
