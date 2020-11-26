@@ -24,6 +24,8 @@ import {
   InputType,
   BindingObject,
   FieldTypes,
+  ValidationEvent,
+  InputEvent,
 } from '@/core/models';
 
 import { values, keys, isArray, isObject } from '@/core/utils/helpers';
@@ -72,8 +74,10 @@ export default defineComponent({
         control: props?.control,
         style: props?.control.customStyles,
         onChange: valueChange,
-        onBlur: () => emit('blur', props.control),
-        onFocus: () => emit('focus', props.control),
+        onBlur: (e: InputEvent) => emit('blur', e),
+        onFocus: (e: InputEvent) => emit('focus', e),
+        onValidate: (validation: ValidationEvent) =>
+          emit('validate', validation),
       };
     });
 
@@ -241,7 +245,11 @@ export default defineComponent({
                 },
                 [
                   `${props?.control?.label}`,
-                  props?.control?.required ? requiredStar : '',
+                  props?.control?.validations?.some(
+                    validator => validator.type === 'required',
+                  )
+                    ? requiredStar
+                    : '',
                 ],
               )
             : null,

@@ -2,6 +2,7 @@
 import { defineComponent, h, PropType } from 'vue';
 import { FormControl, NumberInput } from '@/core/models';
 import { useInputEvents } from '@/composables/input-events';
+import { useInputValidation } from '@/composables/use-validation';
 
 const props = {
   control: Object as PropType<FormControl<NumberInput>>,
@@ -12,6 +13,7 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const { isRequired } = useInputValidation(props, emit);
 
     return () =>
       h('input', {
@@ -25,12 +27,12 @@ export default defineComponent({
         step: props?.control?.step,
         disabled: props?.control?.disabled,
         placeholder: props?.control?.placeholder,
-        required: props.control.required,
+        required: isRequired.value,
         readonly: props?.control.readonly,
         autocomplete: props.control.autocomplete,
         ariaLabel: props.control.ariaLabel,
         ariaLabelledBy: props.control.ariaLabelledBy,
-        ariaRequired: props.control.required,
+        ariaRequired: isRequired.value,
         onFocus,
         onBlur,
         onChange,

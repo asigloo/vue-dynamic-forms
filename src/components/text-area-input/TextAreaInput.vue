@@ -2,6 +2,7 @@
 import { defineComponent, h, PropType } from 'vue';
 import { FormControl, TextAreaInput } from '@/core/models';
 import { useInputEvents } from '@/composables/input-events';
+import { useInputValidation } from '@/composables/use-validation';
 const props = {
   control: Object as PropType<FormControl<TextAreaInput>>,
 };
@@ -11,6 +12,7 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const { isRequired } = useInputValidation(props, emit);
 
     return () =>
       h('textarea', {
@@ -22,12 +24,12 @@ export default defineComponent({
         cols: props?.control?.cols,
         disabled: props?.control?.disabled,
         placeholder: props?.control?.placeholder,
-        required: props.control.required,
+        required: isRequired.value,
         autocomplete: props.control.autocomplete,
         readonly: props?.control.readonly,
         ariaLabel: props.control.ariaLabel,
         ariaLabelledBy: props.control.ariaLabelledBy,
-        ariaRequired: props.control.required,
+        ariaRequired: isRequired.value,
         onFocus,
         onBlur,
         onChange,

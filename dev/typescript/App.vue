@@ -65,9 +65,6 @@
 import { mockAsync } from '@/core/utils/helpers';
 import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
 import {
-  FormValidation,
-  email,
-  pattern,
   TextField,
   SelectField,
   EmailField,
@@ -77,6 +74,11 @@ import {
   RadioField,
   CustomField,
   ColorField,
+  Validator,
+  FormValidator,
+  required,
+  email,
+  pattern,
 } from '../../src';
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
@@ -85,18 +87,18 @@ export default defineComponent({
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
     let consoleOptions = ref();
-    const emailValidator: FormValidation = {
+    const emailValidator: FormValidator = {
       validator: email,
       text: 'Email format is incorrect',
     };
 
-    const passwordValidator: FormValidation = {
+    const passwordValidator: FormValidator = Validator({
       validator: pattern(
         '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
       ),
       text:
         'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
-    };
+    });
 
     const form = computed(() => ({
       id: 'example-form',
@@ -118,7 +120,9 @@ export default defineComponent({
       fields: {
         name: TextField({
           label: 'Name',
-          required: true,
+          validations: [
+            Validator({ validator: required, text: 'This field is required' }),
+          ],
         }),
         email: EmailField({
           label: 'Email',

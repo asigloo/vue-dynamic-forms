@@ -9,6 +9,7 @@ import {
   UrlInput,
 } from '@/core/models';
 import { useInputEvents } from '@/composables/input-events';
+import { useInputValidation } from '@/composables/use-validation';
 
 const props = {
   control: Object as PropType<
@@ -20,20 +21,25 @@ export default defineComponent({
   name: 'asTextInput',
   props,
   setup(props, { emit }) {
-    const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const { onChange, onFocus, onBlur, getClasses } = useInputEvents(
+      props,
+      emit,
+    );
+    const { isRequired } = useInputValidation(props, emit);
+
     return () =>
       h('input', {
         id: props.control.name,
         name: props.control.name || '',
         type: props.control.type,
-        class: ['form-control'],
+        class: getClasses.value,
         value: props.control.value,
         disabled: props.control.disabled,
         placeholder: props.control.placeholder,
-        required: props.control.required,
+        required: isRequired.value,
         readonly: props?.control.readonly,
         autocomplete: props.control.autocomplete,
-        ariaRequired: props.control.required,
+        ariaRequired: isRequired.value,
         ariaLabel: props.control.ariaLabel,
         ariaLabelledBy: props.control.ariaLabelledBy,
         onFocus,

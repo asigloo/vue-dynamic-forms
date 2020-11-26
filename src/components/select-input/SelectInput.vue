@@ -2,7 +2,8 @@
 import { defineComponent, h, PropType, computed } from 'vue';
 import { FormControl, SelectInput } from '@/core/models';
 import { useInputEvents } from '@/composables/input-events';
-import { isArray, isObject } from '@/core/utils/helpers';
+import { isObject } from '@/core/utils/helpers';
+import { useInputValidation } from '@/composables/use-validation';
 
 const props = {
   control: Object as PropType<FormControl<SelectInput>>,
@@ -14,6 +15,7 @@ export default defineComponent({
   setup(props, { emit }) {
     return () => {
       const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+      const { isRequired } = useInputValidation(props, emit);
 
       const formattedOptions = computed(() => {
         if (isObject(props?.control?.options)) {
@@ -34,11 +36,11 @@ export default defineComponent({
           value: props?.control?.value,
           disabled: props?.control?.disabled,
           placeholder: props?.control?.placeholder,
-          required: props.control.required,
+          required: isRequired.value,
           readonly: props?.control.readonly,
           ariaLabel: props.control.ariaLabel,
           ariaLabelledBy: props.control.ariaLabelledBy,
-          ariaRequired: props.control.required,
+          ariaRequired: isRequired.value,
           onFocus,
           onBlur,
           onChange,

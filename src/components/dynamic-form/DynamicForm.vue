@@ -14,6 +14,7 @@
       :submited="submited"
       @change="valueChange"
       @blur="onBlur"
+      @validate="onValidate"
     >
       <template v-slot:customField="props">
         <div
@@ -50,7 +51,14 @@ import { diff } from 'deep-object-diff';
 
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
-import { DynamicForm, FieldTypes, FormControl, InputType } from '@/core/models';
+import {
+  DynamicForm,
+  FieldTypes,
+  FormControl,
+  InputType,
+  ValidationEvent,
+  InputEvent,
+} from '@/core/models';
 import { dynamicFormsSymbol } from '@/useApi';
 import { deepClone, hasValue, removeEmpty } from '@/core/utils/helpers';
 
@@ -194,20 +202,27 @@ export default defineComponent({
         if (updatedCtrl) {
           updatedCtrl.value = event.value as string;
           updatedCtrl.dirty = true;
-          validateControl(updatedCtrl);
         }
         ctx.emit('change', formValues.value);
       }
     }
 
-    function onBlur(control: FormControl<InputType>) {
-      const updatedCtrl = findControlByName(control.name);
+    function onBlur({ name }: InputEvent) {
+      const updatedCtrl = findControlByName(name);
       if (updatedCtrl) {
         updatedCtrl.touched = true;
       }
     }
 
-    function validateControl(control: FormControl<InputType>) {
+    function onValidate({ name, errors, valid }: ValidationEvent) {
+      const updatedCtrl = findControlByName(name);
+      if (updatedCtrl) {
+        updatedCtrl.errors = errors;
+        updatedCtrl.valid = valid;
+      }
+    }
+
+    /*     function validateControl(control: FormControl<InputType>) {
       if (control.validations) {
         const validation = control.validations.reduce((prev, curr) => {
           const val =
@@ -233,7 +248,7 @@ export default defineComponent({
         control.errors = validation;
         control.valid = Object.keys(validation).length === 0;
       }
-    }
+    } */
 
     function detectChanges(fields) {
       const changes = diff(cache, deepClone(fields));
@@ -288,6 +303,7 @@ export default defineComponent({
       submited,
       formattedOptions,
       onBlur,
+      onValidate,
     };
   },
 });

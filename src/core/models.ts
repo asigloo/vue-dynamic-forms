@@ -34,27 +34,38 @@ export type BindingObject = {
 };
 
 export interface ValidatorFn {
-  (control: FormControl<InputType> | undefined): ValidationErrors | null;
+  (control: ControlValue | undefined): ValidationErrors | null;
 }
 
-export interface FormValidation {
+export type ControlValue = string | number | boolean;
+
+export interface FormValidator {
   validator: ValidatorFn;
   text: string;
+  type?: string;
 }
+
+export interface InputEvent {
+  name: string;
+}
+
+export type ValidationEvent = InputEvent & {
+  errors: ValidationErrors;
+  valid: boolean;
+};
 
 export interface InputBase {
   name?: string;
   label?: string;
   ariaLabel?: string;
   ariaLabelledBy?: string;
-  required?: boolean;
   disabled?: boolean;
   customClass?: string | string[] | BindingObject | BindingObject[] | unknown;
   customStyles?: string | string[] | BindingObject | BindingObject[] | unknown;
   placeholder?: string;
   autocomplete?: string;
   readonly?: boolean;
-  validations?: FormValidation[];
+  validations?: FormValidator[];
 }
 
 export type TextInput = InputBase & {

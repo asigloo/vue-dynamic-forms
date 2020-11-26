@@ -11,6 +11,7 @@ import {
   SelectInput,
   CustomInput,
   FormControl,
+  FormValidator,
 } from './models';
 
 const EMPTY_CONTROL = {
@@ -29,7 +30,6 @@ export const FieldBase = ({
   customStyles = null,
   disabled = false,
   placeholder = null,
-  required = false,
   autocomplete = null,
   readonly = false,
 }: InputBase): InputBase =>
@@ -42,7 +42,6 @@ export const FieldBase = ({
     customStyles,
     disabled,
     placeholder,
-    required,
     autocomplete,
     readonly,
   } as InputBase);
@@ -147,4 +146,13 @@ export const FieldControl = ({
   name,
   type,
   ...EMPTY_CONTROL,
+});
+
+export const Validator = ({
+  validator,
+  text,
+}: FormValidator): FormValidator => ({
+  type: validator(undefined) ? Object.keys(validator(undefined))[0] : 'pattern',
+  validator,
+  text,
 });

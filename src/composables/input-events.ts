@@ -1,16 +1,20 @@
-/* eslint-disable */
+import { computed, watch } from 'vue';
+import { hasValue, isArray, isObject } from '../core/utils/helpers';
 
-import { watch } from 'vue';
-import { hasValue } from '../core/utils/helpers';
+import { useInputValidation } from '@/composables/use-validation';
+import { BindingObject } from '..';
 
 export function useInputEvents(props: any, emit: any) {
+  const { validate } = useInputValidation(props, emit);
+
   function onChange($event): void {
     if (props.control && hasValue($event.target.value)) {
       $event.stopImmediatePropagation();
 
+      validate();
       emit('change', {
         name: props.control.name,
-        value: $event.target.value
+        value: $event.target.value,
       });
     }
   }
@@ -25,25 +29,41 @@ export function useInputEvents(props: any, emit: any) {
     }
   }
   function onFocus(): void {
-    emit('focus');
+    emit('focus', { name: props.control.name });
   }
   function onBlur(): void {
-    emit('blur');
+    emit('blur', { name: props.control.name });
+    validate();
   }
 
-  watch(() => props?.control?.value, (curr, prev) => {
-    if(prev === undefined && hasValue(curr)) {
-      emit('change', {
-        name: props.control.name,
-        value: props.control.value
-      });
+  const getClasses = computed(() => {
+    const classes = ['form-control'];
+    if (isArray(props.control.customClass)) {
+      return [...classes, ...(props.control.customClass as BindingObject[])];
     }
-  })
+    if (isObject(props.control.customClass)) {
+      return [...classes, props.control.customClass];
+    }
+    return [classes, props.control.customClass];
+  });
+
+  watch(
+    () => props?.control?.value,
+    (curr, prev) => {
+      if (prev === undefined && hasValue(curr)) {
+        emit('change', {
+          name: props.control.name,
+          value: props.control.value,
+        });
+      }
+    },
+  );
 
   return {
     onFocus,
     onChange,
     onBlur,
     onCheck,
+    getClasses,
   };
 }
