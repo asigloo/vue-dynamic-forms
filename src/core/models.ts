@@ -66,6 +66,7 @@ export interface InputBase {
   autocomplete?: string;
   readonly?: boolean;
   validations?: FormValidator[];
+  validationTrigger?: ValidationTrigger;
 }
 
 export type TextInput = InputBase & {
@@ -158,4 +159,14 @@ export const enum FieldTypes {
   RADIO = 'radio',
   CUSTOM = 'custom-field',
   COLOR = 'color',
+}
+
+export const enum ValidationTriggerTypes {
+  BLUR = 'blur',
+  CHANGE = 'change',
+}
+
+export interface ValidationTrigger {
+  type: ValidationTriggerTypes;
+  threshold: number;
 }

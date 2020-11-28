@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'asRadioInput',
   props,
   setup(props, { emit }) {
-    const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
     const renderRadios = props?.control?.options?.map(option => {
       return h('div', { class: 'radio-input' }, [
         h('input', {
@@ -23,7 +23,7 @@ export default defineComponent({
           value: option.value,
           onFocus,
           onBlur,
-          onChange,
+          onInput,
         }),
         h(
           'label',

@@ -21,7 +21,7 @@ export default defineComponent({
   name: 'asTextInput',
   props,
   setup(props, { emit }) {
-    const { onChange, onFocus, onBlur, getClasses } = useInputEvents(
+    const { onInput, onFocus, onBlur, getClasses } = useInputEvents(
       props,
       emit,
     );
@@ -44,7 +44,7 @@ export default defineComponent({
         ariaLabelledBy: props.control.ariaLabelledBy,
         onFocus,
         onBlur,
-        onChange,
+        onInput,
       });
   },
 });

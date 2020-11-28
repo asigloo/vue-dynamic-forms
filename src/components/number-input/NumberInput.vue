@@ -12,7 +12,7 @@ export default defineComponent({
   name: 'asNumberInput',
   props,
   setup(props, { emit }) {
-    const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
     const { isRequired } = useInputValidation(props, emit);
 
     return () =>
@@ -35,7 +35,7 @@ export default defineComponent({
         ariaRequired: isRequired.value,
         onFocus,
         onBlur,
-        onChange,
+        onInput,
       });
   },
 });

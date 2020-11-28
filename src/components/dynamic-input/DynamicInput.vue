@@ -91,15 +91,6 @@ export default defineComponent({
         {
           'form-group--inline': props?.control?.type === FieldTypes.CHECKBOX,
         },
-        {
-          'form-group--success':
-            props?.control?.valid &&
-            props?.control?.dirty &&
-            props?.control?.touched,
-        },
-        {
-          'form-group--error': showErrors.value,
-        },
       ];
 
       if (isArray(props?.control?.customClass)) {
@@ -117,17 +108,6 @@ export default defineComponent({
     const autoValidate = computed(
       () => props?.control?.touched && options?.autoValidate,
     );
-
-    const showErrors = computed(() => {
-      return (
-        props?.control?.errors &&
-        keys(props?.control?.errors).length > 0 &&
-        (props.submited || autoValidate.value)
-      );
-      /* props.control.errors &&
-        Object.keys(props.control.errors).length > 0 &&
-        (this.submited || this.autoValidate) */
-    });
 
     const errorMessages = computed(() => {
       const errors = values(props?.control?.errors || {});

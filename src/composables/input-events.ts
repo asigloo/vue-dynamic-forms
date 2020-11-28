@@ -1,30 +1,50 @@
-import { computed, watch } from 'vue';
-import { hasValue, isArray, isObject } from '../core/utils/helpers';
+import { computed, ComputedRef, watch } from 'vue';
+import { hasValue } from '../core/utils/helpers';
 
 import { useInputValidation } from '@/composables/use-validation';
-import { BindingObject } from '..';
+import { ValidationTriggerTypes } from '@/core/models';
 
-export function useInputEvents(props: any, emit: any) {
-  const { validate } = useInputValidation(props, emit);
+interface InputEventsComposition {
+  onInput: ($event: Event) => void;
+  onCheck: ($event: Event) => void;
+  onFocus: () => void;
+  onBlur: () => void;
+  getClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
+}
 
-  function onChange($event): void {
-    if (props.control && hasValue($event.target.value)) {
+export function useInputEvents(props: any, emit: any): InputEventsComposition {
+  const { validate, getValidationClasses } = useInputValidation(props, emit);
+
+  function onInput($event: Event): void {
+    const element = $event.target as HTMLInputElement;
+
+    if (props.control && hasValue(element.value)) {
       $event.stopImmediatePropagation();
 
-      validate();
+      if (
+        (!props.control.valid &&
+          props.control.validationTrigger.type ===
+            ValidationTriggerTypes.BLUR) ||
+        (props.control.validationTrigger.type ===
+          ValidationTriggerTypes.CHANGE &&
+          element.value.length >= props.control.validationTrigger.threshold)
+      ) {
+        validate();
+      }
       emit('change', {
         name: props.control.name,
-        value: $event.target.value,
+        value: element.value,
       });
     }
   }
-  function onCheck($event): void {
+  function onCheck($event: Event): void {
+    const element = $event.target as HTMLInputElement;
     if (props.control) {
       $event.stopImmediatePropagation();
 
       emit('change', {
         name: props.control.name,
-        value: $event.target.checked,
+        value: element.checked,
       });
     }
   }
@@ -33,18 +53,16 @@ export function useInputEvents(props: any, emit: any) {
   }
   function onBlur(): void {
     emit('blur', { name: props.control.name });
-    validate();
+
+    if (props.control.validationTrigger.type === ValidationTriggerTypes.BLUR) {
+      validate();
+    }
   }
 
-  const getClasses = computed(() => {
-    const classes = ['form-control'];
-    if (isArray(props.control.customClass)) {
-      return [...classes, ...(props.control.customClass as BindingObject[])];
-    }
-    if (isObject(props.control.customClass)) {
-      return [...classes, props.control.customClass];
-    }
-    return [classes, props.control.customClass];
+  const getClasses: ComputedRef<
+    (string | { [key: string]: boolean })[]
+  > = computed(() => {
+    return ['form-control', ...getValidationClasses.value];
   });
 
   watch(
@@ -61,7 +79,7 @@ export function useInputEvents(props: any, emit: any) {
 
   return {
     onFocus,
-    onChange,
+    onInput,
     onBlur,
     onCheck,
     getClasses,

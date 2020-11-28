@@ -3,12 +3,20 @@
 import { computed } from 'vue';
 
 export function useInputValidation(props: any, emit: any) {
+    const isRequired = computed(() => {
+        return props.control.validations.some(validation => validation.type === 'required')
+    });
+
+    const requiresValidation = computed(() => {
+        return props.control.validations.length > 0;
+    });
+
   function validate(): void {
-    if (props.control.touched || props.control.dirty) {
+    if ((props.control.touched || props.control.dirty) && requiresValidation.value) {
       const validation = props.control.validations.reduce((prev, curr) => {
         const val =
           typeof curr.validator === 'function'
-            ? curr.validator(props.control)
+            ? curr.validator(props.control.value)
             : null;
         if (val !== null) {
           const [key, value] = Object.entries(val)[0];
@@ -34,11 +42,11 @@ export function useInputValidation(props: any, emit: any) {
     }
   }
 
-
   const getValidationClasses = computed(() => {
     return [
       {
         'form-control--success':
+          requiresValidation.value &&
           props.control.valid &&
           props.control.dirty &&
           props.control.touched,
@@ -50,13 +58,10 @@ export function useInputValidation(props: any, emit: any) {
 
   });
 
-  const isRequired = computed(() => {
-      return props.control.validations.some(validation => validation.type === 'required')
-  })
-
   return {
     validate,
     getValidationClasses,
     isRequired,
+    requiresValidation,
   };
 }

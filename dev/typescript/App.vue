@@ -79,6 +79,8 @@ import {
   required,
   email,
   pattern,
+  ValidatorTrigger,
+  ValidationTriggerTypes,
 } from '../../src';
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
@@ -120,6 +122,7 @@ export default defineComponent({
       fields: {
         name: TextField({
           label: 'Name',
+          customClass: 'w-1/2 pr-4',
           validations: [
             Validator({ validator: required, text: 'This field is required' }),
           ],
@@ -130,6 +133,7 @@ export default defineComponent({
           customClass: {
             active: true,
             'text-blue': true,
+            'w-1/2': true,
           },
         }),
         password: PasswordField({
@@ -139,6 +143,7 @@ export default defineComponent({
         }),
         stock: NumberField({
           label: 'Stock',
+          customClass: 'w-1/2 pr-4',
         }),
         games: SelectField({
           label: 'Games',
@@ -161,7 +166,7 @@ export default defineComponent({
         }),
         console: SelectField({
           label: 'Console (Async Options)',
-          customClass: 'w-1/2',
+          customClass: 'w-1/2 pr-4',
           options: consoleOptions.value,
         }),
         steps: NumberField({
@@ -170,6 +175,7 @@ export default defineComponent({
           max: 60,
           step: 5,
           value: 5,
+          customClass: 'w-1/2 ',
         }),
         awesomeness: CheckboxField({
           label: "Check  if you're awesome",
@@ -205,10 +211,15 @@ export default defineComponent({
         }),
         customStyles: TextField({
           label: 'Custom Styles',
-          required: true,
           customStyles: {
             border: '1px solid teal',
           },
+          validations: [emailValidator],
+
+          validationTrigger: ValidatorTrigger({
+            type: ValidationTriggerTypes.CHANGE,
+            threshold: 4,
+          }),
         }),
         readonly: TextField({
           label: 'Readonly',

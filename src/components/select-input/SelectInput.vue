@@ -14,7 +14,7 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     return () => {
-      const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+      const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
       const { isRequired } = useInputValidation(props, emit);
 
       const formattedOptions = computed(() => {
@@ -43,7 +43,7 @@ export default defineComponent({
           ariaRequired: isRequired.value,
           onFocus,
           onBlur,
-          onChange,
+          onInput,
         },
         options,
       );
