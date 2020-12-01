@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { mockAsync } from '@/core/utils/helpers';
+import { mockAsync, mockAsyncValidator } from '@/core/utils/helpers';
 import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
 import {
   TextField,
@@ -92,6 +92,16 @@ export default defineComponent({
     const emailValidator: FormValidator = {
       validator: email,
       text: 'Email format is incorrect',
+    };
+
+    const emailUniquenessValidator: FormValidator = {
+      validator: value =>
+        mockAsyncValidator(
+          'isUnique',
+          value === 'alvaro.saburido@gmail.com',
+          2000,
+        ),
+      text: 'Email must be unique',
     };
 
     const passwordValidator: FormValidator = Validator({
@@ -129,7 +139,7 @@ export default defineComponent({
         }),
         email: EmailField({
           label: 'Email',
-          validations: [emailValidator],
+          validations: [emailValidator, emailUniquenessValidator],
           customClass: {
             active: true,
             'text-blue': true,

@@ -1,43 +1,86 @@
 /* eslint-disable */
 
-import { computed } from 'vue';
+import { isPromise, removeEmpty } from '@/core/utils/helpers';
+import { computed, ref } from 'vue';
 
 export function useInputValidation(props: any, emit: any) {
-    const isRequired = computed(() => {
-        return props.control.validations.some(validation => validation.type === 'required')
-    });
+  const isPendingValidation = ref(false);
+  const isRequired = computed(() => {
+    return props.control.validations.some(
+      validation => validation.type === 'required',
+    );
+  });
 
-    const requiresValidation = computed(() => {
-        return props.control.validations.length > 0;
-    });
+  const requiresValidation = computed(() => {
+    return props.control.validations.length > 0;
+  });
 
-  function validate(): void {
-    if ((props.control.touched || props.control.dirty) && requiresValidation.value) {
-      const validation = props.control.validations.reduce((prev, curr) => {
-        const val =
-          typeof curr.validator === 'function'
-            ? curr.validator(props.control.value)
-            : null;
-        if (val !== null) {
-          const [key, value] = Object.entries(val)[0];
-          const obj = {};
-          obj[key] = {
-            value,
-            text: curr.text,
-          };
-          return {
-            ...prev,
-            ...obj,
-          };
+  async function validate(): Promise<void> {
+    if (
+      (props.control.touched || props.control.dirty) &&
+      requiresValidation.value
+    ) {
+      let errors = {};
+      const syncValidations = [];
+      const asyncValidations = [];
+      props.control.validations.forEach(element => {
+        const validation = element.validator(props.control.value);
+        if (validation.constructor.name === 'Promise') {
+          asyncValidations.push({
+            validation: element.validator,
+            text: element.text,
+          });
+        } else {
+          syncValidations.push({ validation, text: element.text });
         }
-        return {
-          ...prev,
-        };
-      }, {});
+      });
+
+      console.log({
+        sync: syncValidations,
+        async: asyncValidations,
+      });
+      if(asyncValidations.length > 0) {
+        isPendingValidation.value = true;
+
+        Promise.all(
+            asyncValidations.map(async ({ validation, text }) => ({
+              validation: await validation(props.control.value),
+              text,
+            })),
+          ).then(errorsArr => {
+            errorsArr.forEach(({ validation, text }) => {
+              const [key, value] = Object.entries(validation)[0];
+              errors[key] = value
+                ? {
+                    value,
+                    text,
+                  }
+                : null;
+            });
+            isPendingValidation.value = false;
+            emit('validate', {
+              name: props.control.name,
+              errors,
+              valid: Object.keys(removeEmpty(errors)).length === 0,
+            });
+          });
+      }
+      syncValidations.forEach(({ validation, text }) => {
+        if (validation) {
+          const [key, value] = Object.entries(validation)[0];
+          errors[key] = value
+            ? {
+                value,
+                text,
+              }
+            : null;
+        }
+      });
+
       emit('validate', {
         name: props.control.name,
-        errors: validation,
-        valid: Object.keys(validation).length === 0,
+        errors,
+        valid: Object.keys(removeEmpty(errors)).length === 0,
       });
     }
   }
@@ -46,19 +89,21 @@ export function useInputValidation(props: any, emit: any) {
     return [
       {
         'form-control--success':
+          !isPendingValidation.value &&
           requiresValidation.value &&
+          props.control.errors &&
           props.control.valid &&
           props.control.dirty &&
           props.control.touched,
       },
       {
-        'form-control--error': !props.control.valid,
+        'form-control--error': !isPendingValidation.value && !props.control.valid,
       },
     ];
-
   });
 
   return {
+    isPendingValidation,
     validate,
     getValidationClasses,
     isRequired,

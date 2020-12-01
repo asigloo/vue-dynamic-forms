@@ -6,25 +6,21 @@ export const isEmptyInputValue = (value: ControlValue): boolean =>
 const EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
 const URL_REGEXP = /^((?:(https?):\/\/)?((?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9]))|(?:(?:(?:\w+\.){1,2}[\w]{2,3})))(?::(\d+))?((?:\/[\w]+)*)(?:\/|(\/[\w]+\.[\w]{3,4})|(\?(?:([\w]+=[\w]+)&)*([\w]+=[\w]+))?|\?(?:(wsdl|wadl))))$/;
 
-export const required = (value: ControlValue): ValidationErrors | null =>
-  isEmptyInputValue(value) ? { required: true } : null;
+export const required = (value: ControlValue): ValidationErrors => ({
+  required: isEmptyInputValue(value) ? true : null,
+});
 
-export const min = (min: number) => (
-  value: number,
-): ValidationErrors | null => {
+export const min = (min: number) => (value: number): ValidationErrors => {
   if (isEmptyInputValue(value) || isEmptyInputValue(min)) {
-    return null; // don't validate empty values to allow optional controls
+    return { min: null }; // don't validate empty values to allow optional controls
   }
   const minValue = parseFloat(`${value}`);
-
-  return !isNaN(minValue) && minValue < min
-    ? { min: { min, actual: +minValue } }
-    : null;
+  return {
+    min: !isNaN(minValue) && minValue < min ? { min, actual: +minValue } : null,
+  };
 };
 
-export const max = (max: number) => (
-  value: number,
-): ValidationErrors | null => {
+export const max = (max: number) => (value: number): ValidationErrors => {
   if (isEmptyInputValue(value) || isEmptyInputValue(max)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -36,23 +32,23 @@ export const max = (max: number) => (
     : null;
 };
 
-export const email = (value: string): ValidationErrors | null => {
+export const email = (value: string): ValidationErrors => {
   if (isEmptyInputValue(value)) {
-    return null; // don't validate empty values to allow optional controls
+    return { email: null }; // don't validate empty values to allow optional controls
   }
-  return EMAIL_REGEXP.test(`${value}`) ? null : { email: true };
+  return { email: EMAIL_REGEXP.test(`${value}`) ? null : true };
 };
 
-export const url = (value: string): ValidationErrors | null => {
+export const url = (value: string): ValidationErrors => {
   if (isEmptyInputValue(value)) {
     return null; // don't validate empty values to allow optional controls
   }
-  return URL_REGEXP.test(`${value}`) ? null : { email: true };
+  return URL_REGEXP.test(`${value}`) ? null : { url: true };
 };
 
 export const minLength = (minLength: number) => (
   value: number,
-): ValidationErrors | null => {
+): ValidationErrors => {
   if (isEmptyInputValue(value)) {
     return null; // don't validate empty values to allow optional controls
   }
@@ -64,7 +60,7 @@ export const minLength = (minLength: number) => (
 
 export const maxLength = (maxLength: number) => (
   value: number,
-): ValidationErrors | null => {
+): ValidationErrors => {
   if (isEmptyInputValue(value)) {
     return null; // don't validate empty values to allow optional controls
   }

@@ -217,7 +217,10 @@ export default defineComponent({
     function onValidate({ name, errors, valid }: ValidationEvent) {
       const updatedCtrl = findControlByName(name);
       if (updatedCtrl) {
-        updatedCtrl.errors = errors;
+        updatedCtrl.errors = removeEmpty({
+          ...updatedCtrl.errors,
+          ...errors,
+        });
         updatedCtrl.valid = valid;
       }
     }
