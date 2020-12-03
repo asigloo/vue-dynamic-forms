@@ -18,10 +18,16 @@ export type MustHave<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 export type FormFields = {
   [key: string]: InputType;
 };
+
 export interface DynamicForm {
   id: string;
   fields: FormFields;
   fieldOrder?: string[];
+}
+
+export interface ErrorMessage {
+  text: string;
+  value: boolean | null;
 }
 
 export type ValidationErrors = {
@@ -34,27 +40,39 @@ export type BindingObject = {
 };
 
 export interface ValidatorFn {
-  (control: FormControl<InputType> | undefined): ValidationErrors | null;
+  (control: ControlValue | undefined): ValidationErrors | null;
 }
 
-export interface FormValidation {
+export type ControlValue = string | number | boolean;
+
+export interface FormValidator {
   validator: ValidatorFn;
   text: string;
+  type?: string;
 }
+
+export interface InputEvent {
+  name: string;
+}
+
+export type ValidationEvent = InputEvent & {
+  errors: ValidationErrors;
+  valid: boolean;
+};
 
 export interface InputBase {
   name?: string;
   label?: string;
   ariaLabel?: string;
   ariaLabelledBy?: string;
-  required?: boolean;
   disabled?: boolean;
   customClass?: string | string[] | BindingObject | BindingObject[] | unknown;
   customStyles?: string | string[] | BindingObject | BindingObject[] | unknown;
   placeholder?: string;
   autocomplete?: string;
   readonly?: boolean;
-  validations?: FormValidation[];
+  validations?: FormValidator[];
+  validationTrigger?: ValidationTrigger;
 }
 
 export type TextInput = InputBase & {
@@ -147,4 +165,14 @@ export const enum FieldTypes {
   RADIO = 'radio',
   CUSTOM = 'custom-field',
   COLOR = 'color',
+}
+
+export const enum ValidationTriggerTypes {
+  BLUR = 'blur',
+  CHANGE = 'change',
+}
+
+export interface ValidationTrigger {
+  type: ValidationTriggerTypes;
+  threshold: number;
 }

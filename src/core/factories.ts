@@ -11,6 +11,9 @@ import {
   SelectInput,
   CustomInput,
   FormControl,
+  FormValidator,
+  ValidationTriggerTypes,
+  ValidationTrigger,
 } from './models';
 
 const EMPTY_CONTROL = {
@@ -29,9 +32,12 @@ export const FieldBase = ({
   customStyles = null,
   disabled = false,
   placeholder = null,
-  required = false,
   autocomplete = null,
   readonly = false,
+  validationTrigger = ValidatorTrigger({
+    type: ValidationTriggerTypes.BLUR,
+    threshold: 0,
+  }),
 }: InputBase): InputBase =>
   ({
     validations,
@@ -42,9 +48,9 @@ export const FieldBase = ({
     customStyles,
     disabled,
     placeholder,
-    required,
     autocomplete,
     readonly,
+    validationTrigger,
   } as InputBase);
 
 export const TextField = ({
@@ -147,4 +153,21 @@ export const FieldControl = ({
   name,
   type,
   ...EMPTY_CONTROL,
+});
+
+export const Validator = ({
+  validator,
+  text,
+}: FormValidator): FormValidator => ({
+  type: validator(undefined) ? Object.keys(validator(undefined))[0] : 'pattern',
+  validator,
+  text,
+});
+
+export const ValidatorTrigger = ({
+  type,
+  threshold,
+}: ValidationTrigger): ValidationTrigger => ({
+  type,
+  threshold,
 });

@@ -13,7 +13,7 @@ const VueDynamicForms = createDynamicForms({
     customClass: 'plugin-options-class-added',
     customStyles: {
       display: 'flex',
-      flexDirection: 'column',
+      flexWrap: 'wrap',
     },
     method: 'POST',
     netlify: false,

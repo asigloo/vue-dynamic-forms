@@ -62,12 +62,9 @@
 </template>
 
 <script lang="ts">
-import { mockAsync } from '@/core/utils/helpers';
+import { mockAsync, mockAsyncValidator } from '@/core/utils/helpers';
 import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
 import {
-  FormValidation,
-  email,
-  pattern,
   TextField,
   SelectField,
   EmailField,
@@ -77,6 +74,13 @@ import {
   RadioField,
   CustomField,
   ColorField,
+  Validator,
+  FormValidator,
+  required,
+  email,
+  pattern,
+  ValidatorTrigger,
+  ValidationTriggerTypes,
 } from '../../src';
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
@@ -85,18 +89,28 @@ export default defineComponent({
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
     let consoleOptions = ref();
-    const emailValidator: FormValidation = {
+    const emailValidator: FormValidator = {
       validator: email,
       text: 'Email format is incorrect',
     };
 
-    const passwordValidator: FormValidation = {
+    const emailUniquenessValidator: FormValidator = {
+      validator: value =>
+        mockAsyncValidator(
+          'isUnique',
+          value === 'alvaro.saburido@gmail.com',
+          2000,
+        ),
+      text: 'Email must be unique',
+    };
+
+    const passwordValidator: FormValidator = Validator({
       validator: pattern(
         '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
       ),
       text:
         'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
-    };
+    });
 
     const form = computed(() => ({
       id: 'example-form',
@@ -118,14 +132,18 @@ export default defineComponent({
       fields: {
         name: TextField({
           label: 'Name',
-          required: true,
+          customClass: 'w-1/2 pr-4',
+          validations: [
+            Validator({ validator: required, text: 'This field is required' }),
+          ],
         }),
         email: EmailField({
           label: 'Email',
-          validations: [emailValidator],
+          validations: [emailValidator, emailUniquenessValidator],
           customClass: {
             active: true,
             'text-blue': true,
+            'w-1/2': true,
           },
         }),
         password: PasswordField({
@@ -135,6 +153,7 @@ export default defineComponent({
         }),
         stock: NumberField({
           label: 'Stock',
+          customClass: 'w-1/2 pr-4',
         }),
         games: SelectField({
           label: 'Games',
@@ -157,7 +176,7 @@ export default defineComponent({
         }),
         console: SelectField({
           label: 'Console (Async Options)',
-          customClass: 'w-1/2',
+          customClass: 'w-1/2 pr-4',
           options: consoleOptions.value,
         }),
         steps: NumberField({
@@ -166,6 +185,7 @@ export default defineComponent({
           max: 60,
           step: 5,
           value: 5,
+          customClass: 'w-1/2 ',
         }),
         awesomeness: CheckboxField({
           label: "Check  if you're awesome",
@@ -201,10 +221,15 @@ export default defineComponent({
         }),
         customStyles: TextField({
           label: 'Custom Styles',
-          required: true,
           customStyles: {
             border: '1px solid teal',
           },
+          validations: [emailValidator],
+
+          validationTrigger: ValidatorTrigger({
+            type: ValidationTriggerTypes.CHANGE,
+            threshold: 4,
+          }),
         }),
         readonly: TextField({
           label: 'Readonly',

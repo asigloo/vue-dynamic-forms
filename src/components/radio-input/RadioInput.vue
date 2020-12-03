@@ -2,6 +2,7 @@
 import { defineComponent, h, PropType } from 'vue';
 import { FormControl, RadioInput } from '@/core/models';
 import { useInputEvents } from '@/composables/input-events';
+import { useInputValidation } from '@/composables/use-validation';
 
 const props = {
   control: Object as PropType<FormControl<RadioInput>>,
@@ -11,7 +12,13 @@ export default defineComponent({
   name: 'asRadioInput',
   props,
   setup(props, { emit }) {
-    const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
+
+    const { errorMessages, isPendingValidation } = useInputValidation(
+      props,
+      emit,
+    );
+
     const renderRadios = props?.control?.options?.map(option => {
       return h('div', { class: 'radio-input' }, [
         h('input', {
@@ -23,7 +30,7 @@ export default defineComponent({
           value: option.value,
           onFocus,
           onBlur,
-          onChange,
+          onInput,
         }),
         h(
           'label',
@@ -45,6 +52,17 @@ export default defineComponent({
         },
         renderRadios,
       ),
+      isPendingValidation.value
+        ? null
+        : h(
+            'div',
+            {
+              class: 'form-errors',
+            },
+            errorMessages.value.map(error =>
+              h('p', { class: 'form-error' }, error),
+            ),
+          ),
     ];
   },
 });

@@ -2,7 +2,8 @@
 import { defineComponent, h, PropType, computed } from 'vue';
 import { FormControl, SelectInput } from '@/core/models';
 import { useInputEvents } from '@/composables/input-events';
-import { isArray, isObject } from '@/core/utils/helpers';
+import { isObject } from '@/core/utils/helpers';
+import { useInputValidation } from '@/composables/use-validation';
 
 const props = {
   control: Object as PropType<FormControl<SelectInput>>,
@@ -13,7 +14,12 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     return () => {
-      const { onChange, onFocus, onBlur } = useInputEvents(props, emit);
+      const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
+      const {
+        isRequired,
+        errorMessages,
+        isPendingValidation,
+      } = useInputValidation(props, emit);
 
       const formattedOptions = computed(() => {
         if (isObject(props?.control?.options)) {
@@ -25,26 +31,39 @@ export default defineComponent({
       const options = formattedOptions.value.map(({ key, value, disabled }) =>
         h('option', { key, value: key, disabled }, value),
       );
-      return h(
-        'select',
-        {
-          id: props.control.name,
-          name: props?.control?.name || '',
-          class: ['form-control'],
-          value: props?.control?.value,
-          disabled: props?.control?.disabled,
-          placeholder: props?.control?.placeholder,
-          required: props.control.required,
-          readonly: props?.control.readonly,
-          ariaLabel: props.control.ariaLabel,
-          ariaLabelledBy: props.control.ariaLabelledBy,
-          ariaRequired: props.control.required,
-          onFocus,
-          onBlur,
-          onChange,
-        },
-        options,
-      );
+      return [
+        h(
+          'select',
+          {
+            id: props.control.name,
+            name: props?.control?.name || '',
+            class: ['form-control'],
+            value: props?.control?.value,
+            disabled: props?.control?.disabled,
+            placeholder: props?.control?.placeholder,
+            required: isRequired.value,
+            readonly: props?.control.readonly,
+            ariaLabel: props.control.ariaLabel,
+            ariaLabelledBy: props.control.ariaLabelledBy,
+            ariaRequired: isRequired.value,
+            onFocus,
+            onBlur,
+            onInput,
+          },
+          options,
+        ),
+        isPendingValidation.value
+          ? null
+          : h(
+              'div',
+              {
+                class: 'form-errors',
+              },
+              errorMessages.value.map(error =>
+                h('p', { class: 'form-error' }, error),
+              ),
+            ),
+      ];
     };
   },
 });
