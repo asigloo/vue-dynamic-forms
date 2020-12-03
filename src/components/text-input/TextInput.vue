@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType, ref } from 'vue';
+import { defineComponent, h, PropType } from 'vue';
 import {
   ColorInput,
   EmailInput,
@@ -25,9 +25,12 @@ export default defineComponent({
       props,
       emit,
     );
-    const { isRequired } = useInputValidation(props, emit);
-
-    return () =>
+    const {
+      isRequired,
+      errorMessages,
+      isPendingValidation,
+    } = useInputValidation(props, emit);
+    return () => [
       h('input', {
         id: props.control.name,
         name: props.control.name || '',
@@ -37,7 +40,7 @@ export default defineComponent({
         disabled: props.control.disabled,
         placeholder: props.control.placeholder,
         required: isRequired.value,
-        readonly: props?.control.readonly,
+        readonly: props.control.readonly,
         autocomplete: props.control.autocomplete,
         ariaRequired: isRequired.value,
         ariaLabel: props.control.ariaLabel,
@@ -45,7 +48,19 @@ export default defineComponent({
         onFocus,
         onBlur,
         onInput,
-      });
+      }),
+      isPendingValidation.value
+        ? null
+        : h(
+            'div',
+            {
+              class: 'form-errors',
+            },
+            errorMessages.value.map(error =>
+              h('p', { class: 'form-error' }, error),
+            ),
+          ),
+    ];
   },
 });
 </script>

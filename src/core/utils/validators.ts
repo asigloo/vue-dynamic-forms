@@ -22,14 +22,14 @@ export const min = (min: number) => (value: number): ValidationErrors => {
 
 export const max = (max: number) => (value: number): ValidationErrors => {
   if (isEmptyInputValue(value) || isEmptyInputValue(max)) {
-    return null; // don't validate empty values to allow optional controls
+    return { max: null }; // don't validate empty values to allow optional controls
   }
   const maxValue = parseFloat(`${value}`);
   // Controls with NaN values after parsing should be treated as not having a
   // maximum, per the HTML forms spec: https://www.w3.org/TR/html5/forms.html#attr-input-max
-  return !isNaN(maxValue) && maxValue > max
-    ? { max: { max, actual: maxValue } }
-    : null;
+  return {
+    max: !isNaN(maxValue) && maxValue < max ? { max, actual: +maxValue } : null,
+  };
 };
 
 export const email = (value: string): ValidationErrors => {
@@ -41,21 +41,25 @@ export const email = (value: string): ValidationErrors => {
 
 export const url = (value: string): ValidationErrors => {
   if (isEmptyInputValue(value)) {
-    return null; // don't validate empty values to allow optional controls
+    return { url: null }; // don't validate empty values to allow optional controls
   }
-  return URL_REGEXP.test(`${value}`) ? null : { url: true };
+  return { url: URL_REGEXP.test(`${value}`) ? null : true };
 };
 
 export const minLength = (minLength: number) => (
   value: number,
 ): ValidationErrors => {
   if (isEmptyInputValue(value)) {
-    return null; // don't validate empty values to allow optional controls
+    return { minLength: null }; // don't validate empty values to allow optional controls
   }
   const length = value ? `${value}`.length : 0;
-  return length < minLength
-    ? { minlength: { requiredLength: minLength, actualLength: length } }
-    : null;
+
+  return {
+    minLength:
+      length < minLength
+        ? { requiredLength: minLength, actualLength: length }
+        : null,
+  };
 };
 
 export const maxLength = (maxLength: number) => (
@@ -65,9 +69,12 @@ export const maxLength = (maxLength: number) => (
     return null; // don't validate empty values to allow optional controls
   }
   const length = value ? `${value}`.length : 0;
-  return length > maxLength
-    ? { maxlength: { requiredLength: maxLength, actualLength: length } }
-    : null;
+  return {
+    maxlength:
+      length > maxLength
+        ? { requiredLength: maxLength, actualLength: length }
+        : null,
+  };
 };
 
 export const pattern = (pattern: string): ValidatorFn => {
@@ -90,12 +97,14 @@ export const pattern = (pattern: string): ValidatorFn => {
   }
   return (value: ControlValue) => {
     if (isEmptyInputValue(value)) {
-      return null; // don't validate empty values to allow optional controls
+      return { pattern: null }; // don't validate empty values to allow optional controls
     }
     const patternValue = value;
-    return regex.test(patternValue as string)
-      ? null
-      : { pattern: { requiredPattern: regexStr, actualValue: value } };
+    return {
+      pattern: regex.test(patternValue as string)
+        ? null
+        : { requiredPattern: regexStr, actualValue: value },
+    };
   };
 };
 

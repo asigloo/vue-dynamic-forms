@@ -18,10 +18,16 @@ export type MustHave<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 export type FormFields = {
   [key: string]: InputType;
 };
+
 export interface DynamicForm {
   id: string;
   fields: FormFields;
   fieldOrder?: string[];
+}
+
+export interface ErrorMessage {
+  text: string;
+  value: boolean | null;
 }
 
 export type ValidationErrors = {

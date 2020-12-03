@@ -28,7 +28,7 @@ import {
   InputEvent,
 } from '@/core/models';
 
-import { values, keys, isArray, isObject } from '@/core/utils/helpers';
+import { values, isArray, isObject } from '@/core/utils/helpers';
 import { useInputEvents } from '@/composables/input-events';
 import { dynamicFormsSymbol } from '@/useApi';
 
@@ -234,15 +234,6 @@ export default defineComponent({
               )
             : null,
           component,
-          h(
-            'div',
-            {
-              class: 'form-errors',
-            },
-            errorMessages.value.map(error =>
-              h('p', { class: 'form-error' }, error),
-            ),
-          ),
         ],
       );
     };

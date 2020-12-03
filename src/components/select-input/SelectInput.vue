@@ -15,7 +15,11 @@ export default defineComponent({
   setup(props, { emit }) {
     return () => {
       const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
-      const { isRequired } = useInputValidation(props, emit);
+      const {
+        isRequired,
+        errorMessages,
+        isPendingValidation,
+      } = useInputValidation(props, emit);
 
       const formattedOptions = computed(() => {
         if (isObject(props?.control?.options)) {
@@ -27,26 +31,39 @@ export default defineComponent({
       const options = formattedOptions.value.map(({ key, value, disabled }) =>
         h('option', { key, value: key, disabled }, value),
       );
-      return h(
-        'select',
-        {
-          id: props.control.name,
-          name: props?.control?.name || '',
-          class: ['form-control'],
-          value: props?.control?.value,
-          disabled: props?.control?.disabled,
-          placeholder: props?.control?.placeholder,
-          required: isRequired.value,
-          readonly: props?.control.readonly,
-          ariaLabel: props.control.ariaLabel,
-          ariaLabelledBy: props.control.ariaLabelledBy,
-          ariaRequired: isRequired.value,
-          onFocus,
-          onBlur,
-          onInput,
-        },
-        options,
-      );
+      return [
+        h(
+          'select',
+          {
+            id: props.control.name,
+            name: props?.control?.name || '',
+            class: ['form-control'],
+            value: props?.control?.value,
+            disabled: props?.control?.disabled,
+            placeholder: props?.control?.placeholder,
+            required: isRequired.value,
+            readonly: props?.control.readonly,
+            ariaLabel: props.control.ariaLabel,
+            ariaLabelledBy: props.control.ariaLabelledBy,
+            ariaRequired: isRequired.value,
+            onFocus,
+            onBlur,
+            onInput,
+          },
+          options,
+        ),
+        isPendingValidation.value
+          ? null
+          : h(
+              'div',
+              {
+                class: 'form-errors',
+              },
+              errorMessages.value.map(error =>
+                h('p', { class: 'form-error' }, error),
+              ),
+            ),
+      ];
     };
   },
 });

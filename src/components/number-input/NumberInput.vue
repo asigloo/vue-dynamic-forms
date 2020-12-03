@@ -13,22 +13,26 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
-    const { isRequired } = useInputValidation(props, emit);
+    const {
+      isRequired,
+      errorMessages,
+      isPendingValidation,
+    } = useInputValidation(props, emit);
 
-    return () =>
+    return () => [
       h('input', {
         id: props.control.name,
-        name: props?.control?.name || '',
-        type: props?.control?.type,
+        name: props.control.name || '',
+        type: props.control.type,
         class: ['form-control'],
-        value: props?.control?.value,
-        min: props?.control?.min,
-        max: props?.control?.max,
-        step: props?.control?.step,
-        disabled: props?.control?.disabled,
-        placeholder: props?.control?.placeholder,
+        value: props.control.value,
+        min: props.control.min,
+        max: props.control.max,
+        step: props.control.step,
+        disabled: props.control.disabled,
+        placeholder: props.control.placeholder,
         required: isRequired.value,
-        readonly: props?.control.readonly,
+        readonly: props.control.readonly,
         autocomplete: props.control.autocomplete,
         ariaLabel: props.control.ariaLabel,
         ariaLabelledBy: props.control.ariaLabelledBy,
@@ -36,7 +40,19 @@ export default defineComponent({
         onFocus,
         onBlur,
         onInput,
-      });
+      }),
+      isPendingValidation.value
+        ? null
+        : h(
+            'div',
+            {
+              class: 'form-errors',
+            },
+            errorMessages.value.map(error =>
+              h('p', { class: 'form-error' }, error),
+            ),
+          ),
+    ];
   },
 });
 </script>

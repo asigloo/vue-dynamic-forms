@@ -1,7 +1,8 @@
 /* eslint-disable */
 
-import { isPromise, removeEmpty } from '@/core/utils/helpers';
-import { computed, ref } from 'vue';
+import { ErrorMessage } from '@/core/models';
+import {  removeEmpty } from '@/core/utils/helpers';
+import { computed,  ref } from 'vue';
 
 export function useInputValidation(props: any, emit: any) {
   const isPendingValidation = ref(false);
@@ -85,6 +86,14 @@ export function useInputValidation(props: any, emit: any) {
     }
   }
 
+  const errorMessages = computed(() => {
+    const errors: ErrorMessage[] = Object.values(props.control?.errors || {});
+    if (errors.length > 0) {
+      return errors.map((error) => error.text);
+    }
+    return [];
+  });
+
   const getValidationClasses = computed(() => {
     return [
       {
@@ -98,6 +107,7 @@ export function useInputValidation(props: any, emit: any) {
       },
       {
         'form-control--error': !isPendingValidation.value && !props.control.valid,
+        'form-control--validating': isPendingValidation.value
       },
     ];
   });
@@ -108,5 +118,6 @@ export function useInputValidation(props: any, emit: any) {
     getValidationClasses,
     isRequired,
     requiresValidation,
+    errorMessages,
   };
 }
