@@ -149,7 +149,7 @@ export const FieldControl = ({
   type,
   ...rest
 }: Partial<FormControl<any>>): FormControl<any> => ({
-  ...FieldBase(rest),
+  ...rest,
   name,
   type,
   ...EMPTY_CONTROL,

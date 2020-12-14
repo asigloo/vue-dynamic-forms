@@ -47,7 +47,7 @@ export const url = (value: string): ValidationErrors => {
 };
 
 export const minLength = (minLength: number) => (
-  value: number,
+  value: string,
 ): ValidationErrors => {
   if (isEmptyInputValue(value)) {
     return { minLength: null }; // don't validate empty values to allow optional controls
@@ -63,14 +63,14 @@ export const minLength = (minLength: number) => (
 };
 
 export const maxLength = (maxLength: number) => (
-  value: number,
+  value: string,
 ): ValidationErrors => {
   if (isEmptyInputValue(value)) {
-    return null; // don't validate empty values to allow optional controls
+    return { maxLength: null }; // don't validate empty values to allow optional controls
   }
   const length = value ? `${value}`.length : 0;
   return {
-    maxlength:
+    maxLength:
       length > maxLength
         ? { requiredLength: maxLength, actualLength: length }
         : null,
