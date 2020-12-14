@@ -127,11 +127,15 @@ export const NumberField = ({
 export const SelectField = ({
   options = [],
   value,
+  optionValue = 'value',
+  optionLabel = 'label',
   ...rest
 }: Partial<SelectInput>): SelectInput => ({
   ...FieldBase(rest),
   value,
   options,
+  optionValue,
+  optionLabel,
   type: FieldTypes.SELECT,
 });
 

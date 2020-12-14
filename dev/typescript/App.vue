@@ -161,22 +161,23 @@ export default defineComponent({
           value: 'the-last-of-us',
           options: [
             {
-              key: 'the-last-of-us',
-              value: 'The Last of Us II',
+              value: 'the-last-of-us',
+              label: 'The Last of Us II',
             },
             {
-              key: 'death-stranding',
-              value: 'Death Stranding',
+              value: 'death-stranding',
+              label: 'Death Stranding',
             },
             {
-              key: 'nier-automata',
-              value: 'Nier Automata',
+              value: 'nier-automata',
+              label: 'Nier Automata',
             },
           ],
         }),
         console: SelectField({
           label: 'Console (Async Options)',
           customClass: 'w-1/2 pr-4',
+          optionValue: 'console',
           options: consoleOptions.value,
         }),
         steps: NumberField({
@@ -256,16 +257,16 @@ export default defineComponent({
       try {
         consoleOptions.value = await mockAsync(true, 4000, [
           {
-            key: 'playstation',
-            value: 'Playstation',
+            console: 'playstation',
+            label: 'Playstation',
           },
           {
-            key: 'nintendo',
-            value: 'Nintendo',
+            console: 'nintendo',
+            label: 'Nintendo',
           },
           {
-            key: 'xbox',
-            value: 'Xbox',
+            console: 'xbox',
+            label: 'Xbox',
           },
         ]);
       } catch (e) {
