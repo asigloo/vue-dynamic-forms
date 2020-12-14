@@ -32,8 +32,16 @@ export default defineComponent({
         return props?.control?.options;
       });
 
-      const options = formattedOptions.value.map(({ key, value, disabled }) =>
-        h('option', { key, value: key, disabled }, value),
+      const options = formattedOptions.value.map(option =>
+        h(
+          'option',
+          {
+            key: option[props.control.optionValue],
+            value: option[props.control.optionValue],
+            disabled: option.disabled,
+          },
+          option[props.control.optionLabel],
+        ),
       );
       return [
         h(

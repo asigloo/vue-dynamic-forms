@@ -91,7 +91,9 @@ export type NumberInput = InputBase & {
 export type SelectInput<T = boolean | string> = InputBase & {
   type: FieldTypes.SELECT;
   value: T;
-  options?: { key: string; value: string; disabled?: boolean }[];
+  optionValue: string;
+  optionLabel: string;
+  options?: { label: string; value: string; disabled?: boolean }[];
 };
 
 export type TextAreaInput = InputBase & {
