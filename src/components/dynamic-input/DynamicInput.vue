@@ -28,9 +28,8 @@ import {
   InputEvent,
 } from '@/core/models';
 
-import { values, isArray, isObject } from '@/core/utils/helpers';
+import { isArray, isObject } from '@/core/utils/helpers';
 import { useInputEvents } from '@/composables/input-events';
-import { dynamicFormsSymbol } from '@/useApi';
 
 const components = {
   TextInputComponent,
@@ -46,9 +45,9 @@ const props = {
     type: Object as PropType<FormControl<InputType>>,
     required: true,
   },
-  submited: {
+  forceValidation: {
     type: Boolean,
-    required: true,
+    default: false,
   },
 };
 
@@ -65,7 +64,6 @@ export default defineComponent({
   props,
   setup(props, { emit, slots }) {
     const { onFocus, onBlur } = useInputEvents(props?.control, emit);
-    const { options } = inject(dynamicFormsSymbol);
 
     let component;
 
@@ -78,6 +76,7 @@ export default defineComponent({
         onFocus: (e: InputEvent) => emit('focus', e),
         onValidate: (validation: ValidationEvent) =>
           emit('validate', validation),
+        forceValidation: props.forceValidation,
       };
     });
 
@@ -103,18 +102,6 @@ export default defineComponent({
         return [...classes, props?.control?.customClass];
       }
       return [classes, props?.control?.customClass];
-    });
-
-    const autoValidate = computed(
-      () => props?.control?.touched && options?.autoValidate,
-    );
-
-    const errorMessages = computed(() => {
-      const errors = values(props?.control?.errors || {});
-      if (errors.length > 0 && (props.submited || autoValidate.value)) {
-        return errors.map(value => value.text);
-      }
-      return [];
     });
 
     function valueChange($event) {

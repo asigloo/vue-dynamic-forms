@@ -15,6 +15,10 @@ const props = {
   control: Object as PropType<
     FormControl<TextInput | EmailInput | PasswordInput | UrlInput | ColorInput>
   >,
+  forceValidation: {
+    type: Boolean,
+    default: false,
+  },
 };
 
 export default defineComponent({

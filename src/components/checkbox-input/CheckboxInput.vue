@@ -6,6 +6,10 @@ import { useInputValidation } from '@/composables/use-validation';
 
 const props = {
   control: Object as PropType<FormControl<CheckboxInput>>,
+  forceValidation: {
+    type: Boolean,
+    default: false,
+  },
 };
 
 export default defineComponent({

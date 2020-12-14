@@ -2,10 +2,11 @@
 
 import { ErrorMessage } from '@/core/models';
 import {  removeEmpty } from '@/core/utils/helpers';
-import { computed,  ref } from 'vue';
+import { computed,  ref, watch } from 'vue';
 
 export function useInputValidation(props: any, emit: any) {
   const isPendingValidation = ref(false);
+
   const isRequired = computed(() => {
     return props.control.validations.some(
       validation => validation.type === 'required',
@@ -16,9 +17,9 @@ export function useInputValidation(props: any, emit: any) {
     return props.control.validations.length > 0;
   });
 
-  async function validate(): Promise<void> {
+  async function validate(force = false): Promise<void> {
     if (
-      (props.control.touched || props.control.dirty) &&
+      force || (props.control.touched || props.control.dirty) &&
       requiresValidation.value
     ) {
       let errors = {};
@@ -36,10 +37,6 @@ export function useInputValidation(props: any, emit: any) {
         }
       });
 
-      console.log({
-        sync: syncValidations,
-        async: asyncValidations,
-      });
       if(asyncValidations.length > 0) {
         isPendingValidation.value = true;
 
@@ -111,6 +108,15 @@ export function useInputValidation(props: any, emit: any) {
       },
     ];
   });
+
+  watch(
+    () => props.forceValidation,
+    value => {
+      if(value) {
+        validate(value)
+      }
+    },
+  );
 
   return {
     isPendingValidation,

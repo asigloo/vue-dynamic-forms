@@ -12,6 +12,7 @@
       :key="control.name"
       :control="control"
       :submited="submited"
+      :forceValidation="forceValidation"
       @change="valueChange"
       @blur="onBlur"
       @validate="onValidate"
@@ -36,6 +37,8 @@
 </template>
 
 <script lang="ts">
+import { nextTick } from 'vue';
+
 import {
   defineComponent,
   PropType,
@@ -61,6 +64,7 @@ import {
 } from '@/core/models';
 import { dynamicFormsSymbol } from '@/useApi';
 import { deepClone, hasValue, removeEmpty } from '@/core/utils/helpers';
+import { FieldControl } from '@/core/factories';
 
 const props = {
   form: {
@@ -71,12 +75,6 @@ const props = {
 
 const components = {
   DynamicInput,
-};
-
-const EMPTY_CONTROL = {
-  dirty: false,
-  touched: false,
-  valid: true,
 };
 
 /* const AVAILABLE_THEMES = ['default', 'material'];
@@ -90,7 +88,7 @@ export default defineComponent({
     const cache = deepClone(toRaw(props.form.fields));
 
     const controls: Ref<FormControl<InputType>[]> = ref([]);
-    const submited = ref(false);
+    const forceValidation = ref(false);
 
     const deNormalizedScopedSlots = computed(() => Object.keys(ctx.slots));
 
@@ -168,17 +166,15 @@ export default defineComponent({
         Object.entries(props.form?.fields).map(
           ([key, field]: [string, InputType]) =>
             empty
-              ? ({
+              ? FieldControl({
                   ...field,
                   name: key,
                   value: null,
-                  ...EMPTY_CONTROL,
-                } as FormControl<InputType>)
-              : ({
+                })
+              : FieldControl({
                   ...field,
                   name: key,
-                  ...EMPTY_CONTROL,
-                } as FormControl<InputType>),
+                }),
         ) || [];
       if (props.form.fieldOrder) {
         controls.value = controlArray.sort(
@@ -225,41 +221,22 @@ export default defineComponent({
       }
     }
 
-    /*     function validateControl(control: FormControl<InputType>) {
-      if (control.validations) {
-        const validation = control.validations.reduce((prev, curr) => {
-          const val =
-            typeof curr.validator === 'function'
-              ? curr.validator(control)
-              : null;
-          if (val !== null) {
-            const [key, value] = Object.entries(val)[0];
-            const obj = {};
-            obj[key] = {
-              value,
-              text: curr.text,
-            };
-            return {
-              ...prev,
-              ...obj,
-            };
-          }
-          return {
-            ...prev,
-          };
-        }, {});
-        control.errors = validation;
-        control.valid = Object.keys(validation).length === 0;
-      }
-    } */
-
     function detectChanges(fields) {
       const changes = diff(cache, deepClone(fields));
       Object.entries(changes).forEach(([key, value]) => {
         let ctrl = findControlByName(key);
         if (ctrl) {
           Object.entries(value).forEach(([change, newValue]) => {
-            ctrl[change] = newValue;
+            if (change === 'options' || change === 'validations') {
+              Object.entries(newValue).forEach(([optKey, optValue]) => {
+                ctrl[change][optKey] = {
+                  ...ctrl[change][optKey],
+                  ...optValue,
+                };
+              });
+            } else {
+              ctrl[change] = newValue;
+            }
           });
         }
       });
@@ -267,17 +244,24 @@ export default defineComponent({
 
     function resetForm() {
       mapControls(true);
+      forceValidation.value = false;
     }
 
-    function handleSubmit() {
-      submited.value = true;
+    async function handleSubmit() {
+      validateAll();
+
+      await nextTick();
 
       if (isValid.value) {
-        ctx.emit('submited', formValues);
+        ctx.emit('submitted', formValues);
         resetForm();
       } else {
         ctx.emit('error', formValues);
       }
+    }
+
+    function validateAll() {
+      forceValidation.value = true;
     }
 
     watch(
@@ -303,10 +287,11 @@ export default defineComponent({
       errors,
       deNormalizedScopedSlots,
       normalizedControls,
-      submited,
       formattedOptions,
       onBlur,
       onValidate,
+      forceValidation,
+      validateAll,
     };
   },
 });
