@@ -16,7 +16,7 @@ export default defineComponent({
   name: 'asNumberInput',
   props,
   setup(props, { emit }) {
-    const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
+    const { onInput, onChange, onFocus, onBlur } = useInputEvents(props, emit);
     const {
       isRequired,
       errorMessages,
@@ -44,6 +44,7 @@ export default defineComponent({
         onFocus,
         onBlur,
         onInput,
+        onChange,
       }),
       isPendingValidation.value
         ? null

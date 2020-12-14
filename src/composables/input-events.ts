@@ -6,6 +6,7 @@ import { ValidationTriggerTypes } from '@/core/models';
 
 interface InputEventsComposition {
   onInput: ($event: Event) => void;
+  onChange: ($event: Event) => void;
   onCheck: ($event: Event) => void;
   onFocus: () => void;
   onBlur: () => void;
@@ -18,9 +19,8 @@ export function useInputEvents(props: any, emit: any): InputEventsComposition {
   function onInput($event: Event): void {
     const element = $event.target as HTMLInputElement;
 
+    $event.stopImmediatePropagation();
     if (props.control && hasValue(element.value)) {
-      $event.stopImmediatePropagation();
-
       if (
         (!props.control.valid &&
           props.control.validationTrigger.type ===
@@ -36,6 +36,10 @@ export function useInputEvents(props: any, emit: any): InputEventsComposition {
         value: element.value,
       });
     }
+  }
+  function onChange($event: Event): void {
+    $event.stopImmediatePropagation();
+    $event.preventDefault();
   }
   function onCheck($event: Event): void {
     const element = $event.target as HTMLInputElement;
@@ -68,7 +72,7 @@ export function useInputEvents(props: any, emit: any): InputEventsComposition {
   watch(
     () => props?.control?.value,
     (curr, prev) => {
-      if (prev === undefined && hasValue(curr)) {
+      if (prev !== undefined && hasValue(curr) && curr !== prev) {
         emit('change', {
           name: props.control.name,
           value: props.control.value,
@@ -80,6 +84,7 @@ export function useInputEvents(props: any, emit: any): InputEventsComposition {
   return {
     onFocus,
     onInput,
+    onChange,
     onBlur,
     onCheck,
     getClasses,

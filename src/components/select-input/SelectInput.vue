@@ -18,7 +18,10 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     return () => {
-      const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
+      const { onInput, onChange, onFocus, onBlur } = useInputEvents(
+        props,
+        emit,
+      );
       const {
         isRequired,
         errorMessages,
@@ -61,6 +64,7 @@ export default defineComponent({
             onFocus,
             onBlur,
             onInput,
+            onChange,
           },
           options,
         ),

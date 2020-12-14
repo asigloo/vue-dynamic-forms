@@ -81,6 +81,7 @@ import {
   pattern,
   ValidatorTrigger,
   ValidationTriggerTypes,
+  TextAreaField,
 } from '../../src';
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
@@ -118,6 +119,7 @@ export default defineComponent({
         'name',
         'email',
         'password',
+        'bio',
         'console',
         'games',
         'stock',
@@ -150,6 +152,11 @@ export default defineComponent({
           label: 'Password',
           autocomplete: 'current-password',
           validations: [passwordValidator],
+        }),
+        bio: TextAreaField({
+          label: 'Bio',
+          cols: 30,
+          rows: 4,
         }),
         stock: NumberField({
           label: 'Stock',
@@ -246,7 +253,7 @@ export default defineComponent({
 
     function valueChanged(values) {
       Object.assign(formValues, values);
-      /* console.log('Values', values); */
+      console.log('Values', values);
     }
 
     function handleError(errors) {

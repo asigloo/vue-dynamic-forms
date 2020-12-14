@@ -28,7 +28,7 @@ import {
   InputEvent,
 } from '@/core/models';
 
-import { isArray, isObject } from '@/core/utils/helpers';
+import { isArray, isEvent, isObject } from '@/core/utils/helpers';
 import { useInputEvents } from '@/composables/input-events';
 
 const components = {
@@ -106,8 +106,8 @@ export default defineComponent({
       return [classes, props?.control?.customClass];
     });
 
-    function valueChange($event) {
-      emit('change', $event);
+    function valueChange(event) {
+      emit('change', event);
     }
 
     return () => {
