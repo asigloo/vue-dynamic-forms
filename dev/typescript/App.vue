@@ -10,7 +10,7 @@
             <h1 class="title mb-16 text-bg">{{ title }}</h1>
             <dynamic-form
               :form="form"
-              @submited="handleSubmit"
+              @submitted="handleSubmit"
               @change="valueChanged"
               @error="handleError"
             >
@@ -34,7 +34,7 @@
               </template>
             </dynamic-form>
             <button
-              class="btn bg-teal-500 text-white hover:bg-teal-700 mt-4"
+              class="btn bg-green-500 text-white hover:bg-green-700 mt-4"
               submit="true"
               :form="form?.id"
             >

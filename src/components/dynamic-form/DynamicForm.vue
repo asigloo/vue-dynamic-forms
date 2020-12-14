@@ -12,6 +12,7 @@
       :key="control.name"
       :control="control"
       :submited="submited"
+      :forceValidation="forceValidation"
       @change="valueChange"
       @blur="onBlur"
       @validate="onValidate"
@@ -36,6 +37,8 @@
 </template>
 
 <script lang="ts">
+import { nextTick } from 'vue';
+
 import {
   defineComponent,
   PropType,
@@ -85,7 +88,7 @@ export default defineComponent({
     const cache = deepClone(toRaw(props.form.fields));
 
     const controls: Ref<FormControl<InputType>[]> = ref([]);
-    const submited = ref(false);
+    const forceValidation = ref(false);
 
     const deNormalizedScopedSlots = computed(() => Object.keys(ctx.slots));
 
@@ -241,17 +244,24 @@ export default defineComponent({
 
     function resetForm() {
       mapControls(true);
+      forceValidation.value = false;
     }
 
-    function handleSubmit() {
-      submited.value = true;
+    async function handleSubmit() {
+      validateAll();
+
+      await nextTick();
 
       if (isValid.value) {
-        ctx.emit('submited', formValues);
+        ctx.emit('submitted', formValues);
         resetForm();
       } else {
         ctx.emit('error', formValues);
       }
+    }
+
+    function validateAll() {
+      forceValidation.value = true;
     }
 
     watch(
@@ -277,10 +287,11 @@ export default defineComponent({
       errors,
       deNormalizedScopedSlots,
       normalizedControls,
-      submited,
       formattedOptions,
       onBlur,
       onValidate,
+      forceValidation,
+      validateAll,
     };
   },
 });
