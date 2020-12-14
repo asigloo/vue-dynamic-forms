@@ -80,7 +80,9 @@ export default defineComponent({
       };
     });
 
-    const hasLabel = computed(() => props?.control?.type !== 'checkbox');
+    const hasLabel = computed(
+      () => props?.control?.label && props?.control?.type !== 'checkbox',
+    );
     const isFieldSet = computed(() => props?.control?.type === 'radio');
 
     const getClasses = computed(() => {
