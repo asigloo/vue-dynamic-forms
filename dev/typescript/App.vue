@@ -90,10 +90,10 @@ export default defineComponent({
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
     let consoleOptions = ref();
-    const emailValidator: FormValidator = {
+    const emailValidator: FormValidator = Validator({
       validator: email,
       text: 'Email format is incorrect',
-    };
+    });
 
     const emailUniquenessValidator: FormValidator = {
       validator: value =>

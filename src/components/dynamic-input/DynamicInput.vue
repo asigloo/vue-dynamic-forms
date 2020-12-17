@@ -63,7 +63,7 @@ export default defineComponent({
   components,
   props,
   setup(props, { emit, slots }) {
-    const { onFocus, onBlur } = useInputEvents(props?.control, emit);
+    const { onFocus, onInput, onChange, onBlur } = useInputEvents(props, emit);
 
     let component;
 
@@ -180,7 +180,7 @@ export default defineComponent({
             },
             slots.customField({
               control: props.control,
-              onChange: valueChange,
+              onChange: onInput,
               onFocus,
               onBlur,
             }),
