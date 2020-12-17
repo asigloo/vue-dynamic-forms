@@ -63,7 +63,12 @@ import {
   InputEvent,
 } from '@/core/models';
 import { dynamicFormsSymbol } from '@/useApi';
-import { deepClone, hasValue, removeEmpty } from '@/core/utils/helpers';
+import {
+  deepClone,
+  hasValue,
+  isEvent,
+  removeEmpty,
+} from '@/core/utils/helpers';
 import { FieldControl } from '@/core/factories';
 
 const props = {
@@ -192,8 +197,8 @@ export default defineComponent({
       return updatedCtrl;
     }
 
-    function valueChange(event: Record<string, unknown>) {
-      if (event && hasValue(event.value)) {
+    function valueChange(event: any) {
+      if (hasValue(event.value)) {
         const updatedCtrl = findControlByName(event.name);
         if (updatedCtrl) {
           updatedCtrl.value = event.value as string;

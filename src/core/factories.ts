@@ -14,6 +14,7 @@ import {
   FormValidator,
   ValidationTriggerTypes,
   ValidationTrigger,
+  TextAreaInput,
 } from './models';
 
 const EMPTY_CONTROL = {
@@ -60,6 +61,19 @@ export const TextField = ({
   ...FieldBase(rest),
   value,
   type: FieldTypes.TEXT,
+});
+
+export const TextAreaField = ({
+  value,
+  cols,
+  rows,
+  ...rest
+}: Partial<TextAreaInput>): TextAreaInput => ({
+  ...FieldBase(rest),
+  value,
+  cols,
+  rows,
+  type: FieldTypes.TEXTAREA,
 });
 
 export const EmailField = ({

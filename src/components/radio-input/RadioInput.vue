@@ -16,7 +16,7 @@ export default defineComponent({
   name: 'asRadioInput',
   props,
   setup(props, { emit }) {
-    const { onInput, onFocus, onBlur } = useInputEvents(props, emit);
+    const { onChange, onInput, onFocus, onBlur } = useInputEvents(props, emit);
 
     const { errorMessages, isPendingValidation } = useInputValidation(
       props,
@@ -35,6 +35,7 @@ export default defineComponent({
           onFocus,
           onBlur,
           onInput,
+          onChange,
         }),
         h(
           'label',

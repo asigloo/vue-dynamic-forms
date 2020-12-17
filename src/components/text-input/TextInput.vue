@@ -25,7 +25,7 @@ export default defineComponent({
   name: 'asTextInput',
   props,
   setup(props, { emit }) {
-    const { onInput, onFocus, onBlur, getClasses } = useInputEvents(
+    const { onInput, onChange, onFocus, onBlur, getClasses } = useInputEvents(
       props,
       emit,
     );
@@ -52,6 +52,7 @@ export default defineComponent({
         onFocus,
         onBlur,
         onInput,
+        onChange,
       }),
       isPendingValidation.value
         ? null

@@ -28,7 +28,7 @@ import {
   InputEvent,
 } from '@/core/models';
 
-import { isArray, isObject } from '@/core/utils/helpers';
+import { isArray, isEvent, isObject } from '@/core/utils/helpers';
 import { useInputEvents } from '@/composables/input-events';
 
 const components = {
@@ -63,7 +63,7 @@ export default defineComponent({
   components,
   props,
   setup(props, { emit, slots }) {
-    const { onFocus, onBlur } = useInputEvents(props?.control, emit);
+    const { onFocus, onInput, onChange, onBlur } = useInputEvents(props, emit);
 
     let component;
 
@@ -106,8 +106,8 @@ export default defineComponent({
       return [classes, props?.control?.customClass];
     });
 
-    function valueChange($event) {
-      emit('change', $event);
+    function valueChange(event) {
+      emit('change', event);
     }
 
     return () => {
@@ -180,7 +180,7 @@ export default defineComponent({
             },
             slots.customField({
               control: props.control,
-              onChange: valueChange,
+              onChange: onInput,
               onFocus,
               onBlur,
             }),
