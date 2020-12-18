@@ -90,7 +90,7 @@ export default defineComponent({
   components,
   setup(props, ctx) {
     const { options } = inject(dynamicFormsSymbol);
-    const cache = deepClone(toRaw(props.form.fields));
+    let cache = deepClone(toRaw(props.form.fields));
 
     const controls: Ref<FormControl<InputType>[]> = ref([]);
     const forceValidation = ref(false);
@@ -245,6 +245,7 @@ export default defineComponent({
           });
         }
       });
+      cache = deepClone(toRaw(props.form.fields));
     }
 
     function resetForm() {
