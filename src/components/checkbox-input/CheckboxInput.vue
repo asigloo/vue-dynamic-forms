@@ -14,6 +14,7 @@ const props = {
 
 export default defineComponent({
   name: 'asCheckboxInput',
+  inheritAttrs: false,
   props,
   setup(props, { emit }) {
     const { onCheck, onFocus, onBlur } = useInputEvents(props, emit);

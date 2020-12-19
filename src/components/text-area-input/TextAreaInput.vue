@@ -13,6 +13,7 @@ const props = {
 
 export default defineComponent({
   name: 'asTextAreaInput',
+  inheritAttrs: false,
   props,
   setup(props, { emit }) {
     const { onInput, onChange, onFocus, onBlur } = useInputEvents(props, emit);

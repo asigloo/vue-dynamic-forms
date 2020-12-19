@@ -15,6 +15,7 @@ const props = {
 
 export default defineComponent({
   name: 'asSelectInput',
+  inheritAttrs: false,
   props,
   setup(props, { emit }) {
     return () => {

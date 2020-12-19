@@ -14,6 +14,7 @@ const props = {
 
 export default defineComponent({
   name: 'asRadioInput',
+  inheritAttrs: false,
   props,
   setup(props, { emit }) {
     const { onChange, onInput, onFocus, onBlur } = useInputEvents(props, emit);

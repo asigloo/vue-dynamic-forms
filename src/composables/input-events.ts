@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { computed, ComputedRef, watch } from 'vue';
 import { hasValue } from '../core/utils/helpers';
 
@@ -13,7 +14,7 @@ interface InputEventsComposition {
   getClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
 }
 
-export function useInputEvents(props: any, emit: any): InputEventsComposition {
+export function useInputEvents(props, emit): InputEventsComposition {
   const { validate, getValidationClasses } = useInputValidation(props, emit);
 
   function onInput($event: Event): void {
@@ -72,12 +73,15 @@ export function useInputEvents(props: any, emit: any): InputEventsComposition {
   watch(
     () => props?.control?.value,
     (curr, prev) => {
-      if (prev !== undefined && hasValue(curr) && curr !== prev) {
+      if (hasValue(curr) && curr !== prev) {
         emit('change', {
           name: props.control.name,
           value: props.control.value,
         });
       }
+    },
+    {
+      immediate: true,
     },
   );
 

@@ -19,6 +19,9 @@ export type FormFields = {
   [key: string]: InputType;
 };
 
+export type FormChanges = {
+  [key: string]: string | number | null | undefined;
+};
 export interface DynamicForm {
   id: string;
   fields: FormFields;
@@ -36,7 +39,7 @@ export type ValidationErrors = {
 };
 
 export type BindingObject = {
-  [key: string]: any;
+  [key: string]: never;
 };
 
 export interface ValidatorFn {
@@ -53,6 +56,7 @@ export interface FormValidator {
 
 export interface InputEvent {
   name: string;
+  value?: unknown;
 }
 
 export type ValidationEvent = InputEvent & {

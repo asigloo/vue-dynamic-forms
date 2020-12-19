@@ -11,7 +11,6 @@
       v-for="control in controls"
       :key="control.name"
       :control="control"
-      :submited="submited"
       :forceValidation="forceValidation"
       @change="valueChange"
       @blur="onBlur"
@@ -61,15 +60,12 @@ import {
   InputType,
   ValidationEvent,
   InputEvent,
+  FormChanges,
 } from '@/core/models';
 import { dynamicFormsSymbol } from '@/useApi';
-import {
-  deepClone,
-  hasValue,
-  isEvent,
-  removeEmpty,
-} from '@/core/utils/helpers';
+import { deepClone, hasValue, removeEmpty } from '@/core/utils/helpers';
 import { FieldControl } from '@/core/factories';
+import { useDebounceFn } from '@/composables/use-debounce';
 
 const props = {
   form: {
@@ -86,6 +82,7 @@ const components = {
  */
 export default defineComponent({
   name: 'asDynamicForm',
+  inheritAttrs: false,
   props,
   components,
   setup(props, ctx) {
@@ -197,14 +194,20 @@ export default defineComponent({
       return updatedCtrl;
     }
 
-    function valueChange(event: any) {
+    function emitChanges(changes: FormChanges) {
+      ctx.emit('change', changes);
+    }
+
+    const debounceEmitChanges = useDebounceFn(emitChanges, 300);
+
+    function valueChange(event: InputEvent) {
       if (hasValue(event.value)) {
         const updatedCtrl = findControlByName(event.name);
         if (updatedCtrl) {
           updatedCtrl.value = event.value as string;
           updatedCtrl.dirty = true;
         }
-        ctx.emit('change', formValues.value);
+        debounceEmitChanges(formValues.value);
       }
     }
 
