@@ -6,7 +6,7 @@
         <div class="card p-6 mr-4">
           <dynamic-form
             :form="form"
-            @submited="handleSubmit"
+            @submitted="handleSubmit"
             @changed="valueChanged"
             @error="handleError"
           >

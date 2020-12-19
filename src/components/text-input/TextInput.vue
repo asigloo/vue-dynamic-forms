@@ -23,6 +23,7 @@ const props = {
 
 export default defineComponent({
   name: 'asTextInput',
+  inheritAttrs: false,
   props,
   setup(props, { emit }) {
     const { onInput, onChange, onFocus, onBlur, getClasses } = useInputEvents(

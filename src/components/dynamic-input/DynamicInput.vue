@@ -1,7 +1,7 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { defineComponent, PropType, computed, h, inject } from 'vue';
+import { defineComponent, PropType, computed, h } from 'vue';
 import TextInputComponent from '../text-input/TextInput.vue';
 import SelectInputComponent from '../select-input/SelectInput.vue';
 import TextAreaInputComponent from '../text-area-input/TextAreaInput.vue';
@@ -28,7 +28,7 @@ import {
   InputEvent,
 } from '@/core/models';
 
-import { isArray, isEvent, isObject } from '@/core/utils/helpers';
+import { isArray, isObject } from '@/core/utils/helpers';
 import { useInputEvents } from '@/composables/input-events';
 
 const components = {
@@ -61,9 +61,10 @@ export type ControlAttribute<T extends InputType> = {
 export default defineComponent({
   name: 'asDynamicInput',
   components,
+  inheritAttrs: false,
   props,
   setup(props, { emit, slots }) {
-    const { onFocus, onInput, onChange, onBlur } = useInputEvents(props, emit);
+    const { onFocus, onInput, onBlur } = useInputEvents(props, emit);
 
     let component;
 
