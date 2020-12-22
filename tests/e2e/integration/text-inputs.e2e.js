@@ -3,6 +3,16 @@ describe('Text Input test Suite', () => {
     cy.visit('/text-fields'); // "baseUrl" is defined in cypress.json file
   });
 
+  context('General', () => {
+    it('should change input value when type', () => {
+      cy.get('input[name="lastName"]').type('Mandalorian').blur();
+      cy.get('input[name="lastName"]').should('have.value', 'Mandalorian');
+    });
+    it('should be disabled when prop disable is true', () => {
+      cy.get('input[name="disabled"]').should('be.disabled');
+    });
+  });
+
   context('Non-required Fields', () => {
     it('should not chage visual state when blur (No validation)', () => {
       cy.get('input[name="lastName"').type('Mandalorian').blur();

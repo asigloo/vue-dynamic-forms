@@ -19,7 +19,7 @@ export default defineComponent({
   props,
   setup(props, { emit }) {
     return () => {
-      const { onInput, onChange, onFocus, onBlur } = useInputEvents(
+      const { onInput, onChange, onFocus, onBlur, getClasses } = useInputEvents(
         props,
         emit,
       );
@@ -52,13 +52,13 @@ export default defineComponent({
           'select',
           {
             id: props.control.name,
-            name: props?.control?.name || '',
-            class: ['form-control'],
-            value: props?.control?.value,
-            disabled: props?.control?.disabled,
-            placeholder: props?.control?.placeholder,
+            name: props.control.name || '',
+            class: getClasses.value,
+            value: props.control.value,
+            disabled: props.control.disabled,
+            placeholder: props.control.placeholder,
             required: isRequired.value,
-            readonly: props?.control.readonly,
+            readonly: props.control.readonly,
             ariaLabel: props.control.ariaLabel,
             ariaLabelledBy: props.control.ariaLabelledBy,
             ariaRequired: isRequired.value,

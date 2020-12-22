@@ -3,6 +3,16 @@ describe('Number Input test Suite', () => {
     cy.visit('/number-fields'); // "baseUrl" is defined in cypress.json file
   });
 
+  context('General', () => {
+    it('should change input value when type', () => {
+      cy.get('input[name="stock"]').type(10).blur();
+      cy.get('input[name="stock"]').should('have.value', '10');
+    });
+    it('should be disabled when prop disable is true', () => {
+      cy.get('input[name="disabled"]').should('be.disabled');
+    });
+  });
+
   context('Non-required Fields', () => {
     it('should not chage visual state when blur (No validation)', () => {
       cy.get('input[name="qty"').type(5).blur();

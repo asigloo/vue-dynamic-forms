@@ -48,7 +48,6 @@ export default defineComponent({
         }),
         games: SelectField({
           label: 'Games',
-          autocomplete: 'current-password',
           options: [
             {
               value: 'the-last-of-us',

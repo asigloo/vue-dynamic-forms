@@ -91,6 +91,11 @@ export default defineComponent({
             passwordValidator,
           ],
         }),
+        disabled: TextField({
+          label: 'Disabled',
+          customClass: 'w-1/2 pr-4',
+          disabled: true,
+        }),
       },
       options: {
         customClass: 'flex flex-wrap',

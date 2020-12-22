@@ -26,15 +26,7 @@
 </template>
 
 <script lang="ts">
-import {
-  FormValidator,
-  min,
-  max,
-  Validator,
-  NumberField,
-  required,
-  FormOptions,
-} from '@/';
+import { SelectField, Validator, required } from '@/';
 import { computed, defineComponent, reactive } from 'vue';
 import Console from '../components/Console.vue';
 
@@ -43,47 +35,67 @@ const components = {
 };
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
-  name: 'TextFieldsDemo',
+  name: 'SelectFieldsDemo',
   components,
   setup() {
     const formValues = reactive({});
-    const minValidator: FormValidator = Validator({
-      validator: min(18),
-      text: 'Number must be greater than 18',
-    });
-
-    const maxValidator: FormValidator = Validator({
-      validator: max(100),
-
-      text: 'Number must be less than 100',
-    });
 
     const form = computed(() => ({
-      id: 'text-fields-demo',
+      id: 'select-fields-demo',
       fields: {
-        qty: NumberField({
-          label: 'Quantity',
-        }),
-        stock: NumberField({
-          label: 'Stock',
+        game: SelectField({
+          label: 'Games',
+          options: [
+            {
+              value: 'the-last-of-us',
+              label: 'The Last of Us II',
+            },
+            {
+              value: 'death-stranding',
+              label: 'Death Stranding',
+            },
+            {
+              value: 'nier-automata',
+              label: 'Nier Automata',
+            },
+          ],
           validations: [
             Validator({ validator: required, text: 'This field is required' }),
           ],
         }),
-        age: NumberField({
-          label: 'Age',
-          min: 18,
-          validations: [Validator(minValidator)],
+        character: SelectField({
+          label: 'Characters',
+          options: [
+            {
+              value: 'crash',
+              label: 'Crash Bandicoot',
+            },
+            {
+              value: 'spyro',
+              label: 'Spyro the Dragon',
+            },
+            {
+              value: 'cloud',
+              label: 'Cloud',
+            },
+          ],
         }),
-        percentage: NumberField({
-          label: 'Percentage',
-          max: 100,
-          step: 5,
-          validations: [Validator(maxValidator)],
-        }),
-        disabled: NumberField({
+        disabled: SelectField({
           label: 'Disabled',
-          value: 3,
+          options: [
+            {
+              value: 'crash',
+              label: 'Crash Bandicoot',
+            },
+            {
+              value: 'spyro',
+              label: 'Spyro the Dragon',
+            },
+            {
+              value: 'cloud',
+              label: 'Cloud',
+            },
+          ],
           disabled: true,
         }),
       },
