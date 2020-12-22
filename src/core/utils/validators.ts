@@ -28,7 +28,7 @@ export const max = (max: number) => (value: number): ValidationErrors => {
   // Controls with NaN values after parsing should be treated as not having a
   // maximum, per the HTML forms spec: https://www.w3.org/TR/html5/forms.html#attr-input-max
   return {
-    max: !isNaN(maxValue) && maxValue < max ? { max, actual: +maxValue } : null,
+    max: !isNaN(maxValue) && maxValue > max ? { max, actual: +maxValue } : null,
   };
 };
 

@@ -52,6 +52,11 @@ export default defineComponent({
             tags: ['text-field', 'email-input', 'password-input'],
           },
           {
+            name: 'Number Fields',
+            route: '/number-fields',
+            tags: ['number-field'],
+          },
+          {
             name: 'Login',
             route: '/login',
             tags: ['email-input', 'password-input'],

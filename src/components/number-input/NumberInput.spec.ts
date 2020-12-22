@@ -1,16 +1,16 @@
 import { shallowMount } from '@vue/test-utils';
-import TextInput from './TextInput.vue';
-import { FieldControl, TextField, Validator, required } from '../../index';
+import NumberInput from './NumberInput.vue';
+import { FieldControl, NumberField, Validator, required } from '../../index';
 
-describe('TextInput', () => {
+describe('Numberinput', () => {
   let cmp;
 
   beforeEach(() => {
-    cmp = shallowMount(TextInput, {
+    cmp = shallowMount(NumberInput, {
       props: {
         control: FieldControl({
           name: 'test-input',
-          ...TextField({
+          ...NumberField({
             label: 'Test Input',
           }),
         }),
@@ -18,11 +18,10 @@ describe('TextInput', () => {
     });
   });
 
-  test('renders an input of type text', () => {
-    const input = cmp.find('input[type="text"]');
+  test('renders an input of type number', () => {
+    const input = cmp.find('input[type="number"]');
     expect(input.exists()).toBe(true);
   });
-
   test(`renders an input with class 'form-control'`, () => {
     const input = cmp.find('input');
     expect(input.classes()).toContain('form-control');
@@ -37,7 +36,7 @@ describe('TextInput', () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
-        ...TextField({
+        ...NumberField({
           label: 'Test Input',
           disabled: true,
         }),
@@ -51,21 +50,21 @@ describe('TextInput', () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
-        ...TextField({
+        ...NumberField({
           label: 'Test Input',
-          placeholder: 'This is not a test',
+          placeholder: 'Nº',
         }),
       }),
     });
     const input = cmp.find('input');
-    expect(input.attributes('placeholder')).toBe('This is not a test');
+    expect(input.attributes('placeholder')).toBe('Nº');
   });
 
   test(`renders a required input`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
-        ...TextField({
+        ...NumberField({
           label: 'Test Input',
           validations: [
             Validator({ validator: required, text: 'This field is required' }),
@@ -81,7 +80,7 @@ describe('TextInput', () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
-        ...TextField({
+        ...NumberField({
           label: 'Test Input',
           validations: [
             Validator({ validator: required, text: 'This field is required' }),
@@ -97,7 +96,7 @@ describe('TextInput', () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
-        ...TextField({
+        ...NumberField({
           label: 'Test Input',
           readonly: true,
         }),
@@ -111,7 +110,7 @@ describe('TextInput', () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
-        ...TextField({
+        ...NumberField({
           label: 'Test Input',
           autocomplete: 'username',
         }),
@@ -125,7 +124,7 @@ describe('TextInput', () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
-        ...TextField({
+        ...NumberField({
           label: 'Test Input',
           ariaLabel: 'Im a test input',
         }),
@@ -135,18 +134,60 @@ describe('TextInput', () => {
     expect(input.attributes('arialabel')).toBe('Im a test input');
   });
 
+  test(`renders an input with min attribute`, async () => {
+    await cmp.setProps({
+      control: FieldControl({
+        name: 'test-input',
+        ...NumberField({
+          label: 'Test Input',
+          min: 50,
+        }),
+      }),
+    });
+    const input = cmp.find('input');
+    expect(input.attributes('min')).toBe('50');
+  });
+
+  test(`renders an input with max attribute`, async () => {
+    await cmp.setProps({
+      control: FieldControl({
+        name: 'test-input',
+        ...NumberField({
+          label: 'Test Input',
+          max: 100,
+        }),
+      }),
+    });
+    const input = cmp.find('input');
+    expect(input.attributes('max')).toBe('100');
+  });
+
+  test(`renders an input with step attribute`, async () => {
+    await cmp.setProps({
+      control: FieldControl({
+        name: 'test-input',
+        ...NumberField({
+          label: 'Test Input',
+          step: 5,
+        }),
+      }),
+    });
+    const input = cmp.find('input');
+    expect(input.attributes('step')).toBe('5');
+  });
+
   test('emits an event when value changed', async () => {
     const input = cmp.find('input');
-    await input.setValue('Awiwi');
+    await input.setValue(2);
 
     expect(cmp.emitted()).toHaveProperty('change');
-    expect(cmp.emitted('change')[0][0].value).toBe('Awiwi');
+    expect(cmp.emitted('change')[0][0].value).toBe('2');
     expect(cmp.emitted('change')[0][0].name).toBe('test-input');
   });
 
   test('emits the control name when value change', async () => {
     const input = cmp.find('input');
-    await input.setValue('Awiwi');
+    await input.setValue(2);
 
     expect(cmp.emitted('change')[0][0].name).toBe('test-input');
   });
@@ -164,30 +205,4 @@ describe('TextInput', () => {
 
     expect(cmp.emitted()).toHaveProperty('focus');
   });
-
-  /* test('renders form errors when invalid', async () => {
-    await cmp.setProps({
-      control: FieldControl({
-        name: 'test-input',
-        ...TextField({
-          label: 'Test Input',
-          validations: [
-            Validator({ validator: required, text: 'This field is required' }),
-          ],
-        }),
-        dirty: true,
-        valid: false,
-        forceValidation: true,
-        errors: {
-          required: {
-            text: 'This field is required',
-            value: true,
-          },
-        },
-      }),
-    });
-
-    const errors = cmp.findAll('.form-error');
-    expect(errors.length).toBeGreaterThan(0);
-  }); */
 });

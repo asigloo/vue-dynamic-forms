@@ -17,7 +17,10 @@ export default defineComponent({
   inheritAttrs: false,
   props,
   setup(props, { emit }) {
-    const { onInput, onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const { onInput, onChange, onFocus, onBlur, getClasses } = useInputEvents(
+      props,
+      emit,
+    );
     const {
       isRequired,
       errorMessages,
@@ -29,7 +32,7 @@ export default defineComponent({
         id: props.control.name,
         name: props.control.name || '',
         type: props.control.type,
-        class: ['form-control'],
+        class: getClasses.value,
         value: props.control.value,
         min: props.control.min,
         max: props.control.max,
