@@ -1,7 +1,7 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { defineComponent, PropType, computed, h, inject } from 'vue';
+import { defineComponent, PropType, computed, h } from 'vue';
 import TextInputComponent from '../text-input/TextInput.vue';
 import SelectInputComponent from '../select-input/SelectInput.vue';
 import TextAreaInputComponent from '../text-area-input/TextAreaInput.vue';
@@ -24,11 +24,12 @@ import {
   InputType,
   BindingObject,
   FieldTypes,
+  ValidationEvent,
+  InputEvent,
 } from '@/core/models';
 
-import { values, keys, isArray, isObject } from '@/core/utils/helpers';
+import { isArray, isObject } from '@/core/utils/helpers';
 import { useInputEvents } from '@/composables/input-events';
-import { dynamicFormsSymbol } from '@/useApi';
 
 const components = {
   TextInputComponent,
@@ -44,9 +45,9 @@ const props = {
     type: Object as PropType<FormControl<InputType>>,
     required: true,
   },
-  submited: {
+  forceValidation: {
     type: Boolean,
-    required: true,
+    default: false,
   },
 };
 
@@ -60,10 +61,10 @@ export type ControlAttribute<T extends InputType> = {
 export default defineComponent({
   name: 'asDynamicInput',
   components,
+  inheritAttrs: false,
   props,
   setup(props, { emit, slots }) {
-    const { onFocus, onBlur } = useInputEvents(props?.control, emit);
-    const { options } = inject(dynamicFormsSymbol);
+    const { onFocus, onInput, onBlur } = useInputEvents(props, emit);
 
     let component;
 
@@ -72,12 +73,17 @@ export default defineComponent({
         control: props?.control,
         style: props?.control.customStyles,
         onChange: valueChange,
-        onBlur: () => emit('blur', props.control),
-        onFocus: () => emit('focus', props.control),
+        onBlur: (e: InputEvent) => emit('blur', e),
+        onFocus: (e: InputEvent) => emit('focus', e),
+        onValidate: (validation: ValidationEvent) =>
+          emit('validate', validation),
+        forceValidation: props.forceValidation,
       };
     });
 
-    const hasLabel = computed(() => props?.control?.type !== 'checkbox');
+    const hasLabel = computed(
+      () => props?.control?.label && props?.control?.type !== 'checkbox',
+    );
     const isFieldSet = computed(() => props?.control?.type === 'radio');
 
     const getClasses = computed(() => {
@@ -86,15 +92,6 @@ export default defineComponent({
         'form-group',
         {
           'form-group--inline': props?.control?.type === FieldTypes.CHECKBOX,
-        },
-        {
-          'form-group--success':
-            props?.control?.valid &&
-            props?.control?.dirty &&
-            props?.control?.touched,
-        },
-        {
-          'form-group--error': showErrors.value,
         },
       ];
 
@@ -110,31 +107,8 @@ export default defineComponent({
       return [classes, props?.control?.customClass];
     });
 
-    const autoValidate = computed(
-      () => props?.control?.touched && options?.autoValidate,
-    );
-
-    const showErrors = computed(() => {
-      return (
-        props?.control?.errors &&
-        keys(props?.control?.errors).length > 0 &&
-        (props.submited || autoValidate.value)
-      );
-      /* props.control.errors &&
-        Object.keys(props.control.errors).length > 0 &&
-        (this.submited || this.autoValidate) */
-    });
-
-    const errorMessages = computed(() => {
-      const errors = values(props?.control?.errors || {});
-      if (errors.length > 0 && (props.submited || autoValidate.value)) {
-        return errors.map(value => value.text);
-      }
-      return [];
-    });
-
-    function valueChange($event) {
-      emit('change', $event);
+    function valueChange(event) {
+      emit('change', event);
     }
 
     return () => {
@@ -207,7 +181,7 @@ export default defineComponent({
             },
             slots.customField({
               control: props.control,
-              onChange: valueChange,
+              onChange: onInput,
               onFocus,
               onBlur,
             }),
@@ -241,20 +215,15 @@ export default defineComponent({
                 },
                 [
                   `${props?.control?.label}`,
-                  props?.control?.required ? requiredStar : '',
+                  props?.control?.validations?.some(
+                    validator => validator.type === 'required',
+                  )
+                    ? requiredStar
+                    : '',
                 ],
               )
             : null,
           component,
-          h(
-            'div',
-            {
-              class: 'form-errors',
-            },
-            errorMessages.value.map(error =>
-              h('p', { class: 'form-error' }, error),
-            ),
-          ),
         ],
       );
     };

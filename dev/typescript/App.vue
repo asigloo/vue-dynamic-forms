@@ -1,44 +1,60 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg-gray-100">
     <div class="page container">
-      <h1 class="title m-4 text-bg">{{ title }}</h1>
       <div class="flex flex-wrap justify-between">
-        <div class="card p-6 w-full sm:w-1/2">
-          <dynamic-form
-            :form="form"
-            @submited="handleSubmit"
-            @change="valueChanged"
-            @error="handleError"
-          >
-            <template
-              v-slot:customField1="{ control, onChange, onFocus, onBlur }"
+        <div class="w-full sm:w-1/2 relative m-6">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-blue-400 to-green-200 shadow-xl transform -skew-y-3 sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl"
+          ></div>
+          <div class="relative card p-6 bg-white">
+            <h1 class="title mb-16 text-bg">{{ title }}</h1>
+            <dynamic-form
+              :form="form"
+              @submitted="handleSubmit"
+              @change="valueChanged"
+              @error="handleError"
             >
-              <div class="avocado-field">
-                <input
-                  :id="control.name"
-                  v-if="control"
-                  class="form-control"
-                  v-model="control.value"
-                  :type="control.type"
-                  :name="control.name"
-                  @change="onChange"
-                  @focus="onFocus"
-                  @blur="onBlur"
-                />
-                <i>🥑</i>
-              </div>
-            </template>
-          </dynamic-form>
-          <button
-            class="btn bg-teal-500 text-white hover:bg-teal-700 mt-4"
-            submit="true"
-            :form="form?.id"
-          >
-            Submit Form
-          </button>
+              <template
+                v-slot:customField1="{ control, onChange, onFocus, onBlur }"
+              >
+                <div class="avocado-field">
+                  <input
+                    :id="control.name"
+                    v-if="control"
+                    class="form-control"
+                    v-model="control.value"
+                    :type="control.type"
+                    :name="control.name"
+                    @change="onChange"
+                    @focus="onFocus"
+                    @blur="onBlur"
+                  />
+                  <i>🥑</i>
+                </div>
+              </template>
+            </dynamic-form>
+            <button
+              class="btn bg-green-500 text-white hover:bg-green-700 mt-4"
+              submit="true"
+              :form="form?.id"
+            >
+              Submit Form
+            </button>
+          </div>
         </div>
         <div class="p-6 w-full sm:w-1/3">
-          <pre data-cy="form-values">{{ formValues }}</pre>
+          <div
+            class="result bg-marine text-white text-xs p-4 rounded-md relative"
+          >
+            <ul class="absolute top-1 left-2">
+              <li class="rounded w-2 h-2 bg-salmon inline-block mr-1"></li>
+              <li class="rounded w-2 h-2 bg-yellow-300 inline-block mr-1"></li>
+              <li class="rounded w-2 h-2 bg-green-500 inline-block"></li>
+            </ul>
+            <pre data-cy="form-values" class="shadow-lg pt-4">{{
+              formValues
+            }}</pre>
+          </div>
         </div>
       </div>
     </div>
@@ -46,12 +62,9 @@
 </template>
 
 <script lang="ts">
-import { mockAsync } from '@/core/utils/helpers';
+import { mockAsync, mockAsyncValidator } from '@/core/utils/helpers';
 import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
 import {
-  FormValidation,
-  email,
-  pattern,
   TextField,
   SelectField,
   EmailField,
@@ -61,6 +74,14 @@ import {
   RadioField,
   CustomField,
   ColorField,
+  Validator,
+  FormValidator,
+  required,
+  email,
+  pattern,
+  ValidatorTrigger,
+  ValidationTriggerTypes,
+  TextAreaField,
 } from '../../src';
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
@@ -69,18 +90,28 @@ export default defineComponent({
     const title = ref('Vue Dynamic Forms');
     const formValues = reactive({});
     let consoleOptions = ref();
-    const emailValidator: FormValidation = {
+    const emailValidator: FormValidator = Validator({
       validator: email,
       text: 'Email format is incorrect',
+    });
+
+    const emailUniquenessValidator: FormValidator = {
+      validator: value =>
+        mockAsyncValidator(
+          'isUnique',
+          value === 'alvaro.saburido@gmail.com',
+          2000,
+        ),
+      text: 'Email must be unique',
     };
 
-    const passwordValidator: FormValidation = {
+    const passwordValidator: FormValidator = Validator({
       validator: pattern(
         '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,10}$',
       ),
       text:
         'Password must contain at least 1 Uppercase, 1 Lowercase, 1 number, 1 special character and min 8 characters max 10',
-    };
+    });
 
     const form = computed(() => ({
       id: 'example-form',
@@ -88,6 +119,7 @@ export default defineComponent({
         'name',
         'email',
         'password',
+        'bio',
         'console',
         'games',
         'stock',
@@ -102,14 +134,18 @@ export default defineComponent({
       fields: {
         name: TextField({
           label: 'Name',
-          required: true,
+          customClass: 'w-1/2 pr-4',
+          validations: [
+            Validator({ validator: required, text: 'This field is required' }),
+          ],
         }),
         email: EmailField({
           label: 'Email',
-          validations: [emailValidator],
+          validations: [emailValidator, emailUniquenessValidator],
           customClass: {
             active: true,
             'text-blue': true,
+            'w-1/2': true,
           },
         }),
         password: PasswordField({
@@ -117,8 +153,14 @@ export default defineComponent({
           autocomplete: 'current-password',
           validations: [passwordValidator],
         }),
+        bio: TextAreaField({
+          label: 'Bio',
+          cols: 30,
+          rows: 4,
+        }),
         stock: NumberField({
           label: 'Stock',
+          customClass: 'w-1/2 pr-4',
         }),
         games: SelectField({
           label: 'Games',
@@ -126,22 +168,23 @@ export default defineComponent({
           value: 'the-last-of-us',
           options: [
             {
-              key: 'the-last-of-us',
-              value: 'The Last of Us II',
+              value: 'the-last-of-us',
+              label: 'The Last of Us II',
             },
             {
-              key: 'death-stranding',
-              value: 'Death Stranding',
+              value: 'death-stranding',
+              label: 'Death Stranding',
             },
             {
-              key: 'nier-automata',
-              value: 'Nier Automata',
+              value: 'nier-automata',
+              label: 'Nier Automata',
             },
           ],
         }),
         console: SelectField({
           label: 'Console (Async Options)',
-          customClass: 'w-1/2',
+          customClass: 'w-1/2 pr-4',
+          optionValue: 'console',
           options: consoleOptions.value,
         }),
         steps: NumberField({
@@ -150,6 +193,7 @@ export default defineComponent({
           max: 60,
           step: 5,
           value: 5,
+          customClass: 'w-1/2 ',
         }),
         awesomeness: CheckboxField({
           label: "Check  if you're awesome",
@@ -185,10 +229,15 @@ export default defineComponent({
         }),
         customStyles: TextField({
           label: 'Custom Styles',
-          required: true,
           customStyles: {
             border: '1px solid teal',
           },
+          validations: [emailValidator],
+
+          validationTrigger: ValidatorTrigger({
+            type: ValidationTriggerTypes.CHANGE,
+            threshold: 4,
+          }),
         }),
         readonly: TextField({
           label: 'Readonly',
@@ -204,7 +253,7 @@ export default defineComponent({
 
     function valueChanged(values) {
       Object.assign(formValues, values);
-      /* console.log('Values', values); */
+      console.log('Values', values);
     }
 
     function handleError(errors) {
@@ -215,16 +264,16 @@ export default defineComponent({
       try {
         consoleOptions.value = await mockAsync(true, 4000, [
           {
-            key: 'playstation',
-            value: 'Playstation',
+            console: 'playstation',
+            label: 'Playstation',
           },
           {
-            key: 'nintendo',
-            value: 'Nintendo',
+            console: 'nintendo',
+            label: 'Nintendo',
           },
           {
-            key: 'xbox',
-            value: 'Xbox',
+            console: 'xbox',
+            label: 'Xbox',
           },
         ]);
       } catch (e) {

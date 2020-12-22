@@ -12,6 +12,10 @@ import {
   SelectInput,
   CustomInput,
   FormControl,
+  FormValidator,
+  ValidationTriggerTypes,
+  ValidationTrigger,
+  TextAreaInput,
 } from './models';
 
 const EMPTY_CONTROL = {
@@ -30,9 +34,12 @@ export const FieldBase = ({
   customStyles = null,
   disabled = false,
   placeholder = null,
-  required = false,
   autocomplete = null,
   readonly = false,
+  validationTrigger = ValidatorTrigger({
+    type: ValidationTriggerTypes.BLUR,
+    threshold: 0,
+  }),
 }: InputBase): InputBase =>
   ({
     validations,
@@ -43,9 +50,9 @@ export const FieldBase = ({
     customStyles,
     disabled,
     placeholder,
-    required,
     autocomplete,
     readonly,
+    validationTrigger,
   } as InputBase);
 
 export const TextField = ({
@@ -55,6 +62,19 @@ export const TextField = ({
   ...FieldBase(rest),
   value,
   type: FieldTypes.TEXT,
+});
+
+export const TextAreaField = ({
+  value,
+  cols,
+  rows,
+  ...rest
+}: Partial<TextAreaInput>): TextAreaInput => ({
+  ...FieldBase(rest),
+  value,
+  cols,
+  rows,
+  type: FieldTypes.TEXTAREA,
 });
 
 export const EmailField = ({
@@ -122,11 +142,15 @@ export const NumberField = ({
 export const SelectField = ({
   options = [],
   value,
+  optionValue = 'value',
+  optionLabel = 'label',
   ...rest
 }: Partial<SelectInput>): SelectInput => ({
   ...FieldBase(rest),
   value,
   options,
+  optionValue,
+  optionLabel,
   type: FieldTypes.SELECT,
 });
 
@@ -144,8 +168,25 @@ export const FieldControl = ({
   type,
   ...rest
 }: Partial<FormControl<any>>): FormControl<any> => ({
-  ...FieldBase(rest),
+  ...rest,
   name,
   type,
   ...EMPTY_CONTROL,
+});
+
+export const Validator = ({
+  validator,
+  text,
+}: FormValidator): FormValidator => ({
+  type: validator(undefined) ? Object.keys(validator(undefined))[0] : 'pattern',
+  validator,
+  text,
+});
+
+export const ValidatorTrigger = ({
+  type,
+  threshold,
+}: ValidationTrigger): ValidationTrigger => ({
+  type,
+  threshold,
 });

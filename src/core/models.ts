@@ -18,10 +18,20 @@ export type MustHave<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 export type FormFields = {
   [key: string]: InputType;
 };
+
+export type FormChanges = {
+  [key: string]: string | number | null | undefined;
+};
 export interface DynamicForm {
   id: string;
   fields: FormFields;
   fieldOrder?: string[];
+  options: FormOptions;
+}
+
+export interface ErrorMessage {
+  text: string;
+  value: boolean | null;
 }
 
 export type ValidationErrors = {
@@ -30,31 +40,44 @@ export type ValidationErrors = {
 };
 
 export type BindingObject = {
-  [key: string]: unknown;
+  [key: string]: never;
 };
 
 export interface ValidatorFn {
-  (control: FormControl<InputType> | undefined): ValidationErrors | null;
+  (control: ControlValue | undefined): ValidationErrors | null;
 }
 
-export interface FormValidation {
+export type ControlValue = string | number | boolean;
+
+export interface FormValidator {
   validator: ValidatorFn;
   text: string;
+  type?: string;
 }
+
+export interface InputEvent {
+  name: string;
+  value?: unknown;
+}
+
+export type ValidationEvent = InputEvent & {
+  errors: ValidationErrors;
+  valid: boolean;
+};
 
 export interface InputBase {
   name?: string;
   label?: string;
   ariaLabel?: string;
   ariaLabelledBy?: string;
-  required?: boolean;
   disabled?: boolean;
   customClass?: string | string[] | BindingObject | BindingObject[] | unknown;
   customStyles?: string | string[] | BindingObject | BindingObject[] | unknown;
   placeholder?: string;
   autocomplete?: string;
   readonly?: boolean;
-  validations?: FormValidation[];
+  validations?: FormValidator[];
+  validationTrigger?: ValidationTrigger;
 }
 
 export type TextInput = InputBase & {
@@ -73,7 +96,9 @@ export type NumberInput = InputBase & {
 export type SelectInput<T = boolean | string> = InputBase & {
   type: FieldTypes.SELECT;
   value: T;
-  options?: { key: string; value: string; disabled?: boolean }[];
+  optionValue: string;
+  optionLabel: string;
+  options?: { label: string; value: string; disabled?: boolean }[];
 };
 
 export type TextAreaInput = InputBase & {
@@ -147,4 +172,14 @@ export const enum FieldTypes {
   RADIO = 'radio',
   CUSTOM = 'custom-field',
   COLOR = 'color',
+}
+
+export const enum ValidationTriggerTypes {
+  BLUR = 'blur',
+  CHANGE = 'change',
+}
+
+export interface ValidationTrigger {
+  type: ValidationTriggerTypes;
+  threshold: number;
 }

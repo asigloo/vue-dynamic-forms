@@ -11,9 +11,10 @@
       v-for="control in controls"
       :key="control.name"
       :control="control"
-      :submited="submited"
+      :forceValidation="forceValidation"
       @change="valueChange"
       @blur="onBlur"
+      @validate="onValidate"
     >
       <template v-slot:customField="props">
         <div
@@ -35,6 +36,8 @@
 </template>
 
 <script lang="ts">
+import { nextTick } from 'vue';
+
 import {
   defineComponent,
   PropType,
@@ -50,9 +53,19 @@ import { diff } from 'deep-object-diff';
 
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
-import { DynamicForm, FieldTypes, FormControl, InputType } from '@/core/models';
+import {
+  DynamicForm,
+  FieldTypes,
+  FormControl,
+  InputType,
+  ValidationEvent,
+  InputEvent,
+  FormChanges,
+} from '@/core/models';
 import { dynamicFormsSymbol } from '@/useApi';
 import { deepClone, hasValue, removeEmpty } from '@/core/utils/helpers';
+import { FieldControl } from '@/core/factories';
+import { useDebounceFn } from '@/composables/use-debounce';
 
 const props = {
   form: {
@@ -65,24 +78,19 @@ const components = {
   DynamicInput,
 };
 
-const EMPTY_CONTROL = {
-  dirty: false,
-  touched: false,
-  valid: true,
-};
-
 /* const AVAILABLE_THEMES = ['default', 'material'];
  */
 export default defineComponent({
   name: 'asDynamicForm',
+  inheritAttrs: false,
   props,
   components,
   setup(props, ctx) {
     const { options } = inject(dynamicFormsSymbol);
-    const cache = deepClone(toRaw(props.form.fields));
+    let cache = deepClone(toRaw(props.form.fields));
 
     const controls: Ref<FormControl<InputType>[]> = ref([]);
-    const submited = ref(false);
+    const forceValidation = ref(false);
 
     const deNormalizedScopedSlots = computed(() => Object.keys(ctx.slots));
 
@@ -133,7 +141,14 @@ export default defineComponent({
     });
 
     const formattedOptions = computed(() => {
+      let opts;
       if (options?.form) {
+        opts = options?.form;
+      }
+      if (props.form?.options) {
+        opts = props.form?.options;
+      }
+      if (opts) {
         const {
           customClass,
           customStyles,
@@ -141,7 +156,7 @@ export default defineComponent({
           netlify,
           netlifyHoneypot,
           autocomplete,
-        } = options?.form;
+        } = opts;
         return {
           class: customClass,
           style: customStyles,
@@ -160,17 +175,15 @@ export default defineComponent({
         Object.entries(props.form?.fields).map(
           ([key, field]: [string, InputType]) =>
             empty
-              ? ({
+              ? FieldControl({
                   ...field,
                   name: key,
                   value: null,
-                  ...EMPTY_CONTROL,
-                } as FormControl<InputType>)
-              : ({
+                })
+              : FieldControl({
                   ...field,
                   name: key,
-                  ...EMPTY_CONTROL,
-                } as FormControl<InputType>),
+                }),
         ) || [];
       if (props.form.fieldOrder) {
         controls.value = controlArray.sort(
@@ -188,50 +201,38 @@ export default defineComponent({
       return updatedCtrl;
     }
 
-    function valueChange(event: Record<string, unknown>) {
-      if (event && hasValue(event.value)) {
+    function emitChanges(changes: FormChanges) {
+      ctx.emit('change', changes);
+    }
+
+    const debounceEmitChanges = useDebounceFn(emitChanges, 300);
+
+    function valueChange(event: InputEvent) {
+      if (hasValue(event.value)) {
         const updatedCtrl = findControlByName(event.name);
         if (updatedCtrl) {
           updatedCtrl.value = event.value as string;
           updatedCtrl.dirty = true;
-          validateControl(updatedCtrl);
         }
-        ctx.emit('change', formValues.value);
+        debounceEmitChanges(formValues.value);
       }
     }
 
-    function onBlur(control: FormControl<InputType>) {
-      const updatedCtrl = findControlByName(control.name);
+    function onBlur({ name }: InputEvent) {
+      const updatedCtrl = findControlByName(name);
       if (updatedCtrl) {
         updatedCtrl.touched = true;
       }
     }
 
-    function validateControl(control: FormControl<InputType>) {
-      if (control.validations) {
-        const validation = control.validations.reduce((prev, curr) => {
-          const val =
-            typeof curr.validator === 'function'
-              ? curr.validator(control)
-              : null;
-          if (val !== null) {
-            const [key, value] = Object.entries(val)[0];
-            const obj = {};
-            obj[key] = {
-              value,
-              text: curr.text,
-            };
-            return {
-              ...prev,
-              ...obj,
-            };
-          }
-          return {
-            ...prev,
-          };
-        }, {});
-        control.errors = validation;
-        control.valid = Object.keys(validation).length === 0;
+    function onValidate({ name, errors, valid }: ValidationEvent) {
+      const updatedCtrl = findControlByName(name);
+      if (updatedCtrl) {
+        updatedCtrl.errors = removeEmpty({
+          ...updatedCtrl.errors,
+          ...errors,
+        });
+        updatedCtrl.valid = valid;
       }
     }
 
@@ -241,25 +242,42 @@ export default defineComponent({
         let ctrl = findControlByName(key);
         if (ctrl) {
           Object.entries(value).forEach(([change, newValue]) => {
-            ctrl[change] = newValue;
+            if (change === 'options' || change === 'validations') {
+              Object.entries(newValue).forEach(([optKey, optValue]) => {
+                ctrl[change][optKey] = {
+                  ...ctrl[change][optKey],
+                  ...optValue,
+                };
+              });
+            } else {
+              ctrl[change] = newValue;
+            }
           });
         }
       });
+      cache = deepClone(toRaw(props.form.fields));
     }
 
     function resetForm() {
       mapControls(true);
+      forceValidation.value = false;
     }
 
-    function handleSubmit() {
-      submited.value = true;
+    async function handleSubmit() {
+      validateAll();
+
+      await nextTick();
 
       if (isValid.value) {
-        ctx.emit('submited', formValues);
+        ctx.emit('submitted', formValues);
         resetForm();
       } else {
         ctx.emit('error', formValues);
       }
+    }
+
+    function validateAll() {
+      forceValidation.value = true;
     }
 
     watch(
@@ -285,9 +303,11 @@ export default defineComponent({
       errors,
       deNormalizedScopedSlots,
       normalizedControls,
-      submited,
       formattedOptions,
       onBlur,
+      onValidate,
+      forceValidation,
+      validateAll,
     };
   },
 });

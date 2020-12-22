@@ -51,8 +51,7 @@ $input-error-color: #dc3545 !default;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   margin-bottom: 1rem;
 
   & > div {
@@ -62,28 +61,6 @@ $input-error-color: #dc3545 !default;
   &--inline {
     flex-direction: row;
     align-items: center;
-  }
-
-  &--success {
-    .form-label {
-      color: $input-success-color;
-    }
-
-    .form-control {
-      border-color: $input-success-color !important;
-      background-color: lighten($input-success-color, 50);
-    }
-  }
-
-  &--error {
-    .form-label {
-      color: $input-error-color;
-    }
-
-    .form-control {
-      border-color: $input-error-color !important;
-      background-color: lighten($input-error-color, 40);
-    }
   }
 
   .form-error {
@@ -107,6 +84,16 @@ $input-error-color: #dc3545 !default;
   border: $input-border-width solid $input-border-color;
   border-radius: $input-border-radius;
   box-shadow: $input-box-shadow;
+
+  &--success {
+    border-color: $input-success-color !important;
+    background-color: lighten($input-success-color, 50);
+  }
+
+  &--error {
+    border-color: $input-error-color !important;
+    background-color: lighten($input-error-color, 40);
+  }
 
   &:not(textarea) {
     height: $input-height;

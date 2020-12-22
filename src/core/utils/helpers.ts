@@ -15,6 +15,7 @@ export const slugify = (text: string): string =>
 export const isArray = (a: any) => !!a && a.constructor === Array;
 export const isObject = (a: any) => !!a && a.constructor === Object;
 export const isEvent = (e: any) => !!e && e.constructor === Event;
+export const isPromise = (e: any) => !!e && e.constructor.name === Promise;
 
 export const isEmpty = (entry: any) => {
   if (isArray(entry)) {
@@ -68,4 +69,15 @@ export const deepClone = (obj: any) => {
   }
 
   return clone;
+};
+
+export const mockAsyncValidator = (validator, success, timeout) => {
+  const validationResponse = {};
+  validationResponse[validator] = success ? true: null;
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(validationResponse);
+    }, timeout);
+  });
 };

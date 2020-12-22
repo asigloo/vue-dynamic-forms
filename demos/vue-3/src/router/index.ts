@@ -1,0 +1,53 @@
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import Home from '../views/Home.vue';
+
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
+  },
+  {
+    path: '/general',
+    name: 'General',
+    meta: {
+      title: 'General',
+    },
+    component: () =>
+      import(/* webpackChunkName: "general" */ '../views/General.vue'),
+  },
+  {
+    path: '/basic',
+    name: 'Basic',
+    meta: {
+      title: 'Basic',
+    },
+    component: () =>
+      import(/* webpackChunkName: "basic" */ '../views/Basic.vue'),
+  },
+  {
+    path: '/text-fields',
+    name: 'Text Fields',
+    meta: {
+      title: 'Text Fields',
+    },
+    component: () =>
+      import(/* webpackChunkName: "text-fields" */ '../views/TextFields.vue'),
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    meta: {
+      title: 'Login',
+    },
+    component: () =>
+      import(/* webpackChunkName: "campaigns" */ '../views/Login.vue'),
+  },
+];
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
+});
+
+export default router;
