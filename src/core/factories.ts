@@ -66,8 +66,8 @@ export const TextField = ({
 
 export const TextAreaField = ({
   value,
-  cols,
-  rows,
+  cols = 20,
+  rows = 3,
   ...rest
 }: Partial<TextAreaInput>): TextAreaInput => ({
   ...FieldBase(rest),
