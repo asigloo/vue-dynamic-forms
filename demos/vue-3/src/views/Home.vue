@@ -62,6 +62,11 @@ export default defineComponent({
             tags: ['select-field'],
           },
           {
+            name: 'Textarea Fields',
+            route: '/textarea-fields',
+            tags: ['textarea-field'],
+          },
+          {
             name: 'Login',
             route: '/login',
             tags: ['email-input', 'password-input'],

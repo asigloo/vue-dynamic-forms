@@ -53,6 +53,17 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "text-fields" */ '../views/SelectFields.vue'),
   },
   {
+    path: '/textarea-fields',
+    name: 'TextArea Fields',
+    meta: {
+      title: 'TextArea Fields',
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "text-fields" */ '../views/TextAreaFields.vue'
+      ),
+  },
+  {
     path: '/login',
     name: 'Login',
     meta: {
