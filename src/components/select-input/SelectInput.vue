@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType, computed } from 'vue';
+import { defineComponent, h, PropType, computed } from 'vue-demi';
 import { FormControl, SelectInput } from '@/core/models';
 import { useInputEvents } from '@/composables/input-events';
 import { isObject } from '@/core/utils/helpers';

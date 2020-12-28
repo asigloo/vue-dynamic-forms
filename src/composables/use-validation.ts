@@ -2,7 +2,7 @@
 
 import { ErrorMessage } from '@/core/models';
 import {  removeEmpty } from '@/core/utils/helpers';
-import { computed,  ref, watch } from 'vue';
+import { computed,  ref, watch } from 'vue-demi';
 
 export function useInputValidation(props: any, emit: any) {
   const isPendingValidation = ref(false);

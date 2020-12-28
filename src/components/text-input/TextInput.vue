@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType } from 'vue';
+import { defineComponent, h, PropType } from 'vue-demi';
 import {
   ColorInput,
   EmailInput,

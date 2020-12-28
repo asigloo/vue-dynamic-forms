@@ -21,7 +21,8 @@
   "dependencies": {
     "autoprefixer": "^9.8.6",
     "deep-clone": "^3.0.3",
-    "deep-object-diff": "^1.1.0"
+    "deep-object-diff": "^1.1.0",
+    "vue-demi": "latest"
   },
   "devDependencies": {
     "@cypress/vue": "*",
@@ -74,7 +75,8 @@
     "vue-select": "3.10.8"
   },
   "peerDependencies": {
-    "vue": "^3.0.0"
+    "@vue/composition-api": "^1.0.0-beta.10",
+    "vue": "^2.0.0 || >=3.0.4"
   },
   "bugs": {
     "url": "https://github.com/asigloo/vue-dynamic-forms/issues"
