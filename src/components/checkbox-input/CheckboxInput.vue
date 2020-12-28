@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType } from 'vue';
+import { defineComponent, h, PropType } from 'vue-demi';
 import { FormControl, CheckboxInput } from '@/core/models';
 import { useInputEvents } from '@/composables/input-events';
 import { useInputValidation } from '@/composables/use-validation';

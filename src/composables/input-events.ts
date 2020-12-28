@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { computed, ComputedRef, watch } from 'vue';
+import { computed, ComputedRef, watch } from 'vue-demi';
 import { hasValue } from '../core/utils/helpers';
 
 import { useInputValidation } from '@/composables/use-validation';

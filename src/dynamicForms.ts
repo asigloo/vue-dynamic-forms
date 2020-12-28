@@ -1,4 +1,4 @@
-import { App } from 'vue';
+import { App } from 'vue-demi';
 import { dynamicFormsSymbol } from './useApi';
 import DynamicForm from './components/dynamic-form/DynamicForm.vue';
 import { FormOptions } from './core/models';

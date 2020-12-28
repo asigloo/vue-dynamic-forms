@@ -1,4 +1,4 @@
-import { inject, InjectionKey } from 'vue';
+import { inject, InjectionKey } from 'vue-demi';
 import { DynamicFormsPlugin } from './dynamicForms';
 
 export const dynamicFormsSymbol: InjectionKey<DynamicFormsPlugin> = Symbol();
