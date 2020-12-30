@@ -9,6 +9,7 @@
           <div class="relative card p-6 bg-white">
             <h1 class="title mb-16 text-bg">{{ title }}</h1>
             <dynamic-form
+              class="awiwi"
               :form="form"
               @submitted="handleSubmit"
               @change="valueChanged"
@@ -244,6 +245,9 @@ export default defineComponent({
           value: 'Alvaro',
           readonly: true,
         }),
+      },
+      options: {
+        customClass: 'mandalorian',
       },
     }));
 

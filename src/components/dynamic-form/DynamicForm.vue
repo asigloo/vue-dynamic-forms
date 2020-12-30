@@ -82,7 +82,6 @@ const components = {
  */
 export default defineComponent({
   name: 'asDynamicForm',
-  inheritAttrs: false,
   props,
   components,
   setup(props, ctx) {
@@ -141,7 +140,12 @@ export default defineComponent({
     });
 
     const formattedOptions = computed(() => {
-      if (options?.form) {
+      let opts = {
+        ...options?.form,
+        ...props.form?.options,
+      };
+
+      if (opts) {
         const {
           customClass,
           customStyles,
@@ -149,7 +153,7 @@ export default defineComponent({
           netlify,
           netlifyHoneypot,
           autocomplete,
-        } = options?.form;
+        } = opts;
         return {
           class: customClass,
           style: customStyles,

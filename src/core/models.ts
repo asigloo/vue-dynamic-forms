@@ -26,6 +26,7 @@ export interface DynamicForm {
   id: string;
   fields: FormFields;
   fieldOrder?: string[];
+  options?: FormOptions;
 }
 
 export interface ErrorMessage {
@@ -151,8 +152,8 @@ export type FormControl<T extends InputType> = T & {
 };
 
 export interface FormOptions {
-  customClass?: string | string[] | BindingObject | BindingObject[];
-  customStyles?: string | string[] | BindingObject | BindingObject[];
+  customClass?: string | string[] | BindingObject | BindingObject[] | unknown;
+  customStyles?: string | string[] | BindingObject | BindingObject[] | unknown;
   method?: string;
   netlify?: boolean;
   netlifyHoneypot?: string;

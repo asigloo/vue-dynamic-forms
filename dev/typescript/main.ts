@@ -9,16 +9,14 @@ import { createDynamicForms } from '../../src';
  */
 const VueDynamicForms = createDynamicForms({
   autoValidate: true,
-  form: {
-    customClass: 'plugin-options-class-added',
-    customStyles: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    method: 'POST',
-    netlify: false,
-    netlifyHoneypot: null,
+  customClass: 'plugin-options-class-added',
+  customStyles: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
+  method: 'POST',
+  netlify: false,
+  netlifyHoneypot: null,
 });
 
 export const app = createApp(App);
