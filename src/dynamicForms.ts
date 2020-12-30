@@ -1,4 +1,4 @@
-import { App } from 'vue-demi';
+import { App, isVue2 } from 'vue-demi';
 import { dynamicFormsSymbol } from './useApi';
 import DynamicForm from './components/dynamic-form/DynamicForm.vue';
 import { FormOptions } from './core/models';
@@ -20,6 +20,15 @@ export function createDynamicForms(
     options,
     install(app: App) {
       const self = this;
+
+      if (isVue2) {
+        // Vue 2 only
+        console.log('IS VUEEEE 222');
+      } else {
+        // Vue 3 only
+        console.log('IS VUEEEE 333');
+      }
+
       app.component('dynamic-form', DynamicForm);
       app.provide(dynamicFormsSymbol, self);
     },
