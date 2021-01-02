@@ -1,7 +1,7 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { defineComponent, PropType, computed, h } from 'vue-demi';
+import { defineComponent, PropType, computed, h } from 'vue';
 import TextInputComponent from '../text-input/TextInput.vue';
 import SelectInputComponent from '../select-input/SelectInput.vue';
 import TextAreaInputComponent from '../text-area-input/TextAreaInput.vue';

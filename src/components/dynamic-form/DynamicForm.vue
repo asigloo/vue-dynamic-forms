@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { nextTick } from 'vue-demi';
+import { nextTick } from 'vue';
 
 import {
   defineComponent,
@@ -48,7 +48,7 @@ import {
   watch,
   inject,
   toRaw,
-} from 'vue-demi';
+} from 'vue';
 import { diff } from 'deep-object-diff';
 
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
