@@ -29,6 +29,15 @@ export interface DynamicForm {
   options?: FormOptions;
 }
 
+export const enum ValidationTriggerTypes {
+  BLUR = 'blur',
+  CHANGE = 'change',
+}
+export interface ValidationTrigger {
+  type: ValidationTriggerTypes;
+  threshold: number;
+}
+
 export interface ErrorMessage {
   text: string;
   value: boolean | null;
@@ -172,14 +181,4 @@ export const enum FieldTypes {
   RADIO = 'radio',
   CUSTOM = 'custom-field',
   COLOR = 'color',
-}
-
-export const enum ValidationTriggerTypes {
-  BLUR = 'blur',
-  CHANGE = 'change',
-}
-
-export interface ValidationTrigger {
-  type: ValidationTriggerTypes;
-  threshold: number;
 }

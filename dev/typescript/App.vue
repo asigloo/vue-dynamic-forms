@@ -81,10 +81,9 @@ import {
   email,
   pattern,
   ValidatorTrigger,
-  ValidationTriggerTypes,
   TextAreaField,
-} from '../../src';
-/* } from '../../dist/as-dynamic-forms.esm'; */
+  /* } from '../../src'; */
+} from '../../dist/as-dynamic-forms.esm';
 export default defineComponent({
   name: 'app',
   setup() {
@@ -236,7 +235,7 @@ export default defineComponent({
           validations: [emailValidator],
 
           validationTrigger: ValidatorTrigger({
-            type: ValidationTriggerTypes.CHANGE,
+            type: 'change',
             threshold: 4,
           }),
         }),

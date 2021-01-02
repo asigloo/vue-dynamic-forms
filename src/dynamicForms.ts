@@ -1,4 +1,4 @@
-import { App, isVue3 } from 'vue-demi';
+import { App } from 'vue';
 import { dynamicFormsSymbol } from './useApi';
 import DynamicForm from './components/dynamic-form/DynamicForm.vue';
 import { FormOptions } from './core/models';
@@ -22,11 +22,7 @@ export function createDynamicForms(
       const self = this;
 
       app.component('dynamic-form', DynamicForm);
-      if (isVue3) {
-        app.provide(dynamicFormsSymbol, self);
-      } else {
-        app.config.globalProperties.$vdf = self;
-      }
+      app.provide(dynamicFormsSymbol, self);
     },
   };
 

@@ -33,14 +33,6 @@ const outputConfigs = {
     file: pkg.main,
     format: `cjs`,
   },
-  'global-vue-3': {
-    file: pkg.unpkg.replace('2', '3'),
-    format: `iife`,
-  },
-  'global-vue-2': {
-    file: pkg.unpkg,
-    format: `iife`,
-  },
   esm: {
     file: pkg.browser,
     format: `es`,
@@ -56,7 +48,7 @@ function createConfig(format, output, plugins = []) {
   output.sourcemap = !!process.env.SOURCE_MAP;
   output.banner = banner;
   output.externalLiveBindings = false;
-  output.globals = { 'vue-demi': 'VueDemi' };
+  output.globals = { vue: 'Vue' };
 
   const isProductionBuild = /\.prod\.js$/.test(output.file);
   const isGlobalBuild = format === 'global';
@@ -86,7 +78,7 @@ function createConfig(format, output, plugins = []) {
   // during a single build.
   /* hasTSChecked = true; */
 
-  const external = ['vue-demi'];
+  const external = ['vue'];
 
   const nodePlugins = [resolve(), commonjs()];
 
