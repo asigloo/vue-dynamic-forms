@@ -91,6 +91,6 @@
   },
   "dependencies": {
     "deep-clone": "^3.0.3",
-    "deep-object-diff": "^1.1.0",
+    "deep-object-diff": "^1.1.0"
   }
 }
