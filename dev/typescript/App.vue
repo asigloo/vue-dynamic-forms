@@ -9,6 +9,7 @@
           <div class="relative card p-6 bg-white">
             <h1 class="title mb-16 text-bg">{{ title }}</h1>
             <dynamic-form
+              class="awiwi"
               :form="form"
               @submitted="handleSubmit"
               @change="valueChanged"
@@ -80,10 +81,9 @@ import {
   email,
   pattern,
   ValidatorTrigger,
-  ValidationTriggerTypes,
   TextAreaField,
-} from '../../src';
-/* } from '../../dist/as-dynamic-forms.esm'; */
+  /* } from '../../src'; */
+} from '../../dist/as-dynamic-forms.esm';
 export default defineComponent({
   name: 'app',
   setup() {
@@ -235,7 +235,7 @@ export default defineComponent({
           validations: [emailValidator],
 
           validationTrigger: ValidatorTrigger({
-            type: ValidationTriggerTypes.CHANGE,
+            type: 'change',
             threshold: 4,
           }),
         }),
@@ -244,6 +244,9 @@ export default defineComponent({
           value: 'Alvaro',
           readonly: true,
         }),
+      },
+      options: {
+        customClass: 'mandalorian',
       },
     }));
 

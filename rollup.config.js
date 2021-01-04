@@ -33,10 +33,6 @@ const outputConfigs = {
     file: pkg.main,
     format: `cjs`,
   },
-  global: {
-    file: pkg.unpkg,
-    format: `iife`,
-  },
   esm: {
     file: pkg.browser,
     format: `es`,

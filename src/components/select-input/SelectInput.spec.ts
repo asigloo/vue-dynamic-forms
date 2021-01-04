@@ -32,27 +32,27 @@ describe('SelectInput', () => {
     });
   });
 
-  test('renders an select element', () => {
+  it('renders an select element', () => {
     const select = cmp.find('select');
     expect(select.exists()).toBe(true);
   });
 
-  test(`renders an input with class 'form-control'`, () => {
+  it(`renders an input with class 'form-control'`, () => {
     const select = cmp.find('select');
     expect(select.classes()).toContain('form-control');
   });
 
-  test(`renders options for  dropdown'`, () => {
+  it(`renders options for  dropdown'`, () => {
     const options = cmp.findAll('option');
     expect(options.length).toBe(3);
   });
 
-  test(`renders an input with id equal to field name`, () => {
+  it(`renders an input with id equal to field name`, () => {
     const select = cmp.find('select');
     expect(select.attributes('id')).toBe('test-input');
   });
 
-  test(`select gets disabled when form control does it`, async () => {
+  it(`select gets disabled when form control does it`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -66,7 +66,7 @@ describe('SelectInput', () => {
     expect(select.attributes('disabled')).toBe('');
   });
 
-  test(`renders a required input`, async () => {
+  it(`renders a required input`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -82,7 +82,7 @@ describe('SelectInput', () => {
     expect(select.attributes('required')).toBe('');
   });
 
-  test(`sets ariaRequired when required`, async () => {
+  it(`sets ariaRequired when required`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -95,10 +95,10 @@ describe('SelectInput', () => {
       }),
     });
     const select = cmp.find('select');
-    expect(select.attributes('ariarequired')).toBeTruthy;
+    expect(select.attributes('ariarequired')).toBe('true');
   });
 
-  test(`renders a readonly input`, async () => {
+  it(`renders a readonly input`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -112,7 +112,7 @@ describe('SelectInput', () => {
     expect(select.attributes('readonly')).toBe('');
   });
 
-  test(`renders an input with aria labels`, async () => {
+  it(`renders an input with aria labels`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -126,7 +126,7 @@ describe('SelectInput', () => {
     expect(select.attributes('arialabel')).toBe('Im a test input');
   });
 
-  /*  test('emits an event when value changed', async () => {
+  /*  it('emits an event when value changed', async () => {
     const select = cmp.find('select');
     await select.setValue('the-last-of-us');
     const emmited = cmp.emitted();
@@ -135,28 +135,28 @@ describe('SelectInput', () => {
     expect(emmited('change')[0][0].name).toBe('test-input');
   }); */
 
-  /* test('emits the control name when value change', async () => {
+  /* it('emits the control name when value change', async () => {
     const select = cmp.find('select');
     await select.setValue('the-last-of-us');
 
     expect(cmp.emitted('change')[0][0].name).toBe('test-input');
   }); */
 
-  test('emits an event when blur', async () => {
+  it('emits an event when blur', async () => {
     const select = cmp.find('select');
     await select.trigger('blur');
 
     expect(cmp.emitted()).toHaveProperty('blur');
   });
 
-  test('emits an event when focus', async () => {
+  it('emits an event when focus', async () => {
     const select = cmp.find('select');
     await select.trigger('focus');
 
     expect(cmp.emitted()).toHaveProperty('focus');
   });
 
-  /* test('renders form errors when invalid', async () => {
+  /* it('renders form errors when invalid', async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',

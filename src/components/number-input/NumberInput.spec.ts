@@ -18,21 +18,21 @@ describe('Numberinput', () => {
     });
   });
 
-  test('renders an input of type number', () => {
+  it('renders an input of type number', () => {
     const input = cmp.find('input[type="number"]');
     expect(input.exists()).toBe(true);
   });
-  test(`renders an input with class 'form-control'`, () => {
+  it(`renders an input with class 'form-control'`, () => {
     const input = cmp.find('input');
     expect(input.classes()).toContain('form-control');
   });
 
-  test(`renders an input with id equal to field name`, () => {
+  it(`renders an input with id equal to field name`, () => {
     const input = cmp.find('input');
     expect(input.attributes('id')).toBe('test-input');
   });
 
-  test(`input gets disabled when form control does it`, async () => {
+  it(`input gets disabled when form control does it`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -46,7 +46,7 @@ describe('Numberinput', () => {
     expect(input.attributes('disabled')).toBe('');
   });
 
-  test(`renders an input with placeholder`, async () => {
+  it(`renders an input with placeholder`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -60,7 +60,7 @@ describe('Numberinput', () => {
     expect(input.attributes('placeholder')).toBe('Nº');
   });
 
-  test(`renders a required input`, async () => {
+  it(`renders a required input`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -76,7 +76,7 @@ describe('Numberinput', () => {
     expect(input.attributes('required')).toBe('');
   });
 
-  test(`sets ariaRequired when required`, async () => {
+  it(`sets ariaRequired when required`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -89,10 +89,10 @@ describe('Numberinput', () => {
       }),
     });
     const input = cmp.find('input');
-    expect(input.attributes('ariarequired')).toBeTruthy;
+    expect(input.attributes('ariarequired')).toBe('true');
   });
 
-  test(`renders a readonly input`, async () => {
+  it(`renders a readonly input`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -106,7 +106,7 @@ describe('Numberinput', () => {
     expect(input.attributes('readonly')).toBe('');
   });
 
-  test(`renders a input with autocomplete`, async () => {
+  it(`renders a input with autocomplete`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -120,7 +120,7 @@ describe('Numberinput', () => {
     expect(input.attributes('autocomplete')).toBe('username');
   });
 
-  test(`renders an input with aria labels`, async () => {
+  it(`renders an input with aria labels`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -134,7 +134,7 @@ describe('Numberinput', () => {
     expect(input.attributes('arialabel')).toBe('Im a test input');
   });
 
-  test(`renders an input with min attribute`, async () => {
+  it(`renders an input with min attribute`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -148,7 +148,7 @@ describe('Numberinput', () => {
     expect(input.attributes('min')).toBe('50');
   });
 
-  test(`renders an input with max attribute`, async () => {
+  it(`renders an input with max attribute`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -162,7 +162,7 @@ describe('Numberinput', () => {
     expect(input.attributes('max')).toBe('100');
   });
 
-  test(`renders an input with step attribute`, async () => {
+  it(`renders an input with step attribute`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -176,7 +176,7 @@ describe('Numberinput', () => {
     expect(input.attributes('step')).toBe('5');
   });
 
-  test('emits an event when value changed', async () => {
+  it('emits an event when value changed', async () => {
     const input = cmp.find('input');
     await input.setValue(2);
 
@@ -185,21 +185,21 @@ describe('Numberinput', () => {
     expect(cmp.emitted('change')[0][0].name).toBe('test-input');
   });
 
-  test('emits the control name when value change', async () => {
+  it('emits the control name when value change', async () => {
     const input = cmp.find('input');
     await input.setValue(2);
 
     expect(cmp.emitted('change')[0][0].name).toBe('test-input');
   });
 
-  test('emits an event when blur', async () => {
+  it('emits an event when blur', async () => {
     const input = cmp.find('input');
     await input.trigger('blur');
 
     expect(cmp.emitted()).toHaveProperty('blur');
   });
 
-  test('emits an event when focus', async () => {
+  it('emits an event when focus', async () => {
     const input = cmp.find('input');
     await input.trigger('focus');
 

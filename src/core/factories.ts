@@ -16,6 +16,7 @@ import {
   ValidationTriggerTypes,
   ValidationTrigger,
   TextAreaInput,
+  UrlInput,
 } from './models';
 
 const EMPTY_CONTROL = {
@@ -93,6 +94,12 @@ export const PasswordField = ({
   ...FieldBase(rest),
   value,
   type: FieldTypes.PASSWORD,
+});
+
+export const UrlField = ({ value, ...rest }: Partial<UrlInput>): UrlInput => ({
+  ...FieldBase(rest),
+  value,
+  type: FieldTypes.URL,
 });
 
 export const CheckboxField = ({

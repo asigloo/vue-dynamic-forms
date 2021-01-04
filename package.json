@@ -18,11 +18,8 @@
   "module": "dist/as-dynamic-forms.esm-bundler.js",
   "browser": "dist/as-dynamic-forms.esm.js",
   "unpkg": "dist/as-dynamic-forms.global.js",
-  "dependencies": {
-    "autoprefixer": "^9.8.6",
-    "deep-clone": "^3.0.3",
-    "deep-object-diff": "^1.1.0"
-  },
+  "jsdelivr": "dist/as-dynamic-forms.global.js",
+  "types": "dist/as-dynamic-forms.d.ts",
   "devDependencies": {
     "@cypress/vue": "*",
     "@microsoft/api-extractor": "^7.12.0",
@@ -73,36 +70,8 @@
     "vue-router": "^4.0.1",
     "vue-select": "3.10.8"
   },
-  "peerDependencies": {
-    "vue": "^3.0.0"
-  },
-  "bugs": {
-    "url": "https://github.com/asigloo/vue-dynamic-forms/issues"
-  },
-  "jsdelivr": "dist/as-dynamic-forms.global.js",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "release": {
-    "branches": [
-      "+([0-9])?(.{+([0-9]),x}).x",
-      "master",
-      "next",
-      "next-major",
-      {
-        "name": "beta",
-        "prerelease": true
-      },
-      {
-        "name": "alpha",
-        "prerelease": true
-      }
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/asigloo/vue-dynamic-forms.git"
-  },
-  "types": "dist/as-dynamic-forms.d.ts"
+  "dependencies": {
+    "deep-clone": "^3.0.3",
+    "deep-object-diff": "^1.1.0"
+  }
 }

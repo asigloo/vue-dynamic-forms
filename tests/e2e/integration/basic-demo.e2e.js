@@ -10,7 +10,7 @@ describe('Login Demo', () => {
     });
 
     it('should get blurred when input is leaved', () => {
-      cy.get('input[name="username"]').type('{tab}');
+      cy.get('input[name="username"]').click();
       cy.get('input[name="username"]').blur();
       cy.get('input[name="username"]').should('not.be.focus');
     });

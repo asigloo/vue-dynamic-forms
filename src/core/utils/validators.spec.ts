@@ -11,129 +11,129 @@ import {
 } from './validators';
 
 describe('Validators', () => {
-  test('isEmptyInputValue should return true if value is null', () => {
+  it('isEmptyInputValue should return true if value is null', () => {
     const value = null;
     const validation = isEmptyInputValue(value);
-    expect(validation).toBeTruthy();
+    expect(validation).toBe(true);
   });
 
-  test('isEmptyInputValue should return true if value is empty string', () => {
+  it('isEmptyInputValue should return true if value is empty string', () => {
     const value = '';
     const validation = isEmptyInputValue(value);
-    expect(validation).toBeTruthy();
+    expect(validation).toBe(true);
   });
 
-  test('isEmptyInputValue should return true if value is null', () => {
+  it('isEmptyInputValue should return true if value is null', () => {
     const value = null;
     const validation = isEmptyInputValue(value);
-    expect(validation).toBeTruthy();
+    expect(validation).toBe(true);
   });
 
-  test('required should return true if value is empty', () => {
+  it('required should return true if value is empty', () => {
     const value = null;
     const validation = required(value);
-    expect(validation.required).toBeTruthy();
+    expect(validation.required).toBe(true);
   });
 
-  test('required should return null if value is valid', () => {
+  it('required should return null if value is valid', () => {
     const value = 'Awiwi';
     const validation = required(value);
     expect(validation.required).toBeNull();
   });
 
-  test('min should return null if value is empty', () => {
+  it('min should return null if value is empty', () => {
     const minValue = 4;
     const value = null;
     const validation = min(minValue)(value);
     expect(validation.min).toBeNull();
   });
 
-  test('min should return null if value is greater than minValue', () => {
+  it('min should return null if value is greater than minValue', () => {
     const minValue = 4;
     const value = 8;
     const validation = min(minValue)(value);
     expect(validation.min).toBeNull();
   });
 
-  test('min should return true if value is less than minValue', () => {
+  it('min should return true if value is less than minValue', () => {
     const minValue = 4;
     const value = 3;
     const validation = min(minValue)(value);
     expect(validation.min).toStrictEqual({ min: minValue, actual: value });
   });
 
-  test('max should return null if value is empty', () => {
+  it('max should return null if value is empty', () => {
     const maxValue = 4;
     const value = null;
     const validation = max(maxValue)(value);
     expect(validation.max).toBeNull();
   });
 
-  test('max should return null if value is greater than maxValue', () => {
+  it('max should return null if value is greater than maxValue', () => {
     const maxValue = 4;
     const value = 3;
     const validation = max(maxValue)(value);
     expect(validation.max).toBeNull();
   });
 
-  test('max should return true if value is less than maxValue', () => {
+  it('max should return true if value is less than maxValue', () => {
     const maxValue = 4;
     const value = 8;
     const validation = max(maxValue)(value);
     expect(validation.max).toStrictEqual({ max: maxValue, actual: value });
   });
 
-  test('email should return true if value is empty', () => {
+  it('email should return true if value is empty', () => {
     const value = null;
     const validation = email(value);
     expect(validation.email).toBeNull();
   });
 
-  test('email should return true if value is invalid', () => {
+  it('email should return true if value is invalid', () => {
     const value = 'hola.com';
     const validation = email(value);
-    expect(validation.email).toBeTruthy();
+    expect(validation.email).toBe(true);
   });
 
-  test('email should return null if value is valid', () => {
+  it('email should return null if value is valid', () => {
     const value = 'hola@alvarosaburido.dev';
     const validation = email(value);
     expect(validation.email).toBeNull();
   });
 
-  test('url should return true if value is empty', () => {
+  it('url should return true if value is empty', () => {
     const value = null;
     const validation = url(value);
     expect(validation.url).toBeNull();
   });
 
-  test('url should return true if value is invalid', () => {
+  it('url should return true if value is invalid', () => {
     const value = 'ftp://hola.com';
     const validation = url(value);
-    expect(validation.url).toBeTruthy();
+    expect(validation.url).toBe(true);
   });
 
-  test('url should return null if value is valid', () => {
+  it('url should return null if value is valid', () => {
     const value = 'https://alvarosaburido.dev/blog';
     const validation = url(value);
     expect(validation.url).toBeNull();
   });
 
-  test('minLength should return null if value is empty', () => {
+  it('minLength should return null if value is empty', () => {
     const minLengthValue = 4;
     const value = null;
     const validation = minLength(minLengthValue)(value);
     expect(validation.minLength).toBeNull();
   });
 
-  test('minLength should return null if value is shorter than minLengthValue', () => {
+  it('minLength should return null if value is shorter than minLengthValue', () => {
     const minLengthValue = 4;
     const value = 'arepa ipsum';
     const validation = minLength(minLengthValue)(value);
     expect(validation.minLength).toBeNull();
   });
 
-  test('minLength should return true if value is longer than minLengthValue', () => {
+  it('minLength should return true if value is longer than minLengthValue', () => {
     const minLengthValue = 4;
     const value = 'awi';
     const validation = minLength(minLengthValue)(value);
@@ -143,21 +143,21 @@ describe('Validators', () => {
     });
   });
 
-  test('maxLength should return null if value is empty', () => {
+  it('maxLength should return null if value is empty', () => {
     const maxLengthValue = 4;
     const value = null;
     const validation = maxLength(maxLengthValue)(value);
     expect(validation.maxLength).toBeNull();
   });
 
-  test('maxLength should return null if value is longer than maxLengthValue', () => {
+  it('maxLength should return null if value is longer than maxLengthValue', () => {
     const maxLengthValue = 4;
     const value = 'awi';
     const validation = maxLength(maxLengthValue)(value);
     expect(validation.maxLength).toBeNull();
   });
 
-  test('maxLength should return true if value is shorter than maxLengthValue', () => {
+  it('maxLength should return true if value is shorter than maxLengthValue', () => {
     const maxLengthValue = 4;
     const value = 'arepa ipsum';
 
@@ -168,7 +168,7 @@ describe('Validators', () => {
     });
   });
 
-  test('pattern should return true if value is empty', () => {
+  it('pattern should return true if value is empty', () => {
     const value = null;
     const validation = pattern(
       '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,12}$',
@@ -176,7 +176,7 @@ describe('Validators', () => {
     expect(validation.pattern).toBeNull();
   });
 
-  test('pattern should return true if value is invalid', () => {
+  it('pattern should return true if value is invalid', () => {
     const value = 'abcd1234';
     const validation = pattern(
       '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,12}$',
@@ -188,7 +188,7 @@ describe('Validators', () => {
     });
   });
 
-  test('pattern should return null if value is valid', () => {
+  it('pattern should return null if value is valid', () => {
     const value = 'Abcd@1234';
     const validation = pattern(
       '^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,12}$',

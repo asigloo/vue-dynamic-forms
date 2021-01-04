@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import TextAreaInput from './TextAreaInput.vue';
-import { FieldControl, TextAreaField, Validator, required } from '../../index';
+import { FieldControl, TextAreaField, Validator, required } from '../../';
 
 describe('TextAreaInput', () => {
   let cmp;
@@ -18,22 +18,22 @@ describe('TextAreaInput', () => {
     });
   });
 
-  test('renders an textarea element', () => {
+  it('renders an textarea element', () => {
     const textarea = cmp.find('textarea');
     expect(textarea.exists()).toBe(true);
   });
 
-  test(`renders an textarea with class 'form-control'`, () => {
+  it(`renders an textarea with class 'form-control'`, () => {
     const textarea = cmp.find('textarea');
     expect(textarea.classes()).toContain('form-control');
   });
 
-  test(`renders an textarea with id equal to field name`, () => {
+  it(`renders an textarea with id equal to field name`, () => {
     const textarea = cmp.find('textarea');
     expect(textarea.attributes('id')).toBe('test-input');
   });
 
-  test(`textarea gets disabled when form control does it`, async () => {
+  it(`textarea gets disabled when form control does it`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -47,7 +47,7 @@ describe('TextAreaInput', () => {
     expect(textarea.attributes('disabled')).toBe('');
   });
 
-  test(`renders a required textarea`, async () => {
+  it(`renders a required textarea`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -63,7 +63,7 @@ describe('TextAreaInput', () => {
     expect(textarea.attributes('required')).toBe('');
   });
 
-  test(`sets ariaRequired when required`, async () => {
+  it(`sets ariaRequired when required`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -76,10 +76,10 @@ describe('TextAreaInput', () => {
       }),
     });
     const textarea = cmp.find('textarea');
-    expect(textarea.attributes('ariarequired')).toBeTruthy;
+    expect(textarea.attributes('ariarequired')).toBe('true');
   });
 
-  test(`renders a readonly textarea`, async () => {
+  it(`renders a readonly textarea`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -93,7 +93,7 @@ describe('TextAreaInput', () => {
     expect(textarea.attributes('readonly')).toBe('');
   });
 
-  test(`renders an textarea with aria labels`, async () => {
+  it(`renders an textarea with aria labels`, async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',
@@ -107,14 +107,14 @@ describe('TextAreaInput', () => {
     expect(textarea.attributes('arialabel')).toBe('Im a test input');
   });
 
-  test('emits an event when blur', async () => {
+  it('emits an event when blur', async () => {
     const textarea = cmp.find('textarea');
     await textarea.trigger('blur');
 
     expect(cmp.emitted()).toHaveProperty('blur');
   });
 
-  test('emits an event when focus', async () => {
+  it('emits an event when focus', async () => {
     const textarea = cmp.find('textarea');
     await textarea.trigger('focus');
 

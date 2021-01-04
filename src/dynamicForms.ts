@@ -20,6 +20,7 @@ export function createDynamicForms(
     options,
     install(app: App) {
       const self = this;
+
       app.component('dynamic-form', DynamicForm);
       app.provide(dynamicFormsSymbol, self);
     },

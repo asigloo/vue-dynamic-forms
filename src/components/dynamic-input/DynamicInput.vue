@@ -113,7 +113,7 @@ export default defineComponent({
 
     return () => {
       switch (props?.control?.type) {
-        case FieldTypes.TEXT:
+        case FieldTypes?.TEXT:
           component = h(
             TextInputComponent,
             attributes.value as ControlAttribute<TextInput>,

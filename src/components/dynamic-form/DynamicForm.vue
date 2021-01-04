@@ -82,7 +82,6 @@ const components = {
  */
 export default defineComponent({
   name: 'asDynamicForm',
-  inheritAttrs: false,
   props,
   components,
   setup(props, ctx) {
@@ -141,13 +140,11 @@ export default defineComponent({
     });
 
     const formattedOptions = computed(() => {
-      let opts;
-      if (options?.form) {
-        opts = options?.form;
-      }
-      if (props.form?.options) {
-        opts = props.form?.options;
-      }
+      let opts = {
+        ...options?.form,
+        ...props.form?.options,
+      };
+
       if (opts) {
         const {
           customClass,
