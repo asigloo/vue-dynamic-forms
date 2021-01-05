@@ -109,6 +109,24 @@ export function useInputValidation(props: any, emit: any) {
     ];
   });
 
+  const getCheckboxValidationClasses = computed(() => {
+    return [
+      {
+        'checkbox-group--success':
+          !isPendingValidation.value &&
+          requiresValidation.value &&
+          props.control.errors &&
+          props.control.valid &&
+          props.control.dirty &&
+          props.control.touched,
+      },
+      {
+        'checkbox-group--error': !isPendingValidation.value && !props.control.valid,
+        'checkbox-group--validating': isPendingValidation.value
+      },
+    ];
+  });
+
   watch(
     () => props.forceValidation,
     value => {
@@ -122,6 +140,7 @@ export function useInputValidation(props: any, emit: any) {
     isPendingValidation,
     validate,
     getValidationClasses,
+    getCheckboxValidationClasses,
     isRequired,
     requiresValidation,
     errorMessages,

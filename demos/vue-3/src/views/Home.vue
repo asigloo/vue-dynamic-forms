@@ -67,6 +67,11 @@ export default defineComponent({
             tags: ['textarea-field'],
           },
           {
+            name: 'Checkbox Fields',
+            route: '/checkbox-fields',
+            tags: ['checkbox-field'],
+          },
+          {
             name: 'Login',
             route: '/login',
             tags: ['email-input', 'password-input'],

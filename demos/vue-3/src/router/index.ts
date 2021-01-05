@@ -64,6 +64,17 @@ const routes: Array<RouteRecordRaw> = [
       ),
   },
   {
+    path: '/checkbox-fields',
+    name: 'Checkbox Fields',
+    meta: {
+      title: 'Checkbox Fields',
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "checkbox-fields" */ '../views/CheckboxFields.vue'
+      ),
+  },
+  {
     path: '/login',
     name: 'Login',
     meta: {

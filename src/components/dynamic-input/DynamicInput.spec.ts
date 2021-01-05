@@ -4,7 +4,6 @@ import DynamicInput from './DynamicInput.vue';
 import {
   CheckboxField,
   ColorField,
-  CustomField,
   EmailField,
   FieldControl,
   NumberField,

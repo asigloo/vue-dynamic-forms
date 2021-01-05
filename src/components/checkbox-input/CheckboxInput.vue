@@ -17,11 +17,24 @@ export default defineComponent({
   inheritAttrs: false,
   props,
   setup(props, { emit }) {
-    const { onCheck, onFocus, onBlur } = useInputEvents(props, emit);
-
-    const { errorMessages, isPendingValidation } = useInputValidation(
+    const { onCheck, onFocus, onBlur, getCheckboxClasses } = useInputEvents(
       props,
       emit,
+    );
+
+    const {
+      errorMessages,
+      isPendingValidation,
+      isRequired,
+    } = useInputValidation(props, emit);
+
+    const requiredStar = h(
+      'span',
+      {
+        ariaHidden: true,
+        class: 'form-required-star',
+      },
+      ' *',
     );
 
     const renderCheckbox = [
@@ -30,9 +43,14 @@ export default defineComponent({
         type: props.control.type,
         id: props.control.name,
         disabled: props.control.disabled,
-        class: ['checkbox-control'],
+        class: 'checkbox-control',
         value: props.control.value,
         checked: props.control.value,
+        required: isRequired.value,
+        readonly: props.control.readonly,
+        ariaRequired: isRequired.value,
+        ariaLabel: props.control.ariaLabel,
+        ariaLabelledBy: props.control.ariaLabelledBy,
         onFocus,
         onBlur,
         onChange: onCheck,
@@ -43,7 +61,7 @@ export default defineComponent({
           class: ['checkbox-label'],
           for: props.control.name,
         },
-        props.control.label,
+        [props.control.label, isRequired.value ? requiredStar : ''],
       ),
     ];
 
@@ -51,7 +69,7 @@ export default defineComponent({
       h(
         'div',
         {
-          class: 'checkbox-group',
+          class: getCheckboxClasses.value,
           tabIndex: -1,
           role: 'group',
         },

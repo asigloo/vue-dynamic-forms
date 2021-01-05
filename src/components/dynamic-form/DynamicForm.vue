@@ -175,7 +175,7 @@ export default defineComponent({
               ? FieldControl({
                   ...field,
                   name: key,
-                  value: null,
+                  value: field.type === FieldTypes.CHECKBOX ? false : null,
                 })
               : FieldControl({
                   ...field,

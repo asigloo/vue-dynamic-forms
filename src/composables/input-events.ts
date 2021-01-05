@@ -12,10 +12,15 @@ interface InputEventsComposition {
   onFocus: () => void;
   onBlur: () => void;
   getClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
+  getCheckboxClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
 }
 
 export function useInputEvents(props, emit): InputEventsComposition {
-  const { validate, getValidationClasses } = useInputValidation(props, emit);
+  const {
+    validate,
+    getValidationClasses,
+    getCheckboxValidationClasses,
+  } = useInputValidation(props, emit);
 
   function onInput($event: Event): void {
     const element = $event.target as HTMLInputElement;
@@ -70,6 +75,12 @@ export function useInputEvents(props, emit): InputEventsComposition {
     return ['form-control', ...getValidationClasses.value];
   });
 
+  const getCheckboxClasses: ComputedRef<
+    (string | { [key: string]: boolean })[]
+  > = computed(() => {
+    return ['checkbox-group', ...getCheckboxValidationClasses.value];
+  });
+
   watch(
     () => props?.control?.value,
     (curr, prev) => {
@@ -92,5 +103,6 @@ export function useInputEvents(props, emit): InputEventsComposition {
     onBlur,
     onCheck,
     getClasses,
+    getCheckboxClasses,
   };
 }
