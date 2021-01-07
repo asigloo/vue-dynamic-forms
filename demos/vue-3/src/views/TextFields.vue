@@ -35,7 +35,6 @@ import {
   EmailField,
   PasswordField,
   required,
-  FormOptions,
 } from '@/';
 import { computed, defineComponent, reactive } from 'vue';
 import Console from '../components/Console.vue';

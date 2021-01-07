@@ -26,15 +26,7 @@
 </template>
 
 <script lang="ts">
-import {
-  FormValidator,
-  min,
-  max,
-  Validator,
-  NumberField,
-  required,
-  FormOptions,
-} from '@/';
+import { FormValidator, min, max, Validator, NumberField, required } from '@/';
 import { computed, defineComponent, reactive } from 'vue';
 import Console from '../components/Console.vue';
 

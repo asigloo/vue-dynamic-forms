@@ -22,7 +22,6 @@ module.exports = {
   ],
 
   testURL: 'http://localhost/',
-
   transformIgnorePatterns: ['/node_modules/'],
   modulePathIgnorePatterns: ['<rootDir>/templates/'],
 
@@ -30,6 +29,8 @@ module.exports = {
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',
   ],
+
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.(vue|ts)'],
+  preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
 };

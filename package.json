@@ -6,38 +6,41 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "rollup -c rollup.config.js",
+    "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "build:dts": "api-extractor run --local --verbose && tail -n +7 >> dist/as-dynamic-forms.d.ts",
+    "postinstall": "is-ci || husky install",
+    "postpublish": "pinst --enable",
+    "prepublishOnly": "pinst --disable",
     "semantic-release": "semantic-release",
     "test": "vue-cli-service test:unit",
     "test:components": "vue-cli-service test:components",
-    "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll",
-    "postinstall": "is-ci || husky install",
-    "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll"
   },
   "main": "dist/as-dynamic-forms.cjs.js",
   "module": "dist/as-dynamic-forms.esm-bundler.js",
   "browser": "dist/as-dynamic-forms.esm.js",
   "unpkg": "dist/as-dynamic-forms.global.js",
-  "jsdelivr": "dist/as-dynamic-forms.global.js",
-  "types": "dist/as-dynamic-forms.d.ts",
+  "dependencies": {
+    "deep-clone": "^3.0.3",
+    "deep-object-diff": "^1.1.0"
+  },
   "devDependencies": {
-    "@cypress/vue": "*",
     "@microsoft/api-extractor": "^7.12.0",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@rollup/plugin-replace": "^2.3.4",
+    "@types/jest": "^24.0.19",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
     "@vue/cli-plugin-babel": "4.5.9",
-    "@vue/cli-plugin-e2e-cypress": "^4.5.9",
+    "@vue/cli-plugin-e2e-cypress": "^4.5.10",
     "@vue/cli-plugin-eslint": "4.5.9",
     "@vue/cli-plugin-typescript": "~4.5.9",
-    "@vue/cli-plugin-unit-jest": "4.5.9",
+    "@vue/cli-plugin-unit-jest": "^4.5.10",
     "@vue/cli-service": "~4.5.9",
     "@vue/compiler-sfc": "3.0.2",
     "@vue/eslint-config-prettier": "^6.0.0",
@@ -47,7 +50,7 @@
     "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",
     "chalk": "^4.1.0",
-    "cypress": "*",
+    "cypress": "^6.2.1",
     "eslint": "7.14.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^7.1.0",
@@ -76,8 +79,6 @@
     "vue-router": "^4.0.1",
     "vue-select": "3.10.8"
   },
-  "dependencies": {
-    "deep-clone": "^3.0.3",
-    "deep-object-diff": "^1.1.0"
-  }
+  "jsdelivr": "dist/as-dynamic-forms.global.js",
+  "types": "dist/as-dynamic-forms.d.ts"
 }
