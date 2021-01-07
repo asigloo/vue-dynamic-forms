@@ -12,7 +12,10 @@
     "semantic-release": "semantic-release",
     "test": "vue-cli-service test:unit",
     "test:components": "vue-cli-service test:components",
-    "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll"
+    "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll",
+    "postinstall": "is-ci || husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
   },
   "main": "dist/as-dynamic-forms.cjs.js",
   "module": "dist/as-dynamic-forms.esm-bundler.js",
@@ -48,7 +51,10 @@
     "eslint": "7.14.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^7.1.0",
+    "husky": "^5.0.6",
+    "is-ci": "^2.0.0",
     "node-sass": "5.0.0",
+    "pinst": "^2.1.1",
     "postcss": "^7.0.35",
     "prettier": "2.2.0",
     "rollup": "^2.33.3",
