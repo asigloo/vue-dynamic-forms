@@ -29,7 +29,7 @@ import {
 } from '@/core/models';
 
 import { isArray, isObject } from '@/core/utils/helpers';
-import { useInputEvents } from '@/composables/input-events';
+import { useInputEvents } from '@/composables/use-input-events';
 
 const components = {
   TextInputComponent,

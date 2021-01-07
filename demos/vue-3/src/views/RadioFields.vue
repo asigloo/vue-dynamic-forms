@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { CheckboxField, Validator, required } from '@/';
+import { RadioField, Validator, required } from '@/';
 import { computed, defineComponent, reactive } from 'vue';
 import Console from '../components/Console.vue';
 
@@ -35,33 +35,90 @@ const components = {
 };
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
-  name: 'CheckboxFieldsDemo',
+  name: 'RadioFieldsDemo',
   components,
   setup() {
     const formValues = reactive({});
 
     const form = computed(() => ({
-      id: 'checkbox-fields-demo',
+      id: 'text-fields-demo',
       fields: {
-        awesomeness: CheckboxField({
-          label: "Check  if you're awesome",
+        character: RadioField({
+          label: 'Select one option',
+          options: [
+            {
+              key: 'mario',
+              value: 'Mario',
+            },
+            {
+              key: 'crash-bandicoot',
+              value: 'Crash Bandicoot',
+            },
+            {
+              key: 'sonic',
+              value: 'Sonic',
+            },
+            {
+              key: 'banjo-kazooie',
+              value: 'Banjo Kazooie',
+              disabled: true,
+            },
+          ],
         }),
-        certified: CheckboxField({
-          label: 'Last Name',
-          customClass: 'w-1/2',
-          value: true,
+        console: RadioField({
+          label: 'Select one option',
+          options: [
+            {
+              key: 'nintendo-switch',
+              value: 'Nintendo Switch',
+            },
+            {
+              key: 'ps4',
+              value: 'PS4',
+            },
+
+            {
+              key: 'ps5',
+              value: 'PS5',
+            },
+            {
+              key: 'Xbox',
+              value: 'XBox Serie X',
+            },
+          ],
+          value: 'ps5',
         }),
-        required: CheckboxField({
+        required: RadioField({
           label: 'Required',
           customClass: 'w-1/2',
+          options: [
+            {
+              key: 'yes',
+              value: 'Yes',
+            },
+            {
+              key: 'no',
+              value: 'No',
+            },
+          ],
           validations: [
             Validator({ validator: required, text: 'This field is required' }),
           ],
         }),
-        disabled: CheckboxField({
+        disabled: RadioField({
           label: 'Disabled',
           customClass: 'w-1/2',
           disabled: true,
+          options: [
+            {
+              key: 'disable',
+              value: 'Disable',
+            },
+            {
+              key: 'no',
+              value: 'No',
+            },
+          ],
         }),
       },
       options: {

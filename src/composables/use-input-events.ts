@@ -13,6 +13,7 @@ interface InputEventsComposition {
   onBlur: () => void;
   getClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
   getCheckboxClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
+  getRadioClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
 }
 
 export function useInputEvents(props, emit): InputEventsComposition {
@@ -20,6 +21,7 @@ export function useInputEvents(props, emit): InputEventsComposition {
     validate,
     getValidationClasses,
     getCheckboxValidationClasses,
+    getRadioValidationClasses,
   } = useInputValidation(props, emit);
 
   function onInput($event: Event): void {
@@ -81,6 +83,12 @@ export function useInputEvents(props, emit): InputEventsComposition {
     return ['checkbox-group', ...getCheckboxValidationClasses.value];
   });
 
+  const getRadioClasses: ComputedRef<
+    (string | { [key: string]: boolean })[]
+  > = computed(() => {
+    return ['radio-group', ...getRadioValidationClasses.value];
+  });
+
   watch(
     () => props?.control?.value,
     (curr, prev) => {
@@ -104,5 +112,6 @@ export function useInputEvents(props, emit): InputEventsComposition {
     onCheck,
     getClasses,
     getCheckboxClasses,
+    getRadioClasses,
   };
 }

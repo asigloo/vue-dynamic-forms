@@ -144,6 +144,12 @@ $input-error-color: #dc3545 !default;
   color: $input-disabled-text;
 }
 
+.radio-control:disabled ~ .radio-label {
+  pointer-events: none;
+  cursor: not-allowed;
+  color: $input-disabled-text;
+}
+
 .custom-form-wrapper {
   order: 2;
 }

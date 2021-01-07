@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, h, PropType, computed } from 'vue';
 import { FormControl, SelectInput } from '@/core/models';
-import { useInputEvents } from '@/composables/input-events';
+import { useInputEvents } from '@/composables/use-input-events';
 import { isObject } from '@/core/utils/helpers';
 import { useInputValidation } from '@/composables/use-validation';
 

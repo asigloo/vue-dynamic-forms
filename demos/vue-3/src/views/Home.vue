@@ -72,6 +72,11 @@ export default defineComponent({
             tags: ['checkbox-field'],
           },
           {
+            name: 'Radio Fields',
+            route: '/radio-fields',
+            tags: ['radio-field'],
+          },
+          {
             name: 'Login',
             route: '/login',
             tags: ['email-input', 'password-input'],

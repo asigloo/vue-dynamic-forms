@@ -75,6 +75,15 @@ const routes: Array<RouteRecordRaw> = [
       ),
   },
   {
+    path: '/radio-fields',
+    name: 'Radio Fields',
+    meta: {
+      title: 'Radio Fields',
+    },
+    component: () =>
+      import(/* webpackChunkName: "radio-fields" */ '../views/RadioFields.vue'),
+  },
+  {
     path: '/login',
     name: 'Login',
     meta: {
