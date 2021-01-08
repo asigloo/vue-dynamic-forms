@@ -53,7 +53,7 @@ export type BindingObject = {
 };
 
 export interface ValidatorFn {
-  (control: ControlValue | undefined): ValidationErrors | null;
+  (value: ControlValue | undefined): ValidationErrors | null;
 }
 
 export type ControlValue = string | number | boolean;
@@ -166,7 +166,7 @@ export interface FormOptions {
   method?: string;
   netlify?: boolean;
   netlifyHoneypot?: string;
-  autocomplete?: boolean;
+  autocomplete?: boolean | string;
 }
 
 export enum FieldTypes {

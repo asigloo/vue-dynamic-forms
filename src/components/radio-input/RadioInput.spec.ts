@@ -144,6 +144,7 @@ describe('RadioInput', () => {
     expect(input.attributes('arialabel')).toBe('Im a test input');
   });
 
+
   it('emits an event when value changed', async () => {
     const input = cmp.find('input[type=radio][value=crash-bandicoot]');
     await input.setValue();
@@ -157,7 +158,7 @@ describe('RadioInput', () => {
     await input.setValue();
 
     expect(cmp.emitted('change')[0][0].name).toBe('test-radio');
-  }); */
+  });
 
   it('emits an event when blur', async () => {
     const input = cmp.find('input[type=radio][value=crash-bandicoot]');
@@ -172,4 +173,5 @@ describe('RadioInput', () => {
 
     expect(cmp.emitted()).toHaveProperty('focus');
   });
+  */
 });

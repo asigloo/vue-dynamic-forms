@@ -2,7 +2,7 @@
 import { computed, ComputedRef, watch } from 'vue';
 import { hasValue } from '../core/utils/helpers';
 
-import { useInputValidation } from '@/composables/use-validation';
+import { useInputValidation } from '@/composables/useValidation';
 import { ValidationTriggerTypes } from '@/core/models';
 
 interface InputEventsComposition {

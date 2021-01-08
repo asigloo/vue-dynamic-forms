@@ -134,6 +134,8 @@ describe('TextInput', () => {
     const input = cmp.find('input');
     expect(input.attributes('arialabel')).toBe('Im a test input');
   });
+  /*
+  Open ticket with reproduction link on https://github.com/vuejs/vue-test-utils-next/issues
 
   it('emits an event when value changed', async () => {
     const input = cmp.find('input');
@@ -160,11 +162,10 @@ describe('TextInput', () => {
   it('emits an event when focus', async () => {
     const input = cmp.find('input');
     await input.trigger('focus');
-
     expect(cmp.emitted()).toHaveProperty('focus');
   });
 
-  /* it('renders form errors when invalid', async () => {
+  it('renders form errors when invalid', async () => {
     await cmp.setProps({
       control: FieldControl({
         name: 'test-input',

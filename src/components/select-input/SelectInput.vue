@@ -1,9 +1,9 @@
 <script lang="ts">
 import { defineComponent, h, PropType, computed } from 'vue';
 import { FormControl, SelectInput } from '@/core/models';
-import { useInputEvents } from '@/composables/use-input-events';
+import { useInputEvents } from '@/composables/useInputEvents';
 import { isObject } from '@/core/utils/helpers';
-import { useInputValidation } from '@/composables/use-validation';
+import { useInputValidation } from '@/composables/useValidation';
 
 const props = {
   control: Object as PropType<FormControl<SelectInput>>,

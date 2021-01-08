@@ -8,8 +8,8 @@ import {
   TextInput,
   UrlInput,
 } from '@/core/models';
-import { useInputEvents } from '@/composables/use-input-events';
-import { useInputValidation } from '@/composables/use-validation';
+import { useInputEvents } from '@/composables/useInputEvents';
+import { useInputValidation } from '@/composables/useValidation';
 
 const props = {
   control: Object as PropType<
