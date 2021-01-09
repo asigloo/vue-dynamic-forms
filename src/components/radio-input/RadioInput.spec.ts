@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import RadioInput from './RadioInput.vue';
-import { FieldControl, RadioField, Validator, required } from '../../index';
+import { FieldControl, RadioField } from '../../index';
 
 describe('RadioInput', () => {
   let cmp;

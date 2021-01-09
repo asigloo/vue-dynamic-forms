@@ -6,7 +6,6 @@ import {
   FormChanges,
   ValidationEvent,
   InputEvent,
-  FormOptions,
   DynamicForm,
 } from '@/core/models';
 import {
@@ -22,6 +21,7 @@ import {
 import { deepClone, hasValue, removeEmpty } from '@/core/utils/helpers';
 import { FieldControl } from '@/core/factories';
 import { useDebounceFn } from './useDebounce';
+import { DynamicFormsOptions } from '@/dynamicForms';
 
 interface DynamicFormComposition {
   controls: Ref<FormControl<InputType>[]>;
@@ -45,8 +45,12 @@ interface DynamicFormComposition {
 
 export function useDynamicForm(
   form: DynamicForm,
-  ctx,
-  options?,
+  ctx: {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    slots: {};
+    emit: (arg0: string, arg1: { [x: string]: string | number }) => void;
+  },
+  options?: DynamicFormsOptions,
 ): DynamicFormComposition {
   let cache = deepClone(toRaw(form.fields));
 

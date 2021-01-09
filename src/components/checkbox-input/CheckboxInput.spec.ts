@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import CheckboxInput from './CheckboxInput.vue';
-import { FieldControl, CheckboxField, Validator, required } from '../../index';
+import { FieldControl, CheckboxField } from '../../index';
 
 describe('CheckboxInput', () => {
   let cmp;

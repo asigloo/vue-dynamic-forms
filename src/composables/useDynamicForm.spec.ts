@@ -1,17 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   CheckboxField,
   EmailField,
-  FieldControl,
   PasswordField,
   TextField,
 } from '@/core/factories';
-import { dynamicFormsSymbol } from '@/useApi';
-import { provide, ref } from 'vue';
 import { useDynamicForm } from './useDynamicForm';
 
 describe('UseDynamicForm', () => {
-  let form;
-  let ctx;
+  let form: any;
+  let ctx: any;
   beforeEach(() => {
     form = {
       id: 'login-demo',
