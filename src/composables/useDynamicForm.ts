@@ -9,11 +9,9 @@ import {
   FormOptions,
   DynamicForm,
 } from '@/core/models';
-import { dynamicFormsSymbol } from '@/useApi';
 import {
   computed,
   ComputedRef,
-  inject,
   nextTick,
   onMounted,
   ref,
@@ -33,16 +31,23 @@ interface DynamicFormComposition {
   isValid: ComputedRef<boolean>;
   normalizedControls: ComputedRef<Record<string, unknown>>;
   deNormalizedScopedSlots: ComputedRef<string[]>;
-  formattedOptions: ComputedRef<FormOptions>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formattedOptions: ComputedRef<any>;
   valueChange: (event: InputEvent) => void;
   onBlur: (event: InputEvent) => void;
   onValidate: (event: ValidationEvent) => void;
-  handleSubmit: (event: InputEvent) => void;
+  handleSubmit: () => void;
   validateAll: () => void;
+  mapControls: (empty?: boolean) => void;
+  findControlByName: (name: string | unknown) => FormControl<InputType>;
+  resetForm: () => void;
 }
 
-export function useDynamicForm(form: DynamicForm, ctx): DynamicFormComposition {
-  const { options } = inject(dynamicFormsSymbol);
+export function useDynamicForm(
+  form: DynamicForm,
+  ctx,
+  options?,
+): DynamicFormComposition {
   let cache = deepClone(toRaw(form.fields));
 
   const controls: Ref<FormControl<InputType>[]> = ref([]);
@@ -221,10 +226,10 @@ export function useDynamicForm(form: DynamicForm, ctx): DynamicFormComposition {
     await nextTick();
 
     if (isValid.value) {
-      ctx.emit('submitted', formValues);
+      ctx.emit('submitted', formValues.value);
       resetForm();
     } else {
-      ctx.emit('error', formValues);
+      ctx.emit('error', errors.value);
     }
   }
 
@@ -248,6 +253,7 @@ export function useDynamicForm(form: DynamicForm, ctx): DynamicFormComposition {
 
   return {
     controls,
+    mapControls,
     valueChange,
     formValues,
     handleSubmit,
@@ -260,5 +266,7 @@ export function useDynamicForm(form: DynamicForm, ctx): DynamicFormComposition {
     onValidate,
     forceValidation,
     validateAll,
+    findControlByName,
+    resetForm,
   };
 }

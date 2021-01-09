@@ -232,6 +232,9 @@ export default defineComponent({
           readonly: true,
         }),
       },
+      options: {
+        customClass: 'flex flex-wrap',
+      },
     }));
 
     function handleSubmit(values) {

@@ -36,12 +36,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, inject, PropType } from 'vue';
 
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
 import { DynamicForm } from '@/core/models';
 import { useDynamicForm } from '@/composables/useDynamicForm';
+import { dynamicFormsSymbol } from '@/useApi';
 
 const props = {
   form: {
@@ -61,6 +62,7 @@ export default defineComponent({
   props,
   components,
   setup(props, ctx) {
+    const { options } = inject(dynamicFormsSymbol);
     const {
       controls,
       valueChange,
@@ -74,7 +76,7 @@ export default defineComponent({
       onBlur,
       onValidate,
       forceValidation,
-    } = useDynamicForm(props.form as DynamicForm, ctx);
+    } = useDynamicForm(props.form as DynamicForm, ctx, options);
 
     return {
       controls,

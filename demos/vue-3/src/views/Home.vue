@@ -14,11 +14,12 @@
           :to="demo.route"
           class="p-4 block rounded-md bg-gray-200 text-gray-400 hover:bg-gray-300 hover:text-gray-500 transition-colors"
           ><p>{{ demo.name }}</p>
-          <ul class="flex mt-4" v-if="demo.tags?.length > 0">
-            <li v-for="(tag, $index) in demo.tags" :key="tag">
-              <span :class="['chip', `bg-${colors[$index]}-100`]">{{
-                tag
-              }}</span>
+          <ul class="flex flex-wrap mt-4" v-if="demo.tags?.length > 0">
+            <li v-for="tag in demo.tags" :key="tag">
+              <span
+                :class="['chip inline-block mb-2', `bg-${colorsMap[tag]}-100`]"
+                >{{ tag }}</span
+              >
             </li>
           </ul>
         </router-link>
@@ -36,7 +37,18 @@ export default defineComponent({
   name: 'Home',
   setup() {
     const demos = ref([]);
-    const colors = ref(['yellow', 'red', 'blue', 'green', 'yellow', 'gray']);
+    const colorsMap = ref({
+      'text-field': 'yellow',
+      'email-field': 'blue',
+      all: 'yellow',
+      'password-field': 'green',
+      'select-field': 'red',
+      'number-field': 'pink',
+      'textarea-field': 'purple',
+      'custom-field': 'indigo',
+      'radio-field': 'yellow',
+      'checkbox-field': 'blue',
+    });
 
     setTimeout(() => {
       demos.value = [
@@ -45,11 +57,12 @@ export default defineComponent({
           {
             name: 'General',
             route: '/general',
+            tags: ['all'],
           },
           {
             name: 'Text Fields',
             route: '/text-fields',
-            tags: ['text-field', 'email-input', 'password-input'],
+            tags: ['text-field', 'email-field', 'password-field'],
           },
           {
             name: 'Number Fields',
@@ -79,12 +92,12 @@ export default defineComponent({
           {
             name: 'Login',
             route: '/login',
-            tags: ['email-input', 'password-input'],
+            tags: ['email-field', 'password-field'],
           },
           {
             name: 'Custom Fields',
             route: '/custom-fields',
-            tags: ['custom-input'],
+            tags: ['custom-field'],
           },
         ],
       ];
@@ -113,7 +126,7 @@ export default defineComponent({
       beforeEnter,
       enter,
       leave,
-      colors,
+      colorsMap,
     };
   },
 });
