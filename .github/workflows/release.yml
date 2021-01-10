@@ -4,6 +4,7 @@ on:
     branches:
       - master
       - next
+jobs:
   release:
     name: Run test and Release
     runs-on: ubuntu-18.04
