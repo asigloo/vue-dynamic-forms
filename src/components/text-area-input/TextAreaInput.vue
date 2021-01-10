@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent, h, PropType } from 'vue';
 import { FormControl, TextAreaInput } from '@/core/models';
-import { useInputEvents } from '@/composables/input-events';
-import { useInputValidation } from '@/composables/use-validation';
+import { useInputEvents } from '@/composables/useInputEvents';
+import { useInputValidation } from '@/composables/useValidation';
 const props = {
   control: Object as PropType<FormControl<TextAreaInput>>,
   forceValidation: {
@@ -16,7 +16,10 @@ export default defineComponent({
   inheritAttrs: false,
   props,
   setup(props, { emit }) {
-    const { onInput, onChange, onFocus, onBlur } = useInputEvents(props, emit);
+    const { onInput, onChange, onFocus, onBlur, getClasses } = useInputEvents(
+      props,
+      emit,
+    );
     const {
       isRequired,
       errorMessages,
@@ -27,7 +30,7 @@ export default defineComponent({
       h('textarea', {
         id: props.control.name,
         name: props.control.name || '',
-        class: ['form-control'],
+        class: getClasses.value,
         value: props.control.value,
         rows: props.control.rows,
         cols: props.control.cols,
@@ -59,5 +62,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style></style>

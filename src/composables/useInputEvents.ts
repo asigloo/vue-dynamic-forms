@@ -2,20 +2,28 @@
 import { computed, ComputedRef, watch } from 'vue';
 import { hasValue } from '../core/utils/helpers';
 
-import { useInputValidation } from '@/composables/use-validation';
+import { useInputValidation } from '@/composables/useValidation';
 import { ValidationTriggerTypes } from '@/core/models';
 
 interface InputEventsComposition {
+  validate: (force: boolean) => void;
   onInput: ($event: Event) => void;
   onChange: ($event: Event) => void;
   onCheck: ($event: Event) => void;
   onFocus: () => void;
   onBlur: () => void;
   getClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
+  getCheckboxClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
+  getRadioClasses: ComputedRef<(string | { [key: string]: boolean })[]>;
 }
 
 export function useInputEvents(props, emit): InputEventsComposition {
-  const { validate, getValidationClasses } = useInputValidation(props, emit);
+  const {
+    validate,
+    getValidationClasses,
+    getCheckboxValidationClasses,
+    getRadioValidationClasses,
+  } = useInputValidation(props, emit);
 
   function onInput($event: Event): void {
     const element = $event.target as HTMLInputElement;
@@ -70,6 +78,18 @@ export function useInputEvents(props, emit): InputEventsComposition {
     return ['form-control', ...getValidationClasses.value];
   });
 
+  const getCheckboxClasses: ComputedRef<
+    (string | { [key: string]: boolean })[]
+  > = computed(() => {
+    return ['checkbox-group', ...getCheckboxValidationClasses.value];
+  });
+
+  const getRadioClasses: ComputedRef<
+    (string | { [key: string]: boolean })[]
+  > = computed(() => {
+    return ['radio-group', ...getRadioValidationClasses.value];
+  });
+
   watch(
     () => props?.control?.value,
     (curr, prev) => {
@@ -86,11 +106,14 @@ export function useInputEvents(props, emit): InputEventsComposition {
   );
 
   return {
+    validate,
     onFocus,
     onInput,
     onChange,
     onBlur,
     onCheck,
     getClasses,
+    getCheckboxClasses,
+    getRadioClasses,
   };
 }

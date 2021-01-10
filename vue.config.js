@@ -13,7 +13,7 @@ module.exports = {
   pages: {
     index: {
       title: 'Vue Dynamic Forms',
-      entry: 'dev/typescript/main.ts', // Typescript Demo
+      entry: 'demos/vue-3/src/main.ts', // Typescript Demo
       //  entry: 'dev/vue/main.js',
       template: 'public/index.html',
       filename: 'index.html',

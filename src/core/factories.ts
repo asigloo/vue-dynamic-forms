@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   InputBase,
   TextInput,
@@ -15,6 +16,7 @@ import {
   ValidationTriggerTypes,
   ValidationTrigger,
   TextAreaInput,
+  UrlInput,
 } from './models';
 
 const EMPTY_CONTROL = {
@@ -65,8 +67,8 @@ export const TextField = ({
 
 export const TextAreaField = ({
   value,
-  cols,
-  rows,
+  cols = 20,
+  rows = 3,
   ...rest
 }: Partial<TextAreaInput>): TextAreaInput => ({
   ...FieldBase(rest),
@@ -92,6 +94,12 @@ export const PasswordField = ({
   ...FieldBase(rest),
   value,
   type: FieldTypes.PASSWORD,
+});
+
+export const UrlField = ({ value, ...rest }: Partial<UrlInput>): UrlInput => ({
+  ...FieldBase(rest),
+  value,
+  type: FieldTypes.URL,
 });
 
 export const CheckboxField = ({

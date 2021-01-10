@@ -29,7 +29,7 @@ import {
 } from '@/core/models';
 
 import { isArray, isObject } from '@/core/utils/helpers';
-import { useInputEvents } from '@/composables/input-events';
+import { useInputEvents } from '@/composables/useInputEvents';
 
 const components = {
   TextInputComponent,
@@ -113,7 +113,7 @@ export default defineComponent({
 
     return () => {
       switch (props?.control?.type) {
-        case FieldTypes.TEXT:
+        case FieldTypes?.TEXT:
           component = h(
             TextInputComponent,
             attributes.value as ControlAttribute<TextInput>,

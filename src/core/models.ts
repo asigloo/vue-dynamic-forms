@@ -29,7 +29,7 @@ export interface DynamicForm {
   options?: FormOptions;
 }
 
-export const enum ValidationTriggerTypes {
+export enum ValidationTriggerTypes {
   BLUR = 'blur',
   CHANGE = 'change',
 }
@@ -53,7 +53,7 @@ export type BindingObject = {
 };
 
 export interface ValidatorFn {
-  (control: ControlValue | undefined): ValidationErrors | null;
+  (value: ControlValue | undefined): ValidationErrors | null;
 }
 
 export type ControlValue = string | number | boolean;
@@ -166,10 +166,10 @@ export interface FormOptions {
   method?: string;
   netlify?: boolean;
   netlifyHoneypot?: string;
-  autocomplete?: boolean;
+  autocomplete?: boolean | string;
 }
 
-export const enum FieldTypes {
+export enum FieldTypes {
   TEXT = 'text',
   TEXTAREA = 'textarea',
   SELECT = 'select',

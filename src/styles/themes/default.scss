@@ -14,6 +14,7 @@ $input-border-color: #e9ecef !default;
 $input-color: #495057 !default;
 $input-bg: #fff !default;
 $input-disabled-bg: #e9ecef;
+$input-disabled-text: #cecece;
 $input-border-radius: 0.25rem !default;
 
 $input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
@@ -135,6 +136,18 @@ $input-error-color: #dc3545 !default;
 .radio-label {
   user-select: none;
   font-size: 0.85rem;
+}
+
+.checkbox-control:disabled ~ .checkbox-label {
+  pointer-events: none;
+  cursor: not-allowed;
+  color: $input-disabled-text;
+}
+
+.radio-control:disabled ~ .radio-label {
+  pointer-events: none;
+  cursor: not-allowed;
+  color: $input-disabled-text;
 }
 
 .custom-form-wrapper {

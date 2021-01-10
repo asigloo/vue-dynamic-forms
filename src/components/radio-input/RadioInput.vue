@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent, h, PropType } from 'vue';
 import { FormControl, RadioInput } from '@/core/models';
-import { useInputEvents } from '@/composables/input-events';
-import { useInputValidation } from '@/composables/use-validation';
+import { useInputEvents } from '@/composables/useInputEvents';
+import { useInputValidation } from '@/composables/useValidation';
 
 const props = {
   control: Object as PropType<FormControl<RadioInput>>,
@@ -17,7 +17,13 @@ export default defineComponent({
   inheritAttrs: false,
   props,
   setup(props, { emit }) {
-    const { onChange, onInput, onFocus, onBlur } = useInputEvents(props, emit);
+    const {
+      onCheck,
+      onInput,
+      onFocus,
+      onBlur,
+      getRadioClasses,
+    } = useInputEvents(props, emit);
 
     const { errorMessages, isPendingValidation } = useInputValidation(
       props,
@@ -30,13 +36,14 @@ export default defineComponent({
           name: props?.control?.name || '',
           type: props?.control?.type,
           id: option.key,
-          disabled: option.disabled,
+          disabled: option.disabled || props?.control?.disabled,
+          checked: props.control.value === option.key,
           class: ['radio-control'],
-          value: option.value,
+          value: option.key,
           onFocus,
           onBlur,
           onInput,
-          onChange,
+          onCheck,
         }),
         h(
           'label',
@@ -52,7 +59,7 @@ export default defineComponent({
       h(
         'div',
         {
-          class: 'radio-group',
+          class: getRadioClasses.value,
           tabIndex: -1,
           role: 'group',
         },

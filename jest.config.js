@@ -1,9 +1,11 @@
 module.exports = {
-  moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'json', 'vue'],
+  verbose: true,
 
   transform: {
     '^.+\\.vue$': 'vue-jest',
-    '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.(js|jsx)?$': 'babel-jest',
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
     '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',
   },
@@ -20,7 +22,6 @@ module.exports = {
   ],
 
   testURL: 'http://localhost/',
-
   transformIgnorePatterns: ['/node_modules/'],
   modulePathIgnorePatterns: ['<rootDir>/templates/'],
 
@@ -28,6 +29,13 @@ module.exports = {
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',
   ],
+
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.vue'],
+  collectCoverageFrom: [
+    '<rootDir>/src/components/**/*.(vue|ts)',
+    '<rootDir>/src/composables/**/*.(vue|ts)',
+    '<rootDir>/src/core/**/*.(vue|ts)',
+  ],
+
+  preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
 };

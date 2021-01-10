@@ -10,7 +10,7 @@ export const required = (value: ControlValue): ValidationErrors => ({
   required: isEmptyInputValue(value) ? true : null,
 });
 
-export const min = (min: number) => (value: number): ValidationErrors => {
+export const min = (min: number) => (value: ControlValue): ValidationErrors => {
   if (isEmptyInputValue(value) || isEmptyInputValue(min)) {
     return { min: null }; // don't validate empty values to allow optional controls
   }
@@ -20,7 +20,7 @@ export const min = (min: number) => (value: number): ValidationErrors => {
   };
 };
 
-export const max = (max: number) => (value: number): ValidationErrors => {
+export const max = (max: number) => (value: ControlValue): ValidationErrors => {
   if (isEmptyInputValue(value) || isEmptyInputValue(max)) {
     return { max: null }; // don't validate empty values to allow optional controls
   }
@@ -28,18 +28,18 @@ export const max = (max: number) => (value: number): ValidationErrors => {
   // Controls with NaN values after parsing should be treated as not having a
   // maximum, per the HTML forms spec: https://www.w3.org/TR/html5/forms.html#attr-input-max
   return {
-    max: !isNaN(maxValue) && maxValue < max ? { max, actual: +maxValue } : null,
+    max: !isNaN(maxValue) && maxValue > max ? { max, actual: +maxValue } : null,
   };
 };
 
-export const email = (value: string): ValidationErrors => {
+export const email = (value: ControlValue): ValidationErrors => {
   if (isEmptyInputValue(value)) {
     return { email: null }; // don't validate empty values to allow optional controls
   }
   return { email: EMAIL_REGEXP.test(`${value}`) ? null : true };
 };
 
-export const url = (value: string): ValidationErrors => {
+export const url = (value: ControlValue): ValidationErrors => {
   if (isEmptyInputValue(value)) {
     return { url: null }; // don't validate empty values to allow optional controls
   }
@@ -47,7 +47,7 @@ export const url = (value: string): ValidationErrors => {
 };
 
 export const minLength = (minLength: number) => (
-  value: string,
+  value: ControlValue,
 ): ValidationErrors => {
   if (isEmptyInputValue(value)) {
     return { minLength: null }; // don't validate empty values to allow optional controls
@@ -63,7 +63,7 @@ export const minLength = (minLength: number) => (
 };
 
 export const maxLength = (maxLength: number) => (
-  value: string,
+  value: ControlValue,
 ): ValidationErrors => {
   if (isEmptyInputValue(value)) {
     return { maxLength: null }; // don't validate empty values to allow optional controls
