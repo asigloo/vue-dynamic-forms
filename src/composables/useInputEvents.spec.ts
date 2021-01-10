@@ -1,5 +1,4 @@
-import { FieldControl, TextField, Validator } from '@/core/factories';
-import { required } from '@/core/utils/validators';
+import { FieldControl, TextField } from '@/core/factories';
 import { useInputEvents } from './useInputEvents';
 
 describe('UseInputEvents', () => {
