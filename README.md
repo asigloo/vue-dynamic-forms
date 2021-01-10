@@ -1,16 +1,16 @@
 ![Library Banner](https://res.cloudinary.com/alvarosaburido/image/upload/v1589993773/portfolio/web/vue-dynamic-forms/open-graph-preview_kv4glm.png)
 
-# Vue Dynamic Forms
+# Vue `3.x.x` Dynamic Forms
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@asigloo/vue-dynamic-forms">
-    <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms" alt="Current npm version">
+    <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms/next" alt="Current npm version">
   </a>
   <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms@latest">
     <img src="https://flat.badgen.net/bundlephobia/min/@asigloo/vue-dynamic-forms" alt="Minified size">
   </a>
   <a href="https://vuejs.org">
-    <img src="https://flat.badgen.net/badge/vue.js/2.6.x/4fc08d?icon=github" alt="Vue.js version">
+    <img src="https://flat.badgen.net/badge/vue.js/3.x.x/4fc08d?icon=github" alt="Vue.js version">
   </a>
 </p>
 
@@ -23,18 +23,19 @@ Especially if you need to create a very large form, in which the inputs are simi
 
 So, wouldn't it be more economical to create the forms dynamically? Based on metadata that describes the business object model?
 
-That's Vue Dynamic Forms.
+That's **Vue Dynamic Forms**.
 
-## Vue support
+## Status: Stable
 
-This is the Vue `2.x.x` compatible version. For the Vue `3.x.x` and Typescript support, please use the version available in the branch [next](https://github.com/alvarosaburido/vue-dynamic-forms/tree/next).
+This is the Vue `3.x.x` compatible version. Out of the box `Typescript` support, three shakeable, improved accesiility and be lighter in size. For Vue `2.x.x` please use the library tags [2.x](https://github.com/alvarosaburido/vue-dynamic-forms/tree/2.x).
 
 ## Documentation
 
 Complete documentation and examples available at
 
 - **[Documentation](https://vue-dynamic-forms.netlify.app)**
-- **[Sandbox Demo](https://codesandbox.io/s/vue-dynamic-forms-ftzes)**
+- **[Demos](#demos)**
+- **Migration Guide** (soon)
 
 ## Installation
 
@@ -50,33 +51,104 @@ $ yarn add @asigloo/vue-dynamic-forms
 
 ## Usage
 
-### Global
+The installation and usage has change to align with new Vue 3 plugin process.
 
-Register the component globally in your `main.js`:
-
-```js
-import Vue from 'vue';
-import VueDynamicForms from '@asigloo/vue-dynamic-forms';
-
-Vue.use(VueDynamicForms);
-```
-
-### Local
-
-You can include the dynamic form directly to your component.
+To create a new `Dynamic Form` instance, use the `createDynamicForms` function;
 
 ```js
-import Vue from 'vue';
-import { DynamicForm } from '@asigloo/vue-dynamic-forms';
+import { createApp } from 'vue';
+import { createDynamicForms } from '@asigloo/vue-dynamic-forms';
 
-const components = { DynamicForm };
+const VueDynamicForms = createDynamicForms();
 
-export {
-    ...
-    components,
-    ...
-}
+export const app = createApp(App);
+
+app.use(VueDynamicForms);
 ```
+
+In your component:
+
+```vue
+<template>
+  <dynamic-form :form="form" @change="valueChanged" />
+</template>
+
+<script lang="ts">
+import { computed, defineComponent, reactive } from 'vue';
+
+import {
+  CheckboxField,
+  TextField,
+  SelectField,
+} from '@asigloo/vue-dynamic-forms';
+
+export default defineComponent({
+  name: 'BasicDemo',
+  setup() {
+    const form = computed(() => ({
+      id: 'basic-demo',
+      fields: {
+        username: TextField({
+          label: 'Username',
+        }),
+        games: SelectField({
+          label: 'Games',
+          options: [
+            {
+              value: 'the-last-of-us',
+              label: 'The Last of Us II',
+            },
+            {
+              value: 'death-stranding',
+              label: 'Death Stranding',
+            },
+            {
+              value: 'nier-automata',
+              label: 'Nier Automata',
+            },
+          ],
+        }),
+        checkIfAwesome: CheckboxField({
+          label: 'Remember Me',
+        }),
+      },
+    }));
+
+    function valueChanged(values) {
+      console.log('Values', values);
+    }
+
+    return {
+      form,
+      valueChanged,
+    };
+  },
+});
+</script>
+```
+
+## Demos
+
+![Vue Dynamic Forms Demo](https://res.cloudinary.com/alvarosaburido/image/upload/v1610265908/vue-dynamic-forms-demo.png)
+
+We've prepared some demos to show different use cases of the library and how to use each type of input field.
+
+To check them just run the command bellow which run the app at `http://localhost:6044/ `
+
+```
+yarn run serve
+```
+
+- [x] General Form
+- [x] Text Fields
+- [x] Number Fields
+- [x] Select Fields
+- [x] Textarea Fields
+- [x] Radio Fields
+- [x] Login
+- [x] Custom Fields
+- [ ] Axios form (Retrieve form structure from an API)
+- [ ] TailwindCSS styling
 
 ## Development
 
@@ -98,10 +170,10 @@ yarn run serve
 yarn run build
 ```
 
-### Run your tests
+### Generate types
 
 ```
-yarn run test
+yarn run build:dts
 ```
 
 ### Lints and fixes files
@@ -113,7 +185,13 @@ yarn run lint
 ### Run your unit tests
 
 ```
-yarn run test:unit
+yarn run test
+```
+
+### Run your e2e tests
+
+```
+yarn run test
 ```
 
 ## Contributing
@@ -122,13 +200,7 @@ If you find this library useful and you want to help improve it, maintain it or 
 
 ## Todolist
 
-This are the features I have planned for next versions of this library
-
-- [x] Material theme
-- [ ] Form Mixins for fields manipulation (for example, change values of a field depending of other)
-- [ ] More complex input types.
-- [x] Nuxt plugin istall
-- [x] Better docs & online examples
+- [] Update docs
 
 ## License
 

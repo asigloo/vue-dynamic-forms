@@ -14,6 +14,7 @@ $input-border-color: #e9ecef !default;
 $input-color: #495057 !default;
 $input-bg: #fff !default;
 $input-disabled-bg: #e9ecef;
+$input-disabled-text: #cecece;
 $input-border-radius: 0.25rem !default;
 
 $input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
@@ -32,6 +33,7 @@ $input-focus-box-shadow: $input-box-shadow !default;
 
 $enable-shadows: true !default;
 
+$input-success-color: #28a745 !default;
 $input-error-color: #dc3545 !default;
 
 // Form groups
@@ -50,8 +52,6 @@ $input-error-color: #dc3545 !default;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
   width: 100%;
   margin-bottom: 1rem;
 
@@ -59,18 +59,13 @@ $input-error-color: #dc3545 !default;
     order: 2;
   }
 
-  &--error {
-    .form-label {
-      color: $input-error-color;
-    }
-
-    .form-control {
-      border-color: $input-error-color;
-      background-color: lighten($input-error-color, 40);
-    }
+  &--inline {
+    flex-direction: row;
+    align-items: center;
   }
 
-  .error {
+  .form-error {
+    margin-top: 10px;
     font-size: 11px;
 
     color: $input-error-color;
@@ -90,6 +85,16 @@ $input-error-color: #dc3545 !default;
   border: $input-border-width solid $input-border-color;
   border-radius: $input-border-radius;
   box-shadow: $input-box-shadow;
+
+  &--success {
+    border-color: $input-success-color !important;
+    background-color: lighten($input-success-color, 50);
+  }
+
+  &--error {
+    border-color: $input-error-color !important;
+    background-color: lighten($input-error-color, 40);
+  }
 
   &:not(textarea) {
     height: $input-height;
@@ -120,4 +125,31 @@ $input-error-color: #dc3545 !default;
       box-shadow: $input-focus-box-shadow;
     }
   }
+}
+
+.checkbox-control,
+.radio-control {
+  margin-right: 1rem;
+}
+
+.checkbox-label,
+.radio-label {
+  user-select: none;
+  font-size: 0.85rem;
+}
+
+.checkbox-control:disabled ~ .checkbox-label {
+  pointer-events: none;
+  cursor: not-allowed;
+  color: $input-disabled-text;
+}
+
+.radio-control:disabled ~ .radio-label {
+  pointer-events: none;
+  cursor: not-allowed;
+  color: $input-disabled-text;
+}
+
+.custom-form-wrapper {
+  order: 2;
 }

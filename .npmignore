@@ -2,13 +2,20 @@
 .vuegenerator
 .eslintrc.js
 .eslintignore
+.nyc_output
+.husky
 netlify.toml
 jest.config.js
 babel.config.js
 vue.config.js
 postcss.config.js
+api-extractor.json
+renovate.json
+rollup.config.js
+tailwind.config.js
 .prettierrc
 .git
+.prettierignore
 **/.git/
 **/node_modules/
 yarn.lock
@@ -18,3 +25,5 @@ yarn.lock
 /coverage
 /.vscode
 /tests
+/temp
+/templates
