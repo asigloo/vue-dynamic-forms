@@ -6,6 +6,7 @@ import { useInputValidation } from '@/composables/useValidation';
 import { ValidationTriggerTypes } from '@/core/models';
 
 interface InputEventsComposition {
+  validate: (force: boolean) => void;
   onInput: ($event: Event) => void;
   onChange: ($event: Event) => void;
   onCheck: ($event: Event) => void;
@@ -105,6 +106,7 @@ export function useInputEvents(props, emit): InputEventsComposition {
   );
 
   return {
+    validate,
     onFocus,
     onInput,
     onChange,

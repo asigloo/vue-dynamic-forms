@@ -31,6 +31,11 @@ module.exports = {
   ],
 
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.(vue|ts)'],
+  collectCoverageFrom: [
+    '<rootDir>/src/components/**/*.(vue|ts)',
+    '<rootDir>/src/composables/**/*.(vue|ts)',
+    '<rootDir>/src/core/**/*.(vue|ts)',
+  ],
+
   preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
 };
