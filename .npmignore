@@ -2,6 +2,7 @@
 .vuegenerator
 .eslintrc.js
 .eslintignore
+.nyc_output
 .husky
 netlify.toml
 jest.config.js
@@ -25,3 +26,4 @@ yarn.lock
 /.vscode
 /tests
 /temp
+/templates

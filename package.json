@@ -5,6 +5,7 @@
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "build:demo": "vue-cli-service build",
     "build": "rollup -c rollup.config.js",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
