@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@asigloo/vue-dynamic-forms">
-    <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms/next" alt="Current npm version">
+    <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms" alt="Current npm version">
   </a>
   <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms@latest">
     <img src="https://flat.badgen.net/bundlephobia/min/@asigloo/vue-dynamic-forms" alt="Minified size">
