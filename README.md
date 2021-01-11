@@ -4,11 +4,13 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@asigloo/vue-dynamic-forms">
-    <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms/next" alt="Current npm version">
+    <img src="https://badgen.net/npm/v/@asigloo/vue-dynamic-forms" alt="Current npm version">
   </a>
+
   <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms">
     <img src="https://flat.badgen.net/bundlephobia/min/@asigloo/vue-dynamic-forms" alt="Minified size">
-  </a>
+   </a>
+  
   <a href="https://vuejs.org">
     <img src="https://flat.badgen.net/badge/vue.js/3.x.x/4fc08d?icon=github" alt="Vue.js version">
   </a>
@@ -34,7 +36,7 @@ This is the Vue `3.x.x` compatible version. Out of the box `Typescript` support,
 Complete documentation and examples available at
 
 - **[Documentation](https://vue-dynamic-forms.netlify.app)**
-- **[Demos](#demos)**
+- **[Demos](#demos)** or if you prefer online [here](https://vue-dynamic-forms.netlify.app/)
 - **Migration Guide** (soon)
 
 ## Installation
@@ -51,7 +53,7 @@ $ yarn add @asigloo/vue-dynamic-forms
 
 ## Usage
 
-The installation and usage has change to align with new Vue 3 plugin process.
+The installation and usage has change to align with new Vue 3 plugin installation.
 
 To create a new `Dynamic Form` instance, use the `createDynamicForms` function;
 
