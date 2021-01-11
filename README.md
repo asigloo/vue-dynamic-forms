@@ -37,7 +37,7 @@ Complete documentation and examples available at
 
 - **[Documentation](https://vue-dynamic-forms.netlify.app)**
 - **[Demos](#demos)** or if you prefer online [here](https://vue-dynamic-forms.netlify.app/)
-- **Migration Guide** (soon)
+- **[Migration Guide](https://vue-dynamic-forms-docs.netlify.app/v3/guide/migration-guide.html)**
 
 ## Installation
 
@@ -87,7 +87,7 @@ import {
 export default defineComponent({
   name: 'BasicDemo',
   setup() {
-    const form = computed(() => ({
+    const form = ref({
       id: 'basic-demo',
       fields: {
         username: TextField({
@@ -114,7 +114,7 @@ export default defineComponent({
           label: 'Remember Me',
         }),
       },
-    }));
+    });
 
     function valueChanged(values) {
       console.log('Values', values);
@@ -202,7 +202,7 @@ If you find this library useful and you want to help improve it, maintain it or 
 
 ## Todolist
 
-- [] Update docs
+- [ ] Update docs
 
 ## License
 
