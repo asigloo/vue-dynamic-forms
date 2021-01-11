@@ -10,6 +10,7 @@ import vue from 'rollup-plugin-vue';
 import alias from '@rollup/plugin-alias';
 import bundleSize from 'rollup-plugin-bundle-size';
 import analyze from 'rollup-plugin-analyzer';
+import copy from 'rollup-plugin-copy';
 
 import pkg from './package.json';
 const name = 'as-dynamic-forms';
@@ -93,6 +94,9 @@ function createConfig(format, output, plugins = []) {
       }),
       tsPlugin,
       vue(),
+      copy({
+        targets: [{ src: 'src/styles/themes/**/*', dest: 'dist/themes' }],
+      }),
       createReplacePlugin(
         isProductionBuild,
         isBundlerESMBuild,
