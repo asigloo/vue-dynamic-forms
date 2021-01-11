@@ -27,3 +27,6 @@ yarn.lock
 /tests
 /temp
 /templates
+/demos
+/src
+.github
