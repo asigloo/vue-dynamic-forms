@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, PropType } from 'vue';
+import { defineComponent, inject, PropType, watch } from 'vue';
 
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
@@ -76,8 +76,18 @@ export default defineComponent({
       onBlur,
       onValidate,
       forceValidation,
+      detectChanges,
     } = useDynamicForm(props.form as DynamicForm, ctx, options);
 
+    watch(
+      () => props.form.fields,
+      fields => {
+        detectChanges(fields);
+      },
+      {
+        deep: true,
+      },
+    );
     return {
       controls,
       valueChange,

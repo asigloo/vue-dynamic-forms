@@ -41,6 +41,7 @@ interface DynamicFormComposition {
   mapControls: (empty?: boolean) => void;
   findControlByName: (name: string | unknown) => FormControl<InputType>;
   resetForm: () => void;
+  detectChanges: (fields: any) => void;
 }
 
 export function useDynamicForm(
@@ -216,7 +217,7 @@ export function useDynamicForm(
         });
       }
     });
-    cache = deepClone(toRaw(form.fields));
+    cache = deepClone(toRaw(fields));
   }
 
   function resetForm() {
@@ -241,16 +242,6 @@ export function useDynamicForm(
     forceValidation.value = true;
   }
 
-  watch(
-    () => form.fields,
-    fields => {
-      detectChanges(fields);
-    },
-    {
-      deep: true,
-    },
-  );
-
   onMounted(() => {
     mapControls();
   });
@@ -272,5 +263,6 @@ export function useDynamicForm(
     validateAll,
     findControlByName,
     resetForm,
+    detectChanges,
   };
 }

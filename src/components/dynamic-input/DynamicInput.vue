@@ -71,7 +71,7 @@ export default defineComponent({
     const attributes = computed(() => {
       return {
         control: props?.control,
-        style: props?.control.customStyles,
+
         onChange: valueChange,
         onBlur: (e: InputEvent) => emit('blur', e),
         onFocus: (e: InputEvent) => emit('focus', e),
@@ -203,6 +203,7 @@ export default defineComponent({
         isFieldSet.value ? 'fieldset' : 'div',
         {
           class: getClasses.value,
+          style: props?.control.customStyles,
           role: isFieldSet.value ? undefined : 'group',
         },
         [

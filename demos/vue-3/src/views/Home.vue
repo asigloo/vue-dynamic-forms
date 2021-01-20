@@ -99,6 +99,11 @@ export default defineComponent({
             route: '/custom-fields',
             tags: ['custom-field'],
           },
+          {
+            name: 'Toggle Visibility',
+            route: '/toggle-visibility',
+            tags: ['visibility', 'custom-class', 'custom-styles'],
+          },
         ],
       ];
     }, 1000);
