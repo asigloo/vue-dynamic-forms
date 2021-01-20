@@ -7,7 +7,7 @@ import {
   ValidationEvent,
   InputEvent,
   DynamicForm,
-  InputBase,
+  FormFields,
 } from '@/core/models';
 import {
   computed,
@@ -41,7 +41,7 @@ interface DynamicFormComposition {
   mapControls: (empty?: boolean) => void;
   findControlByName: (name: string | unknown) => FormControl<InputType>;
   resetForm: () => void;
-  detectChanges: (fields: InputBase[]) => void;
+  detectChanges: (fields: FormFields) => void;
 }
 
 export function useDynamicForm(
