@@ -92,10 +92,21 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "campaigns" */ '../views/Login.vue'),
   },
+  {
+    path: '/toggle-visibility',
+    name: 'Toggle Visibility',
+    meta: {
+      title: 'Toggle Visibility',
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "toggle-visibility" */ '../views/ToggleVisibility.vue'
+      ),
+  },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 });
 
