@@ -7,6 +7,7 @@ import {
   ValidationEvent,
   InputEvent,
   DynamicForm,
+  InputBase,
 } from '@/core/models';
 import {
   computed,
@@ -16,7 +17,6 @@ import {
   ref,
   Ref,
   toRaw,
-  watch,
 } from 'vue';
 import { deepClone, hasValue, removeEmpty } from '@/core/utils/helpers';
 import { FieldControl } from '@/core/factories';
@@ -41,7 +41,7 @@ interface DynamicFormComposition {
   mapControls: (empty?: boolean) => void;
   findControlByName: (name: string | unknown) => FormControl<InputType>;
   resetForm: () => void;
-  detectChanges: (fields: any) => void;
+  detectChanges: (fields: InputBase[]) => void;
 }
 
 export function useDynamicForm(
