@@ -10,7 +10,7 @@
   <a href="https://bundlephobia.com/result?p=@asigloo/vue-dynamic-forms">
     <img src="https://flat.badgen.net/bundlephobia/min/@asigloo/vue-dynamic-forms" alt="Minified size">
    </a>
-  
+
   <a href="https://vuejs.org">
     <img src="https://flat.badgen.net/badge/vue.js/3.x.x/4fc08d?icon=github" alt="Vue.js version">
   </a>
@@ -35,9 +35,9 @@ This is the Vue `3.x.x` compatible version. Out of the box `Typescript` support,
 
 Complete documentation and examples available at
 
-- **[Documentation](https://vue-dynamic-forms.netlify.app)**
-- **[Demos](#demos)** or if you prefer online [here](https://vue-dynamic-forms.netlify.app/)
-- **[Migration Guide](https://vue-dynamic-forms-docs.netlify.app/v3/guide/migration-guide.html)**
+- **[Documentation](https://vue-dynamic-forms.alvarosaburido.dev/)**
+- **[Demos](#demos)** or if you prefer online [here](https://vue-dynamic-forms-demos.alvarosaburido.dev/)
+- **[Migration Guide](https://vue-dynamic-forms.alvarosaburido.dev/v3/guide/migration-guide.html)**
 
 ## Installation
 

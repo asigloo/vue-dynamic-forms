@@ -12,7 +12,7 @@
       <li class="p-4 w-full sm:w-1/2" v-for="demo in demos" :key="demo.name">
         <router-link
           :to="demo.route"
-          class="p-4 block rounded-md bg-gray-200 text-gray-400 hover:bg-gray-300 hover:text-gray-500 transition-colors"
+          class="p-4 block rounded-md border border-gray-200 hover:border-green-400 transition-colors"
           ><p>{{ demo.name }}</p>
           <ul class="flex flex-wrap mt-4" v-if="demo.tags?.length > 0">
             <li v-for="tag in demo.tags" :key="tag">
