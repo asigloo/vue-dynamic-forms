@@ -188,6 +188,17 @@ describe('UseDynamicForm', () => {
       rememberMe: true,
     });
   });
+  // TODO: check this after on how to spy on functions  inside functions
+  /*
+  it('should reset form after valid form submission', async () => {
+    const { mapControls, handleSubmit, resetForm } = useDynamicForm(form, ctx);
+    const spy = jest.spyOn({ resetForm }, 'resetForm');
+    mapControls();
+
+    await handleSubmit();
+
+    expect(spy).toHaveBeenCalled();
+  }); */
 
   it('should emit error event with errors if hadleSubmit is called and is form is invalid ', async () => {
     const spy = jest.spyOn(ctx, 'emit');

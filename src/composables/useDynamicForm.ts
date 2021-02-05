@@ -60,9 +60,9 @@ export function useDynamicForm(
 
   const controls: Ref<FormControl<InputType>[]> = ref([]);
   const formOptions: Ref<FormOptions> = ref({
+    resetAfterSubmit: true,
     ...options?.form,
     ...form?.options,
-    resetAfterSubmit: true,
   });
   const forceValidation = ref(false);
 
