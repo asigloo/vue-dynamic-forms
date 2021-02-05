@@ -167,6 +167,7 @@ export interface FormOptions {
   netlify?: boolean;
   netlifyHoneypot?: string;
   autocomplete?: boolean | string;
+  resetAfterSubmit?: boolean;
 }
 
 export enum FieldTypes {

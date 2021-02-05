@@ -103,6 +103,17 @@ const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "toggle-visibility" */ '../views/ToggleVisibility.vue'
       ),
   },
+  {
+    path: '/reset-after-submit',
+    name: 'Reset after submit',
+    meta: {
+      title: 'Reset after submit',
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "reset-after-submit" */ '../views/ResetAfterSubmit.vue'
+      ),
+  },
 ];
 
 const router = createRouter({

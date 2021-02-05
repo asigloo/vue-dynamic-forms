@@ -77,12 +77,23 @@ export default defineComponent({
       onValidate,
       forceValidation,
       detectChanges,
+      onOptionsChanged,
     } = useDynamicForm(props.form as DynamicForm, ctx, options);
 
     watch(
       () => props.form.fields,
       fields => {
         detectChanges(fields);
+      },
+      {
+        deep: true,
+      },
+    );
+
+    watch(
+      () => props.form.options,
+      options => {
+        onOptionsChanged(options);
       },
       {
         deep: true,

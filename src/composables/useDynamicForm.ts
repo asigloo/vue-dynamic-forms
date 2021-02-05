@@ -8,6 +8,7 @@ import {
   InputEvent,
   DynamicForm,
   FormFields,
+  FormOptions,
 } from '@/core/models';
 import {
   computed,
@@ -27,6 +28,7 @@ interface DynamicFormComposition {
   controls: Ref<FormControl<InputType>[]>;
   forceValidation: Ref<boolean>;
   formValues: ComputedRef<(string | { [key: string]: boolean })[]>;
+  formOptions: Ref<FormOptions>;
   errors: ComputedRef<Record<string, unknown>>;
   isValid: ComputedRef<boolean>;
   normalizedControls: ComputedRef<Record<string, unknown>>;
@@ -42,6 +44,7 @@ interface DynamicFormComposition {
   findControlByName: (name: string | unknown) => FormControl<InputType>;
   resetForm: () => void;
   detectChanges: (fields: FormFields) => void;
+  onOptionsChanged: (options: FormOptions) => void;
 }
 
 export function useDynamicForm(
@@ -56,6 +59,11 @@ export function useDynamicForm(
   let cache = deepClone(toRaw(form.fields));
 
   const controls: Ref<FormControl<InputType>[]> = ref([]);
+  const formOptions: Ref<FormOptions> = ref({
+    ...options?.form,
+    ...form?.options,
+    resetAfterSubmit: true,
+  });
   const forceValidation = ref(false);
 
   const deNormalizedScopedSlots = computed(() => Object.keys(ctx.slots));
@@ -107,10 +115,7 @@ export function useDynamicForm(
   });
 
   const formattedOptions = computed(() => {
-    const opts = {
-      ...options?.form,
-      ...form?.options,
-    };
+    const opts = formOptions.value;
 
     if (opts) {
       const {
@@ -220,6 +225,10 @@ export function useDynamicForm(
     cache = deepClone(toRaw(fields));
   }
 
+  function onOptionsChanged(changes) {
+    Object.assign(formOptions.value, changes);
+  }
+
   function resetForm() {
     mapControls(true);
     forceValidation.value = false;
@@ -232,7 +241,9 @@ export function useDynamicForm(
 
     if (isValid.value) {
       ctx.emit('submitted', formValues.value);
-      resetForm();
+      if (formOptions.value.resetAfterSubmit) {
+        resetForm();
+      }
     } else {
       ctx.emit('error', errors.value);
     }
@@ -251,6 +262,7 @@ export function useDynamicForm(
     mapControls,
     valueChange,
     formValues,
+    formOptions,
     handleSubmit,
     isValid,
     errors,
@@ -264,5 +276,6 @@ export function useDynamicForm(
     findControlByName,
     resetForm,
     detectChanges,
+    onOptionsChanged,
   };
 }

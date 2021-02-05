@@ -60,6 +60,11 @@ export default defineComponent({
             tags: ['all'],
           },
           {
+            name: 'Basic',
+            route: '/basic',
+            tags: ['text-field', 'select-field', 'checkbox-field'],
+          },
+          {
             name: 'Text Fields',
             route: '/text-fields',
             tags: ['text-field', 'email-field', 'password-field'],
@@ -103,6 +108,11 @@ export default defineComponent({
             name: 'Toggle Visibility',
             route: '/toggle-visibility',
             tags: ['visibility', 'custom-class', 'custom-styles'],
+          },
+          {
+            name: 'Reset after Submit',
+            route: '/reset-after-submit',
+            tags: ['submit', 'reset-forms'],
           },
         ],
       ];
