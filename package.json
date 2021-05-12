@@ -59,7 +59,7 @@
     "is-ci": "^2.0.0",
     "node-sass": "5.0.0",
     "pinst": "^2.1.1",
-    "postcss": "^7.0.35",
+    "postcss": "^8.2.10",
     "prettier": "2.2.0",
     "rollup": "^2.33.3",
     "rollup-plugin-analyzer": "^3.3.0",
