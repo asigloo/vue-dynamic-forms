@@ -39,7 +39,7 @@ Complete documentation and examples available at
 - **[Demos](#demos)** or if you prefer online [here](https://vue-dynamic-forms-demos.alvarosaburido.dev/)
 - **[Migration Guide](https://vue-dynamic-forms.alvarosaburido.dev/v3/guide/migration-guide.html)**
 
-## You can Help me keep working on this project 💚
+## You can help me keep working on this project 💚
 
 - [Become a Sponsor on GitHub](https://github.com/sponsors/alvarosaburido)
 - [One-time donation via PayPal](https://paypal.me/alvarosaburido)
