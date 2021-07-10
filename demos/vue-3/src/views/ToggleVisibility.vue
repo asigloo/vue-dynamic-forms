@@ -2,7 +2,17 @@
   <div class="page container">
     <div class="mx-auto w-full sm:w-1/2 relative mb-24">
       <div
-        class="absolute inset-0 bg-gradient-to-r from-blue-400 to-green-200 shadow-xl transform -skew-y-3 sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl"
+        class="
+          absolute
+          inset-0
+          bg-gradient-to-r
+          from-blue-400
+          to-green-200
+          shadow-xl
+          transform
+          -skew-y-3
+          sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl
+        "
       ></div>
       <div class="relative card p-6 bg-white">
         <dynamic-form
@@ -26,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { CheckboxField, TextField } from '@/';
+import { CheckboxField, TextField } from '/@/';
 import { computed, defineComponent, reactive } from 'vue';
 import Console from '../components/Console.vue';
 

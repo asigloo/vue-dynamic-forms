@@ -1,4 +1,4 @@
-import { FieldControl, TextField } from '@/core/factories';
+import { FieldControl, TextField } from '/@/core/factories';
 import { useInputEvents } from './useInputEvents';
 
 describe('UseInputEvents', () => {

@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent, h, PropType } from 'vue';
-import { FormControl, TextAreaInput } from '@/core/models';
-import { useInputEvents } from '@/composables/useInputEvents';
-import { useInputValidation } from '@/composables/useValidation';
+import { FormControl, TextAreaInput } from '/@/core/models';
+import { useInputEvents } from '/@/composables/useInputEvents';
+import { useInputValidation } from '/@/composables/useValidation';
 const props = {
   control: Object as PropType<FormControl<TextAreaInput>>,
   forceValidation: {
@@ -20,11 +20,8 @@ export default defineComponent({
       props,
       emit,
     );
-    const {
-      isRequired,
-      errorMessages,
-      isPendingValidation,
-    } = useInputValidation(props, emit);
+    const { isRequired, errorMessages, isPendingValidation } =
+      useInputValidation(props, emit);
 
     return () => [
       h('textarea', {

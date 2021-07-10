@@ -1,6 +1,6 @@
-import { useInputValidation } from '@/composables/useValidation';
-import { FieldControl, TextField, Validator } from '@/core/factories';
-import { required } from '@/core/utils/validators';
+import { useInputValidation } from '/@/composables/useValidation';
+import { FieldControl, TextField, Validator } from '/@/core/factories';
+import { required } from '/@/core/utils/validators';
 
 describe('UseValidation', () => {
   let props;

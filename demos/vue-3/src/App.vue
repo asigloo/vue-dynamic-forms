@@ -1,10 +1,3 @@
-<template>
-  <div id="app">
-    <Toolbar />
-    <router-view />
-  </div>
-</template>
-
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Toolbar from './components/Toolbar.vue';
@@ -18,3 +11,9 @@ export default defineComponent({
   components,
 });
 </script>
+<template>
+  <div id="app">
+    <Toolbar />
+    <router-view />
+  </div>
+</template>

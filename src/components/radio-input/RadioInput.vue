@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent, h, PropType } from 'vue';
-import { FormControl, RadioInput } from '@/core/models';
-import { useInputEvents } from '@/composables/useInputEvents';
-import { useInputValidation } from '@/composables/useValidation';
+import { FormControl, RadioInput } from '/@/core/models';
+import { useInputEvents } from '/@/composables/useInputEvents';
+import { useInputValidation } from '/@/composables/useValidation';
 
 const props = {
   control: Object as PropType<FormControl<RadioInput>>,
@@ -17,13 +17,8 @@ export default defineComponent({
   inheritAttrs: false,
   props,
   setup(props, { emit }) {
-    const {
-      onCheck,
-      onInput,
-      onFocus,
-      onBlur,
-      getRadioClasses,
-    } = useInputEvents(props, emit);
+    const { onCheck, onInput, onFocus, onBlur, getRadioClasses } =
+      useInputEvents(props, emit);
 
     const { errorMessages, isPendingValidation } = useInputValidation(
       props,

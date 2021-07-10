@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent, h, PropType } from 'vue';
-import { FormControl, CheckboxInput } from '@/core/models';
-import { useInputEvents } from '@/composables/useInputEvents';
-import { useInputValidation } from '@/composables/useValidation';
+import { FormControl, CheckboxInput } from '/@/core/models';
+import { useInputEvents } from '/@/composables/useInputEvents';
+import { useInputValidation } from '/@/composables/useValidation';
 
 const props = {
   control: Object as PropType<FormControl<CheckboxInput>>,
@@ -22,11 +22,8 @@ export default defineComponent({
       emit,
     );
 
-    const {
-      errorMessages,
-      isPendingValidation,
-      isRequired,
-    } = useInputValidation(props, emit);
+    const { errorMessages, isPendingValidation, isRequired } =
+      useInputValidation(props, emit);
 
     const requiredStar = h(
       'span',

@@ -40,9 +40,9 @@ import { defineComponent, inject, PropType, watch } from 'vue';
 
 import DynamicInput from '../dynamic-input/DynamicInput.vue';
 
-import { DynamicForm } from '@/core/models';
-import { useDynamicForm } from '@/composables/useDynamicForm';
-import { dynamicFormsSymbol } from '@/useApi';
+import { DynamicForm } from '/@/core/models';
+import { useDynamicForm } from '/@/composables/useDynamicForm';
+import { dynamicFormsSymbol } from '/@/useApi';
 
 const props = {
   form: {
