@@ -51,7 +51,7 @@ This section can be blank if this pull request does not require a release note.
 
 When adding links which point to resources within git repositories, like
 KEPs or supporting documentation, please reference a specific commit and avoid
-linking directly to the master branch. This ensures that links reference a
+linking directly to the main branch. This ensures that links reference a
 specific point in time, rather than a document that may change over time.
 
 See here for guidance on getting permanent links to files: https://help.github.com/en/articles/getting-permanent-links-to-files
