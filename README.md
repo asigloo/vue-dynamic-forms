@@ -39,6 +39,19 @@ Complete documentation and examples available at
 - **[Demos](#demos)** or if you prefer online [here](https://vue-dynamic-forms-demos.alvarosaburido.dev/)
 - **[Migration Guide](https://vue-dynamic-forms.alvarosaburido.dev/v3/guide/migration-guide.html)**
 
+## You can help me keep working on this project 💚
+
+- [Become a Sponsor on GitHub](https://github.com/sponsors/alvarosaburido)
+- [One-time donation via PayPal](https://paypal.me/alvarosaburido)
+
+<h4 align="center">Generous Unicorns 🦄</h4>
+
+<p align="center">
+  <a href="https://github.com/OmgImAlexis" target="_blank" rel="noopener noreferrer" ">
+    <img src="https://avatars.githubusercontent.com/u/6525926?v=4" height="72px"  style="border-radius: 100%; overflow: hidden; border: 4px solid #5EDCAE" alt="OmgImAlexis">
+  </a>
+</p>
+
 ## Installation
 
 ```bash
@@ -70,7 +83,7 @@ app.use(VueDynamicForms);
 
 In your component:
 
-```vue
+```javascript
 <template>
   <dynamic-form :form="form" @change="valueChanged" />
 </template>
