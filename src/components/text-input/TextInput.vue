@@ -7,9 +7,9 @@ import {
   PasswordInput,
   TextInput,
   UrlInput,
-} from '@/core/models';
-import { useInputEvents } from '@/composables/useInputEvents';
-import { useInputValidation } from '@/composables/useValidation';
+} from '/@/core/models';
+import { useInputEvents } from '/@/composables/useInputEvents';
+import { useInputValidation } from '/@/composables/useValidation';
 
 const props = {
   control: Object as PropType<
@@ -30,11 +30,8 @@ export default defineComponent({
       props,
       emit,
     );
-    const {
-      isRequired,
-      errorMessages,
-      isPendingValidation,
-    } = useInputValidation(props, emit);
+    const { isRequired, errorMessages, isPendingValidation } =
+      useInputValidation(props, emit);
     return () => [
       h('input', {
         id: props.control.name,

@@ -1,9 +1,9 @@
 <script lang="ts">
 import { defineComponent, h, PropType, computed } from 'vue';
-import { FormControl, SelectInput } from '@/core/models';
-import { useInputEvents } from '@/composables/useInputEvents';
-import { isObject } from '@/core/utils/helpers';
-import { useInputValidation } from '@/composables/useValidation';
+import { FormControl, SelectInput } from '/@/core/models';
+import { useInputEvents } from '/@/composables/useInputEvents';
+import { isObject } from '/@/core/utils/helpers';
+import { useInputValidation } from '/@/composables/useValidation';
 
 const props = {
   control: Object as PropType<FormControl<SelectInput>>,
@@ -23,11 +23,8 @@ export default defineComponent({
         props,
         emit,
       );
-      const {
-        isRequired,
-        errorMessages,
-        isPendingValidation,
-      } = useInputValidation(props, emit);
+      const { isRequired, errorMessages, isPendingValidation } =
+        useInputValidation(props, emit);
 
       const formattedOptions = computed(() => {
         if (isObject(props?.control?.options)) {

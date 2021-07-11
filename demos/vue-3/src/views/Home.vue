@@ -1,33 +1,3 @@
-<template>
-  <div class="home page container">
-    <transition-group
-      appear
-      name="staggered-fade-in"
-      tag="ul"
-      v-show="demos.length > 0"
-      class="flex flex-wrap"
-      @before-enter="beforeEnter"
-      @enter="enter"
-    >
-      <li class="p-4 w-full sm:w-1/2" v-for="demo in demos" :key="demo.name">
-        <router-link
-          :to="demo.route"
-          class="p-4 block rounded-md border border-gray-200 hover:border-green-400 transition-colors"
-          ><p>{{ demo.name }}</p>
-          <ul class="flex flex-wrap mt-4" v-if="demo.tags?.length > 0">
-            <li v-for="tag in demo.tags" :key="tag">
-              <span
-                :class="['chip inline-block mb-2', `bg-${colorsMap[tag]}-100`]"
-                >{{ tag }}</span
-              >
-            </li>
-          </ul>
-        </router-link>
-      </li>
-    </transition-group>
-  </div>
-</template>
-
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 
@@ -146,3 +116,40 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <div class="home page container">
+    <transition-group
+      appear
+      name="staggered-fade-in"
+      tag="ul"
+      v-show="demos.length > 0"
+      class="flex flex-wrap"
+      @before-enter="beforeEnter"
+      @enter="enter"
+    >
+      <li class="p-4 w-full sm:w-1/2" v-for="demo in demos" :key="demo.name">
+        <router-link
+          :to="demo.route"
+          class="
+            p-4
+            block
+            rounded-md
+            border border-gray-200
+            hover:border-green-400
+            transition-colors
+          "
+          ><p>{{ demo.name }}</p>
+          <ul class="flex flex-wrap mt-4" v-if="demo.tags?.length > 0">
+            <li v-for="tag in demo.tags" :key="tag">
+              <span
+                :class="['chip inline-block mb-2', `bg-${colorsMap[tag]}-100`]"
+                >{{ tag }}</span
+              >
+            </li>
+          </ul>
+        </router-link>
+      </li>
+    </transition-group>
+  </div>
+</template>

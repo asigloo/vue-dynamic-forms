@@ -36,13 +36,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, PropType, watch } from 'vue';
-
-import DynamicInput from '../dynamic-input/DynamicInput.vue';
-
-import { DynamicForm } from '@/core/models';
-import { useDynamicForm } from '@/composables/useDynamicForm';
-import { dynamicFormsSymbol } from '@/useApi';
+import { defineComponent, PropType, watch } from 'vue';
+import { useDynamicForms, DynamicForm } from '/@/';
+import { useDynamicForm } from '/@/composables/useDynamicForm';
 
 const props = {
   form: {
@@ -51,18 +47,13 @@ const props = {
   },
 };
 
-const components = {
-  DynamicInput,
-};
-
 /* const AVAILABLE_THEMES = ['default', 'material'];
  */
 export default defineComponent({
   name: 'asDynamicForm',
   props,
-  components,
   setup(props, ctx) {
-    const { options } = inject(dynamicFormsSymbol);
+    const { options } = useDynamicForms();
     const {
       controls,
       valueChange,
@@ -78,10 +69,10 @@ export default defineComponent({
       forceValidation,
       detectChanges,
       onOptionsChanged,
-    } = useDynamicForm(props.form as DynamicForm, ctx, options);
+    } = useDynamicForm(props.form as DynamicForm, ctx, options || {});
 
     watch(
-      () => props.form.fields,
+      () => (props.form as DynamicForm).fields,
       fields => {
         detectChanges(fields);
       },
@@ -91,7 +82,7 @@ export default defineComponent({
     );
 
     watch(
-      () => props.form.options,
+      () => (props.form as DynamicForm).fields,
       options => {
         onOptionsChanged(options);
       },

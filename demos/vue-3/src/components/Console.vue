@@ -5,12 +5,9 @@
       <li class="rounded w-2 h-2 bg-yellow-300 inline-block mr-1"></li>
       <li class="rounded w-2 h-2 bg-green-500 inline-block"></li>
     </ul>
-    <pre
-      data-cy="form-values"
-      class="shadow-lg pt-4"
-      :data-formValues="jsonValues"
-      >{{ content }}</pre
-    >
+    <pre data-cy="form-values" class="pt-4" :data-formValues="jsonValues">{{
+      content
+    }}</pre>
   </div>
 </template>
 
@@ -32,5 +29,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style></style>

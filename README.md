@@ -148,7 +148,7 @@ export default defineComponent({
 
 We've prepared some demos to show different use cases of the library and how to use each type of input field.
 
-To check them just run the command bellow which run the app at `http://localhost:6044/ `
+To check them just run the command bellow which run the app at `http://localhost:3000/ `
 
 ```
 yarn run serve

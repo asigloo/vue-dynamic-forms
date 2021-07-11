@@ -26,10 +26,10 @@ import {
   FieldTypes,
   ValidationEvent,
   InputEvent,
-} from '@/core/models';
+} from '/@/core/models';
 
-import { isArray, isObject } from '@/core/utils/helpers';
-import { useInputEvents } from '@/composables/useInputEvents';
+import { isArray, isObject } from '/@/core/utils/helpers';
+import { useInputEvents } from '/@/composables/useInputEvents';
 
 const components = {
   TextInputComponent,

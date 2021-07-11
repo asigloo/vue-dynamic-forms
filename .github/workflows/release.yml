@@ -16,16 +16,12 @@ jobs:
         with:
           node-version: 12
       - name: Install dependencies
-        run: npm ci
-      - name: Run unit tests
-        run: npm run test --verbose
+        run: yarn
       - name: Build Library
-        run: npm run build
-      - name: Build Types Declarations
-        run: npm run build:dts
+        run: yarn build
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           CI: true
-        run: npm run semantic-release
+        run: yarn semantic-release

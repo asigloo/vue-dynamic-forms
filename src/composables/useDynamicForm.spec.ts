@@ -4,7 +4,7 @@ import {
   EmailField,
   PasswordField,
   TextField,
-} from '@/core/factories';
+} from '/@/core/factories';
 import { useDynamicForm } from './useDynamicForm';
 
 describe('UseDynamicForm', () => {
@@ -159,12 +159,8 @@ describe('UseDynamicForm', () => {
   });
 
   it('resetForm should set control values to null and set forceValidation to false', () => {
-    const {
-      mapControls,
-      controls,
-      forceValidation,
-      resetForm,
-    } = useDynamicForm(form, ctx);
+    const { mapControls, controls, forceValidation, resetForm } =
+      useDynamicForm(form, ctx);
     mapControls();
     resetForm();
     expect(controls.value.map(control => control.value)).toStrictEqual([

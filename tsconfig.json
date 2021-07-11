@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "target": "esnext",
     "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
@@ -13,26 +13,14 @@
     "sourceMap": true,
     "noImplicitThis": true,
     "noImplicitAny": false,
+    "strict": true,
+    "noUnusedLocals": true,
     "strictNullChecks": false,
-    "allowJs": true,
-    "baseUrl": ".",
     "rootDir": ".",
-    "outDir": "dist",
-    "types": [
-      "webpack-env",
-      "jest"
-    ],
+    "types": ["vite/client", "jest", "node", "@types/jest"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+      "/@/*": ["src/*"]
+    }
   },
   "include": [
     "src/**/*.ts",
@@ -41,7 +29,5 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

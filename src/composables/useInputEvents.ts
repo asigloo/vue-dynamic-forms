@@ -2,8 +2,8 @@
 import { computed, ComputedRef, watch } from 'vue';
 import { hasValue } from '../core/utils/helpers';
 
-import { useInputValidation } from '@/composables/useValidation';
-import { ValidationTriggerTypes } from '@/core/models';
+import { useInputValidation } from '/@/composables/useValidation';
+import { ValidationTriggerTypes } from '/@/core/models';
 
 interface InputEventsComposition {
   validate: (force: boolean) => void;
@@ -72,11 +72,10 @@ export function useInputEvents(props, emit): InputEventsComposition {
     }
   }
 
-  const getClasses: ComputedRef<
-    (string | { [key: string]: boolean })[]
-  > = computed(() => {
-    return ['form-control', ...getValidationClasses.value];
-  });
+  const getClasses: ComputedRef<(string | { [key: string]: boolean })[]> =
+    computed(() => {
+      return ['form-control', ...getValidationClasses.value];
+    });
 
   const getCheckboxClasses: ComputedRef<
     (string | { [key: string]: boolean })[]
@@ -84,11 +83,10 @@ export function useInputEvents(props, emit): InputEventsComposition {
     return ['checkbox-group', ...getCheckboxValidationClasses.value];
   });
 
-  const getRadioClasses: ComputedRef<
-    (string | { [key: string]: boolean })[]
-  > = computed(() => {
-    return ['radio-group', ...getRadioValidationClasses.value];
-  });
+  const getRadioClasses: ComputedRef<(string | { [key: string]: boolean })[]> =
+    computed(() => {
+      return ['radio-group', ...getRadioValidationClasses.value];
+    });
 
   watch(
     () => props?.control?.value,

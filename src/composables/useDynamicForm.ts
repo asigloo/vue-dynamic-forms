@@ -9,7 +9,7 @@ import {
   DynamicForm,
   FormFields,
   FormOptions,
-} from '@/core/models';
+} from '/@/core/models';
 import {
   computed,
   ComputedRef,
@@ -19,10 +19,10 @@ import {
   Ref,
   toRaw,
 } from 'vue';
-import { deepClone, hasValue, removeEmpty } from '@/core/utils/helpers';
-import { FieldControl } from '@/core/factories';
+import { deepClone, hasValue, removeEmpty } from '/@/core/utils/helpers';
+import { FieldControl } from '/@/core/factories';
 import { useDebounceFn } from './useDebounce';
-import { DynamicFormsOptions } from '@/dynamicForms';
+import { DynamicFormsOptions } from '/@/dynamicForms';
 
 interface DynamicFormComposition {
   controls: Ref<FormControl<InputType>[]>;

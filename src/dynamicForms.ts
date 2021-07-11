@@ -1,5 +1,4 @@
-import { App } from 'vue';
-import { dynamicFormsSymbol } from './useApi';
+import { App, inject, InjectionKey } from 'vue';
 import DynamicForm from './components/dynamic-form/DynamicForm.vue';
 import { FormOptions } from './core/models';
 
@@ -13,18 +12,33 @@ export interface DynamicFormsPlugin {
   install(app: App): void;
 }
 
+export const dynamicFormsSymbol: InjectionKey<DynamicFormsPlugin> =
+  Symbol('vdf');
+
+export function useDynamicForms(): DynamicFormsPlugin {
+  const dynamicForms = inject(dynamicFormsSymbol);
+  if (!dynamicForms) throw new Error('No dynamicForms provided!!!');
+
+  return dynamicForms;
+}
+
 export function createDynamicForms(
   options?: DynamicFormsOptions,
 ): DynamicFormsPlugin {
-  const vdf: DynamicFormsPlugin = {
+  const $vdf: DynamicFormsPlugin = {
     options,
     install(app: App) {
-      const self = this;
+      app.provide(dynamicFormsSymbol, $vdf);
 
       app.component('DynamicForm', DynamicForm);
-      app.provide(dynamicFormsSymbol, self);
+
+      Object.defineProperty(app, '__VUE_DYNAMIC_FORMS_SYMBOL__', {
+        get() {
+          return dynamicFormsSymbol;
+        },
+      });
     },
   };
 
-  return vdf;
+  return $vdf;
 }

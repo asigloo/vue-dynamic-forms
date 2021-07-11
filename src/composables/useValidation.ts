@@ -1,8 +1,8 @@
 /* eslint-disable */
 
-import { ErrorMessage } from '@/core/models';
-import {  removeEmpty } from '@/core/utils/helpers';
-import { computed,  ref, watch } from 'vue';
+import { ErrorMessage } from '/@/core/models';
+import { removeEmpty } from '/@/core/utils/helpers';
+import { computed, ref, watch } from 'vue';
 
 export function useInputValidation(props: any, emit: any) {
   const isPendingValidation = ref(false);
@@ -19,8 +19,9 @@ export function useInputValidation(props: any, emit: any) {
 
   async function validate(force = false): Promise<void> {
     if (
-      force || (props.control.touched || props.control.dirty) &&
-      requiresValidation.value
+      force ||
+      ((props.control.touched || props.control.dirty) &&
+        requiresValidation.value)
     ) {
       let errors = {};
       const syncValidations = [];
@@ -37,31 +38,31 @@ export function useInputValidation(props: any, emit: any) {
         }
       });
 
-      if(asyncValidations.length > 0) {
+      if (asyncValidations.length > 0) {
         isPendingValidation.value = true;
 
         Promise.all(
-            asyncValidations.map(async ({ validation, text }) => ({
-              validation: await validation(props.control.value),
-              text,
-            })),
-          ).then(errorsArr => {
-            errorsArr.forEach(({ validation, text }) => {
-              const [key, value] = Object.entries(validation)[0];
-              errors[key] = value
-                ? {
-                    value,
-                    text,
-                  }
-                : null;
-            });
-            isPendingValidation.value = false;
-            emit('validate', {
-              name: props.control.name,
-              errors,
-              valid: Object.keys(removeEmpty(errors)).length === 0,
-            });
+          asyncValidations.map(async ({ validation, text }) => ({
+            validation: await validation(props.control.value),
+            text,
+          })),
+        ).then(errorsArr => {
+          errorsArr.forEach(({ validation, text }) => {
+            const [key, value] = Object.entries(validation)[0];
+            errors[key] = value
+              ? {
+                  value,
+                  text,
+                }
+              : null;
           });
+          isPendingValidation.value = false;
+          emit('validate', {
+            name: props.control.name,
+            errors,
+            valid: Object.keys(removeEmpty(errors)).length === 0,
+          });
+        });
       }
       syncValidations.forEach(({ validation, text }) => {
         if (validation) {
@@ -86,7 +87,7 @@ export function useInputValidation(props: any, emit: any) {
   const errorMessages = computed(() => {
     const errors: ErrorMessage[] = Object.values(props.control?.errors || {});
     if (errors.length > 0) {
-      return errors.map((error) => error.text);
+      return errors.map(error => error.text);
     }
     return [];
   });
@@ -103,8 +104,9 @@ export function useInputValidation(props: any, emit: any) {
           props.control.touched,
       },
       {
-        'form-control--error': !isPendingValidation.value && !props.control.valid,
-        'form-control--validating': isPendingValidation.value
+        'form-control--error':
+          !isPendingValidation.value && !props.control.valid,
+        'form-control--validating': isPendingValidation.value,
       },
     ];
   });
@@ -121,8 +123,9 @@ export function useInputValidation(props: any, emit: any) {
           props.control.touched,
       },
       {
-        'checkbox-group--error': !isPendingValidation.value && !props.control.valid,
-        'checkbox-group--validating': isPendingValidation.value
+        'checkbox-group--error':
+          !isPendingValidation.value && !props.control.valid,
+        'checkbox-group--validating': isPendingValidation.value,
       },
     ];
   });
@@ -139,8 +142,9 @@ export function useInputValidation(props: any, emit: any) {
           props.control.touched,
       },
       {
-        'radio-group--error': !isPendingValidation.value && !props.control.valid,
-        'radio-group--validating': isPendingValidation.value
+        'radio-group--error':
+          !isPendingValidation.value && !props.control.valid,
+        'radio-group--validating': isPendingValidation.value,
       },
     ];
   });
@@ -148,8 +152,8 @@ export function useInputValidation(props: any, emit: any) {
   watch(
     () => props.forceValidation,
     value => {
-      if(value) {
-        validate(value)
+      if (value) {
+        validate(value);
       }
     },
   );
