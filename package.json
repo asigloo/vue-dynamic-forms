@@ -47,7 +47,8 @@
     ".": {
       "import": "./dist/as-dynamic-forms.es.js",
       "require": "./dist/as-dynamic-forms.umd.js"
-    }
+    },
+    "./dist/themes/": "./dist/themes/"
   },
   "dependencies": {
     "deep-clone": "^3.0.3",
