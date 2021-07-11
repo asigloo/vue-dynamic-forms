@@ -19,7 +19,7 @@
     "rootDir": ".",
     "types": ["vite/client", "jest", "node", "@types/jest"],
     "paths": {
-      "/@/*": ["src/*"]
+      "/@/*": ["./src/*"]
     }
   },
   "include": [

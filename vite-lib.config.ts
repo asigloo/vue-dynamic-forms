@@ -23,7 +23,6 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    dts(),
     copy({
       targets: [{ src: 'src/styles/themes/**/*', dest: 'dist/themes' }],
       hook: 'writeBundle', // notice here

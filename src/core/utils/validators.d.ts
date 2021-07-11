@@ -1,0 +1,21 @@
+import { ControlValue, ValidationErrors, ValidatorFn } from '../models';
+export declare const isEmptyInputValue: (value: ControlValue) => boolean;
+export declare const required: (value: ControlValue) => ValidationErrors;
+export declare const min: (min: number) => (value: ControlValue) => ValidationErrors;
+export declare const max: (max: number) => (value: ControlValue) => ValidationErrors;
+export declare const email: (value: ControlValue) => ValidationErrors;
+export declare const url: (value: ControlValue) => ValidationErrors;
+export declare const minLength: (minLength: number) => (value: ControlValue) => ValidationErrors;
+export declare const maxLength: (maxLength: number) => (value: ControlValue) => ValidationErrors;
+export declare const pattern: (pattern: string) => ValidatorFn;
+declare const _default: {
+    required: (value: ControlValue) => ValidationErrors;
+    min: (min: number) => (value: ControlValue) => ValidationErrors;
+    max: (max: number) => (value: ControlValue) => ValidationErrors;
+    email: (value: ControlValue) => ValidationErrors;
+    minLength: (minLength: number) => (value: ControlValue) => ValidationErrors;
+    maxLength: (maxLength: number) => (value: ControlValue) => ValidationErrors;
+    pattern: (pattern: string) => ValidatorFn;
+    url: (value: ControlValue) => ValidationErrors;
+};
+export default _default;
