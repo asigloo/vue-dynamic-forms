@@ -1,5 +1,4 @@
 import { App, inject, InjectionKey } from 'vue';
-import DynamicForm from './components/dynamic-form/DynamicForm.vue';
 import { FormOptions } from './core/models';
 
 export interface DynamicFormsOptions {
@@ -11,6 +10,8 @@ export interface DynamicFormsPlugin {
   options?: DynamicFormsOptions;
   install(app: App): void;
 }
+
+const components = import.meta.globEager('./components/**/*.vue');
 
 export const dynamicFormsSymbol: InjectionKey<DynamicFormsPlugin> =
   Symbol('vdf');
@@ -30,7 +31,14 @@ export function createDynamicForms(
     install(app: App) {
       app.provide(dynamicFormsSymbol, $vdf);
 
-      app.component('DynamicForm', DynamicForm);
+      Object.entries(components).forEach(([path, definition]) => {
+        const componentName = path
+          .split('/')
+          .pop()
+          .replace(/\.\w+$/, '');
+
+        app.component(componentName, definition.default);
+      });
 
       Object.defineProperty(app, '__VUE_DYNAMIC_FORMS_SYMBOL__', {
         get() {
