@@ -16,7 +16,7 @@
     "build:dts": "api-extractor run --local --verbose && tail -n +7 >> dist/as-dynamic-forms.d.ts",
     "postinstall": "is-ci || husky install",
     "postpublish": "pinst --enable",
-    "prepublishOnly": "tsc src/index.ts --noEmit && yarn build && pinst --disable",
+    "prepublishOnly": "tsc --project tsconfig.json --noEmit && yarn build && pinst --disable",
     "semantic-release": "semantic-release",
     "test": "jest",
     "test:components": "cypress open-ct",
