@@ -9,10 +9,21 @@
       </h1>
     </div>
     <div class="right-nav">
-      <ul class="flex align-center">
-        <li v-for="nav in navs" :key="nav.name" class="ml-4">
-          <a :href="nav.href" class="hover:text-green-400 transition-colors">
-            <Icon :name="nav.icon" :alt="nav.name" />
+      <ul class="flex align-center text-xl">
+        <li class="ml-4">
+          <a
+            href="https://github.com/asigloo/vue-dynamic-forms"
+            class="text-gray-500 hover:text-green-400 transition-colors"
+          >
+            <codicon-github />
+          </a>
+        </li>
+        <li class="ml-4">
+          <a
+            href="https://vue-dynamic-forms.alvarosaburido.dev/"
+            class="text-gray-500 hover:text-green-400 transition-colors"
+          >
+            <ion-document-text-outline />
           </a>
         </li>
       </ul>
@@ -21,35 +32,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
-import Icon from './Icon.vue';
+import { computed, defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
-
-const components = {
-  Icon,
-};
 
 export default defineComponent({
   name: 'toolbar',
-  components,
   setup() {
     const route = useRoute();
     const title = computed(() => route.meta.title || 'Vue Dynamic Forms');
 
-    const navs = ref([
-      {
-        icon: 'github',
-        name: 'Repo',
-        href: 'https://github.com/asigloo/vue-dynamic-forms',
-      },
-      {
-        icon: 'docs',
-        name: 'Docs',
-        href: 'https://vue-dynamic-forms.alvarosaburido.dev/',
-      },
-    ]);
-
-    return { title, navs };
+    return { title };
   },
 });
 </script>

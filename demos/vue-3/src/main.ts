@@ -3,7 +3,9 @@ import App from './App.vue';
 import './styles/main.css';
 import router from './router';
 
-import { createDynamicForms } from '/@/';
+/* import { createDynamicForms } from '/@'; */
+
+import { createDynamicForms } from '../../../dist/as-dynamic-forms.es';
 
 const VueDynamicForms = createDynamicForms({
   autoValidate: true,
@@ -16,6 +18,8 @@ const VueDynamicForms = createDynamicForms({
 });
 
 export const app = createApp(App);
+
+console.log({ app });
 
 app.use(VueDynamicForms);
 

@@ -5,8 +5,8 @@
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:lib": "vite build --config vite-lib.config.js",
+    "build:demo": "vite build",
+    "build": "vite build --config vite-lib.config.ts",
     "serve": "vite preview",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -21,20 +21,23 @@
     "test:watch": "vue-cli-service test:unit --verbose --no-cache --watchAll"
   },
   "main": "dist/as-dynamic-forms.cjs.js",
-  "module": "dist/as-dynamic-forms.esm-bundler.js",
-  "browser": "dist/as-dynamic-forms.esm.js",
-  "unpkg": "dist/as-dynamic-forms.global.js",
+  "module": "dist/as-dynamic-forms.es.js",
+  "browser": "dist/as-dynamic-forms.es.js",
+  "unpkg": "dist/as-dynamic-forms.iife.js",
+  "jsdelivr": "dist/as-dynamic-forms.iife.js",
+  "exports": {
+    ".": {
+      "import": "./dist/as-dynamic-forms.es.js",
+      "require": "./dist/as-dynamic-forms.umd.js"
+    }
+  },
   "dependencies": {
     "deep-clone": "^3.0.3",
     "deep-object-diff": "^1.1.0"
   },
   "devDependencies": {
+    "@iconify/json": "^1.1.373",
     "@microsoft/api-extractor": "^7.18.1",
-    "@rollup/plugin-alias": "^3.1.2",
-    "@rollup/plugin-buble": "^0.21.3",
-    "@rollup/plugin-commonjs": "^19.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@rollup/plugin-replace": "^2.4.2",
     "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
@@ -45,7 +48,6 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "27.0.6",
-    "chalk": "^4.1.1",
     "cypress": "^7.7.0",
     "eslint": "7.30.0",
     "eslint-plugin-prettier": "^3.4.0",
@@ -57,13 +59,8 @@
     "postcss": "^8.3.5",
     "prettier": "2.3.2",
     "rollup": "^2.53.0",
-    "rollup-plugin-analyzer": "^4.0.0",
-    "rollup-plugin-bundle-size": "^1.0.3",
     "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-scss": "^3.0.0",
-    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
-    "rollup-plugin-vue": "^6.0.0",
     "sass": "^1.35.2",
     "semantic-release": "17.4.4",
     "tailwindcss": "^2.2.4",
@@ -71,11 +68,13 @@
     "ts-node": "^10.1.0",
     "typescript": "~4.3.5",
     "vite": "^2.4.1",
+    "vite-plugin-components": "^0.12.2",
+    "vite-plugin-dts": "^0.5.2",
+    "vite-plugin-icons": "^0.6.5",
     "vue": "^3.1.4",
     "vue-jest": "^5.0.0-alpha.8",
     "vue-router": "^4.0.1",
     "vue-select": "3.11.2"
   },
-  "jsdelivr": "dist/as-dynamic-forms.global.js",
   "types": "dist/as-dynamic-forms.d.ts"
 }
