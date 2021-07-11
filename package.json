@@ -21,6 +21,22 @@
     "test:components": "cypress open-ct",
     "test:watch": "jest --verbose --no-cache --watchAll"
   },
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      "next",
+      "next-major",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ]
+  },
   "main": "dist/as-dynamic-forms.cjs.js",
   "module": "dist/as-dynamic-forms.es.js",
   "browser": "dist/as-dynamic-forms.es.js",
