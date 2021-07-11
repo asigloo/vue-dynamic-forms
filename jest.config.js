@@ -11,7 +11,7 @@ module.exports = {
   },
 
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
+    '^/@/(.*)$': '<rootDir>/src/$1',
     '^tests/(.*)$': '<rootDir>/tests/$1',
   },
 
@@ -36,6 +36,4 @@ module.exports = {
     '<rootDir>/src/composables/**/*.(vue|ts)',
     '<rootDir>/src/core/**/*.(vue|ts)',
   ],
-
-  preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
 };

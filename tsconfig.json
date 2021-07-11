@@ -17,7 +17,7 @@
     "noUnusedLocals": true,
     "strictNullChecks": false,
     "rootDir": ".",
-    "types": ["vite/client", "jest", "node"],
+    "types": ["vite/client", "jest", "node", "@types/jest"],
     "paths": {
       "/@/*": ["src/*"]
     }

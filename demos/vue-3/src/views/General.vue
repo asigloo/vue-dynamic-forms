@@ -79,7 +79,7 @@ import {
   ValidatorTrigger,
   ValidationTriggerTypes,
   TextAreaField,
-} from '../../../../src';
+} from '/@/';
 /* } from '../../dist/as-dynamic-forms.esm'; */
 export default defineComponent({
   name: 'app',
@@ -292,6 +292,8 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
+@import '/@/styles/themes/default.scss';
+
 .avocado-field {
   position: relative;
 
