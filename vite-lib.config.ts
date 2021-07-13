@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import copy from 'rollup-plugin-copy';
-import dts from 'vite-plugin-dts';
 
 const { resolve } = require('path');
 import pkg from './package.json';

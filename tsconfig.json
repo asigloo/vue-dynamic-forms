@@ -16,6 +16,8 @@
     "strict": true,
     "noUnusedLocals": true,
     "strictNullChecks": false,
+    "declaration": true,
+    "declarationMap": true,
     "rootDir": ".",
     "types": ["vite/client", "jest", "node", "@types/jest"],
     "paths": {

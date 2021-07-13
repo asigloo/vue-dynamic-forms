@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, watch } from 'vue';
-import { useDynamicForms, DynamicForm } from '/@/';
+import { useDynamicForms, DynamicForm } from '/@/index';
 import { useDynamicForm } from '/@/composables/useDynamicForm';
 
 const props = {

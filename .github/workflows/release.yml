@@ -19,6 +19,8 @@ jobs:
         run: yarn
       - name: Build Library
         run: yarn build
+      - name: Build Types Declarations
+        run: yarn build:dts
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
