@@ -19,3 +19,5 @@ jobs:
         run: yarn
       - name: Build Library
         run: yarn build
+      - name: Build Types Declarations
+        run: yarn build:dts

@@ -11,7 +11,8 @@ vue.config.js
 postcss.config.js
 api-extractor.json
 renovate.json
-rollup.config.js
+vite.config.ts
+vite-lib.config.ts
 tailwind.config.js
 .prettierrc
 .git
@@ -30,3 +31,4 @@ yarn.lock
 /demos
 /src
 .github
+cypress.json
