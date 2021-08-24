@@ -17,7 +17,9 @@ body:
       description: What version of the library are you using?
       options:
         - 3.x.x (Vue 3.x)
-        - 2 (Vue 2.x - legacy)
+        - 2.x.x (Vue 2.x - legacy)
+    validations:
+      required: true
   - type: textarea
     id: bug-description
     attributes:
