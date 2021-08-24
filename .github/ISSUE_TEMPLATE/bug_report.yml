@@ -1,6 +1,6 @@
 name: "\U0001F41E Bug report"
 description: Create a report to help me improve the library
-title: Am I a bug or a feature?
+title: 'Am I a bug or a feature?'
 labels: [triage, bug]
 assignees:
   - alvarosaburido
@@ -30,7 +30,7 @@ body:
     id: reproduction
     attributes:
       label: Describe the bug
-      description: Steps to reproduce the behavior,
+      description: Steps to reproduce the behavior
     validations:
       required: true
    - type: textarea
@@ -55,7 +55,7 @@ body:
     attributes:
       label: Additional context
       description: Add any other context or screenshots about the feature request here.
- - type: checkboxes
+  - type: checkboxes
     id: checkboxes
     attributes:
       label: Validations
