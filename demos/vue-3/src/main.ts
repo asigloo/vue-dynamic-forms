@@ -1,11 +1,11 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import './styles/main.css';
-import router from './router';
+import { createApp } from 'vue'
+import App from './App.vue'
+import './styles/main.css'
+import router from './router'
 
-/* import { createDynamicForms } from '/@'; */
+import { createDynamicForms } from '/@'
 
-import { createDynamicForms } from '../../../dist/as-dynamic-forms.es';
+/* import { createDynamicForms } from '../../../dist/as-dynamic-forms.es'; */
 
 const VueDynamicForms = createDynamicForms({
   autoValidate: true,
@@ -15,12 +15,12 @@ const VueDynamicForms = createDynamicForms({
     netlify: false,
     netlifyHoneypot: null,
   },
-});
+})
 
-export const app = createApp(App);
+export const app = createApp(App)
 
-console.log({ app });
+console.log({ app })
 
-app.use(VueDynamicForms);
+app.use(VueDynamicForms)
 
-app.use(router).mount('#app');
+app.use(router).mount('#app')
