@@ -27,14 +27,18 @@ body:
       placeholder: Bug description
     validations:
       required: true
-    - type: textarea
+  - type: textarea
     id: reproduction
     attributes:
       label: Describe the bug
       description: Steps to reproduce the behavior
+      placeholder: "1. Go to '...'
+      2. Click on '....'
+      3. Scroll down to '....'
+      4. See error"
     validations:
       required: true
-   - type: textarea
+  - type: textarea
     id: expected
     attributes:
       label: Expected behavior
