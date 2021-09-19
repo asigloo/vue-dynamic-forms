@@ -15,6 +15,7 @@ module.exports = {
   },
   variants: {},
   plugins: [
+    require('@tailwindcss/typography'),
     // Other plugins
     require('tailwindcss-animatecss')({
       classes: [
@@ -35,4 +36,4 @@ module.exports = {
     }),
   ],
   important: true,
-};
+}

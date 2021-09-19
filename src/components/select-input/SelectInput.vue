@@ -1,9 +1,9 @@
 <script lang="ts">
-import { defineComponent, h, PropType, computed } from 'vue';
-import { FormControl, SelectInput } from '/@/core/models';
-import { useInputEvents } from '/@/composables/useInputEvents';
-import { isObject } from '/@/core/utils/helpers';
-import { useInputValidation } from '/@/composables/useValidation';
+import { defineComponent, h, PropType, computed } from 'vue'
+import { FormControl, SelectInput } from '/@/core/models'
+import { useInputEvents } from '/@/composables/useInputEvents'
+import { isObject } from '/@/core/utils/helpers'
+import { useInputValidation } from '/@/composables/useValidation'
 
 const props = {
   control: Object as PropType<FormControl<SelectInput>>,
@@ -11,7 +11,7 @@ const props = {
     type: Boolean,
     default: false,
   },
-};
+}
 
 export default defineComponent({
   name: 'asSelectInput',
@@ -22,18 +22,18 @@ export default defineComponent({
       const { onInput, onChange, onFocus, onBlur, getClasses } = useInputEvents(
         props,
         emit,
-      );
+      )
       const { isRequired, errorMessages, isPendingValidation } =
-        useInputValidation(props, emit);
+        useInputValidation(props, emit)
 
       const formattedOptions = computed(() => {
         if (isObject(props?.control?.options)) {
-          return Object.values(props?.control?.options);
+          return Object.values(props?.control?.options)
         }
-        return props?.control?.options;
-      });
+        return props?.control?.options
+      })
 
-      const options = formattedOptions.value.map(option =>
+      const options = formattedOptions?.value?.map(option =>
         h(
           'option',
           {
@@ -43,7 +43,7 @@ export default defineComponent({
           },
           option[props.control.optionLabel],
         ),
-      );
+      )
       return [
         h(
           'select',
@@ -77,10 +77,10 @@ export default defineComponent({
                 h('p', { class: 'form-error' }, error),
               ),
             ),
-      ];
-    };
+      ]
+    }
   },
-});
+})
 </script>
 
 <style></style>

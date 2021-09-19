@@ -54,6 +54,7 @@
     "./dist/themes/": "./dist/themes/"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.4.1",
     "deep-clone": "^3.0.3",
     "deep-object-diff": "^1.1.0"
   },
@@ -99,6 +100,7 @@
     "vite": "^2.5.0",
     "vite-plugin-components": "^0.13.2",
     "vite-plugin-icons": "^0.6.5",
+    "vite-plugin-pwa": "^0.11.2",
     "vitepress": "^0.16.1",
     "vue": "^3.1.4",
     "vue-jest": "^5.0.0-alpha.10",

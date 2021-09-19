@@ -1,12 +1,6 @@
 import DefaultTheme, { Config } from 'vitepress/theme'
-import { createDynamicForms } from '../../../src'
-
-const modules = import.meta.globEager('../components/**/*.vue')
-const components = []
-
-for (const path in modules) {
-  components.push(modules[path].default)
-}
+import { createDynamicForms } from '/@'
+import '../theme/styles/base.scss'
 
 const VueDynamicForms = createDynamicForms({
   autoValidate: true,
@@ -22,9 +16,6 @@ const theme: Config = {
   ...DefaultTheme,
   enhanceApp({ app }) {
     app.use(VueDynamicForms)
-    components.forEach(component => {
-      app.component(component.name, component)
-    })
   },
 }
 
