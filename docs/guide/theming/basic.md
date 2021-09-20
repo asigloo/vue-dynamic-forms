@@ -8,7 +8,7 @@ If you want a more "ready to go" solution you can import one of the themes we ha
 
 More themes are in progress.
 
-## Defaul Theme
+## Default Theme
 
 Similar to default bootstrap theme for forms.
 
@@ -31,7 +31,7 @@ $input-border-color: #aec64c;
 
 You have all this variables to customize your form inputs.
 
-Consider that this variables will affect **All** your inputs, for more selective styling please use `customClass` available on the [models](./models.md).
+Consider that this variables will affect **All** your inputs, for more selective styling please use `customClass` available on the [models](../models.md).
 
 ```scss
 $font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -93,7 +93,7 @@ module.exports = {
 
 You have all this variables to customize your form inputs.
 
-Consider that this variables will affect **All** your inputs, for more selective styling please use `customClass` available on the [models](./models.md).
+Consider that this variables will affect **All** your inputs, for more selective styling please use `customClass` available on the [models](../models.md)..
 
 ```scss
 $theme-color: #6200ee;

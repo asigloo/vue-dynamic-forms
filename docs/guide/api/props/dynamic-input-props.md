@@ -36,7 +36,7 @@ export type FormControl<T extends InputType> = T & {
 
 ## `forceValidation`
 
-By default, input validation can be triggered by a `blur` or a `change` event on the input (Check [validation](../../guide/validation.md)). However you can force the validation state of the input by changing this prop to `true`.
+By default, input validation can be triggered by a `blur` or a `change` event on the input (Check [validation](../../validation.md)). However you can force the validation state of the input by changing this prop to `true`.
 
 ```typescript
   forceValidation: {

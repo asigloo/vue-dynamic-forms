@@ -1,5 +1,6 @@
 // tailwind.config.js
 module.exports = {
+  purge: ['./src/**/*.html', './src/**/*.vue', './src/**/*.ts'],
   theme: {
     fontFamily: {
       display: ['Montserrat'],

@@ -39,6 +39,10 @@ const config = {
               text: 'Validation',
               link: '/guide/validation',
             },
+            {
+              text: 'Models',
+              link: '/guide/models',
+            },
           ],
         },
         {
