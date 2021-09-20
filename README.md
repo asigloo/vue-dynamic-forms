@@ -52,6 +52,14 @@ Complete documentation and examples available at
   </a>
 </p>
 
+<h4 align="center">Accesible Benevolents 🦄</h4>
+
+<p align="center">
+  <a href="https://github.com/easingthemes" target="_blank" rel="noopener noreferrer" ">
+    <img src="https://avatars.githubusercontent.com/u/2750284?v=4" height="72px"  style="border-radius: 100%; overflow: hidden; border: 4px solid #5EDCAE" alt="easingthemes">
+  </a>
+</p>
+
 ## Installation
 
 ```bash
