@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-bar-title {
+  @apply flex items-center;
+}
+
+@layer base {
+  h1 {
+    @apply text-2xl mt-16 mb-9;
+  }
+  h2 {
+    @apply text-xl mt-9 mb-5;
+  }
+  p,
+  ol,
+  ul {
+    @apply my-4 leading-relaxed;
+  }
+
+  ol,
+  ul {
+    @apply pl-4;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    @apply font-bold;
+  }
+
+  code {
+    @apply text-sm;
+  }
+}
+
+.custom-block {
+  @apply my-4 py-1 px-6;
+}
+
+.header-anchor {
+  @apply text-green-400;
+}
+
+a {
+  @apply text-green-400 font-bold;
+}
+
+.form-group {
+  @apply flex flex-col mb-4;
+}
+
+.form-label {
+  @apply w-full mb-2 text-sm font-bold;
+}
+
+.form-control {
+  @apply border-2 border-gray-300 rounded-lg px-4 py-2;
+
+  &:focus {
+    @apply outline-none border-green-400;
+  }
+
+  &--success {
+    @apply border-green-400 bg-green-50;
+  }
+
+  &--error {
+    @apply border-red-400 bg-red-50;
+  }
+}
+
+.form-hint {
+  @apply text-sm;
+}
+
+.form-error {
+  @apply text-red-500;
+}
+
+.checkbox-control,
+.radio-control {
+  @apply mr-4;
+}
+
+.checkbox-label,
+.radio-label {
+  @apply select-none cursor-pointer text-sm;
+}
+
+.checkbox-control:disabled ~ .checkbox-label,
+.radio-control:disabled ~ .radio-label {
+  @apply opacity-50 text-gray-500 cursor-not-allowed pointer-events-none;
+}

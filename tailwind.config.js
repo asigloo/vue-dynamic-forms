@@ -1,5 +1,6 @@
 // tailwind.config.js
 module.exports = {
+  purge: ['./src/**/*.html', './src/**/*.vue', './src/**/*.ts'],
   theme: {
     fontFamily: {
       display: ['Montserrat'],
@@ -15,6 +16,7 @@ module.exports = {
   },
   variants: {},
   plugins: [
+    require('@tailwindcss/typography'),
     // Other plugins
     require('tailwindcss-animatecss')({
       classes: [
@@ -35,4 +37,4 @@ module.exports = {
     }),
   ],
   important: true,
-};
+}
