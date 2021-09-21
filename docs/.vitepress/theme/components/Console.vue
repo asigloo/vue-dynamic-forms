@@ -1,6 +1,6 @@
 <template>
-  <div class="console bg-marine text-white text-xs p-2 rounded-md relative">
-    <ul class="absolute top-0 pl-2 mt-0 left-0">
+  <div class="console">
+    <ul class="console__buttons">
       <li class="rounded w-2 h-2 bg-salmon inline-block mr-1"></li>
       <li class="rounded w-2 h-2 bg-yellow-300 inline-block mr-1"></li>
       <li class="rounded w-2 h-2 bg-green-500 inline-block"></li>
@@ -29,3 +29,13 @@ export default defineComponent({
   },
 })
 </script>
+
+<style>
+.console {
+  @apply bg-marine text-white text-xs p-2 rounded-md relative;
+}
+
+.console__buttons {
+  @apply absolute top-0 left-0 pl-2 m-0;
+}
+</style>

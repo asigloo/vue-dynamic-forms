@@ -1,24 +1,12 @@
 <template>
-  <div
-    class="
-      w-full
-      flex
-      justify-between
-      container
-      bg-white
-      shadow-lg
-      p-4
-      rounded-lg
-      my-8
-    "
-  >
+  <div class="field-wrapper">
     <div class="w-1/2">
       <dynamic-form :form="form" @change="updateValues" />
       <p class="text-sm">
         Remove -1 character and blur to see the validation working 👆🏻
       </p>
     </div>
-    <div class="w-2/5 p-4">
+    <div class="w-1/2 p-4">
       <Console :content="formValues" />
     </div>
   </div>

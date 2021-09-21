@@ -102,3 +102,7 @@ a {
 .radio-control:disabled ~ .radio-label {
   @apply opacity-50 text-gray-500 cursor-not-allowed pointer-events-none;
 }
+
+.field-wrapper {
+  @apply w-full flex justify-between container bg-white shadow-lg p-4 rounded-lg my-8;
+}

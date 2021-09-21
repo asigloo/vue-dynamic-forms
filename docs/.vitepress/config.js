@@ -15,7 +15,7 @@ const config = {
     nav: [
       {
         text: 'Migration Guide',
-        link: '/v3/guide/migration-guide',
+        link: '/guide/migration-guide',
       },
     ],
     sidebar: {
