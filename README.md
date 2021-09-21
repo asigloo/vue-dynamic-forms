@@ -37,7 +37,7 @@ Complete documentation and examples available at
 
 - **[Documentation](https://vue-dynamic-forms.alvarosaburido.dev/)**
 - **[Demos](#demos)** or if you prefer online [here](https://vue-dynamic-forms-demos.alvarosaburido.dev/)
-- **[Migration Guide](https://vue-dynamic-forms.alvarosaburido.dev/v3/guide/migration-guide.html)**
+- **[Migration Guide](https://vue-dynamic-forms.alvarosaburido.dev/guide/migration-guide.html)**
 
 ## You can help me keep working on this project 💚
 
@@ -79,14 +79,14 @@ The installation and usage has change to align with new Vue 3 plugin installatio
 To create a new `Dynamic Form` instance, use the `createDynamicForms` function;
 
 ```js
-import { createApp } from 'vue';
-import { createDynamicForms } from '@asigloo/vue-dynamic-forms';
+import { createApp } from 'vue'
+import { createDynamicForms } from '@asigloo/vue-dynamic-forms'
 
-const VueDynamicForms = createDynamicForms();
+const VueDynamicForms = createDynamicForms()
 
-export const app = createApp(App);
+export const app = createApp(App)
 
-app.use(VueDynamicForms);
+app.use(VueDynamicForms)
 ```
 
 In your component:

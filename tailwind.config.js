@@ -6,6 +6,7 @@ module.exports = {
     './src/**/*.ts',
     './demos/**/*.html',
     './demos/**/*.vue',
+    './demos/**/*.md',
     './demos/**/*.ts',
     './docs/**/*.html',
     './docs/**/*.vue',
@@ -46,5 +47,4 @@ module.exports = {
       variants: ['responsive', 'hover', 'reduced-motion'],
     }),
   ],
-  important: true,
 }
