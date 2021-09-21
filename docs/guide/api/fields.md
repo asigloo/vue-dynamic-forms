@@ -13,7 +13,7 @@ By default, `Vue Dynamic Forms` cover the following input types:
 - Textarea
 
 ::: tip
-You can also include your very own custom input using `slots` (Check [Slots](./advanced/slots.md))
+You can also include your very own custom input using `slots` (Check [Slots](../advanced/slots.md))
 :::
 
 ## Text
