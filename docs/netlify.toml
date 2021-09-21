@@ -3,5 +3,5 @@
   command = "npm run docs:build"
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.vitepress/dist/index.html"
   status = 200
