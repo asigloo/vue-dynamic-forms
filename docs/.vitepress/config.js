@@ -93,6 +93,49 @@ const config = {
       ],
     },
   },
+  head: [
+    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+    ['link', { rel: 'icon', href: '/favicon-32x32.png', type: 'image/png' }],
+    ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+    ['meta', { name: 'author', content: 'Alvaro Saburido' }],
+    ['meta', { property: 'og:title', content: 'Vue Dynamic Forms' }],
+    [
+      'meta',
+      {
+        property: 'og:image',
+        content:
+          'https://res.cloudinary.com/alvarosaburido/image/upload/v1589993773/portfolio/web/vue-dynamic-forms/open-graph-preview_kv4glm.png',
+      },
+    ],
+    [
+      'meta',
+      {
+        property: 'og:description',
+        content:
+          'Easy way to dynamically create reactive forms in vue based on varying business object model',
+      },
+    ],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:creator', content: '@alvaro_code' }],
+    [
+      'meta',
+      {
+        name: 'twitter:image',
+        content:
+          'https://res.cloudinary.com/alvarosaburido/image/upload/v1589993773/portfolio/web/vue-dynamic-forms/open-graph-preview_kv4glm.png',
+      },
+    ],
+
+    ['link', { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' }],
+    [
+      'link',
+      {
+        rel: 'preconnect',
+        crossorigin: 'anonymous',
+        href: 'https://fonts.gstatic.com',
+      },
+    ],
+  ],
 }
 
 module.exports = config
