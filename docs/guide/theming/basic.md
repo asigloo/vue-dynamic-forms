@@ -130,6 +130,6 @@ $base-color: #ced4da;
 @import '~@asigloo/vue-dynamic-forms/themes/material.scss';
 ```
 
-## Submit you own theme
+## Submit your own theme
 
 If you have a great custom theme and you want it to be on the library submit a propose via PR [here](https://github.com/alvarosaburido/vue-dynamic-forms/pulls). 👩‍🎤👨‍🎤
