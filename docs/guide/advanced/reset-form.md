@@ -45,7 +45,7 @@ You can access the dom element ref above by using template refs `this.$ref`
 
 methods: {
     resetForm() {
-        this.$refs.formRef.resetForm
+        this.$refs.formRef.resetForm()
     }
 }
 
