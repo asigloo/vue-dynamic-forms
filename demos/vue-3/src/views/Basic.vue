@@ -1,11 +1,11 @@
 <script lang="ts">
-import { CheckboxField, TextField, SelectField } from '/@/';
-import { computed, defineComponent, reactive } from 'vue';
+import { CheckboxField, TextField, SelectField } from '/@/'
+import { computed, defineComponent, reactive } from 'vue'
 
 export default defineComponent({
   name: 'BasicDemo',
   setup() {
-    const formValues = reactive({});
+    const formValues = reactive({})
 
     const form = computed(() => ({
       id: 'basic-demo',
@@ -34,19 +34,19 @@ export default defineComponent({
           label: 'Remember Me',
         }),
       },
-    }));
+    }))
 
     function handleSubmit(values) {
-      console.log('Values Submitted', values);
+      console.log('Values Submitted', values)
     }
 
     function valueChanged(values) {
-      Object.assign(formValues, values);
-      console.log('Values', values);
+      Object.assign(formValues, values)
+      console.log('Values', values)
     }
 
     function handleError(errors) {
-      console.error('Errors', errors);
+      console.error('Errors', errors)
     }
 
     return {
@@ -55,9 +55,9 @@ export default defineComponent({
       handleSubmit,
       valueChanged,
       handleError,
-    };
+    }
   },
-});
+})
 </script>
 <template>
   <div class="page container">

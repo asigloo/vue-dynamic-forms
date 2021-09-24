@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import Home from '../views/Home.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -114,11 +114,20 @@ const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "reset-after-submit" */ '../views/ResetAfterSubmit.vue'
       ),
   },
-];
+  {
+    path: '/reset-form',
+    name: 'Reset Form Manually',
+    meta: {
+      title: 'Reset Form Manually',
+    },
+    component: () =>
+      import(/* webpackChunkName: "reset-form" */ '../views/ResetForm.vue'),
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-});
+})
 
-export default router;
+export default router

@@ -1,12 +1,12 @@
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref } from 'vue'
 
-const STAGGER_DELAY = 200;
+const STAGGER_DELAY = 200
 
 export default defineComponent({
   name: 'Home',
   setup() {
-    const demos = ref([]);
+    const demos = ref([])
     const colorsMap = ref({
       'text-field': 'yellow',
       'email-field': 'blue',
@@ -18,7 +18,7 @@ export default defineComponent({
       'custom-field': 'indigo',
       'radio-field': 'yellow',
       'checkbox-field': 'blue',
-    });
+    })
 
     setTimeout(() => {
       demos.value = [
@@ -84,26 +84,31 @@ export default defineComponent({
             route: '/reset-after-submit',
             tags: ['submit', 'reset-forms'],
           },
+          {
+            name: 'Reset form',
+            route: '/reset-form',
+            tags: ['reset-forms'],
+          },
         ],
-      ];
-    }, 1000);
+      ]
+    }, 1000)
 
     function beforeEnter(el) {
-      el.style.visibility = 'hidden';
+      el.style.visibility = 'hidden'
     }
     function enter(el) {
-      const delay = el.dataset.index * STAGGER_DELAY;
+      const delay = el.dataset.index * STAGGER_DELAY
       setTimeout(() => {
-        el.classList.add('animate__animated', 'animate__fadeIn');
-        el.style.visibility = 'visible';
-      }, delay);
+        el.classList.add('animate__animated', 'animate__fadeIn')
+        el.style.visibility = 'visible'
+      }, delay)
     }
     function leave(el) {
-      const delay = el.dataset.index * STAGGER_DELAY;
+      const delay = el.dataset.index * STAGGER_DELAY
       setTimeout(() => {
-        el.classList.add('animate__animated', 'animate__fadeOut');
-        el.style.visibility = 'hidden';
-      }, delay);
+        el.classList.add('animate__animated', 'animate__fadeOut')
+        el.style.visibility = 'hidden'
+      }, delay)
     }
 
     return {
@@ -112,9 +117,9 @@ export default defineComponent({
       enter,
       leave,
       colorsMap,
-    };
+    }
   },
-});
+})
 </script>
 
 <template>

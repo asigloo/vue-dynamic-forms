@@ -36,16 +36,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, watch } from 'vue';
-import { useDynamicForms, DynamicForm } from '/@/index';
-import { useDynamicForm } from '/@/composables/useDynamicForm';
+import { defineComponent, PropType, watch } from 'vue'
+import { useDynamicForms, DynamicForm } from '/@/index'
+import { useDynamicForm } from '/@/composables/useDynamicForm'
 
 const props = {
   form: {
     type: Object as PropType<DynamicForm>,
     required: true,
   },
-};
+}
 
 /* const AVAILABLE_THEMES = ['default', 'material'];
  */
@@ -53,7 +53,7 @@ export default defineComponent({
   name: 'asDynamicForm',
   props,
   setup(props, ctx) {
-    const { options } = useDynamicForms();
+    const { options } = useDynamicForms()
     const {
       controls,
       valueChange,
@@ -69,27 +69,29 @@ export default defineComponent({
       forceValidation,
       detectChanges,
       onOptionsChanged,
-    } = useDynamicForm(props.form as DynamicForm, ctx, options || {});
+      validateAll,
+      resetForm,
+    } = useDynamicForm(props.form as DynamicForm, ctx, options || {})
 
     watch(
       () => (props.form as DynamicForm).fields,
       fields => {
-        detectChanges(fields);
+        detectChanges(fields)
       },
       {
         deep: true,
       },
-    );
+    )
 
     watch(
       () => (props.form as DynamicForm).fields,
       options => {
-        onOptionsChanged(options);
+        onOptionsChanged(options)
       },
       {
         deep: true,
       },
-    );
+    )
     return {
       controls,
       valueChange,
@@ -103,7 +105,9 @@ export default defineComponent({
       onBlur,
       onValidate,
       forceValidation,
-    };
+      validateAll,
+      resetForm,
+    }
   },
-});
+})
 </script>
