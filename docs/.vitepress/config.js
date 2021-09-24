@@ -88,6 +88,10 @@ const config = {
               text: 'Slots',
               link: '/guide/advanced/slots',
             },
+            {
+              text: 'Reset Form',
+              link: '/guide/advanced/reset-form',
+            },
           ],
         },
       ],

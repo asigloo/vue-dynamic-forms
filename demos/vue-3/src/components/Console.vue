@@ -12,20 +12,22 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, watch } from 'vue'
 
 const props = {
-  content: String,
-};
+  content: Object,
+}
 
 export default defineComponent({
   name: 'console',
   props,
   setup(props) {
-    const jsonValues = computed(() => JSON.stringify(props.content));
+    const jsonValues = computed(() => JSON.stringify(props.content))
+
+    watch(props.content, () => {})
     return {
       jsonValues,
-    };
+    }
   },
-});
+})
 </script>
