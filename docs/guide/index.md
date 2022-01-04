@@ -47,7 +47,7 @@ Vue Formulate is a very good library that brings a lot of different funcionaliti
 
 FormVueLate is an amazing library that allows you to generate schema-driven forms with extreme ease. This is similar of what VDF offers.
 
-They do support Vue3, a downside would be that FormVueLate is that hey don't have a built-in solution for validations, you will need to add a vee-validate plugin to support them.
+They do support Vue3, a downside would be that FormVueLate is that they don't have a built-in solution for validations, you will need to add a vee-validate plugin to support them.
 
 Apart from that the main difference between FormVueLate and VDF is pretty much highlighted in their docs:
 
