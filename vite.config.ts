@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import ViteComponents from 'vite-plugin-components';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import Components from 'unplugin-vue-components/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
-import ViteIcons, { ViteIconsResolver } from 'vite-plugin-icons';
-
-const { resolve } = require('path');
+const { resolve } = require('path')
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,12 +15,28 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    ViteComponents({
-      dirs: ['src/components', 'demos/vue-3/src/components'],
-      customComponentResolvers: ViteIconsResolver({
-        componentPrefix: '', // <--
-      }),
+    Components({
+      // allow auto load markdown components under `./src/components/`
+      extensions: ['vue', 'md'],
+
+      // allow auto import and register components used in markdown
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      dirs: ['./src/components', 'demos/vue-3/src/components'],
+
+      // custom resolvers
+      resolvers: [
+        // auto import icons
+        // https://github.com/antfu/unplugin-icons
+        IconsResolver({
+          prefix: false,
+          // enabledCollections: ['carbon']
+        }),
+      ],
+
+      dts: 'src/components.d.ts',
     }),
-    ViteIcons({}),
+    Icons({
+      autoInstall: true,
+    }),
   ],
-});
+})
