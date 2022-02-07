@@ -1487,11 +1487,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@iconify/json-tools@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.npmjs.org/@iconify/json-tools/-/json-tools-1.0.10.tgz"
-  integrity sha512-LFelJDOLZ6JHlmlAkgrvmcu4hpNPB91KYcr4f60D/exzU1eNOb4/KCVHIydGHIQFaOacIOD+Xy+B7P1z812cZg==
-
 "@iconify/json@^2.0.34":
   version "2.0.34"
   resolved "https://registry.yarnpkg.com/@iconify/json/-/json-2.0.34.tgz#bc8fb74001d547e40aa1cf83370e89ed1af36e52"
@@ -9954,24 +9949,6 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vite-plugin-components@^0.13.3:
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/vite-plugin-components/-/vite-plugin-components-0.13.3.tgz#8bda0f508ee90249a066ba63d5985798e5ca9fed"
-  integrity sha512-6vLWPrEqFSW7REYvux/WVwxsytg/DcstVhdgAT806cZi/KGiQgB8dyFnLkrkFawxUQruuGkLWfS99Z/64mMC0w==
-  dependencies:
-    debug "^4.3.2"
-    fast-glob "^3.2.7"
-    magic-string "^0.25.7"
-    minimatch "^3.0.4"
-
-vite-plugin-icons@^0.6.5:
-  version "0.6.5"
-  resolved "https://registry.npmjs.org/vite-plugin-icons/-/vite-plugin-icons-0.6.5.tgz"
-  integrity sha512-lfePr8juO2ajp0571iLL+9zIoyBD9nSSSHlC4JYXbAeMOJB6WTP+Vdc2gze8yI8JRO+Z0TXCCvvL9bPgvkI4Cg==
-  dependencies:
-    "@iconify/json-tools" "^1.0.10"
-    vue-template-es2015-compiler "^1.9.1"
-
 vite-plugin-pwa@^0.11.13:
   version "0.11.13"
   resolved "https://registry.yarnpkg.com/vite-plugin-pwa/-/vite-plugin-pwa-0.11.13.tgz#54ed80580b7d3e61aadcf4325fe9bc6f7ffce5db"
@@ -10044,11 +10021,6 @@ vue-select@3.16.0:
   version "3.16.0"
   resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-3.16.0.tgz#db2ee2ddf80bd8876ce57738107b8a1a741862f4"
   integrity sha512-F0x7HXTUc5eq7YSjR0uX77RGA+Yk2+I8aMW+NePyPqRX9OPSiDtKpezFIFhnhxqrOvMh4uVR0jHkXIDmzs6nYQ==
-
-vue-template-es2015-compiler@^1.9.1:
-  version "1.9.1"
-  resolved "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
-  integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
 vue@^3.2.27, vue@^3.2.30:
   version "3.2.30"
