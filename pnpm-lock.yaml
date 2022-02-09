@@ -37,7 +37,7 @@ specifiers:
   vitepress: ^0.21.6
   vue: ^3.2.30
   vue-router: ^4.0.12
-  vue-select: 3.16.0
+  vue-select: 4.0.0-beta.2
 
 dependencies:
   deep-clone: 3.0.3
@@ -78,7 +78,7 @@ devDependencies:
   vitepress: 0.21.6_sass@1.49.7
   vue: 3.2.30
   vue-router: 4.0.12_vue@3.2.30
-  vue-select: 3.16.0_vue@3.2.30
+  vue-select: 4.0.0-beta.2_vue@3.2.30
 
 packages:
 
@@ -7409,10 +7409,10 @@ packages:
       vue: 3.2.30
     dev: true
 
-  /vue-select/3.16.0_vue@3.2.30:
-    resolution: {integrity: sha512-F0x7HXTUc5eq7YSjR0uX77RGA+Yk2+I8aMW+NePyPqRX9OPSiDtKpezFIFhnhxqrOvMh4uVR0jHkXIDmzs6nYQ==}
+  /vue-select/4.0.0-beta.2_vue@3.2.30:
+    resolution: {integrity: sha512-uR7Jn6dkfaFbvbXfKKp6s//ArkbP+U4mK432D6rbsQKk6NfG9J7Nwe0jonzQdttfHPuBPCiw0PV8nnWmpY5jtg==}
     peerDependencies:
-      vue: 2.x
+      vue: 3.x
     dependencies:
       vue: 3.2.30
     dev: true
