@@ -1,6 +1,6 @@
 [build]
   publish = "/.vitepress/dist"
-  command = "pnpm build:docs"
+  command = "pnpm build:docs || ( npm install pnpm && pnpm build:docs )"
 [[redirects]]
   from = "/*"
   to = "/.vitepress/dist/index.html"

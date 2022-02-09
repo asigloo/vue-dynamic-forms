@@ -1,3 +1,5 @@
+[build]
+  command = "pnpm build:demo || ( npm install pnpm && pnpm build:demo )"
 [[redirects]]
   from = "/*"
   to = "/index.html"
