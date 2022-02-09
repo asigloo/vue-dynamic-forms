@@ -1,11 +1,12 @@
 const { resolve } = require('path')
-import { UserConfig } from 'vite'
-import Icons, { ViteIconsResolver } from 'vite-plugin-icons'
-import Components from 'vite-plugin-components'
+import Components from 'unplugin-vue-components/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import { VitePWA } from 'vite-plugin-pwa'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
-const config: UserConfig = {
+export default defineConfig({
   resolve: {
     alias: {
       '/@': resolve(__dirname, '../src'),
@@ -18,15 +19,27 @@ const config: UserConfig = {
   },
   plugins: [
     Components({
-      dirs: ['.vitepress/theme/components'],
-      customLoaderMatcher: id => id.endsWith('.md'),
-      customComponentResolvers: [
-        ViteIconsResolver({
-          componentPrefix: '',
+      // allow auto load markdown components under `./src/components/`
+      extensions: ['vue', 'md'],
+
+      // allow auto import and register components used in markdown
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      dirs: ['./components'],
+
+      // custom resolvers
+      resolvers: [
+        // auto import icons
+        // https://github.com/antfu/unplugin-icons
+        IconsResolver({
+          prefix: false,
+          // enabledCollections: ['carbon']
         }),
       ],
+
     }),
-    Icons(),
+    Icons({
+      autoInstall: true,
+    }),
     VitePWA({
       outDir: '.vitepress/dist',
       manifest: {
@@ -48,6 +61,4 @@ const config: UserConfig = {
       },
     }),
   ],
-}
-
-export default config
+})

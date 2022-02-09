@@ -5,8 +5,8 @@
   "author": "Alvaro Saburido <alvaro.saburido@gmail.com>",
   "scripts": {
     "dev": "vite",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "dev:docs": "vitepress dev docs",
+    "build:docs": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "build:demo": "vite build",
     "build": "vite build --config vite-lib.config.ts",
