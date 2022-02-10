@@ -1,10 +1,8 @@
-/* import { UserConfig } from 'vitepress'
- */
-const { description } = require('../../package')
+import { defineConfigWithTheme } from 'vitepress'
 
-const config = {
+export default defineConfigWithTheme({
   title: 'Vue Dynamic Forms',
-  description,
+  description: 'Easy way to dynamically create reactive forms in vue based on varying business object model',
   lang: 'en-US',
   themeConfig: {
     repo: 'asigloo/vue-dynamic-forms',
@@ -140,6 +138,4 @@ const config = {
       },
     ],
   ],
-}
-
-module.exports = config
+})

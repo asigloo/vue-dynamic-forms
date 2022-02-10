@@ -1,6 +1,6 @@
-import DefaultTheme, { Config } from 'vitepress/theme'
+import DefaultTheme from 'vitepress/theme'
 import { createDynamicForms } from '/@'
-import '../theme/styles/base.scss'
+import './base.scss'
 
 const VueDynamicForms = createDynamicForms({
   autoValidate: true,
@@ -12,7 +12,7 @@ const VueDynamicForms = createDynamicForms({
   },
 })
 
-const theme: Config = {
+const theme = {
   ...DefaultTheme,
   enhanceApp({ app }) {
     app.use(VueDynamicForms)

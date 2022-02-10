@@ -15,15 +15,19 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6
       - name: Install dependencies
-        run: yarn
+        run: pnpm install
       - name: Build Library
-        run: yarn build
+        run: pnpm build
       - name: Build Types Declarations
-        run: yarn build:dts
+        run: pnpm build:dts
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           CI: true
-        run: yarn semantic-release
+        run: pnpm semantic-release

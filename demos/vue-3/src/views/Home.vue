@@ -70,11 +70,6 @@ export default defineComponent({
             tags: ['email-field', 'password-field'],
           },
           {
-            name: 'Custom Fields',
-            route: '/custom-fields',
-            tags: ['custom-field'],
-          },
-          {
             name: 'Toggle Visibility',
             route: '/toggle-visibility',
             tags: ['visibility', 'custom-class', 'custom-styles'],
