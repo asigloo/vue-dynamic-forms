@@ -2,13 +2,16 @@ import { defineConfigWithTheme } from 'vitepress'
 
 export default defineConfigWithTheme({
   title: 'Vue Dynamic Forms',
-  description: 'Easy way to dynamically create reactive forms in vue based on varying business object model',
+  description:
+    'Easy way to dynamically create reactive forms in vue based on varying business object model',
   lang: 'en-US',
   themeConfig: {
     repo: 'asigloo/vue-dynamic-forms',
     logo: '/logo.svg',
+    docsDir: 'docs',
+    docsBranch: 'main',
     editLinks: true,
-    editLinkText: 'Edit this page',
+    editLinkText: 'Suggest changes to this page',
     lastUpdated: 'Last Updated',
     nav: [
       {
